@@ -1,0 +1,1049 @@
+// ─── Loading ──────────────────────────────────────────────────────────────────
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #0a1628;
+    color: white;
+}
+
+.loader {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #0078d4;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+// ─── Scene container ──────────────────────────────────────────────────────────
+.laptop-scene {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    // Dark studio backdrop
+    background:
+        radial-gradient(ellipse at 40% 30%, rgba(0, 80, 160, 0.45) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 80%, rgba(0, 40, 100, 0.3) 0%, transparent 50%),
+        linear-gradient(180deg, #06090f 0%, #0c1120 100%);
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    gap: 0;
+}
+
+// ─── Lid (screen half) ────────────────────────────────────────────────────────
+.laptop-lid {
+    position: relative;
+    // Lenovo IdeaPad Slim 5 proportions ≈ 16:10 aspect
+    width: min(84vw, 960px);
+    aspect-ratio: 16 / 10;
+    // Outer shell: dark grey aluminum
+    background:
+        linear-gradient(170deg, #3a3a3a 0%, #282828 60%, #1e1e1e 100%);
+    border-radius: 10px 10px 0 0;
+    // Drop shadow
+    box-shadow:
+        0 -2px 0 0 rgba(255, 255, 255, 0.06), // top rim highlight
+        0 0 40px 8px rgba(0, 0, 0, 0.85),
+        0 2px 0 0 #0a0a0a; // bottom edge
+
+    // Lenovo logo on lid — centered
+    &::after {
+        content: 'LENOVO';
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        color: rgba(255, 255, 255, 0.25);
+        font-family: 'Roboto', sans-serif;
+    }
+}
+
+// ─── Bezel (inner screen border) ──────────────────────────────────────────────
+.laptop-bezel {
+    position: absolute;
+    inset: 8px; // thin bezel — modern slim laptop
+    background: #0a0a0a;
+    border-radius: 5px;
+    overflow: hidden;
+    // Inner shadow gives depth
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+}
+
+// ─── Webcam ────────────────────────────────────────────────────────────────────
+.laptop-webcam {
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 6px;
+    background: #111;
+    border-radius: 0 0 4px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+}
+
+.laptop-webcam-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+// ─── Hinge bar ────────────────────────────────────────────────────────────────
+.laptop-hinge {
+    width: min(84vw, 960px);
+    height: 6px;
+    background: linear-gradient(180deg,
+            #1c1c1c 0%, #303030 40%, #1a1a1a 100%);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.08),
+        0 3px 6px rgba(0, 0, 0, 0.8);
+    position: relative;
+    z-index: 10;
+}
+
+// ─── Base (keyboard deck) ─────────────────────────────────────────────────────
+.laptop-base {
+    width: min(84vw, 960px);
+    height: 52px;
+    background: linear-gradient(180deg, #2e2e2e 0%, #252525 50%, #1e1e1e 100%);
+    border-radius: 0 0 12px 12px;
+    box-shadow:
+        0 4px 0 0 #111,
+        0 8px 20px rgba(0, 0, 0, 0.9);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 0 0;
+    gap: 2px;
+}
+
+// ─── Keyboard ─────────────────────────────────────────────────────────────────
+.laptop-keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 92%;
+}
+
+.kb-row {
+    display: flex;
+    gap: 2px;
+    justify-content: center;
+}
+
+.kb-key {
+    height: 7px;
+    min-width: 10px;
+    padding: 0 3px;
+    background: linear-gradient(180deg, #3a3a3a 0%, #2c2c2c 100%);
+    border-radius: 1.5px;
+    box-shadow: 0 1px 0 #111;
+    font-size: 4px;
+    color: rgba(255, 255, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.kb-fn-row .kb-key {
+    height: 5px;
+    opacity: 0.6;
+}
+
+.kb-fn {
+    flex: 1;
+}
+
+.kb-wide {
+    flex: 1.8;
+}
+
+.kb-tab {
+    flex: 1.4;
+}
+
+.kb-caps {
+    flex: 1.6;
+}
+
+.kb-enter {
+    flex: 1.6;
+}
+
+.kb-shift-l {
+    flex: 2.1;
+}
+
+.kb-shift-r {
+    flex: 2.8;
+}
+
+.kb-ctrl {
+    flex: 1.3;
+}
+
+.kb-fn2 {
+    flex: 1;
+}
+
+.kb-win-key {
+    flex: 1.1;
+    padding: 0;
+}
+
+.kb-alt {
+    flex: 1.2;
+}
+
+.kb-space {
+    flex: 5;
+}
+
+.kb-arrow {
+    flex: 0.9;
+    font-size: 3px;
+}
+
+.kb-arrow-v {
+    flex: 0.9;
+    font-size: 3px;
+}
+
+// ─── Touchpad ─────────────────────────────────────────────────────────────────
+.laptop-touchpad {
+    width: 28%;
+    height: 8px;
+    background: linear-gradient(180deg, #313131 0%, #252525 100%);
+    border-radius: 2px;
+    border: 0.5px solid #1a1a1a;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 1px;
+}
+
+.touchpad-btn-line {
+    width: 50%;
+    height: 0.5px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.lenovo-base-logo {
+    position: absolute;
+    right: 18px;
+    bottom: 3px;
+    font-size: 5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.18);
+    font-family: 'Roboto', sans-serif;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// Windows 11 Desktop
+// ═══════════════════════════════════════════════════════════════════════════════
+.win11-desktop {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    // Windows 11 "Bloom" wallpaper — dark navy with flowing blue shapes
+    background:
+        radial-gradient(ellipse at 65% 45%, rgba(0, 80, 210, 0.75) 0%, transparent 45%),
+        radial-gradient(ellipse at 35% 55%, rgba(0, 55, 160, 0.65) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 20%, rgba(0, 100, 220, 0.50) 0%, transparent 35%),
+        radial-gradient(ellipse at 20% 80%, rgba(0, 40, 120, 0.70) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 85%, rgba(0, 60, 180, 0.55) 0%, transparent 45%),
+        linear-gradient(170deg, #020b1a 0%, #041230 35%, #050f28 65%, #03091c 100%);
+}
+
+// ─── Desktop icons (left column) ──────────────────────────────────────────────
+.win11-desktop-icons {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 5;
+}
+
+.win11-desktop-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    width: 64px;
+    transition: background 0.15s;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.12);
+    }
+
+    span {
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 10px;
+        font-family: 'Segoe UI', sans-serif;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+        text-align: center;
+        line-height: 1.2;
+    }
+}
+
+// ─── Windows 11 App icon class ────────────────────────────────────────────────
+.win11-icon-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    background-size: contain;
+}
+
+// Small variant for title bars
+.win-app-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.win-app-icon.small {
+    width: 16px;
+    height: 16px;
+}
+
+// Taskbar icons
+.win11-taskbar-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    background-size: contain;
+    position: relative;
+
+    &:hover {
+        transform: translateY(-2px);
+        background-color: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    // Active indicator dot
+    &.active::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.8);
+    }
+}
+
+// ═══ Windows 11 App Icon Colors/Gradients ════════════════════════════════════
+
+// Messages (Teams-like blue-purple)
+.messages-win {
+    background: linear-gradient(135deg, #6264a7 0%, #464775 100%);
+
+    &::after {
+        content: '💬';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: inherit;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// Mail (blue)
+.mail-win {
+    background: linear-gradient(135deg, #0072c6 0%, #004f8b 100%);
+
+    &::after {
+        content: '✉️';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: inherit;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// Photos (rainbow gradient like Windows Photos)
+.photos-win {
+    background: linear-gradient(135deg, #f7a01a 0%, #f9563a 40%, #c4195d 70%, #7d27ad 100%);
+
+    &::after {
+        content: '🖼️';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: inherit;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// File Explorer (golden yellow folder)
+.files-win {
+    background: linear-gradient(135deg, #ffce47 0%, #f0a500 100%);
+
+    &::after {
+        content: '📁';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: inherit;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// Notepad (clean white-blue)
+.notes-win {
+    background: linear-gradient(135deg, #29abd4 0%, #1472b7 100%);
+
+    &::after {
+        content: '📝';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: inherit;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// Edge (Chromium wave)
+.edge-win {
+    background: linear-gradient(135deg, #3277bc 0%, #138d8e 60%, #71d273 100%);
+
+    &::after {
+        content: '🌐';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: inherit;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// Microsoft Store
+.store-win {
+    background: linear-gradient(135deg, #0078d4 0%, #00bcf2 100%);
+
+    &::after {
+        content: '🛍️';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: inherit;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// Icon font-size inside icon img vs taskbar
+.win11-icon-img {
+    font-size: 22px;
+}
+
+.win11-taskbar-icon {
+    font-size: 16px;
+}
+
+.win-app-icon {
+    font-size: 10px;
+}
+
+// ─── App Windows ──────────────────────────────────────────────────────────────
+.windows-window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 86%;
+    height: 72%;
+    background: #202020;
+    border-radius: 10px;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 16px 48px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 50;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+// Title bar  — dark mode like Windows 11
+.window-title-bar {
+    background: #2d2d2d;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 0 0 0 12px;
+    height: 34px;
+    min-height: 34px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    user-select: none;
+}
+
+.window-title-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    span {
+        font-size: 12px;
+        font-weight: 400;
+        font-family: 'Segoe UI', sans-serif;
+        color: rgba(255, 255, 255, 0.85);
+    }
+}
+
+// Windows 11 window control buttons
+.window-controls {
+    display: flex;
+    align-items: stretch;
+    height: 100%;
+
+    button {
+        background: transparent;
+        border: none;
+        width: 46px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.75);
+        transition: background 0.12s;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .wc-min:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .wc-max:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .wc-close:hover {
+        background: #c42b1c;
+        color: #fff;
+    }
+}
+
+.window-content {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    background: #1c1c1c;
+}
+
+.chat-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 13px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+// ─── Messages app ─────────────────────────────────────────────────────────────
+.windows-sidebar {
+    width: 240px;
+    background: #252525;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #444;
+        border-radius: 3px;
+    }
+}
+
+.windows-conv {
+    padding: 10px 14px;
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    transition: background 0.12s;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.06);
+    }
+}
+
+.win-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0078d4, #005a9e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.win-conv-info {
+    flex: 1;
+    min-width: 0;
+
+    strong {
+        font-size: 13px;
+        display: block;
+        margin-bottom: 2px;
+        color: rgba(255, 255, 255, 0.9);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    p {
+        margin: 0;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.45);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-family: 'Segoe UI', sans-serif;
+    }
+}
+
+.windows-chat-area {
+    flex: 1;
+    background: #1a1a1a;
+    padding: 16px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #444;
+        border-radius: 3px;
+    }
+}
+
+.windows-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.win-msg-in,
+.win-msg-out {
+    display: flex;
+    max-width: 70%;
+}
+
+.win-msg-out {
+    margin-left: auto;
+}
+
+.win-bubble {
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: #2d2d2d;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.85);
+
+    .win-msg-out & {
+        background: #0078d4;
+        color: white;
+    }
+}
+
+.win-sender {
+    font-weight: 600;
+    font-size: 11px;
+    margin-bottom: 3px;
+    opacity: 0.7;
+}
+
+.win-time {
+    font-size: 10px;
+    margin-top: 4px;
+    opacity: 0.5;
+}
+
+// ─── Photos app ───────────────────────────────────────────────────────────────
+.window-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 6px;
+    padding: 12px;
+    overflow-y: auto;
+    background: #1c1c1c;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #444;
+        border-radius: 3px;
+    }
+}
+
+.win-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+
+    &:hover {
+        transform: scale(1.04);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    }
+}
+
+// ─── Email app ────────────────────────────────────────────────────────────────
+.windows-email-list {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+    background: #1c1c1c;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #444;
+        border-radius: 3px;
+    }
+}
+
+.windows-email {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: background 0.12s;
+    border-radius: 6px;
+    margin-bottom: 2px;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
+}
+
+.email-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    font-family: 'Segoe UI', sans-serif;
+
+    strong {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    span {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.4);
+    }
+}
+
+.email-subject {
+    font-weight: 600;
+    margin-bottom: 3px;
+    font-size: 12px;
+    font-family: 'Segoe UI', sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.email-preview {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 11px;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+// ─── Notes (dark Notepad) ─────────────────────────────────────────────────────
+.windows-notes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    padding: 14px;
+    overflow-y: auto;
+    background: #1c1c1c;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #444;
+        border-radius: 3px;
+    }
+}
+
+.windows-note {
+    background: #2a2a18;
+    border: 1px solid rgba(255, 220, 60, 0.12);
+    padding: 14px;
+    border-radius: 6px;
+    font-family: 'Segoe UI', Consolas, sans-serif;
+
+    h4 {
+        margin: 0 0 6px;
+        font-size: 13px;
+        color: rgba(255, 235, 100, 0.9);
+    }
+
+    p {
+        margin: 0 0 6px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.5;
+    }
+
+    small {
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 10px;
+    }
+}
+
+// ─── File Explorer ────────────────────────────────────────────────────────────
+.windows-files-list {
+    padding: 12px;
+    overflow-y: auto;
+    max-height: 100%;
+    background: #1c1c1c;
+    flex: 1;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #444;
+        border-radius: 3px;
+    }
+}
+
+.win-file-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    transition: background 0.12s;
+    cursor: pointer;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
+}
+
+.win-file-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.win-file-info {
+    flex: 1;
+    min-width: 0;
+
+    strong {
+        display: block;
+        margin-bottom: 3px;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.88);
+        font-family: 'Segoe UI', sans-serif;
+    }
+}
+
+.win-file-type {
+    display: inline-block;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.07);
+    padding: 1px 7px;
+    border-radius: 3px;
+    margin-bottom: 3px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.win-file-desc {
+    margin: 3px 0 0;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.45);
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.4;
+}
+
+.win-files-empty {
+    color: rgba(255, 255, 255, 0.3);
+    padding: 24px;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+// ─── Windows 11 Taskbar ───────────────────────────────────────────────────────
+.win11-taskbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 44px;
+    // Dark frosted glass bar (Win11 dark theme)
+    background: rgba(20, 20, 20, 0.82);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    z-index: 200;
+}
+
+.win11-taskbar-left {
+    flex: 1;
+}
+
+.win11-taskbar-center {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+// Start button — Windows logo
+.win11-start-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-right: 4px;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+// Search pill
+.win11-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 30px;
+    padding: 0 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-right: 8px;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    span {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.55);
+        font-family: 'Segoe UI', sans-serif;
+    }
+}
+
+// System tray (right side)
+.win11-system-tray {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    justify-content: flex-end;
+
+    svg {
+        opacity: 0.8;
+    }
+}
+
+.win11-time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
+    cursor: pointer;
+}
+
+.win11-time {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.88);
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.2;
+}
+
+.win11-date {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.55);
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.2;
+}

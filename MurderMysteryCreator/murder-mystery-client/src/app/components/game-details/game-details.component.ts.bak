@@ -1,0 +1,634 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { GameService } from '../../services/game.service';
+import { CharacterService } from '../../services/character.service';
+import { DeviceService } from '../../services/device.service';
+import { Game, Character, DigitalDevice } from '../../models/models';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-game-details',
+  standalone: true,
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  template: `
+    <div class="details-container">
+      <!-- Header -->
+      <header class="details-header">
+        <div class="header-content">
+          <button class="btn-back" routerLink="/dashboard">← Back</button>
+          <div class="game-info">
+            <h1>{{ game?.title }}</h1>
+            <span class="game-status" [class.published]="game?.isPublished">
+              {{ game?.isPublished ? '✓ Published' : '📝 Draft' }}
+            </span>
+          </div>
+          <button class="btn-secondary" [routerLink]="['/games', gameId, 'edit']">✏️ Edit Game</button>
+        </div>
+      </header>
+
+      <!-- Tabs -->
+      <div class="tabs-container">
+        <div class="tab" [class.active]="activeTab === 'overview'" (click)="activeTab = 'overview'">
+          📋 Overview
+        </div>
+        <div class="tab" [class.active]="activeTab === 'characters'" (click)="activeTab = 'characters'">
+          👥 Characters ({{ characters.length }})
+        </div>
+        <div class="tab" [class.active]="activeTab === 'devices'" (click)="activeTab = 'devices'">
+          📱 Devices ({{ devices.length }})
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="details-content">
+        <!-- Overview Tab -->
+        <div *ngIf="activeTab === 'overview'" class="tab-content">
+          <div class="overview-section">
+            <h2>Story</h2>
+            <p>{{ game?.story }}</p>
+          </div>
+          <div class="overview-section solution">
+            <h2>🔒 Solution (Game Master Only)</h2>
+            <p>{{ game?.solution }}</p>
+          </div>
+        </div>
+
+        <!-- Characters Tab -->
+        <div *ngIf="activeTab === 'characters'" class="tab-content">
+          <div class="section-header">
+            <h2>Characters & Suspects</h2>
+            <button class="btn-primary" (click)="showCharacterForm = true" *ngIf="!showCharacterForm">
+              + Add Character
+            </button>
+          </div>
+
+          <!-- Add Character Form -->
+          <div *ngIf="showCharacterForm" class="character-form">
+            <h3>{{ editingCharacter ? 'Edit Character' : 'New Character' }}</h3>
+            <form [formGroup]="characterForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Name *</label>
+                  <input type="text" formControlName="name" placeholder="James Morrison">
+                </div>
+                <div class="form-group">
+                  <label>Role *</label>
+                  <select formControlName="role">
+                    <option value="Victim">Victim</option>
+                    <option value="Suspect">Suspect</option>
+                    <option value="Witness">Witness</option>
+                    <option value="Investigator">Investigator</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Description</label>
+                <textarea formControlName="description" rows="2" placeholder="Physical appearance and personality..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Backstory</label>
+                <textarea formControlName="backstory" rows="3" placeholder="Their history and relationship to the victim..."></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Motive</label>
+                  <textarea formControlName="motive" rows="2" placeholder="Why they might have done it..."></textarea>
+                </div>
+                <div class="form-group">
+                  <label>Alibi</label>
+                  <textarea formControlName="alibi" rows="2" placeholder="Where they claim to have been..."></textarea>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn-secondary" (click)="cancelCharacterForm()">Cancel</button>
+                <button type="button" class="btn-primary" (click)="saveCharacter()" [disabled]="characterForm.invalid">
+                  {{ editingCharacter ? 'Update' : 'Add' }} Character
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Characters List -->
+          <div class="characters-grid">
+            <div *ngFor="let character of characters" class="character-card">
+              <div class="character-header">
+                <h3>{{ character.name }}</h3>
+                <span class="character-role">{{ character.role }}</span>
+              </div>
+              <p class="character-description">{{ character.description }}</p>
+              <div class="character-details">
+                <div class="detail" *ngIf="character.motive">
+                  <strong>Motive:</strong> {{ character.motive }}
+                </div>
+                <div class="detail" *ngIf="character.alibi">
+                  <strong>Alibi:</strong> {{ character.alibi }}
+                </div>
+              </div>
+              <div class="character-actions">
+                <button class="btn-icon" (click)="editCharacter(character)">✏️</button>
+                <button class="btn-icon" (click)="deleteCharacter(character.characterId)">🗑️</button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="characters.length === 0 && !showCharacterForm" class="empty-state">
+            <div class="empty-icon">👥</div>
+            <h3>No characters yet</h3>
+            <p>Add suspects, witnesses, and investigators to your mystery</p>
+          </div>
+        </div>
+
+        <!-- Devices Tab -->
+        <div *ngIf="activeTab === 'devices'" class="tab-content">
+          <div class="section-header">
+            <h2>Digital Devices</h2>
+            <button class="btn-primary">+ Add Device</button>
+          </div>
+
+          <div class="info-box">
+            <h3>📱 Digital Device Simulators</h3>
+            <p>Create realistic iPhone, Android, or Laptop simulators with:</p>
+            <ul>
+              <li><strong>Messages:</strong> Suspicious text conversations</li>
+              <li><strong>Photos:</strong> Evidence images with captions</li>
+              <li><strong>Emails:</strong> Incriminating correspondence</li>
+              <li><strong>Notes:</strong> Important clues and reminders</li>
+            </ul>
+            <p><em>Players will access these via QR codes during the game!</em></p>
+          </div>
+
+          <div class="empty-state">
+            <div class="empty-icon">📱</div>
+            <h3>Device management coming soon!</h3>
+            <p>For now, focus on adding characters and evidence</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .details-container {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+    }
+
+    .details-header {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 20px 0;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .game-info {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .game-info h1 {
+      font-size: 24px;
+      color: #333;
+      margin: 0;
+    }
+
+    .game-status {
+      background: #ffd60a;
+      color: #333;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .game-status.published {
+      background: #00d856;
+      color: white;
+    }
+
+    .tabs-container {
+      background: white;
+      border-bottom: 2px solid #f0f0f0;
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .tab {
+      padding: 15px 24px;
+      cursor: pointer;
+      color: #666;
+      font-weight: 600;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .tab:hover {
+      color: #667eea;
+    }
+
+    .tab.active {
+      color: #667eea;
+      border-bottom-color: #667eea;
+    }
+
+    .details-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .tab-content {
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .overview-section {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 20px;
+    }
+
+    .overview-section.solution {
+      border: 2px solid #ffd60a;
+      background: linear-gradient(to bottom, #fffef5, white);
+    }
+
+    .overview-section h2 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .overview-section p {
+      color: #666;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .section-header h2 {
+      font-size: 22px;
+      color: #333;
+      margin: 0;
+    }
+
+    .character-form {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+      border: 2px solid #667eea;
+    }
+
+    .character-form h3 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      color: #333;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+
+    .characters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .character-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
+    }
+
+    .character-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+
+    .character-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 10px;
+    }
+
+    .character-header h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .character-role {
+      background: #e8f4f8;
+      color: #667eea;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .character-description {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .character-details {
+      border-top: 1px solid #f0f0f0;
+      padding-top: 12px;
+      margin-bottom: 12px;
+    }
+
+    .detail {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .detail strong {
+      color: #333;
+    }
+
+    .character-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .empty-icon {
+      font-size: 60px;
+      margin-bottom: 16px;
+    }
+
+    .empty-state h3 {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .empty-state p {
+      color: #666;
+    }
+
+    .info-box {
+      background: linear-gradient(135deg, #e8f4f8 0%, #f0f8ff 100%);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      border-left: 4px solid #667eea;
+    }
+
+    .info-box h3 {
+      color: #333;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .info-box p {
+      color: #666;
+      margin: 8px 0;
+    }
+
+    .info-box ul {
+      margin: 12px 0;
+      padding-left: 24px;
+    }
+
+    .info-box li {
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .btn-primary, .btn-secondary, .btn-back {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+
+    .btn-secondary:hover {
+      background: #f0f0f0;
+    }
+
+    .btn-back {
+      background: none;
+      border: none;
+      color: #667eea;
+      padding: 8px 12px;
+    }
+
+    .btn-back:hover {
+      background: #f0f0f0;
+    }
+
+    .btn-icon {
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .btn-icon:hover {
+      background: #f0f0f0;
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  `]
+})
+export class GameDetailsComponent implements OnInit {
+  gameId!: number;
+  game?: Game;
+  characters: Character[] = [];
+  activeTab = 'overview';
+  showCharacterForm = false;
+  editingCharacter: Character | null = null;
+  characterForm: FormGroup;
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private gameService: GameService,
+    private characterService: CharacterService,
+    private fb: FormBuilder
+  ) {
+    this.characterForm = this.fb.group({
+      name: ['', Validators.required],
+      role: ['Suspect', Validators.required],
+      description: [''],
+      backstory: [''],
+      motive: [''],
+      alibi: ['']
+    });
+  }
+
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.gameId = parseInt(id);
+      this.loadGame();
+      this.loadCharacters();
+    }
+  }
+
+  loadGame() {
+    this.gameService.getGame(this.gameId).subscribe({
+      next: (game) => this.game = game,
+      error: (error) => console.error('Error loading game:', error)
+    });
+  }
+
+  loadCharacters() {
+    this.characterService.getCharacters(this.gameId).subscribe({
+      next: (characters) => this.characters = characters,
+      error: (error) => console.error('Error loading characters:', error)
+    });
+  }
+
+  saveCharacter() {
+    if (this.characterForm.invalid) return;
+
+    const characterData = this.characterForm.value;
+
+    if (this.editingCharacter) {
+      this.characterService.updateCharacter(this.gameId, this.editingCharacter.characterId, characterData).subscribe({
+        next: () => {
+          this.loadCharacters();
+          this.cancelCharacterForm();
+        },
+        error: (error) => console.error('Error updating character:', error)
+      });
+    } else {
+      this.characterService.createCharacter(this.gameId, characterData).subscribe({
+        next: () => {
+          this.loadCharacters();
+          this.cancelCharacterForm();
+        },
+        error: (error) => console.error('Error creating character:', error)
+      });
+    }
+  }
+
+  editCharacter(character: Character) {
+    this.editingCharacter = character;
+    this.characterForm.patchValue(character);
+    this.showCharacterForm = true;
+  }
+
+  deleteCharacter(characterId: number) {
+    if (confirm('Are you sure you want to delete this character?')) {
+      this.characterService.deleteCharacter(this.gameId, characterId).subscribe({
+        next: () => this.loadCharacters(),
+        error: (error) => console.error('Error deleting character:', error)
+      });
+    }
+  }
+
+  cancelCharacterForm() {
+    this.showCharacterForm = false;
+    this.editingCharacter = null;
+    this.characterForm.reset({ role: 'Suspect' });
+  }
+}

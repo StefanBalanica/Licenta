@@ -1,0 +1,539 @@
+<!-- iPhone 13/14/15 Container -->
+<div *ngIf="!loading" class="iphone-container">
+    <div class="iphone-frame-shell">
+        <div class="iphone-frame">
+
+            <!-- ══ iOS Lock Screen ══════════════════════════════════════════ -->
+            <div class="lock-screen" *ngIf="isLocked">
+
+                <div class="iphone-notch"></div>
+
+                <div class="lock-status-bar">
+                    <span>9:41</span>
+                    <div class="lock-status-icons">
+                        <svg width="14" height="10" viewBox="0 0 16 12" fill="white" opacity="0.85">
+                            <rect x="0" y="8" width="3" height="4" rx="0.5" />
+                            <rect x="4" y="5" width="3" height="7" rx="0.5" />
+                            <rect x="8" y="2" width="3" height="10" rx="0.5" />
+                            <rect x="12" y="0" width="3" height="12" rx="0.5" />
+                        </svg>
+                        <svg width="14" height="10" viewBox="0 0 15 12" fill="none" stroke="white" stroke-width="1.4"
+                            stroke-linecap="round" opacity="0.85">
+                            <path d="M1 4.5 C3.5 1.5 11.5 1.5 14 4.5" />
+                            <path d="M3 7 C4.5 5 10.5 5 12 7" />
+                            <path d="M5.5 9.5 C6.2 8.5 8.8 8.5 9.5 9.5" />
+                            <circle cx="7.5" cy="11.5" r="0.8" fill="white" stroke="none" />
+                        </svg>
+                        <svg width="22" height="11" viewBox="0 0 25 12" fill="none" opacity="0.85">
+                            <rect x="0.5" y="0.5" width="21" height="11" rx="3" stroke="white" stroke-width="1" />
+                            <rect x="22" y="3.5" width="2" height="5" rx="1" fill="white" opacity="0.4" />
+                            <rect x="2" y="2" width="16" height="8" rx="1.5" fill="white" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="lock-clock-area">
+                    <div class="lock-time-big">9:41</div>
+                    <div class="lock-date">Tuesday, 24 February</div>
+                </div>
+
+                <div class="lock-icon-row">
+                    <svg width="18" height="22" viewBox="0 0 24 28" fill="none">
+                        <rect x="3" y="12" width="18" height="14" rx="3" fill="rgba(255,255,255,0.85)" />
+                        <path d="M7 12V8a5 5 0 0 1 10 0v4" stroke="rgba(255,255,255,0.85)" stroke-width="2.5"
+                            stroke-linecap="round" fill="none" />
+                        <circle cx="12" cy="19" r="2" fill="rgba(0,0,0,0.4)" />
+                    </svg>
+                    <span>Enter Passcode</span>
+                </div>
+
+                <div class="lock-dots" [class.lock-dots-shake]="pinShake">
+                    <div class="lock-dot" *ngFor="let d of passcode.split(''); let i = index"
+                        [class.lock-dot-filled]="i < pinEntry.length"></div>
+                </div>
+
+                <div class="lock-keypad">
+                    <button class="lock-key" (click)="pinPress('1')"><span class="lk-n">1</span></button>
+                    <button class="lock-key" (click)="pinPress('2')"><span class="lk-n">2</span><span
+                            class="lk-s">ABC</span></button>
+                    <button class="lock-key" (click)="pinPress('3')"><span class="lk-n">3</span><span
+                            class="lk-s">DEF</span></button>
+                    <button class="lock-key" (click)="pinPress('4')"><span class="lk-n">4</span><span
+                            class="lk-s">GHI</span></button>
+                    <button class="lock-key" (click)="pinPress('5')"><span class="lk-n">5</span><span
+                            class="lk-s">JKL</span></button>
+                    <button class="lock-key" (click)="pinPress('6')"><span class="lk-n">6</span><span
+                            class="lk-s">MNO</span></button>
+                    <button class="lock-key" (click)="pinPress('7')"><span class="lk-n">7</span><span
+                            class="lk-s">PQRS</span></button>
+                    <button class="lock-key" (click)="pinPress('8')"><span class="lk-n">8</span><span
+                            class="lk-s">TUV</span></button>
+                    <button class="lock-key" (click)="pinPress('9')"><span class="lk-n">9</span><span
+                            class="lk-s">WXYZ</span></button>
+                    <button class="lock-key lock-key-ghost"></button>
+                    <button class="lock-key" (click)="pinPress('0')"><span class="lk-n">0</span></button>
+                    <button class="lock-key" (click)="pinBackspace()">
+                        <svg width="20" height="14" viewBox="0 0 22 16" fill="none">
+                            <path d="M8.5 1.5L1.5 8l7 7" stroke="white" stroke-width="1.8" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <line x1="2" y1="8" x2="21" y2="8" stroke="white" stroke-width="1.8"
+                                stroke-linecap="round" />
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+            <!-- ══ End Lock Screen ═══════════════════════════════════════════ -->
+
+            <!-- Dynamic Island -->
+            <div class="iphone-notch"></div>
+
+
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <span class="time">9:41</span>
+                <div class="status-icons">
+                    <!-- Signal bars -->
+                    <svg width="16" height="12" viewBox="0 0 16 12" fill="white" opacity="0.95">
+                        <rect x="0" y="8" width="3" height="4" rx="0.5" />
+                        <rect x="4" y="5" width="3" height="7" rx="0.5" />
+                        <rect x="8" y="2" width="3" height="10" rx="0.5" />
+                        <rect x="12" y="0" width="3" height="12" rx="0.5" />
+                    </svg>
+                    <!-- WiFi -->
+                    <svg width="15" height="12" viewBox="0 0 15 12" fill="none" stroke="white" stroke-width="1.4"
+                        stroke-linecap="round" opacity="0.95">
+                        <path d="M1 4.5 C3.5 1.5 11.5 1.5 14 4.5" />
+                        <path d="M3 7 C4.5 5 10.5 5 12 7" />
+                        <path d="M5.5 9.5 C6.2 8.5 8.8 8.5 9.5 9.5" />
+                        <circle cx="7.5" cy="11.5" r="0.8" fill="white" stroke="none" />
+                    </svg>
+                    <!-- Battery -->
+                    <svg width="25" height="12" viewBox="0 0 25 12" fill="none" opacity="0.95">
+                        <rect x="0.5" y="0.5" width="21" height="11" rx="3" stroke="white" stroke-width="1" />
+                        <rect x="22" y="3.5" width="2" height="5" rx="1" fill="white" opacity="0.4" />
+                        <rect x="2" y="2" width="16" height="8" rx="1.5" fill="white" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Screen Content -->
+            <div class="screen-content" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)"
+                (touchend)="onTouchEnd($event)" (mousedown)="onMouseDown($event)" (mousemove)="onMouseMove($event)"
+                (mouseup)="onMouseUp($event)">
+
+                <!-- Home Screen with Apps (swipe left/right between pages) -->
+                <div *ngIf="currentScreen === 'home'" class="home-screen">
+                    <div class="home-pages-wrapper">
+                        <div class="home-pages"
+                            [style.transform]="'translateX(calc(-' + homePageIndex + ' * ((100% - 48px) / ' + homePageCount + ' + 24px)))'">
+                            <!-- Page 1 -->
+                            <div class="home-page">
+                                <div class="app-grid">
+                                    <div class="app-icon" (click)="openApp('messages'); $event.stopPropagation()"
+                                        (touchstart)="$event.stopPropagation()" (mousedown)="$event.stopPropagation()">
+                                        <div class="icon messages-ios">💬</div>
+                                        <span>Messages</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon calendar-ios">📅</div>
+                                        <span>Calendar</span>
+                                    </div>
+                                    <div class="app-icon" (click)="openApp('photos'); $event.stopPropagation()"
+                                        (touchstart)="$event.stopPropagation()" (mousedown)="$event.stopPropagation()">
+                                        <div class="icon photos-ios">🖼️</div>
+                                        <span>Photos</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon camera-ios">📷</div>
+                                        <span>Camera</span>
+                                    </div>
+                                    <div class="app-icon" (click)="openApp('email'); $event.stopPropagation()"
+                                        (touchstart)="$event.stopPropagation()" (mousedown)="$event.stopPropagation()">
+                                        <div class="icon mail-ios">📧</div>
+                                        <span>Mail</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon clock-ios">⏰</div>
+                                        <span>Clock</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon maps-ios">🗺️</div>
+                                        <span>Maps</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon weather-ios">⛅</div>
+                                        <span>Weather</span>
+                                    </div>
+                                    <div class="app-icon" (click)="openApp('notes'); $event.stopPropagation()"
+                                        (touchstart)="$event.stopPropagation()" (mousedown)="$event.stopPropagation()">
+                                        <div class="icon notes-ios">📝</div>
+                                        <span>Notes</span>
+                                    </div>
+                                    <div class="app-icon" (click)="openApp('files'); $event.stopPropagation()"
+                                        (touchstart)="$event.stopPropagation()" (mousedown)="$event.stopPropagation()">
+                                        <div class="icon files-ios">📁</div>
+                                        <span>Files</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon reminders-ios">✓</div>
+                                        <span>Reminders</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon stocks-ios">📈</div>
+                                        <span>Stocks</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Page 2 -->
+                            <div class="home-page">
+                                <div class="app-grid">
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon wallet-ios">💳</div>
+                                        <span>Wallet</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon settings-ios">⚙️</div>
+                                        <span>Settings</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon health-ios">❤️</div>
+                                        <span>Health</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon podcasts-ios">🎙️</div>
+                                        <span>Podcasts</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon appstore-ios">📲</div>
+                                        <span>App Store</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon books-ios">📚</div>
+                                        <span>Books</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon tv-ios">📺</div>
+                                        <span>TV</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon news-ios">📰</div>
+                                        <span>News</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon music-ios">🎵</div>
+                                        <span>Music</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon videos-ios">🎬</div>
+                                        <span>Videos</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon icloud-ios">☁️</div>
+                                        <span>iCloud</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon findmy-ios">📍</div>
+                                        <span>Find My</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Page 3 -->
+                            <div class="home-page">
+                                <div class="app-grid">
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon compass-ios">🧭</div>
+                                        <span>Compass</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon calculator-ios">🔢</div>
+                                        <span>Calculator</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon voice-ios">🎤</div>
+                                        <span>Voice Memos</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon flashlight-ios">🔦</div>
+                                        <span>Flashlight</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon measure-ios">📏</div>
+                                        <span>Measure</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon shortcuts-ios">⚡</div>
+                                        <span>Shortcuts</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon tips-ios">💡</div>
+                                        <span>Tips</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon home-ios">🏠</div>
+                                        <span>Home</span>
+                                    </div>
+                                    <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                                        (mousedown)="$event.stopPropagation()">
+                                        <div class="icon watch-ios">⌚</div>
+                                        <span>Watch</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Page indicator dots -->
+                    <div class="home-page-dots">
+                        <span *ngFor="let i of homePageIndices" class="dot" [class.active]="i === homePageIndex"
+                            (click)="homePageIndex = i"></span>
+                    </div>
+                    <!-- iOS Dock -->
+                    <div class="ios-dock">
+                        <div class="app-icon" (click)="openApp('phone'); $event.stopPropagation()"
+                            (touchstart)="$event.stopPropagation()" (mousedown)="$event.stopPropagation()">
+                            <div class="icon phone-ios">📞</div>
+                        </div>
+                        <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                            (mousedown)="$event.stopPropagation()">
+                            <div class="icon safari-ios">🧭</div>
+                        </div>
+                        <div class="app-icon" (click)="openApp('messages'); $event.stopPropagation()"
+                            (touchstart)="$event.stopPropagation()" (mousedown)="$event.stopPropagation()">
+                            <div class="icon messages-ios">💬</div>
+                        </div>
+                        <div class="app-icon" (touchstart)="$event.stopPropagation()"
+                            (mousedown)="$event.stopPropagation()">
+                            <div class="icon music-ios">🎵</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone App - Recent Calls -->
+                <div *ngIf="currentScreen === 'phone'" class="phone-app">
+                    <div class="app-header">
+                        <button class="back-btn" (click)="goHome()">‹ Back</button>
+                        <h2>Recents</h2>
+                    </div>
+                    <div class="calls-list">
+                        <div *ngFor="let call of calls" class="call-item">
+                            <div class="call-item-icon" [class.missed]="call.isIncoming && !call.answered">{{
+                                call.isIncoming ? '↙' : '↗' }}</div>
+                            <div class="call-item-info">
+                                <div class="call-item-contact" [class.missed]="call.isIncoming && !call.answered">{{
+                                    call.contact }}</div>
+                                <div class="call-item-meta">
+                                    <span class="call-item-type">{{ call.isIncoming && !call.answered ? 'Apel ratat' :
+                                        (call.isIncoming ? 'Primit' : 'Efectuat') }}</span>
+                                    <span class="call-item-sep"> • </span>
+                                    <span class="call-item-time">{{ call.time }}</span>
+                                    <span class="call-item-sep" *ngIf="call.answered"> • </span>
+                                    <span class="call-item-duration" *ngIf="call.answered">{{ call.duration }}</span>
+                                </div>
+                            </div>
+                            <button class="call-btn" (click)="initiateCall(call)" title="Apelează">📞</button>
+                        </div>
+                        <div *ngIf="calls.length === 0" class="calls-empty">Nu există apeluri recente.</div>
+                    </div>
+                </div>
+
+                <!-- Messages App -->
+                <div *ngIf="currentScreen === 'messages'" class="messages-app">
+                    <div class="app-header">
+                        <button class="back-btn" (click)="goHome()">‹ Back</button>
+                        <h2>Messages</h2>
+                    </div>
+
+                    <div *ngIf="!selectedConversation" class="conversations-list">
+                        <div *ngFor="let conv of conversations" class="conversation-item"
+                            (click)="selectConversation(conv)">
+                            <div class="avatar">{{ conv.avatar }}</div>
+                            <div class="conversation-info">
+                                <div class="contact-name">{{ conv.contact }}</div>
+                                <div class="last-message">{{ conv.lastMessage }}</div>
+                            </div>
+                            <div class="time">{{ conv.time }}</div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="selectedConversation" class="conversation-view">
+                        <div class="conversation-header" (click)="selectedConversation = null">
+                            <button class="back-btn">‹</button>
+                            <span>{{ selectedConversation.contact }}</span>
+                        </div>
+                        <div class="messages-container">
+                            <div *ngFor="let msg of selectedConversation.messages"
+                                [class]="'message-bubble ' + (msg.isOutgoing ? 'outgoing' : 'incoming')">
+                                <div class="message-sender">{{ getMsgSender(msg) }}</div>
+                                <div class="message-content">{{ getMsgContent(msg) }}</div>
+                                <div class="message-time">{{ getMsgTimestamp(msg) }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photos App -->
+                <div *ngIf="currentScreen === 'photos'" class="photos-app">
+                    <div class="app-header">
+                        <button class="back-btn" (click)="goHome()">‹ Back</button>
+                        <h2>Photos</h2>
+                    </div>
+                    <div class="photos-grid">
+                        <div *ngFor="let photo of photos" class="photo-item" (click)="selectPhoto(photo)">
+                            <img [src]="getPhotoDisplayUrl(photo)" [alt]="photo.caption">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo Fullscreen Viewer -->
+                <div *ngIf="selectedPhoto" class="photo-fullscreen">
+                    <button class="photo-close-btn" (click)="selectPhoto(null)">✕</button>
+                    <img [src]="getPhotoDisplayUrl(selectedPhoto)" [alt]="selectedPhoto.caption">
+                    <div class="photo-full-caption">{{ selectedPhoto.caption }}</div>
+                </div>
+
+                <!-- Email App -->
+                <div *ngIf="currentScreen === 'email'" class="email-app">
+                    <div class="app-header">
+                        <button class="back-btn" (click)="selectedEmail ? selectEmail(null) : goHome()">‹ Back</button>
+                        <h2>Mail</h2>
+                    </div>
+                    <div *ngIf="!selectedEmail" class="email-list">
+                        <div *ngFor="let email of emailsForFolder" class="email-item" (click)="selectEmail(email)">
+                            <div class="email-item-row">
+                                <span class="email-item-from">{{ email.from }}</span>
+                                <span class="email-item-time">{{ email.time }}</span>
+                            </div>
+                            <div class="email-item-subject">{{ email.subject }}</div>
+                            <div class="email-item-preview">{{ email.preview }}</div>
+                        </div>
+                        <div *ngIf="emailsForFolder.length === 0" class="email-empty">Nu există emailuri.</div>
+                    </div>
+                    <div *ngIf="selectedEmail" class="email-detail-view">
+                        <div class="email-detail-subject">{{ selectedEmail.subject }}</div>
+                        <div class="email-detail-meta">
+                            <span class="email-detail-from">{{ emailFolder === 'sent' ? 'Către' : 'De la' }}: {{
+                                selectedEmail.from }}</span>
+                            <span class="email-detail-time">{{ selectedEmail.time }}</span>
+                        </div>
+                        <div class="email-detail-body">{{ selectedEmail.body || selectedEmail.preview }}</div>
+                    </div>
+                    <div *ngIf="!selectedEmail" class="email-tab-bar">
+                        <button class="email-tab-btn" [class.active]="emailFolder === 'inbox'"
+                            (click)="setEmailFolder('inbox')">Inbox</button>
+                        <button class="email-tab-btn" [class.active]="emailFolder === 'sent'"
+                            (click)="setEmailFolder('sent')">Trimise</button>
+                        <button class="email-tab-btn" [class.active]="emailFolder === 'drafts'"
+                            (click)="setEmailFolder('drafts')">Ciorne</button>
+                    </div>
+                </div>
+
+                <!-- Notes App -->
+                <div *ngIf="currentScreen === 'notes'" class="notes-app">
+                    <div class="app-header">
+                        <button class="back-btn" (click)="selectedNote ? selectNote(null) : goHome()">‹ Back</button>
+                        <h2>Notes</h2>
+                    </div>
+                    <div *ngIf="!selectedNote" class="notes-list">
+                        <div *ngFor="let note of notes" class="note-item" (click)="selectNote(note)">
+                            <div class="note-item-title">{{ note.title }}</div>
+                            <div class="note-item-preview">{{ note.content }}</div>
+                            <div class="note-item-time">{{ note.time }}</div>
+                        </div>
+                    </div>
+                    <div *ngIf="selectedNote" class="note-detail-view">
+                        <div class="note-detail-title">{{ selectedNote.title }}</div>
+                        <div class="note-detail-time">{{ selectedNote.time }}</div>
+                        <div class="note-detail-body">{{ selectedNote.content }}</div>
+                    </div>
+                </div>
+
+                <!-- Files App -->
+                <div *ngIf="currentScreen === 'files'" class="files-app">
+                    <div class="app-header">
+                        <button class="back-btn" (click)="selectedFile ? selectFile(null) : goHome()">‹ Back</button>
+                        <h2>Files</h2>
+                    </div>
+                    <div *ngIf="!selectedFile" class="files-list">
+                        <div *ngFor="let file of files" class="file-item" (click)="selectFile(file)">
+                            <div class="file-item-icon">{{ file.type === 'Encrypted' ? '🔒' : file.type === 'Screenshot'
+                                ? '🖼️' : file.type === 'Folder' ? '📁' : '📄' }}</div>
+                            <div class="file-item-info">
+                                <div class="file-item-name">{{ file.name }}</div>
+                                <div class="file-item-type">{{ file.type }}</div>
+                            </div>
+                            <span class="file-item-chevron">›</span>
+                        </div>
+                        <div *ngIf="files.length === 0" class="files-empty">Niciun fișier.</div>
+                    </div>
+                    <div *ngIf="selectedFile" class="file-detail-view">
+                        <div class="file-detail-icon">{{ selectedFile.type === 'Encrypted' ? '🔒' : selectedFile.type
+                            === 'Screenshot' ? '🖼️' : selectedFile.type === 'Folder' ? '📁' : '📄' }}</div>
+                        <div class="file-detail-name">{{ selectedFile.name }}</div>
+                        <div class="file-detail-type">{{ selectedFile.type }}</div>
+                        <div class="file-detail-description">{{ selectedFile.description }}</div>
+                    </div>
+                </div>
+
+                <!-- Active Call Overlay -->
+                <div *ngIf="activeCall" class="active-call-overlay">
+                    <div class="call-backdrop"></div>
+                    <div class="call-content">
+                        <div class="call-avatar">👤</div>
+                        <h2 class="call-contact">{{ activeCall.contact }}</h2>
+                        <div class="call-status">{{ callDuration }}</div>
+                        
+                        <div class="call-controls">
+                            <div class="control-btn"><span class="icon">🔇</span><span>mut</span></div>
+                            <div class="control-btn"><span class="icon">🔢</span><span>tastatură</span></div>
+                            <div class="control-btn"><span class="icon">🔊</span><span>difuzor</span></div>
+                            <div class="control-btn"><span class="icon">➕</span><span>adaugă apel</span></div>
+                            <div class="control-btn"><span class="icon">⏺️</span><span>Video FaceTime</span></div>
+                            <div class="control-btn"><span class="icon">👤</span><span>contacte</span></div>
+                        </div>
+
+                        <button class="end-call-btn" (click)="endCall()">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16.69 11.23A9 9 0 0 0 7.31 11.23"/>
+                                <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/>
+                                <path d="M9 14h6"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading State -->
+<div *ngIf="loading" class="loading-container">
+    <div class="loader"></div>
+    <p>Loading device...</p>
+</div>

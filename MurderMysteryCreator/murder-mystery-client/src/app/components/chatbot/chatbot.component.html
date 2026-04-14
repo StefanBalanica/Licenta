@@ -1,0 +1,51 @@
+<div class="chatbot-wrapper">
+    <!-- Floating toggle button -->
+    <button class="chatbot-fab" [class.chatbot-fab--open]="isOpen" (click)="toggleChat()" title="Asistent misterios"
+        id="chatbot-fab-btn" aria-label="Deschide asistentul chatbot">
+        <span class="chatbot-fab__icon" *ngIf="!isOpen">🕵️</span>
+        <span class="chatbot-fab__icon chatbot-fab__icon--close" *ngIf="isOpen">✕</span>
+    </button>
+
+    <!-- Chat panel -->
+    <div class="chatbot-panel" [class.chatbot-panel--visible]="isOpen" role="dialog"
+        aria-label="Chat asistent misterios">
+
+        <!-- Header -->
+        <div class="chatbot-panel__header">
+            <div class="chatbot-panel__header-icon">🔍</div>
+            <div class="chatbot-panel__header-text">
+                <span class="chatbot-panel__title">Asistent Misterios</span>
+                <span class="chatbot-panel__subtitle">Indicii fără spoilere</span>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div class="chatbot-panel__messages" #messagesContainer>
+            <div *ngFor="let bubble of bubbles" class="chatbot-bubble"
+                [class.chatbot-bubble--user]="bubble.role === 'user'"
+                [class.chatbot-bubble--assistant]="bubble.role === 'assistant'">
+                <div class="chatbot-bubble__content">{{ bubble.content }}</div>
+                <div class="chatbot-bubble__time">{{ formatTime(bubble.timestamp) }}</div>
+            </div>
+
+            <!-- Loading indicator -->
+            <div class="chatbot-bubble chatbot-bubble--assistant chatbot-bubble--typing" *ngIf="isLoading">
+                <div class="chatbot-bubble__content typing-dots">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input area -->
+        <div class="chatbot-panel__input-area">
+            <textarea class="chatbot-panel__input" [(ngModel)]="inputMessage" (keydown)="onKeyDown($event)"
+                placeholder="Pune o întrebare despre joc…" rows="2" [disabled]="isLoading" id="chatbot-input"
+                aria-label="Mesaj pentru asistent"></textarea>
+            <button class="chatbot-panel__send-btn" (click)="sendMessage()"
+                [disabled]="isLoading || !inputMessage.trim()" id="chatbot-send-btn" aria-label="Trimite mesaj">
+                <span *ngIf="!isLoading">➤</span>
+                <span *ngIf="isLoading" class="spinner"></span>
+            </button>
+        </div>
+    </div>
+</div>

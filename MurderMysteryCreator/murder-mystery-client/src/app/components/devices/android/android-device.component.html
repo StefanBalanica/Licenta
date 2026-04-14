@@ -1,0 +1,303 @@
+<!-- Loading State -->
+<div *ngIf="loading" class="loading-container">
+    <div class="loader"></div>
+    <p>Loading device...</p>
+</div>
+
+<!-- Samsung Galaxy Android Container -->
+<div *ngIf="!loading" class="samsung-container">
+    <div class="samsung-frame">
+        <!-- Front Camera Punch Hole -->
+        <div class="camera-punch"></div>
+
+        <!-- Samsung Status Bar -->
+        <div class="samsung-status-bar">
+            <div class="status-left">
+                <span class="time">9:41</span>
+            </div>
+            <div class="status-right">
+                <span class="status-icon">5G</span>
+                <span class="status-icon">📶</span>
+                <span class="status-icon">📡</span>
+                <span class="status-icon">🔋 85%</span>
+            </div>
+        </div>
+
+        <!-- Samsung Screen Content -->
+        <div class="samsung-screen" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)"
+            (touchend)="onTouchEnd($event)" (mousedown)="onMouseDown($event)" (mousemove)="onMouseMove($event)"
+            (mouseup)="onMouseUp($event)">
+
+            <!-- Home Screen with One UI (swipe left/right for more pages) -->
+            <div *ngIf="currentScreen === 'home'" class="samsung-home">
+                <!-- Google Search Bar -->
+                <div class="google-search-bar">
+                    <span class="search-icon">🔍</span>
+                    <span class="search-text">Search</span>
+                    <span class="google-lens">📷</span>
+                    <span class="google-voice">🎤</span>
+                </div>
+
+                <div class="samsung-home-pages-wrapper">
+                    <div class="samsung-home-pages" [style.transform]="'translateX(-' + (homePageIndex * 100) + '%)'">
+                        <!-- Page 1 -->
+                        <div class="samsung-home-page">
+                            <div class="samsung-app-grid">
+                                <div class="samsung-app" (click)="openApp('messages')">
+                                    <div class="samsung-icon messages-samsung"><span>💬</span></div>
+                                    <span>Messages</span>
+                                </div>
+                                <div class="samsung-app" (click)="openApp('photos')">
+                                    <div class="samsung-icon gallery-samsung"><span>🖼️</span></div>
+                                    <span>Gallery</span>
+                                </div>
+                                <div class="samsung-app" (click)="openApp('email')">
+                                    <div class="samsung-icon email-samsung"><span>📧</span></div>
+                                    <span>Gmail</span>
+                                </div>
+                                <div class="samsung-app" (click)="openApp('notes')">
+                                    <div class="samsung-icon notes-samsung"><span>📝</span></div>
+                                    <span>Notes</span>
+                                </div>
+                                <div class="samsung-app" (click)="openApp('files')">
+                                    <div class="samsung-icon notes-samsung"><span>📁</span></div>
+                                    <span>Files</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon phone-samsung"><span>📞</span></div>
+                                    <span>Phone</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon contacts-samsung"><span>👤</span></div>
+                                    <span>Contacts</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon camera-samsung"><span>📸</span></div>
+                                    <span>Camera</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon chrome-icon"><span>🌐</span></div>
+                                    <span>Chrome</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Page 2 -->
+                        <div class="samsung-home-page">
+                            <div class="samsung-app-grid">
+                                <div class="samsung-app">
+                                    <div class="samsung-icon settings-samsung"><span>⚙️</span></div>
+                                    <span>Settings</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon gallery-samsung"><span>📅</span></div>
+                                    <span>Calendar</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon email-samsung"><span>⏰</span></div>
+                                    <span>Clock</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon notes-samsung"><span>🗺️</span></div>
+                                    <span>Maps</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon phone-samsung"><span>⛅</span></div>
+                                    <span>Weather</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon contacts-samsung"><span>🛒</span></div>
+                                    <span>Play Store</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon camera-samsung"><span>🎵</span></div>
+                                    <span>YouTube Music</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon messages-samsung"><span>📺</span></div>
+                                    <span>YouTube</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon settings-samsung"><span>📧</span></div>
+                                    <span>Drive</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Page 3 -->
+                        <div class="samsung-home-page">
+                            <div class="samsung-app-grid">
+                                <div class="samsung-app">
+                                    <div class="samsung-icon gallery-samsung"><span>📷</span></div>
+                                    <span>Photos</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon email-samsung"><span>📁</span></div>
+                                    <span>Files</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon notes-samsung"><span>🎮</span></div>
+                                    <span>Play Games</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon phone-samsung"><span>📞</span></div>
+                                    <span>Duo</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon contacts-samsung"><span>💳</span></div>
+                                    <span>Wallet</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon camera-samsung"><span>📰</span></div>
+                                    <span>News</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon settings-samsung"><span>🔦</span></div>
+                                    <span>Flashlight</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon chrome-icon"><span>🧮</span></div>
+                                    <span>Calculator</span>
+                                </div>
+                                <div class="samsung-app">
+                                    <div class="samsung-icon gallery-samsung"><span>📖</span></div>
+                                    <span>Books</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page indicator dots -->
+                <div class="samsung-page-dots">
+                    <span *ngFor="let i of homePageIndices" class="samsung-dot" 
+                          [class.active]="i === homePageIndex" (click)="homePageIndex = i"></span>
+                </div>
+                <!-- Bottom Dock Icons -->
+                <div class="samsung-dock">
+                    <div class="dock-app">
+                        <div class="dock-icon chrome-icon">🌐</div>
+                    </div>
+                    <div class="dock-app" (click)="openApp('messages')">
+                        <div class="dock-icon messages-icon">💬</div>
+                    </div>
+                    <div class="dock-app">
+                        <div class="dock-icon phone-icon">📞</div>
+                    </div>
+                    <div class="dock-app">
+                        <div class="dock-icon apps-icon">⊞</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages App (One UI Style) -->
+            <div *ngIf="currentScreen === 'messages'" class="samsung-app-view">
+                <div class="samsung-header">
+                    <button (click)="goHome()" class="samsung-back">←</button>
+                    <h2>Messages</h2>
+                    <button class="samsung-menu">⋮</button>
+                </div>
+
+                <div class="samsung-content">
+                    <div *ngIf="!selectedConversation" class="samsung-conversations">
+                        <div *ngFor="let conv of conversations" class="samsung-conv-item"
+                            (click)="selectConversation(conv)">
+                            <div class="samsung-contact-avatar">{{conv.avatar}}</div>
+                            <div class="samsung-conv-info">
+                                <div class="conv-top">
+                                    <strong>{{conv.contact}}</strong>
+                                    <span class="conv-time">{{conv.time}}</span>
+                                </div>
+                                <div class="conv-preview">{{conv.lastMessage}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="selectedConversation" class="samsung-chat-view">
+                        <div class="samsung-chat-messages">
+                            <div *ngFor="let msg of selectedConversation.messages"
+                                [class]="msg.isOutgoing ? 'samsung-msg-sent' : 'samsung-msg-received'">
+                                <div class="samsung-bubble">
+                                    <div class="bubble-content">{{ getMsgContent(msg) }}</div>
+                                    <div class="bubble-time">{{ getMsgTimestamp(msg) }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery App (Samsung Style) -->
+            <div *ngIf="currentScreen === 'photos'" class="samsung-app-view">
+                <div class="samsung-header">
+                    <button (click)="goHome()" class="samsung-back">←</button>
+                    <h2>Gallery</h2>
+                    <button class="samsung-menu">⋮</button>
+                </div>
+                <div class="samsung-gallery">
+                    <div *ngFor="let photo of photos" class="gallery-photo-wrap" (click)="selectPhoto(photo)">
+                        <img [src]="getPhotoDisplayUrl(photo)" [alt]="photo.caption" class="gallery-photo">
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="selectedPhoto" class="samsung-photo-full">
+                <button class="samsung-photo-close" (click)="selectPhoto(null)">✕</button>
+                <img [src]="getPhotoDisplayUrl(selectedPhoto)" [alt]="selectedPhoto.caption">
+            </div>
+
+            <!-- Email App (Samsung Style) -->
+            <div *ngIf="currentScreen === 'email'" class="samsung-app-view">
+                <div class="samsung-header">
+                    <button (click)="goHome()" class="samsung-back">←</button>
+                    <h2>Email</h2>
+                    <button class="samsung-menu">⋮</button>
+                </div>
+                <div class="samsung-email-list">
+                    <div *ngFor="let email of emails" class="samsung-email-item">
+                        <div class="email-sender">{{email.from}}</div>
+                        <div class="email-subject">{{email.subject}}</div>
+                        <div class="email-preview">{{email.preview}}</div>
+                        <div class="email-time">{{email.time}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Samsung Notes App -->
+            <div *ngIf="currentScreen === 'notes'" class="samsung-app-view">
+                <div class="samsung-header">
+                    <button (click)="goHome()" class="samsung-back">←</button>
+                    <h2>Samsung Notes</h2>
+                    <button class="samsung-menu">⋮</button>
+                </div>
+                <div class="samsung-notes-grid">
+                    <div *ngFor="let note of notes" class="samsung-note-card">
+                        <div class="note-title">{{note.title}}</div>
+                        <div class="note-text">{{note.content}}</div>
+                        <div class="note-date">{{note.time}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Files App -->
+            <div *ngIf="currentScreen === 'files'" class="samsung-app-view">
+                <div class="samsung-header">
+                    <button (click)="goHome()" class="samsung-back">←</button>
+                    <h2>Files</h2>
+                    <button class="samsung-menu">⋮</button>
+                </div>
+                <div class="samsung-notes-grid">
+                    <div *ngFor="let file of files" class="samsung-note-card">
+                        <span>{{ file.type === 'Encrypted' ? '🔒' : file.type === 'Screenshot' ? '🖼' : file.type === 'Folder' ? '📁' : '📄' }}</span>
+                        <div class="note-title">{{ file.name }}</div>
+                        <div class="note-text">{{ file.description }}</div>
+                        <small>{{ file.type }}</small>
+                    </div>
+                    <div *ngIf="files.length === 0" class="samsung-note-card">Niciun fișier.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Samsung Navigation Bar (One UI gesture bar) -->
+        <div class="samsung-nav-bar">
+            <div class="gesture-bar"></div>
+        </div>
+    </div>
+</div>
