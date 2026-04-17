@@ -30,4 +30,12 @@ export class CharacterService {
     deleteCharacter(gameId: number, characterId: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${gameId}/characters/${characterId}`);
     }
+
+    downloadCharacterProfilePdf(gameId: number, characterId: number, photo: File): Observable<Blob> {
+        const formData = new FormData();
+        formData.append('photo', photo);
+        return this.http.post(`${this.apiUrl}/${gameId}/characters/${characterId}/profile-pdf`, formData, {
+            responseType: 'blob'
+        });
+    }
 }

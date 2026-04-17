@@ -341,24 +341,32 @@
                         <button class="back-btn" (click)="goHome()">‹ Back</button>
                         <h2>Recents</h2>
                     </div>
-                    <div class="calls-list">
-                        <div *ngFor="let call of calls" class="call-item">
-                            <div class="call-item-icon" [class.missed]="call.isIncoming && !call.answered">{{
-                                call.isIncoming ? '↙' : '↗' }}</div>
-                            <div class="call-item-info">
-                                <div class="call-item-contact" [class.missed]="call.isIncoming && !call.answered">{{
-                                    call.contact }}</div>
-                                <div class="call-item-meta">
-                                    <span class="call-item-type">{{ call.isIncoming && !call.answered ? 'Apel ratat' :
-                                        (call.isIncoming ? 'Primit' : 'Efectuat') }}</span>
-                                    <span class="call-item-sep"> • </span>
-                                    <span class="call-item-time">{{ call.time }}</span>
-                                    <span class="call-item-sep" *ngIf="call.answered"> • </span>
-                                    <span class="call-item-duration" *ngIf="call.answered">{{ call.duration }}</span>
-                                </div>
+                    <div class="calls-list-scroll">
+                        <ng-container *ngFor="let call of sortedCalls; let i = index">
+                            <!-- Date separator -->
+                            <div class="call-date-separator"
+                                *ngIf="i === 0 || getCallDateLabel(call) !== getCallDateLabel(sortedCalls[i-1])">
+                                {{ getCallDateLabel(call) }}
                             </div>
-                            <button class="call-btn" (click)="initiateCall(call)" title="Apelează">📞</button>
-                        </div>
+                            <div class="call-item" [class.call-missed]="call.type === 'Pierdut'">
+                                <div class="call-item-info">
+                                    <div class="call-item-contact" [class.missed]="call.type === 'Pierdut' || (call.isIncoming && !call.answered)">
+                                        {{ call.contact }}
+                                    </div>
+                                    <div class="call-item-meta">
+                                        <span class="call-item-type" [class.type-missed]="call.type === 'Pierdut'">{{ call.type || (call.isIncoming && !call.answered ? 'Pierdut' : call.isIncoming ? 'Primit' : 'Efectuat') }}</span>
+                                        <span *ngIf="call.time">&nbsp;·&nbsp;{{ call.time }}</span>
+                                        <span *ngIf="call.duration && call.duration !== '—' && call.duration !== '0 min'">&nbsp;·&nbsp;{{ call.duration }}</span>
+                                    </div>
+                                </div>
+                                <!-- Red phone icon ONLY for calls with audio recording -->
+                                <button class="call-audio-btn" *ngIf="call.audioUrl" (click)="initiateCall(call)" title="Redă înregistrarea">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.85a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.03z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </ng-container>
                         <div *ngIf="calls.length === 0" class="calls-empty">Nu există apeluri recente.</div>
                     </div>
                 </div>

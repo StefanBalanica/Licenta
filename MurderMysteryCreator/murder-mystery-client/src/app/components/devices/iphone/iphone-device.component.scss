@@ -580,35 +580,37 @@
     overflow: hidden;
 }
 
-.calls-list {
+.calls-list-scroll {
     flex: 1;
     min-height: 0;
     overflow-y: auto;
     background: #fff;
 }
 
+.call-date-separator {
+    padding: 6px 16px 4px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #8e8e93;
+    background: #f2f2f7;
+    border-bottom: 0.5px solid #d1d1d6;
+    letter-spacing: 0.01em;
+}
+
 .call-item {
     display: flex;
     align-items: center;
     padding: 12px 16px;
-    gap: 12px;
-    border-bottom: 1px solid #e5e5e7;
-}
+    gap: 0;
+    border-bottom: 0.5px solid #e5e5ea;
+    background: #fff;
+    min-height: 56px;
 
-.call-item-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: #e5e5ea;
-    color: #007aff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    flex-shrink: 0;
+    &:active {
+        background: #f2f2f7;
+    }
 
-    &.missed {
-        background: rgba(255, 59, 48, 0.15);
+    &.call-missed .call-item-contact {
         color: #ff3b30;
     }
 }
@@ -620,8 +622,13 @@
 
 .call-item-contact {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 400;
     color: #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2px;
+    font-family: -apple-system, 'SF Pro Text', sans-serif;
 
     &.missed {
         color: #ff3b30;
@@ -631,15 +638,41 @@
 .call-item-meta {
     font-size: 13px;
     color: #8e8e93;
-    margin-top: 2px;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .type-missed {
+        color: #ff3b30;
+    }
 }
 
-.call-item-sep {
-    color: #c7c7cc;
-}
+// Red phone SVG button — only for calls with audio
+.call-audio-btn {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 59, 48, 0.12);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.12s;
+    margin-left: 12px;
 
-.call-item-duration {
-    color: #34c759;
+    svg {
+        width: 18px;
+        height: 18px;
+        color: #ff3b30;
+    }
+
+    &:active {
+        background: rgba(255, 59, 48, 0.25);
+        transform: scale(0.92);
+    }
 }
 
 .calls-empty {

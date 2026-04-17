@@ -9,6 +9,184 @@ namespace MurderMystery.Api.Services;
 /// </summary>
 public class PdfGenerationService
 {
+    public byte[] GenerateCharacterProfilePdf(
+        string fullName,
+        string occupation,
+        string relationToVictim,
+        string alibi,
+        string motive,
+        string description,
+        string backstory,
+        string role,
+        byte[]? profileImage)
+    {
+        return Document.Create(container =>
+        {
+            container.Page(page =>
+            {
+                page.Size(PageSizes.A4);
+                page.Margin(1.15f, Unit.Centimetre);
+                page.PageColor("#efe2c6");
+                page.DefaultTextStyle(x => x.FontSize(11).FontFamily(Fonts.TimesNewRoman).FontColor("#2d2015"));
+
+                page.Background().Padding(8).Border(1).BorderColor("#8a6d4a");
+
+                page.Content().Column(column =>
+                {
+                    column.Spacing(10);
+
+                    column.Item().Row(row =>
+                    {
+                        row.ConstantItem(92).Height(92).Border(2).BorderColor("#6e5639").Background("#1f3550").AlignCenter().AlignMiddle().Column(seal =>
+                        {
+                            seal.Item().Text("SERVICIUL").FontSize(8).FontColor(Colors.White);
+                            seal.Item().Text("INVESTIGAȚII").FontSize(8).Bold().FontColor("#e9d08f");
+                            seal.Item().Text("CRIMINALE").FontSize(8).Bold().FontColor("#e9d08f");
+                            seal.Item().PaddingTop(4).Text("DIVIZIA").FontSize(7).FontColor(Colors.White);
+                            seal.Item().Text("DOSARE").FontSize(7).FontColor(Colors.White);
+                        });
+
+                        row.RelativeItem().PaddingLeft(14).Column(head =>
+                        {
+                            head.Item().Text("DOSAR SUSPECT")
+                                .FontSize(29).Bold().FontColor("#3a2416");
+                            head.Item().Text($"FIȘĂ PROFIL - {role?.ToUpperInvariant() ?? "SUSPECT"}")
+                                .FontSize(17).SemiBold().FontColor("#4b3422");
+                            head.Item().PaddingTop(4).Text($"Referință: {BuildCaseReference(fullName)}")
+                                .FontSize(11).Italic().FontColor("#6d543d");
+                        });
+                    });
+
+                    column.Item().Row(row =>
+                    {
+                        row.ConstantItem(185).Column(left =>
+                        {
+                            left.Item().Border(3).BorderColor("#70563b").Padding(10).Background("#f7efe2").Height(230).AlignCenter().AlignMiddle().Element(el =>
+                            {
+                                if (profileImage is { Length: > 0 })
+                                    el.Image(profileImage).FitArea();
+                                else
+                                    el.Text("POZĂ\nLIPSĂ").AlignCenter().FontSize(20).Bold().FontColor("#70563b");
+                            });
+
+                            left.Item().Border(1).BorderColor("#70563b").Background("#b6975f").PaddingVertical(5).PaddingHorizontal(8).AlignCenter().Text(text =>
+                            {
+                                text.Span("SUSPECT: ").Bold().FontColor(Colors.White);
+                                text.Span(fullName.ToUpperInvariant()).Bold().FontColor(Colors.White);
+                            });
+                        });
+
+                        row.RelativeItem().PaddingLeft(12).Column(right =>
+                        {
+                            right.Spacing(8);
+                            right.Item().Element(c => RenderSection(c, "DETALII SUSPECT", details =>
+                            {
+                                details.Spacing(4);
+                                details.Item().Text(text =>
+                                {
+                                    text.Span("Nume: ").Bold();
+                                    text.Span(fullName);
+                                });
+                                details.Item().Text(text =>
+                                {
+                                    text.Span("Statut dosar: ").Bold();
+                                    text.Span("ACTIV");
+                                });
+                                details.Item().Text(text =>
+                                {
+                                    text.Span("Ocupație: ").Bold();
+                                    text.Span(ValueOrFallback(occupation, "Necunoscut"));
+                                });
+                                details.Item().Text(text =>
+                                {
+                                    text.Span("Relație cu victima: ").Bold();
+                                    text.Span(ValueOrFallback(relationToVictim, "Neconfirmat în brief"));
+                                });
+                            }));
+
+                            right.Item().Element(c => RenderSection(c, "REZUMAT PROFIL", summary =>
+                            {
+                                summary.Spacing(4);
+                                summary.Item().Text(text =>
+                                {
+                                    text.Span("1. ALIBI: ").Bold();
+                                    text.Span(string.IsNullOrWhiteSpace(alibi) ? "Neprecizat / neverificat" : alibi);
+                                });
+                                summary.Item().Text(text =>
+                                {
+                                    text.Span("Comentarii: ").Italic();
+                                    text.Span("Date extrase exclusiv din brief-ul inițial.");
+                                });
+                            }));
+                        });
+                    });
+
+                    column.Item().Element(c => RenderSection(c, "2. MOTIVUL SUSPICIUNII", body =>
+                    {
+                        body.Item().Text(ValueOrFallback(motive, "Nu există un motiv explicit în brief."));
+                    }));
+
+                    column.Item().Element(c => RenderSection(c, "3. DESCRIEREA CARACTERULUI", body =>
+                    {
+                        body.Item().Text(ValueOrFallback(description, "Nu există o descriere explicită în brief."));
+                    }));
+
+                    column.Item().Element(c => RenderSection(c, "4. DATE DE FOND & CUNOAȘTERE", body =>
+                    {
+                        body.Item().Text(ValueOrFallback(backstory, "Nu există informații de fundal suplimentare în brief."));
+                    }));
+
+                    column.Item().Element(c => RenderSection(c, "NOTE SUPLIMENTARE DE ANCHETĂ", body =>
+                    {
+                        body.Item().Text("Fișă generată automat pe baza informațiilor furnizate în brief. Conținutul trebuie verificat de către anchetator.");
+                        body.Item().PaddingTop(6).Text("........................................................................................................................");
+                        body.Item().Text("........................................................................................................................");
+                    }));
+
+                    column.Item().PaddingTop(8).Row(row =>
+                    {
+                        row.RelativeItem().Text(text =>
+                        {
+                            text.Span("Semnătura Inspectorului: ").Italic();
+                            text.Span("____________________________");
+                        });
+                        row.RelativeItem().AlignRight().Text(text =>
+                        {
+                            text.Span("Data: ").Italic();
+                            text.Span(DateTime.UtcNow.ToString("dd MMM yyyy").ToUpperInvariant());
+                        });
+                    });
+
+                    column.Item().PaddingTop(8).LineHorizontal(1).LineColor("#8a6d4a");
+                    column.Item().AlignCenter().Text("DOCUMENT OFICIAL INTERN | DOSAR GENERAT PENTRU JOC INVESTIGATIV")
+                        .FontSize(9).SemiBold().FontColor("#5d4732");
+                });
+            });
+        }).GeneratePdf();
+    }
+
+    private static void RenderSection(IContainer container, string title, Action<ColumnDescriptor> content)
+    {
+        container.Border(1).BorderColor("#6f563a").Background("#f7efdf").Column(column =>
+        {
+            column.Item().Background("#f1e1bf").BorderBottom(1).BorderColor("#6f563a").PaddingVertical(4).PaddingHorizontal(8)
+                .Text(title).FontSize(10.5f).Bold().FontColor("#2f2013");
+            column.Item().Padding(8).Column(content);
+        });
+    }
+
+    private static string ValueOrFallback(string? value, string fallback)
+        => string.IsNullOrWhiteSpace(value) ? fallback : value.Trim();
+
+    private static string BuildCaseReference(string fullName)
+    {
+        var initials = string.Concat((fullName ?? string.Empty)
+            .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Take(2)
+            .Select(part => char.ToUpperInvariant(part[0])));
+        return $"{initials}-{DateTime.UtcNow:yyyy}-{Math.Abs(fullName.GetHashCode()) % 1000:D3}";
+    }
+
     /// <summary>
     /// Generate a newspaper-style PDF
     /// </summary>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MurderMystery.Api.DTOs;
 using MurderMystery.Api.Models;
 using MurderMystery.Api.Repositories;
+using MurderMystery.Api.Services;
 
 namespace MurderMystery.Api.Controllers;
 
@@ -14,15 +15,18 @@ public class CharactersController : ControllerBase
 {
     private readonly IGameRepository _gameRepository;
     private readonly IRepository<Character> _characterRepository;
+    private readonly PdfGenerationService _pdfGenerationService;
     private readonly ILogger<CharactersController> _logger;
 
     public CharactersController(
         IGameRepository gameRepository,
         IRepository<Character> characterRepository,
+        PdfGenerationService pdfGenerationService,
         ILogger<CharactersController> logger)
     {
         _gameRepository = gameRepository;
         _characterRepository = characterRepository;
+        _pdfGenerationService = pdfGenerationService;
         _logger = logger;
     }
 
@@ -154,6 +158,83 @@ public class CharactersController : ControllerBase
             _logger.LogError(ex, "Error deleting character");
             return StatusCode(500, new { message = "An error occurred" });
         }
+    }
+
+    [HttpPost("{id}/profile-pdf")]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> GenerateCharacterProfilePdf(int gameId, int id, IFormFile? photo)
+    {
+        try
+        {
+            var userId = GetUserId();
+            if (!await _gameRepository.UserOwnsGameAsync(gameId, userId))
+                return Forbid();
+
+            var character = await _characterRepository.GetByIdAsync(id);
+            if (character == null || character.GameId != gameId)
+                return NotFound(new { message = "Character not found" });
+
+            if (photo == null || photo.Length == 0)
+                return BadRequest(new { message = "Photo is required before generating profile PDF." });
+
+            byte[] photoBytes;
+            await using (var ms = new MemoryStream())
+            {
+                await photo.CopyToAsync(ms);
+                photoBytes = ms.ToArray();
+            }
+
+            var occupation = ExtractOccupation(character.Description);
+            var relationToVictim = ExtractRelationToVictim(character.Backstory, character.Description, character.Role);
+            var pdfBytes = _pdfGenerationService.GenerateCharacterProfilePdf(
+                fullName: character.Name,
+                occupation: occupation,
+                relationToVictim: relationToVictim,
+                alibi: character.Alibi ?? string.Empty,
+                motive: character.Motive ?? string.Empty,
+                description: character.Description ?? string.Empty,
+                backstory: character.Backstory ?? string.Empty,
+                role: character.Role ?? "Unknown",
+                profileImage: photoBytes);
+
+            var safeName = character.Name.Replace(' ', '_');
+            return File(pdfBytes, "application/pdf", $"SuspectProfile_{safeName}.pdf");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error generating character profile PDF for character {CharacterId}", id);
+            return StatusCode(500, new { message = "Failed to generate profile PDF." });
+        }
+    }
+
+    private static string ExtractOccupation(string? description)
+    {
+        if (string.IsNullOrWhiteSpace(description))
+            return "Unknown";
+
+        var separators = new[] { ".", ",", ";", "|", "\n" };
+        var firstChunk = description.Split(separators, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()?.Trim();
+        return string.IsNullOrWhiteSpace(firstChunk) ? "Unknown" : firstChunk;
+    }
+
+    private static string ExtractRelationToVictim(string? backstory, string? description, string? role)
+    {
+        var source = $"{backstory} {description}".Trim();
+        if (!string.IsNullOrWhiteSpace(source))
+        {
+            var marker = "rela";
+            var index = source.IndexOf(marker, StringComparison.OrdinalIgnoreCase);
+            if (index >= 0)
+            {
+                var candidate = source[index..];
+                var end = candidate.IndexOfAny(new[] { '.', '\n' });
+                candidate = end > 0 ? candidate[..end] : candidate;
+                if (!string.IsNullOrWhiteSpace(candidate))
+                    return candidate.Trim();
+            }
+        }
+
+        return !string.IsNullOrWhiteSpace(role) ? role : "Unknown";
     }
 
     private static CharacterDto MapToDto(Character character)

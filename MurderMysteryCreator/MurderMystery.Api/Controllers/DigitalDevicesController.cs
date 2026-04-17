@@ -246,7 +246,30 @@ public class DigitalDevicesController : ControllerBase
                 return NotFound();
 
             var apps = await _appRepository.FindAsync(a => a.DeviceId == id);
-            var camelOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+
+            static JsonNode? CamelizeNode(JsonNode? node)
+            {
+                if (node == null) return null;
+                if (node is JsonArray arr)
+                {
+                    var outArr = new JsonArray();
+                    foreach (var item in arr)
+                        outArr.Add(CamelizeNode(item));
+                    return outArr;
+                }
+                if (node is JsonObject obj)
+                {
+                    var outObj = new JsonObject();
+                    foreach (var kv in obj)
+                    {
+                        var key = kv.Key ?? "";
+                        var camelKey = JsonNamingPolicy.CamelCase.ConvertName(key);
+                        outObj[camelKey] = CamelizeNode(kv.Value);
+                    }
+                    return outObj;
+                }
+                return node; // JsonValue
+            }
 
             var deviceWithApps = new DeviceWithAppsDto
             {
@@ -261,14 +284,18 @@ public class DigitalDevicesController : ControllerBase
                 Apps = apps.Select(a =>
                 {
                     object appData = new { };
+                    var raw = a.AppData.RootElement.GetRawText();
                     try
                     {
-                        var raw = a.AppData.RootElement.GetRawText();
                         var node = JsonNode.Parse(raw);
-                        var camelJson = JsonSerializer.Serialize(node, camelOptions);
-                        appData = JsonSerializer.Deserialize<object>(camelJson) ?? appData;
+                        var camel = CamelizeNode(node);
+                        appData = JsonSerializer.Deserialize<object>(camel?.ToJsonString() ?? raw) ?? appData;
                     }
-                    catch { /* keep empty */ }
+                    catch
+                    {
+                        // Fallback: never lose appData in response
+                        try { appData = JsonSerializer.Deserialize<object>(raw) ?? appData; } catch { /* keep empty */ }
+                    }
                     return new DeviceAppDto
                     {
                         AppId = a.AppId,

@@ -63,7 +63,7 @@
                                     <div class="samsung-icon notes-samsung"><span>📁</span></div>
                                     <span>Files</span>
                                 </div>
-                                <div class="samsung-app">
+                                <div class="samsung-app" (click)="openApp('phone')">
                                     <div class="samsung-icon phone-samsung"><span>📞</span></div>
                                     <span>Phone</span>
                                 </div>
@@ -178,7 +178,7 @@
                     <div class="dock-app" (click)="openApp('messages')">
                         <div class="dock-icon messages-icon">💬</div>
                     </div>
-                    <div class="dock-app">
+                    <div class="dock-app" (click)="openApp('phone')">
                         <div class="dock-icon phone-icon">📞</div>
                     </div>
                     <div class="dock-app">
@@ -291,6 +291,39 @@
                         <small>{{ file.type }}</small>
                     </div>
                     <div *ngIf="files.length === 0" class="samsung-note-card">Niciun fișier.</div>
+                </div>
+            </div>
+
+            <!-- Phone App (Samsung Style) -->
+            <div *ngIf="currentScreen === 'phone'" class="samsung-app-view">
+                <div class="samsung-header">
+                    <button (click)="goHome()" class="samsung-back">←</button>
+                    <h2>Phone</h2>
+                    <button class="samsung-menu">⋮</button>
+                </div>
+                <div class="samsung-content">
+                    <div class="samsung-conversations">
+                        <ng-container *ngFor="let call of sortedCalls; let i = index">
+                            <div class="call-date-separator"
+                                 *ngIf="i === 0 || getCallDateLabel(call) !== getCallDateLabel(sortedCalls[i-1])">
+                                {{ getCallDateLabel(call) }}
+                            </div>
+                            <div class="samsung-conv-item" [class.call-missed]="call.type === 'Pierdut'">
+                                <div class="samsung-contact-avatar">📞</div>
+                                <div class="samsung-conv-info">
+                                    <div class="conv-top">
+                                        <strong>{{ call.contact }}</strong>
+                                        <span class="conv-time">{{ call.time }}</span>
+                                    </div>
+                                    <div class="conv-preview">
+                                        {{ call.type }}<span *ngIf="call.duration && call.duration !== '—'"> · {{ call.duration }}</span>
+                                    </div>
+                                </div>
+                                <button class="call-audio-btn" *ngIf="call.audioUrl" (click)="initiateCall(call)" title="Redă înregistrarea">▶</button>
+                            </div>
+                        </ng-container>
+                        <div *ngIf="calls.length === 0" class="samsung-conv-item">Nu există apeluri.</div>
+                    </div>
                 </div>
             </div>
         </div>

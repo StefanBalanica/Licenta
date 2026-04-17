@@ -148,6 +148,7 @@ public class GameService : IGameService
     public async Task<GameDto> CreateGameFromStoryAsync(int userId, string story, CancellationToken cancellationToken = default)
     {
         var generated = await _storyToGameService.GenerateFromStoryAsync(story, cancellationToken);
+        EnrichGeneratedCharactersFromStory(generated, story);
 
         // Enrich generated devices with Phone calls and structured Email folders
         // Use the ORIGINAL story text (not the AI-summarised one) so emoji markers are preserved
@@ -321,10 +322,14 @@ public class GameService : IGameService
                     Calls = apps.Phone.Calls.Select(c => new CallLogItem
                     {
                         Contact = c.Contact,
+                        Date = c.Date,
                         Time = c.Time,
                         Duration = c.Duration,
                         IsIncoming = c.IsIncoming,
-                        Answered = c.Answered
+                        Answered = c.Answered,
+                        Type = c.Type,
+                        AudioUrl = c.AudioUrl,
+                        AudioFileName = c.AudioFileName
                     }).ToList()
                 };
                 await AddDeviceAppAsync(device.DeviceId, "Phone", phoneAppData);
@@ -344,6 +349,140 @@ public class GameService : IGameService
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         PropertyNameCaseInsensitive = true
     };
+
+    private static void EnrichGeneratedCharactersFromStory(GeneratedGameData generated, string originalStory)
+    {
+        var parsedCharacters = ParseCharactersFromStory(originalStory);
+        if (parsedCharacters.Count == 0)
+            return;
+
+        generated.Characters = parsedCharacters;
+    }
+
+    private static List<GeneratedCharacter> ParseCharactersFromStory(string story)
+    {
+        var result = new List<GeneratedCharacter>();
+        if (string.IsNullOrWhiteSpace(story))
+            return result;
+
+        var lines = story.Split(new[] { '\r', '\n' }, StringSplitOptions.None);
+        var headerRegex = new System.Text.RegularExpressions.Regex(
+            @"^\s*([A-ZĂÂÎȘŞȚŢ][A-ZĂÂÎȘŞȚŢa-zăâîșşțţ'’\-\s]+?)\s*\(([^)]+)\)\s*$",
+            System.Text.RegularExpressions.RegexOptions.CultureInvariant);
+
+        int i = 0;
+        while (i < lines.Length)
+        {
+            var line = (lines[i] ?? string.Empty).Trim();
+            var match = headerRegex.Match(line);
+            if (!match.Success || line.StartsWith("DISPOZITIV", StringComparison.OrdinalIgnoreCase))
+            {
+                i++;
+                continue;
+            }
+
+            var name = match.Groups[1].Value.Trim();
+            var role = match.Groups[2].Value.Trim();
+            i++;
+
+            string relation = string.Empty;
+            string occupation = string.Empty;
+            string phone = string.Empty;
+            string notes = string.Empty;
+            string victimStory = string.Empty;
+            string alibiStory = string.Empty;
+
+            while (i < lines.Length)
+            {
+                var current = (lines[i] ?? string.Empty).Trim();
+                if (string.IsNullOrWhiteSpace(current))
+                {
+                    i++;
+                    continue;
+                }
+
+                if (headerRegex.IsMatch(current) || current.StartsWith("DISPOZITIVE", StringComparison.OrdinalIgnoreCase) || current.StartsWith("DISPOZITIV", StringComparison.OrdinalIgnoreCase))
+                    break;
+
+                relation = TryReadPrefixedValue(lines, ref i, "Relație:", relation);
+                if (!string.IsNullOrWhiteSpace(relation))
+                    continue;
+
+                occupation = TryReadPrefixedValue(lines, ref i, "Ocupație:", occupation);
+                if (!string.IsNullOrWhiteSpace(occupation) && current.StartsWith("Ocupație:", StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                phone = TryReadPrefixedValue(lines, ref i, "Număr telefon:", phone);
+                if (!string.IsNullOrWhiteSpace(phone) && current.StartsWith("Număr telefon:", StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                notes = TryReadPrefixedValue(lines, ref i, "Notițe:", notes);
+                if (!string.IsNullOrWhiteSpace(notes) && current.StartsWith("Notițe:", StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                victimStory = TryReadPrefixedValue(lines, ref i, "Povestea despre victimă:", victimStory);
+                if (!string.IsNullOrWhiteSpace(victimStory) && current.StartsWith("Povestea despre victimă:", StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                alibiStory = TryReadPrefixedValue(lines, ref i, "Povestea alibiului:", alibiStory);
+                if (!string.IsNullOrWhiteSpace(alibiStory) && current.StartsWith("Povestea alibiului:", StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                i++;
+            }
+
+            result.Add(new GeneratedCharacter
+            {
+                Name = name,
+                Role = role,
+                Description = BuildCharacterIdentityDetails(relation, occupation, phone),
+                Backstory = notes,
+                Motive = victimStory,
+                Alibi = alibiStory
+            });
+        }
+
+        return result;
+    }
+
+    private static string TryReadPrefixedValue(string[] lines, ref int index, string prefix, string existingValue)
+    {
+        var current = (lines[index] ?? string.Empty).Trim();
+        if (!current.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+            return existingValue;
+
+        var value = current[prefix.Length..].Trim();
+        index++;
+        while (index < lines.Length)
+        {
+            var next = (lines[index] ?? string.Empty).Trim();
+            if (string.IsNullOrWhiteSpace(next))
+            {
+                index++;
+                break;
+            }
+
+            if (next.Contains(':') && !next.StartsWith("-", StringComparison.Ordinal))
+                break;
+
+            value = string.IsNullOrWhiteSpace(value) ? next : $"{value} {next}";
+            index++;
+        }
+
+        return value.Trim();
+    }
+
+    private static string BuildCharacterIdentityDetails(string relation, string occupation, string phone)
+    {
+        var parts = new List<string>();
+        if (!string.IsNullOrWhiteSpace(relation))
+            parts.Add($"Relație: {relation}");
+        if (!string.IsNullOrWhiteSpace(occupation))
+            parts.Add($"Ocupație: {occupation}");
+        if (!string.IsNullOrWhiteSpace(phone))
+            parts.Add($"Număr telefon: {phone}");
+        return string.Join(" | ", parts);
+    }
 
     private async Task AddDeviceAppAsync(int deviceId, string appType, object appData)
     {
@@ -375,14 +514,23 @@ public class GameService : IGameService
         // Pre-split story into device blocks so we can scope PIN search per device
         var deviceBlocks = SplitIntoDeviceBlocks(storyText);
 
-        foreach (var device in generated.Devices)
+        for (int deviceIndex = 0; deviceIndex < generated.Devices.Count; deviceIndex++)
         {
+            var device = generated.Devices[deviceIndex];
             device.Apps ??= new GeneratedDeviceApps();
 
             var ownerName = device.OwnerName ?? "Me";
             var characterSection = ExtractCharacterSection(storyText, ownerName);
-            var textForParsing = !string.IsNullOrWhiteSpace(characterSection) ? characterSection : storyText;
             var deviceScopedText = ExtractDeviceBlockText(deviceBlocks, ownerName, device.DeviceType);
+
+            // Fallback: when strict owner/type matching misses, use same-order device block.
+            // This prevents completely empty devices for briefs where owner naming differs
+            // between AI output and "DISPOZITIV X" headers.
+            if (string.IsNullOrWhiteSpace(deviceScopedText) && deviceBlocks.Count > deviceIndex)
+            {
+                deviceScopedText = deviceBlocks[deviceIndex].Block;
+            }
+            var hasReliableDeviceBlock = !string.IsNullOrWhiteSpace(deviceScopedText);
 
             // ── PIN extraction — AI value has priority; regex only fills gaps ──────────
             // If the AI already extracted a valid numeric passcode, trust it (it read the
@@ -410,11 +558,14 @@ public class GameService : IGameService
 
             // Parse Messages from the strict device block.
             // If block parsing succeeds, it has priority over AI (prevents cross-device data leakage).
-            var parsedConversations = ParseMessagesFromStory(deviceScopedText, ownerName);
+            var parsedConversations = hasReliableDeviceBlock
+                ? ParseMessagesFromStory(deviceScopedText, ownerName)
+                : new List<GeneratedConversation>();
             if (parsedConversations.Count > 0)
             {
                 device.Apps.Messages ??= new GeneratedMessageApp();
-                device.Apps.Messages.Conversations = parsedConversations;
+                if (device.Apps.Messages.Conversations == null || device.Apps.Messages.Conversations.Count == 0)
+                    device.Apps.Messages.Conversations = parsedConversations;
             }
 
 
@@ -422,43 +573,57 @@ public class GameService : IGameService
             if (!string.Equals(device.DeviceType, "Laptop", StringComparison.OrdinalIgnoreCase))
             {
                 // Strict block calls have priority over AI.
-                var calls = ParseCallsFromStory(deviceScopedText);
+                var calls = hasReliableDeviceBlock
+                    ? ParseCallsFromStory(deviceScopedText)
+                    : new List<GeneratedCall>();
                 if (calls.Count > 0)
                 {
                     device.Apps.Phone ??= new GeneratedPhoneApp();
-                    device.Apps.Phone.Calls = calls;
+                    if (device.Apps.Phone.Calls == null || device.Apps.Phone.Calls.Count == 0)
+                        device.Apps.Phone.Calls = calls;
                 }
             }
 
             // Strict block emails have priority over AI.
-            ParseEmailsFromStory(deviceScopedText, ownerName, out var inbox, out var sent, out var drafts);
-            if (inbox.Count > 0 || sent.Count > 0 || drafts.Count > 0)
+            if (hasReliableDeviceBlock)
             {
-                device.Apps.Email ??= new GeneratedEmailApp();
-                device.Apps.Email.Inbox = inbox;
-                device.Apps.Email.Sent = sent;
-                device.Apps.Email.Drafts = drafts;
-                device.Apps.Email.Emails = new List<GeneratedEmail>();
+                ParseEmailsFromStory(deviceScopedText, ownerName, out var inbox, out var sent, out var drafts);
+                if (inbox.Count > 0 || sent.Count > 0 || drafts.Count > 0)
+                {
+                    device.Apps.Email ??= new GeneratedEmailApp();
+                    if (device.Apps.Email.Inbox == null || device.Apps.Email.Inbox.Count == 0)
+                        device.Apps.Email.Inbox = inbox;
+                    if (device.Apps.Email.Sent == null || device.Apps.Email.Sent.Count == 0)
+                        device.Apps.Email.Sent = sent;
+                    if (device.Apps.Email.Drafts == null || device.Apps.Email.Drafts.Count == 0)
+                        device.Apps.Email.Drafts = drafts;
+                    device.Apps.Email.Emails ??= new List<GeneratedEmail>();
+                }
             }
-
             // Notes are added only from explicit Notes section (not from forensic narrative labels).
             var aiHasNotes = device.Apps.Notes?.Notes != null && device.Apps.Notes.Notes.Count > 0;
             if (!aiHasNotes)
             {
-                var parsedNotes = ParseNotesFromStory(deviceScopedText);
+                var parsedNotes = hasReliableDeviceBlock
+                    ? ParseNotesFromStory(deviceScopedText)
+                    : new List<GeneratedNote>();
                 if (parsedNotes.Count > 0)
                 {
                     device.Apps.Notes ??= new GeneratedNotesApp();
-                    device.Apps.Notes.Notes = parsedNotes;
+                    if (device.Apps.Notes.Notes == null || device.Apps.Notes.Notes.Count == 0)
+                        device.Apps.Notes.Notes = parsedNotes;
                 }
             }
 
             // Parse media upload requirements from strict device block (photos/audio/video filenames).
-            var (requiredPhotos, requiredMediaFiles) = ParseMediaRequirementsFromStory(deviceScopedText);
+            var (requiredPhotos, requiredMediaFiles) = hasReliableDeviceBlock
+                ? ParseMediaRequirementsFromStory(deviceScopedText)
+                : (new List<GeneratedPhoto>(), new List<GeneratedFileItem>());
             if (requiredPhotos.Count > 0)
             {
                 device.Apps.Photos ??= new GeneratedPhotosApp();
-                device.Apps.Photos.Photos = requiredPhotos;
+                if (device.Apps.Photos.Photos == null || device.Apps.Photos.Photos.Count == 0)
+                    device.Apps.Photos.Photos = requiredPhotos;
             }
             if (requiredMediaFiles.Count > 0)
             {
@@ -517,7 +682,7 @@ public class GameService : IGameService
         // Strict header pattern: only explicit device section headers.
         // Example: "DISPOZITIV 1 — iPhone (al Elodiei Ghinescu)"
         var headerRegex = new System.Text.RegularExpressions.Regex(
-            @"^(?:DISPOZITIV|DEVICE)\s*\d*\s*[—\-–:]",
+            @"^(?:[\p{So}\p{Sk}\p{P}\s]*)?(?:DISPOZITIV(?:UL)?|DEVICE)\s*\d+\b.*$",
             System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
         int start = -1;
@@ -639,6 +804,8 @@ public class GameService : IGameService
     private static List<GeneratedCall> ParseCallsFromStory(string story)
     {
         var result = new List<GeneratedCall>();
+        if (string.IsNullOrWhiteSpace(story))
+            return result;
 
         // Găsim secțiunea cu apeluri (căutăm emoji-ul 📞 sau textul „Lista completă de apeluri” sau "apeluri relevante")
         var idx = story.IndexOf("📞", StringComparison.OrdinalIgnoreCase);
@@ -651,9 +818,24 @@ public class GameService : IGameService
         if (idx < 0)
             return result;
 
-        var endIdx = story.IndexOf("📧", idx, StringComparison.OrdinalIgnoreCase);
-        if (endIdx < 0)
-            endIdx = story.Length;
+        var endIdx = new[]
+        {
+            story.IndexOf("MESAJE", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("EMAIL", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("EMAIL-URI", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("POZE", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("FOTO", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("FIȘIERE", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("FISIERE", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("NOTE", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("NOTIȚE", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("NOTITE", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("📧", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("📷", idx, StringComparison.OrdinalIgnoreCase)
+        }
+        .Where(i => i > idx)
+        .DefaultIfEmpty(story.Length)
+        .Min();
 
         var section = story.Substring(idx, endIdx - idx);
 
@@ -667,42 +849,97 @@ public class GameService : IGameService
 
         var lines = section.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-        // 1) Table format:
-        // 1 | Efectuat | Mirela Dănilă | 22.10.2007 | 22:47 | 3 min 12 sec
+        // 1) Table format — 6 OR 7 columns (audio file column is optional):
+        // Tip | Număr/Nume | Data | Ora | Durată  [| Fișier Audio]
+        // or numbered:
+        // 1 | Efectuat | Mirela Dănilă | 22.10.2007 | 22:47 | 3 min 12 sec  [| Santaj_Mirela.mp3]
         foreach (var raw in lines)
         {
             var line = raw.Trim();
             if (!line.Contains('|'))
                 continue;
             var parts = line.Split('|').Select(p => p.Trim()).ToArray();
-            if (parts.Length < 6)
-                continue;
-            if (!int.TryParse(parts[0], out _))
-                continue; // skip table header
 
-            var tip = parts[1];
-            var contact = parts[2];
-            var date = parts[3];
-            var hour = parts[4];
-            var duration = parts[5];
+            // Determine whether first column is a row number (numbered table) or a type string (unnumbered)
+            bool numbered   = parts.Length >= 6 && int.TryParse(parts[0], out _);
+            bool unnumbered = !numbered && parts.Length >= 5 && !string.IsNullOrWhiteSpace(parts[0]);
+
+            if (!numbered && !unnumbered)
+                continue;
+
+            string tip, contact, date, hour, duration, audioFileRaw;
+            if (numbered)
+            {
+                tip          = parts[1];
+                contact      = parts[2];
+                date         = parts[3];
+                hour         = parts[4];
+                duration     = parts[5];
+                audioFileRaw = parts.Length >= 7 ? parts[6] : string.Empty;
+            }
+            else
+            {
+                tip          = parts[0];
+                contact      = parts[1];
+                date         = parts[2];
+                hour         = parts[3];
+                duration     = parts[4];
+                audioFileRaw = parts.Length >= 6 ? parts[5] : string.Empty;
+            }
 
             var isIncoming = tip.Contains("Primit", StringComparison.OrdinalIgnoreCase);
-            var isMissed = tip.Contains("Pierdut", StringComparison.OrdinalIgnoreCase);
+            var isMissed   = tip.Contains("Pierdut", StringComparison.OrdinalIgnoreCase);
             var isOutgoing = tip.Contains("Efectuat", StringComparison.OrdinalIgnoreCase);
             if (!isIncoming && !isOutgoing && !isMissed)
                 continue;
 
-            // "0740-887-661 (Victor Pană)" -> "Victor Pană"
+            // Skip column header rows (e.g. "Tip", "Nr")
+            if (string.Equals(parts[0], "#", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(parts[0], "nr", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(tip, "tip", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(tip, "nr", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(contact, "contact", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(date, "data", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(hour, "ora", StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            // "0740-888-999 (Mirela Dănilă)" -> "Mirela Dănilă"
             var mContact = System.Text.RegularExpressions.Regex.Match(contact, @"\(([^)]+)\)");
             if (mContact.Success) contact = mContact.Groups[1].Value.Trim();
 
+            // Parse audio file name: "Santaj_Mirela.mp3" or "fisier : Santaj_Mirela.mp3"
+            var audioFileName = string.Empty;
+            var audioUrl      = string.Empty;
+            if (!string.IsNullOrWhiteSpace(audioFileRaw) && audioFileRaw != "—")
+            {
+                var cleaned = System.Text.RegularExpressions.Regex.Replace(
+                    audioFileRaw,
+                    @"fi[sș]ier\s*[:\-]?\s*",
+                    string.Empty,
+                    System.Text.RegularExpressions.RegexOptions.IgnoreCase).Trim();
+                var fnMatch = System.Text.RegularExpressions.Regex.Match(
+                    cleaned, @"[^\\/:*?""<>|\s]+\.(?:mp3|m4a|ogg|wav)",
+                    System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                if (fnMatch.Success)
+                {
+                    audioFileName = fnMatch.Value.Trim();
+                    audioUrl = $"upload-required://{audioFileName}?types=mp3";
+                }
+            }
+
+            var typeStr = isMissed ? "Pierdut" : (isIncoming ? "Primit" : "Efectuat");
+
             result.Add(new GeneratedCall
             {
-                Contact = contact,
-                Time = $"{date} {hour}".Trim(),
-                Duration = duration == "—" ? "0 sec" : duration,
-                IsIncoming = isIncoming || isMissed,
-                Answered = !isMissed
+                Contact       = contact,
+                Date          = (date == "—" ? string.Empty : date),
+                Time          = (hour == "—" ? string.Empty : hour),
+                Duration      = duration == "—" ? "0 sec" : duration,
+                IsIncoming    = isIncoming || isMissed,
+                Answered      = !isMissed,
+                Type          = typeStr,
+                AudioFileName = audioFileName,
+                AudioUrl      = audioUrl
             });
         }
 
@@ -780,10 +1017,14 @@ public class GameService : IGameService
             result.Add(new GeneratedCall
             {
                 Contact = contact,
+                Date = string.Empty,
                 Time = time,
                 Duration = duration,
                 IsIncoming = isIncoming,
-                Answered = answered
+                Answered = answered,
+                Type = answered ? (isIncoming ? "Primit" : "Efectuat") : "Pierdut",
+                AudioUrl = string.Empty,
+                AudioFileName = string.Empty
             });
         }
 
@@ -843,6 +1084,27 @@ public class GameService : IGameService
         string currentContact = "";
         GeneratedMessage? pendingMessage = null;
 
+        static GeneratedConversation GetOrCreateConversation(
+            IDictionary<string, GeneratedConversation> conversations,
+            string contact)
+        {
+            var normalizedContact = string.IsNullOrWhiteSpace(contact) ? "Contact necunoscut" : contact.Trim();
+            if (!conversations.TryGetValue(normalizedContact, out var conv))
+            {
+                conv = new GeneratedConversation
+                {
+                    Contact = normalizedContact,
+                    Avatar = "👤",
+                    LastMessage = "",
+                    Time = "",
+                    Messages = new List<GeneratedMessage>()
+                };
+                conversations[normalizedContact] = conv;
+            }
+
+            return conv;
+        }
+
         foreach (var line in lines)
         {
             // Contact headers: "Conversație cu: Mirela Dănilă"
@@ -856,12 +1118,38 @@ public class GameService : IGameService
                 continue;
             }
 
-            // Main format from brief:
+            // Main format A (brief):
+            // [18.03.2026 — 19:00] TRIMIS: "Vânzarea se face mâine..."
+            // [18.03.2026 — 19:15] PRIMIT: "Dacă semnezi..."
+            var bracketedInline = System.Text.RegularExpressions.Regex.Match(
+                line,
+                @"^\[(?<date>[^\]]+)\]\s*(?<dir>PRIMIT|TRIMIS)\s*:\s*(?<content>.+)$",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            if (bracketedInline.Success)
+            {
+                var timestamp      = bracketedInline.Groups["date"].Value.Trim();
+                var direction      = bracketedInline.Groups["dir"].Value.Trim();
+                var rawContent     = bracketedInline.Groups["content"].Value.Trim().Trim('"', '\u201e', '\u201d');
+                var biIsOutgoing   = direction.Equals("TRIMIS", StringComparison.OrdinalIgnoreCase);
+                var resolvedContact = currentContact.Length > 0 ? currentContact : "Contact necunoscut";
+                var senderName     = biIsOutgoing ? ownerName : resolvedContact;
+                var biConv = GetOrCreateConversation(result, resolvedContact);
+                biConv.Messages.Add(new GeneratedMessage
+                {
+                    Sender = senderName,
+                    Content = rawContent,
+                    Timestamp = timestamp,
+                    IsOutgoing = biIsOutgoing
+                });
+                continue;
+            }
+
+            // Main format B (two-line):
             // [22.10.2007 — 20:15] PRIMIT de la Mirela:
             // "text..."
             var bracketed = System.Text.RegularExpressions.Regex.Match(
                 line,
-                @"^\[(?<date>[^\]]+)\]\s*(?<dir>PRIMIT|TRIMIS)\s*(?:de la|către|catre)\s*(?<name>[^:]+):\s*$",
+                @"^\[(?<date>[^\]]+)\]\s*(?<dir>PRIMIT|TRIMIS)\s*(?:de la|de|c\u0103tre|catre)\s*(?<name>[^:]+):\s*$",
                 System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             if (bracketed.Success)
             {
@@ -889,18 +1177,7 @@ public class GameService : IGameService
                 var pendingContent = line.Trim().Trim('"', '„', '”');
                 if (!string.IsNullOrWhiteSpace(pendingContent))
                 {
-                    if (!result.TryGetValue(currentContact, out var conv))
-                    {
-                        conv = new GeneratedConversation
-                        {
-                            Contact = currentContact,
-                            Avatar = "👤",
-                            LastMessage = "",
-                            Time = "",
-                            Messages = new List<GeneratedMessage>()
-                        };
-                        result[currentContact] = conv;
-                    }
+                    var conv = GetOrCreateConversation(result, currentContact);
                     pendingMessage.Content = pendingContent;
                     conv.Messages.Add(pendingMessage);
                 }
@@ -963,18 +1240,7 @@ public class GameService : IGameService
             if (string.IsNullOrWhiteSpace(content))
                 continue;
 
-            if (!result.TryGetValue(currentContact, out var existing))
-            {
-                existing = new GeneratedConversation
-                {
-                    Contact = currentContact,
-                    Avatar = "👤",
-                    LastMessage = "",
-                    Time = "",
-                    Messages = new List<GeneratedMessage>()
-                };
-                result[currentContact] = existing;
-            }
+            var existing = GetOrCreateConversation(result, currentContact);
 
             existing.Messages.Add(new GeneratedMessage
             {
@@ -1017,39 +1283,143 @@ public class GameService : IGameService
         if (idx < 0)
             return;
 
-        var endIdx = story.IndexOf("📷", idx, StringComparison.OrdinalIgnoreCase);
-        if (endIdx < 0)
-            endIdx = story.Length;
+        var endIdx = new[]
+        {
+            story.IndexOf("POZE", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("FOTO", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("FIȘIERE", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("FISIERE", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("MESAJE", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("APELURI", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("NOTE", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("NOTIȚE", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("NOTITE", idx, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("📷", idx, StringComparison.OrdinalIgnoreCase)
+        }
+        .Where(i => i > idx)
+        .DefaultIfEmpty(story.Length)
+        .Min();
 
         var section = story.Substring(idx, endIdx - idx);
 
-        // Structured block format:
-        // De la: ...
-        // Către: ...
-        // Data: ...
-        // Subiect: ...
-        // "Body..."
-        var structured = System.Text.RegularExpressions.Regex.Match(
-            section,
-            @"De la:\s*(?<from>[^\r\n]+)[\r\n]+Către:\s*(?<to>[^\r\n]+)[\r\n]+Data:\s*(?<date>[^\r\n]+)[\r\n]+Subiect:\s*(?<subject>[^\r\n]+)[\r\n]+""(?<body>[\s\S]*?)""",
-            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-        if (structured.Success)
+        var lines = section.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+        static bool IsEmailSectionBoundary(string line) =>
+            line.Contains("POZE", StringComparison.OrdinalIgnoreCase) ||
+            line.Contains("FOTO", StringComparison.OrdinalIgnoreCase) ||
+            line.Contains("FIȘIERE", StringComparison.OrdinalIgnoreCase) ||
+            line.Contains("FISIERE", StringComparison.OrdinalIgnoreCase) ||
+            line.Contains("APELURI", StringComparison.OrdinalIgnoreCase) ||
+            line.Contains("MESAJE", StringComparison.OrdinalIgnoreCase) ||
+            line.Contains("NOTE", StringComparison.OrdinalIgnoreCase) ||
+            line.StartsWith("DISPOZITIV", StringComparison.OrdinalIgnoreCase) ||
+            line.StartsWith("DEVICE", StringComparison.OrdinalIgnoreCase);
+
+        static string NormalizeAddressLabel(string value)
+            => value.Trim().Trim('"', '„', '”');
+
+        static bool IsLikelyOwnerEmail(string email, string owner)
         {
-            var body = structured.Groups["body"].Value.Trim();
-            var preview = body.Length > 120 ? body[..120] : body;
-            inbox.Add(new GeneratedEmail
-            {
-                From = structured.Groups["from"].Value.Trim(),
-                To = structured.Groups["to"].Value.Trim(),
-                Subject = structured.Groups["subject"].Value.Trim(),
-                Body = body,
-                Preview = preview,
-                Time = structured.Groups["date"].Value.Trim()
-            });
-            return;
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(owner))
+                return false;
+
+            var normalizedEmail = NormalizeForComparison(email).Replace("@", " ").Replace(".", " ").Replace("-", " ").Replace("_", " ");
+            var ownerTokens = NormalizeForComparison(owner)
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Where(t => t.Length >= 3)
+                .ToList();
+
+            return ownerTokens.Count > 0 && ownerTokens.All(normalizedEmail.Contains);
         }
 
-        var lines = section.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        GeneratedEmail? BuildStructuredEmail(int startIndex, out int consumedLines)
+        {
+            consumedLines = 0;
+            if (startIndex >= lines.Length)
+                return null;
+
+            string from = string.Empty;
+            string to = string.Empty;
+            string date = string.Empty;
+            string subject = string.Empty;
+            var bodyLines = new List<string>();
+            int i = startIndex;
+
+            for (; i < lines.Length; i++)
+            {
+                var current = lines[i].Trim();
+                if (string.IsNullOrWhiteSpace(current))
+                    continue;
+                if (IsEmailSectionBoundary(current) && i > startIndex)
+                    break;
+
+                if (current.StartsWith("De la:", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (!string.IsNullOrWhiteSpace(from))
+                        break;
+                    from = NormalizeAddressLabel(current["De la:".Length..]);
+                    continue;
+                }
+
+                if (current.StartsWith("Către:", StringComparison.OrdinalIgnoreCase) ||
+                    current.StartsWith("Catre:", StringComparison.OrdinalIgnoreCase))
+                {
+                    var prefixLength = current.StartsWith("Către:", StringComparison.OrdinalIgnoreCase) ? "Către:".Length : "Catre:".Length;
+                    to = NormalizeAddressLabel(current[prefixLength..]);
+                    continue;
+                }
+
+                if (current.StartsWith("Data:", StringComparison.OrdinalIgnoreCase))
+                {
+                    date = NormalizeAddressLabel(current["Data:".Length..]);
+                    continue;
+                }
+
+                if (current.StartsWith("Subiect:", StringComparison.OrdinalIgnoreCase))
+                {
+                    subject = NormalizeAddressLabel(current["Subiect:".Length..]);
+                    continue;
+                }
+
+                if (string.IsNullOrWhiteSpace(from))
+                    break;
+
+                bodyLines.Add(current);
+            }
+
+            if (string.IsNullOrWhiteSpace(from) || string.IsNullOrWhiteSpace(subject))
+                return null;
+
+            consumedLines = Math.Max(1, i - startIndex);
+            var body = string.Join("\n", bodyLines).Trim().Trim('"', '„', '”');
+            var preview = body.Length > 120 ? body[..120] : body;
+            return new GeneratedEmail
+            {
+                From = from,
+                To = to,
+                Subject = subject,
+                Body = body,
+                Preview = preview,
+                Time = date
+            };
+        }
+
+        for (int i = 0; i < lines.Length; i++)
+        {
+            var structured = BuildStructuredEmail(i, out var consumedLines);
+            if (structured == null)
+                continue;
+
+            if (IsLikelyOwnerEmail(structured.From, ownerName))
+                sent.Add(structured);
+            else
+                inbox.Add(structured);
+
+            i += Math.Max(0, consumedLines - 1);
+        }
+
+        if (inbox.Count > 0 || sent.Count > 0 || drafts.Count > 0)
+            return;
 
         string mode = ""; // "sent", "drafts", "inbox"
         foreach (var rawLine in lines)
@@ -1176,43 +1546,98 @@ public class GameService : IGameService
         if (string.IsNullOrWhiteSpace(story))
             return notes;
 
-        var hasNotesSection =
-            story.Contains("NOTIȚE", StringComparison.OrdinalIgnoreCase) ||
-            story.Contains("NOTITE", StringComparison.OrdinalIgnoreCase) ||
-            story.Contains("NOTES", StringComparison.OrdinalIgnoreCase);
-        if (!hasNotesSection)
+        var sectionStart = new[]
+        {
+            story.IndexOf("NOTIȚE", StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("NOTITE", StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("NOTES", StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("NOTE", StringComparison.OrdinalIgnoreCase)
+        }
+        .Where(i => i >= 0)
+        .DefaultIfEmpty(-1)
+        .Min();
+        if (sectionStart < 0)
             return notes;
 
-        var lines = story.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+        var sectionEnd = new[]
+        {
+            story.IndexOf("POZE", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("FOTO", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("FIȘIERE", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("FISIERE", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("EMAIL", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("EMAIL-URI", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("APELURI", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("MESAJE", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("DISPOZITIV", sectionStart + 1, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("DEVICE", sectionStart + 1, StringComparison.OrdinalIgnoreCase)
+        }
+        .Where(i => i > sectionStart)
+        .DefaultIfEmpty(story.Length)
+        .Min();
+
+        var section = story.Substring(sectionStart, sectionEnd - sectionStart);
+        var lines = section.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
             .Select(l => l.Trim())
             .Where(l => !string.IsNullOrWhiteSpace(l))
             .ToList();
 
-        foreach (var line in lines)
+        for (int i = 1; i < lines.Count; i++)
         {
-            if (!line.Contains("NOTIȚE", StringComparison.OrdinalIgnoreCase) &&
-                !line.Contains("NOTITE", StringComparison.OrdinalIgnoreCase) &&
-                !line.Contains("NOTE", StringComparison.OrdinalIgnoreCase))
+            var headerLine = lines[i];
+            if (headerLine.Contains("POZE", StringComparison.OrdinalIgnoreCase) ||
+                headerLine.Contains("FOTO", StringComparison.OrdinalIgnoreCase) ||
+                headerLine.Contains("FIȘIERE", StringComparison.OrdinalIgnoreCase) ||
+                headerLine.Contains("FISIERE", StringComparison.OrdinalIgnoreCase) ||
+                headerLine.Contains("EMAIL", StringComparison.OrdinalIgnoreCase) ||
+                headerLine.Contains("APELURI", StringComparison.OrdinalIgnoreCase) ||
+                headerLine.Contains("MESAJE", StringComparison.OrdinalIgnoreCase))
+                break;
+
+            var structured = System.Text.RegularExpressions.Regex.Match(
+                headerLine,
+                @"^(?<title>.+?)\s*[—\-]\s*Data\s*:\s*(?<date>.+)$",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+            if (!structured.Success)
                 continue;
 
-            var title = "Notă";
-            var content = line;
-            var sepIdx = line.IndexOf(':');
-            if (sepIdx > 0)
+            var title = structured.Groups["title"].Value.Trim();
+            var time = structured.Groups["date"].Value.Trim();
+            var contentLines = new List<string>();
+            int j = i + 1;
+            for (; j < lines.Count; j++)
             {
-                title = line[..sepIdx].Trim();
-                content = line[(sepIdx + 1)..].Trim();
+                var contentLine = lines[j];
+                var isNextStructured = System.Text.RegularExpressions.Regex.IsMatch(
+                    contentLine,
+                    @"^.+?\s*[—\-]\s*Data\s*:\s*.+$",
+                    System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                if (isNextStructured ||
+                    contentLine.Contains("POZE", StringComparison.OrdinalIgnoreCase) ||
+                    contentLine.Contains("FOTO", StringComparison.OrdinalIgnoreCase) ||
+                    contentLine.Contains("FIȘIERE", StringComparison.OrdinalIgnoreCase) ||
+                    contentLine.Contains("FISIERE", StringComparison.OrdinalIgnoreCase) ||
+                    contentLine.Contains("EMAIL", StringComparison.OrdinalIgnoreCase) ||
+                    contentLine.Contains("APELURI", StringComparison.OrdinalIgnoreCase) ||
+                    contentLine.Contains("MESAJE", StringComparison.OrdinalIgnoreCase))
+                    break;
+
+                contentLines.Add(contentLine.Trim('"', '„', '”'));
             }
 
+            var content = string.Join("\n", contentLines).Trim();
             if (!string.IsNullOrWhiteSpace(content))
             {
                 notes.Add(new GeneratedNote
                 {
                     Title = title,
                     Content = content,
-                    Time = ""
+                    Time = time
                 });
             }
+
+            i = j - 1;
         }
 
         return notes;
@@ -1225,85 +1650,141 @@ public class GameService : IGameService
         if (string.IsNullOrWhiteSpace(story))
             return (photos, mediaFiles);
 
-        var sectionStart = story.IndexOf("POZE", StringComparison.OrdinalIgnoreCase);
-        if (sectionStart < 0)
-            sectionStart = story.IndexOf("FOTO", StringComparison.OrdinalIgnoreCase);
-        if (sectionStart < 0)
-            return (photos, mediaFiles);
-
-        var endCandidates = new[]
-        {
-            story.IndexOf("EMAIL", sectionStart, StringComparison.OrdinalIgnoreCase),
-            story.IndexOf("MESAJE", sectionStart, StringComparison.OrdinalIgnoreCase),
-            story.IndexOf("APELURI", sectionStart, StringComparison.OrdinalIgnoreCase),
-            story.IndexOf("NOTITE", sectionStart, StringComparison.OrdinalIgnoreCase),
-            story.IndexOf("NOTIȚE", sectionStart, StringComparison.OrdinalIgnoreCase)
-        }.Where(i => i > sectionStart).OrderBy(i => i).ToList();
-
-        var end = endCandidates.Count > 0 ? endCandidates[0] : story.Length;
-        var section = story.Substring(sectionStart, end - sectionStart);
-
-        var lines = section.Split(new[] { '\r', '\n' }, StringSplitOptions.None)
+        var lines = story.Split(new[] { '\r', '\n' }, StringSplitOptions.None)
             .Select(l => l.Trim())
             .Where(l => !string.IsNullOrWhiteSpace(l))
             .ToList();
 
-        var fileRegex = new System.Text.RegularExpressions.Regex(
-            @"^(?<name>[A-Za-z0-9_\-]+[.,](?<ext>jpg|jpeg|png|mp3|mp4|wav|m4a|webm))\s*[—\-]\s*(?<rest>.*)$",
+        var uploadMediaRegex = new System.Text.RegularExpressions.Regex(
+            // Order matters: prefer longer extensions first (docx before doc, xlsx before xls)
+            @"(?<name>[A-Za-z0-9ĂÂÎȘŞȚŢăâîșşțţ_\-\s]+?\.(?<ext>jpeg|jpg|png|mp3|wav|m4a|ogg|mp4|webm|pdf|docx|doc|xlsx|xls|txt))",
             System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
-        string? currentName = null;
-        string? currentExt = null;
-        var desc = new List<string>();
+        bool inPhotosSection = false;
+        bool inFilesSection = false;
 
-        void FlushCurrent()
+        void AddFilePlaceholder(string fileName, string? description)
         {
-            if (string.IsNullOrWhiteSpace(currentName) || string.IsNullOrWhiteSpace(currentExt))
+            if (string.IsNullOrWhiteSpace(fileName))
                 return;
 
-            var description = string.Join(" ", desc).Trim();
-            var ext = currentExt!.ToLowerInvariant();
+            var normalizedName = fileName.Trim().Replace(',', '.');
+            var extension = Path.GetExtension(normalizedName).TrimStart('.').ToLowerInvariant();
+            var normalizedDescription = string.IsNullOrWhiteSpace(description) ? normalizedName : description.Trim();
 
-            if (ext is "jpg" or "jpeg" or "png")
+            if (extension is "jpg" or "jpeg" or "png")
             {
-                photos.Add(new GeneratedPhoto
+                if (!photos.Any(p => p.Url.Contains(normalizedName, StringComparison.OrdinalIgnoreCase)))
                 {
-                    Url = $"upload-required://{currentName}?types=jpg,jpeg,png&size=1080x1920",
-                    Caption = string.IsNullOrWhiteSpace(description) ? currentName : description
-                });
+                    photos.Add(new GeneratedPhoto
+                    {
+                        Url = $"upload-required://{normalizedName}?types=jpg,jpeg,png&size=1080x1920",
+                        Caption = normalizedDescription
+                    });
+                }
+
+                return;
             }
-            else
+
+            var type = extension switch
             {
-                var mediaType = ext is "mp4" or "webm" ? "Video" : "Audio";
+                "mp4" or "webm" => "Video",
+                "pdf" => "Document",
+                _ => "Audio"
+            };
+
+            var uploadDescriptor = type switch
+            {
+                "Video" => $"upload-required://{normalizedName}?types=mp4,webm&size=1920x1080",
+                "Document" => $"upload-required://{normalizedName}?types=pdf",
+                _ => $"upload-required://{normalizedName}?types=mp3,wav,m4a,ogg&size=max-20mb"
+            };
+
+            if (!mediaFiles.Any(f => f.Name.Equals(normalizedName, StringComparison.OrdinalIgnoreCase)))
+            {
                 mediaFiles.Add(new GeneratedFileItem
                 {
-                    Name = currentName!,
-                    Type = mediaType,
-                    Description = $"upload-required://{currentName}?types={(mediaType == "Video" ? "mp4" : "mp3")}&size={(mediaType == "Video" ? "1920x1080" : "max-20mb")} | {(string.IsNullOrWhiteSpace(description) ? currentName : description)}"
+                    Name = normalizedName,
+                    Type = type,
+                    Description = $"{uploadDescriptor} | {normalizedDescription}"
                 });
             }
+        }
+
+        void AddRegularFile(string fileName, string? description)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+                return;
+
+            var normalizedName = fileName.Trim().Replace(',', '.');
+            if (mediaFiles.Any(f => f.Name.Equals(normalizedName, StringComparison.OrdinalIgnoreCase)))
+                return;
+
+            var extension = Path.GetExtension(normalizedName).TrimStart('.').ToLowerInvariant();
+            var type = extension switch
+            {
+                "jpg" or "jpeg" or "png" => "Image",
+                "mp3" or "wav" or "m4a" or "ogg" => "Audio",
+                "mp4" or "webm" => "Video",
+                _ => "Document"
+            };
+
+            mediaFiles.Add(new GeneratedFileItem
+            {
+                Name = normalizedName,
+                Type = type,
+                Description = description?.Trim() ?? string.Empty
+            });
         }
 
         foreach (var line in lines)
         {
-            var match = fileRegex.Match(line);
-            if (match.Success)
+            if (line.Contains("POZE", StringComparison.OrdinalIgnoreCase) || line.Contains("FOTO", StringComparison.OrdinalIgnoreCase))
             {
-                FlushCurrent();
-                currentName = match.Groups["name"].Value.Trim().Replace(',', '.');
-                currentExt = match.Groups["ext"].Value.Trim();
-                desc.Clear();
-                var rest = match.Groups["rest"].Value.Trim();
-                if (!string.IsNullOrWhiteSpace(rest))
-                    desc.Add(rest);
+                inPhotosSection = true;
+                inFilesSection = false;
                 continue;
             }
 
-            if (!string.IsNullOrWhiteSpace(currentName))
-                desc.Add(line);
+            if (line.Contains("FIȘIERE", StringComparison.OrdinalIgnoreCase) || line.Contains("FISIERE", StringComparison.OrdinalIgnoreCase))
+            {
+                inFilesSection = true;
+                inPhotosSection = false;
+                continue;
+            }
+
+            if (line.Contains("EMAIL", StringComparison.OrdinalIgnoreCase) ||
+                line.Contains("MESAJE", StringComparison.OrdinalIgnoreCase) ||
+                line.Contains("APELURI", StringComparison.OrdinalIgnoreCase) ||
+                line.Contains("NOTE", StringComparison.OrdinalIgnoreCase))
+            {
+                inPhotosSection = false;
+                inFilesSection = false;
+            }
+
+            if (inPhotosSection)
+            {
+                foreach (System.Text.RegularExpressions.Match match in uploadMediaRegex.Matches(line))
+                    AddFilePlaceholder(match.Groups["name"].Value, line);
+            }
+
+            if (inFilesSection)
+            {
+                foreach (System.Text.RegularExpressions.Match match in uploadMediaRegex.Matches(line))
+                    AddRegularFile(match.Groups["name"].Value, line);
+            }
+
+            if (line.Contains('|'))
+            {
+                var audioMatch = System.Text.RegularExpressions.Regex.Match(
+                    line,
+                    @"(?:(?:fi[sș]ier\s*[:\-]?\s*)|(?<=\|))\s*(?<name>[^\\/:*?""<>|\s]+\.(?:mp3|wav|m4a|ogg))\s*$",
+                    System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                if (audioMatch.Success)
+                    AddFilePlaceholder(audioMatch.Groups["name"].Value, $"Audio apel: {audioMatch.Groups["name"].Value}");
+            }
         }
 
-        FlushCurrent();
         return (photos, mediaFiles);
     }
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FzuuuWQB7Tw=",
+  "dgSpecHash": "kz44emzQ0n0=",
   "success": true,
-  "projectFilePath": "D:\\Test licenta 1 - Copy\\MurderMysteryCreator\\MurderMystery.Api\\MurderMystery.Api.csproj",
+  "projectFilePath": "D:\\Github\\Licenta\\MurderMysteryCreator\\MurderMystery.Api\\MurderMystery.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Stefan\\.nuget\\packages\\anthropic.sdk\\1.0.0\\anthropic.sdk.1.0.0.nupkg.sha512",
     "C:\\Users\\Stefan\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
@@ -70,9 +70,9 @@
       "code": "NU1603",
       "level": "Warning",
       "message": "MurderMystery.Api depends on Anthropic.SDK (>= 0.1.3) but Anthropic.SDK 0.1.3 was not found. Anthropic.SDK 1.0.0 was resolved instead.",
-      "projectPath": "D:\\Test licenta 1 - Copy\\MurderMysteryCreator\\MurderMystery.Api\\MurderMystery.Api.csproj",
+      "projectPath": "D:\\Github\\Licenta\\MurderMysteryCreator\\MurderMystery.Api\\MurderMystery.Api.csproj",
       "warningLevel": 1,
-      "filePath": "D:\\Test licenta 1 - Copy\\MurderMysteryCreator\\MurderMystery.Api\\MurderMystery.Api.csproj",
+      "filePath": "D:\\Github\\Licenta\\MurderMysteryCreator\\MurderMystery.Api\\MurderMystery.Api.csproj",
       "libraryId": "Anthropic.SDK",
       "targetGraphs": [
         "net8.0"

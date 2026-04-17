@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Test licenta 1 - Copy\\MurderMysteryCreator\\MurderMystery.Api\\MurderMystery.Api.csproj": {}
+    "D:\\Github\\Licenta\\MurderMysteryCreator\\MurderMystery.Api\\MurderMystery.Api.csproj": {}
   },
   "projects": {
-    "D:\\Test licenta 1 - Copy\\MurderMysteryCreator\\MurderMystery.Api\\MurderMystery.Api.csproj": {
+    "D:\\Github\\Licenta\\MurderMysteryCreator\\MurderMystery.Api\\MurderMystery.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Test licenta 1 - Copy\\MurderMysteryCreator\\MurderMystery.Api\\MurderMystery.Api.csproj",
+        "projectUniqueName": "D:\\Github\\Licenta\\MurderMysteryCreator\\MurderMystery.Api\\MurderMystery.Api.csproj",
         "projectName": "MurderMystery.Api",
-        "projectPath": "D:\\Test licenta 1 - Copy\\MurderMysteryCreator\\MurderMystery.Api\\MurderMystery.Api.csproj",
+        "projectPath": "D:\\Github\\Licenta\\MurderMysteryCreator\\MurderMystery.Api\\MurderMystery.Api.csproj",
         "packagesPath": "C:\\Users\\Stefan\\.nuget\\packages\\",
-        "outputPath": "D:\\Test licenta 1 - Copy\\MurderMysteryCreator\\MurderMystery.Api\\obj\\",
+        "outputPath": "D:\\Github\\Licenta\\MurderMysteryCreator\\MurderMystery.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -132,8 +132,12 @@ public class GeneratedPhoneApp
 public class GeneratedCall
 {
     public string Contact { get; set; } = string.Empty;
-    public string Time { get; set; } = string.Empty;
+    public string Date { get; set; } = string.Empty;       // e.g. "18.03.2026"
+    public string Time { get; set; } = string.Empty;       // e.g. "21:00"
     public string Duration { get; set; } = string.Empty;
     public bool IsIncoming { get; set; }
     public bool Answered { get; set; }
+    public string AudioUrl { get; set; } = string.Empty;   // upload-required:// placeholder or data URL
+    public string AudioFileName { get; set; } = string.Empty; // e.g. "Santaj_Mirela.mp3"
+    public string Type { get; set; } = string.Empty;       // "Primit" | "Efectuat" | "Pierdut"
 }

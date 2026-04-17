@@ -1,4 +1,6 @@
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MurderMystery.Api.Models;
 
 namespace MurderMystery.Api.Data;
@@ -24,6 +26,14 @@ public class MurderMysteryDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        // For non-Npgsql providers (e.g. test InMemory/SQLite), JsonDocument needs a converter.
+        // Npgsql supports JsonDocument natively via jsonb.
+        bool isNpgsql = Database.ProviderName?.Contains("Npgsql", StringComparison.OrdinalIgnoreCase) == true;
+        var jsonOptions = default(JsonDocumentOptions);
+        var jsonDocumentToString = new ValueConverter<JsonDocument, string>(
+            v => v.RootElement.GetRawText(),
+            v => JsonDocument.Parse(string.IsNullOrWhiteSpace(v) ? "{}" : v, jsonOptions));
         
         // User configuration
         modelBuilder.Entity<User>(entity =>
@@ -69,9 +79,11 @@ public class MurderMysteryDbContext : DbContext
                 .OnDelete(DeleteBehavior.Cascade);
             entity.Property(e => e.Type).HasMaxLength(50).IsRequired();
             entity.Property(e => e.Title).HasMaxLength(200).IsRequired();
-            entity.Property(e => e.Content)
-                .HasColumnType("jsonb")
-                .IsRequired();
+            var p = entity.Property(e => e.Content).IsRequired();
+            if (isNpgsql)
+                p.HasColumnType("jsonb");
+            else
+                p.HasConversion(jsonDocumentToString);
         });
         
         // DigitalDevice configuration
@@ -97,9 +109,11 @@ public class MurderMysteryDbContext : DbContext
                 .HasForeignKey(e => e.DeviceId)
                 .OnDelete(DeleteBehavior.Cascade);
             entity.Property(e => e.AppType).HasMaxLength(50).IsRequired();
-            entity.Property(e => e.AppData)
-                .HasColumnType("jsonb")
-                .IsRequired();
+            var p = entity.Property(e => e.AppData).IsRequired();
+            if (isNpgsql)
+                p.HasColumnType("jsonb");
+            else
+                p.HasConversion(jsonDocumentToString);
         });
         
         // AIValidationResult configuration
@@ -111,9 +125,11 @@ public class MurderMysteryDbContext : DbContext
                 .HasForeignKey(e => e.GameId)
                 .OnDelete(DeleteBehavior.Cascade);
             entity.Property(e => e.ConsistencyScore).HasPrecision(5, 2);
-            entity.Property(e => e.Issues)
-                .HasColumnType("jsonb")
-                .IsRequired();
+            var p = entity.Property(e => e.Issues).IsRequired();
+            if (isNpgsql)
+                p.HasColumnType("jsonb");
+            else
+                p.HasConversion(jsonDocumentToString);
         });
     }
 }

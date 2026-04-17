@@ -126,3 +126,6 @@ app.MapControllers();
 
 app.Run();
 
+// Needed for integration tests (WebApplicationFactory)
+public partial class Program { }
+

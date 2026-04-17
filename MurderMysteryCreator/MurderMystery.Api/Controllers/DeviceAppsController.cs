@@ -188,15 +188,42 @@ public class DeviceAppsController : ControllerBase
 
     private static DeviceAppDto MapToDto(DeviceApp app)
     {
+        static JsonNode? CamelizeNode(JsonNode? node)
+        {
+            if (node == null) return null;
+            if (node is JsonArray arr)
+            {
+                var outArr = new JsonArray();
+                foreach (var item in arr)
+                    outArr.Add(CamelizeNode(item));
+                return outArr;
+            }
+            if (node is JsonObject obj)
+            {
+                var outObj = new JsonObject();
+                foreach (var kv in obj)
+                {
+                    var key = kv.Key ?? "";
+                    var camelKey = JsonNamingPolicy.CamelCase.ConvertName(key);
+                    outObj[camelKey] = CamelizeNode(kv.Value);
+                }
+                return outObj;
+            }
+            return node;
+        }
+
         object appData = new { };
+        var raw = app.AppData.RootElement.GetRawText();
         try
         {
-            var raw = app.AppData.RootElement.GetRawText();
             var node = JsonNode.Parse(raw);
-            var camelJson = JsonSerializer.Serialize(node, CamelOptions);
-            appData = JsonSerializer.Deserialize<object>(camelJson) ?? appData;
+            var camel = CamelizeNode(node);
+            appData = JsonSerializer.Deserialize<object>(camel?.ToJsonString() ?? raw) ?? appData;
         }
-        catch { /* keep empty */ }
+        catch
+        {
+            try { appData = JsonSerializer.Deserialize<object>(raw) ?? appData; } catch { /* keep empty */ }
+        }
 
         return new DeviceAppDto
         {

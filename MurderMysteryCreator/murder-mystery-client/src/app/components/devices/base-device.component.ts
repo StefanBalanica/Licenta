@@ -142,7 +142,7 @@ export abstract class BaseDeviceComponent implements OnInit, OnDestroy {
                     } else if (app.appType === 'Files') {
                         const incoming = this.normalizeFiles(data.items ?? data.Items ?? []);
                         this.files = [...this.files, ...incoming];
-                    } else if (app.appType === 'Phone') {
+                    } else if (app.appType === 'Phone' || app.appType === 'Calls') {
                         const incoming = this.normalizeCalls(data.calls ?? data.Calls ?? []);
                         this.calls = [...this.calls, ...incoming];
                     }
@@ -287,7 +287,7 @@ export abstract class BaseDeviceComponent implements OnInit, OnDestroy {
                         const list = data.items ?? data.Items ?? [];
                         const incoming = this.normalizeFiles(list);
                         this.files = [...this.files, ...incoming];
-                    } else if (app.appType === 'Phone') {
+                    } else if (app.appType === 'Phone' || app.appType === 'Calls') {
                         const list = data.calls ?? data.Calls ?? [];
                         const incoming = this.normalizeCalls(list);
                         this.calls = [...this.calls, ...incoming];
@@ -388,13 +388,24 @@ export abstract class BaseDeviceComponent implements OnInit, OnDestroy {
     }
 
     protected normalizeCalls(list: any[]): CallLog[] {
-        return (list || []).map((c: any) => ({
-            contact: c.contact ?? c.Contact ?? c.number ?? c.Number ?? 'Unknown',
-            time: c.time ?? c.Time ?? '',
-            duration: c.duration ?? c.Duration ?? '0 min',
-            isIncoming: c.isIncoming ?? c.IsIncoming ?? true,
-            answered: c.answered ?? c.Answered ?? false
-        }));
+        return (list || []).map((c: any) => {
+            const type = c.type ?? c.Type ?? '';
+            const isIncoming = (type === 'Primit' || c.isIncoming) ?? c.IsIncoming ?? true;
+            const answered = type !== 'Pierdut' && (c.answered ?? c.Answered ?? type !== 'Pierdut');
+            const audioUrl = c.audioUrl ?? c.AudioUrl ?? '';
+            return {
+                contact: c.contact ?? c.Contact ?? c.number ?? c.Number ?? 'Unknown',
+                time: c.time ?? c.Time ?? '',
+                date: c.date ?? c.Date ?? '',
+                duration: c.duration ?? c.Duration ?? '0 min',
+                type: type || (isIncoming ? 'Primit' : 'Efectuat'),
+                isIncoming,
+                answered,
+                // Only store audioUrl if it's a real data URL (not placeholder)
+                audioUrl: (audioUrl && !audioUrl.startsWith('upload-required://')) ? audioUrl : '',
+                audioFileName: c.audioFileName ?? c.AudioFileName ?? ''
+            };
+        });
     }
 
     loadDemoData() {
@@ -764,14 +775,42 @@ export abstract class BaseDeviceComponent implements OnInit, OnDestroy {
     }
 
     // ── Phone Call Simulator ──────────────────────────────────────────────────
+
+    /** Returns calls sorted by date + time descending (newest first) */
+    get sortedCalls(): CallLog[] {
+        return [...this.calls].sort((a, b) => {
+            const ts = (c: CallLog) => {
+                // Parse "DD.MM.YYYY" date and "HH:MM" time into a timestamp
+                const [day, month, year] = (c.date ?? '').split('.').map(Number);
+                const [h, m] = (c.time ?? '').split(':').map(Number);
+                if (year && month && day) {
+                    return new Date(year, month - 1, day, h || 0, m || 0).getTime();
+                }
+                // Fallback: treat time string as-is for ordering
+                return 0;
+            };
+            return ts(b) - ts(a);
+        });
+    }
+
+    /** Returns a human-readable date label for grouping (e.g. "21.10.2007") */
+    getCallDateLabel(call: CallLog): string {
+        return call.date || call.time || '—';
+    }
+
     initiateCall(call: CallLog) {
         if (!call) return;
         this.activeCall = call;
         this.callSeconds = 0;
         this.callDuration = '00:00';
 
-        // Play the pre-recorded audio
-        this.audioObj.src = 'assets/audio/placeholder.mp3';
+        // Play the pre-recorded audio attached to this call
+        if (call.audioUrl) {
+            this.audioObj.src = call.audioUrl;
+        } else {
+            // No audio for this call — just keep the overlay open without sound
+            this.audioObj.src = '';
+        }
         this.audioObj.load();
         this.audioObj.play().catch(e => console.log('Audio playback prevented by browser policy (needs user interaction).', e));
 

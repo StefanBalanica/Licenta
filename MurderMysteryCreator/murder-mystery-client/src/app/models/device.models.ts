@@ -45,9 +45,13 @@ export interface FileItem {
 export interface CallLog {
     contact: string;     // name or phone number
     time: string;        // when the call was made
+    date?: string;       // date string e.g. "21.10.2007"
     duration: string;    // e.g. "2 min", "0 min"
+    type?: string;       // "Primit" | "Efectuat" | "Pierdut"
     isIncoming: boolean; // true = owner received the call
     answered: boolean;   // was the call answered
+    audioUrl?: string;   // base64 data URL or upload-required:// placeholder
+    audioFileName?: string; // original filename e.g. "Sorina.MP3"
 }
 
 export type DeviceType = 'iPhone' | 'Android' | 'Laptop';
