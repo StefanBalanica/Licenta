@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { BaseDeviceComponent } from '../base-device.component';
 import { DeviceService } from '../../../services/device.service';
@@ -15,9 +15,10 @@ import { FileItem } from '../../../models/device.models';
 export class LaptopDeviceComponent extends BaseDeviceComponent implements OnInit, OnDestroy {
     constructor(
         protected override route: ActivatedRoute,
-        protected override deviceService: DeviceService
+        protected override deviceService: DeviceService,
+        protected override location: Location
     ) {
-        super(route, deviceService);
+        super(route, deviceService, location);
     }
 
     // ── Live clock ──────────────────────────────────────────────────────────

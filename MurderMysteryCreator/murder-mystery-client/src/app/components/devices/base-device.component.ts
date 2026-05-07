@@ -1,4 +1,5 @@
 import { Directive, OnInit, OnDestroy } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DeviceService } from '../../services/device.service';
@@ -59,7 +60,8 @@ export abstract class BaseDeviceComponent implements OnInit, OnDestroy {
 
     constructor(
         protected route: ActivatedRoute,
-        protected deviceService: DeviceService
+        protected deviceService: DeviceService,
+        protected location: Location
     ) { }
 
     ngOnInit() {
@@ -192,6 +194,9 @@ export abstract class BaseDeviceComponent implements OnInit, OnDestroy {
         this.deviceService.getDeviceBySlug(this.gameId, parsed.deviceType, parsed.ownerName).subscribe({
             next: (device) => {
                 this.deviceId = device.deviceId;
+                // Update the browser address bar to show the clean /:deviceSlug URL
+                // without triggering any route change or affecting functionality.
+                this.location.replaceState('/' + slugOrId);
                 this.loadDeviceData();
             },
             error: (error) => {

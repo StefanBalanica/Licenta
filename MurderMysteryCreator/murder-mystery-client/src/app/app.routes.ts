@@ -5,22 +5,27 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { GameBuilderComponent } from './components/game-builder/game-builder.component';
 import { GameDetailsComponent } from './components/game-details/game-details.component';
 import { authGuard } from './guards/auth.guard';
+import { deviceIsolationGuard } from './guards/device-isolation.guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
-    { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
-    { path: 'games/new', component: GameBuilderComponent, canActivate: [authGuard] },
-    { path: 'games/:id/edit', component: GameBuilderComponent, canActivate: [authGuard] },
-    { path: 'games/:id', component: GameDetailsComponent, canActivate: [authGuard] },
+    // Login & Register: blocked for device-only sessions (player has no credentials anyway,
+    // but prevents the session from leaking into the auth flow).
+    { path: 'login', component: LoginComponent, canActivate: [deviceIsolationGuard] },
+    { path: 'register', component: RegisterComponent, canActivate: [deviceIsolationGuard] },
+    // Creator routes: protected by both authGuard (must be logged in)
+    // and deviceIsolationGuard (blocks device-only sessions).
+    { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard, deviceIsolationGuard] },
+    { path: 'games/new', component: GameBuilderComponent, canActivate: [authGuard, deviceIsolationGuard] },
+    { path: 'games/:id/edit', component: GameBuilderComponent, canActivate: [authGuard, deviceIsolationGuard] },
+    { path: 'games/:id', component: GameDetailsComponent, canActivate: [authGuard, deviceIsolationGuard] },
     {
         path: 'games/:gameId/devices/:deviceSlug/simulator',
         loadComponent: () => import('./components/devices/device-router.component')
             .then(m => m.DeviceRouterComponent),
-        canActivate: [authGuard]
+        canActivate: [authGuard, deviceIsolationGuard]
     },
-    // Public device page — accessed via QR code, no auth required
+    // Public device page — accessed via QR code, no auth required.
     // URL format: /:deviceSlug e.g. /iphone-elodia
     {
         path: ':deviceSlug',

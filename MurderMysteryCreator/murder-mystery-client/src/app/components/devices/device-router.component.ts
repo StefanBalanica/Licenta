@@ -115,6 +115,10 @@ export class DeviceRouterComponent implements OnInit, OnDestroy {
     // ── Public route loader ────────────────────────────────────────────────
 
     private loadPublicDevice(slug: string) {
+        // Mark this tab as a device-only session.
+        // The deviceIsolationGuard reads this flag to block navigation to other pages.
+        sessionStorage.setItem('device_only_slug', slug);
+
         this.deviceService.getDeviceByPublicSlug(slug).subscribe({
             next: (device) => {
                 this.gameId = device.gameId;
