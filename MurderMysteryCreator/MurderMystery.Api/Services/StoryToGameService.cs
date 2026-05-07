@@ -362,40 +362,106 @@ public class StoryToGameService : IStoryToGameService
 
     private async Task<(string? text, bool quotaOrRateLimit)> CallGroqAsync(string prompt, CancellationToken ct)
     {
-        var apiKey = GetNextApiKey();
+        // Retry on rate-limit (TPM) to smooth out bursts.
+        // Default: max 4 attempts with small backoff; respects "Please try again in Xs" when present.
+        var maxAttempts = Math.Clamp(_configuration.GetValue<int?>("GroqSettings:MaxRetryAttempts") ?? 4, 1, 8);
+        var baseDelayMs = Math.Clamp(_configuration.GetValue<int?>("GroqSettings:RetryBaseDelayMs") ?? 700, 200, 5000);
+
+        // Keep max_tokens conservative to avoid TPM spikes.
+        var maxTokens = Math.Clamp(_configuration.GetValue<int?>("GroqSettings:MaxTokens") ?? 2600, 800, 5000);
+
         var model = _configuration["GroqSettings:Model"] ?? DefaultGroqModel;
-        using var request = new HttpRequestMessage(HttpMethod.Post, "https://api.groq.com/openai/v1/chat/completions");
-        request.Headers.Add("Authorization", "Bearer " + apiKey);
 
-        var body = new
+        for (var attempt = 1; attempt <= maxAttempts; attempt++)
         {
-            model,
-            messages = new[] { new { role = "user", content = prompt } },
-            temperature = 0.4,
-            max_tokens = 5000,
-            response_format = new { type = "json_object" }
-        };
-        request.Content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
+            var apiKey = GetNextApiKey();
+            // First try JSON mode; if Groq returns "failed_generation", fallback to non-JSON-mode and extract JSON ourselves.
+            var useJsonMode = true;
+            for (var modeTry = 0; modeTry < 2; modeTry++)
+            {
+                using var request = new HttpRequestMessage(HttpMethod.Post, "https://api.groq.com/openai/v1/chat/completions");
+                request.Headers.Add("Authorization", "Bearer " + apiKey);
 
-        var response = await _httpClient.SendAsync(request, ct);
-        var responseJson = await response.Content.ReadAsStringAsync(ct);
+                object body = useJsonMode
+                    ? new
+                    {
+                        model,
+                        messages = new[] { new { role = "user", content = prompt } },
+                        temperature = 0.35,
+                        max_tokens = maxTokens,
+                        response_format = new { type = "json_object" }
+                    }
+                    : new
+                    {
+                        model,
+                        messages = new[] { new { role = "user", content = prompt + "\n\nCRITICAL: Output ONLY raw JSON. Do not use markdown fences." } },
+                        temperature = 0.2,
+                        max_tokens = Math.Min(maxTokens, 2200)
+                    };
 
-        if (!response.IsSuccessStatusCode)
-        {
-            var errMsg = GetErrorMessage(responseJson, (int)response.StatusCode, response.ReasonPhrase ?? "");
-            _logger.LogWarning("Groq API error: {Msg}", errMsg);
-            throw new InvalidOperationException(errMsg);
+                request.Content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response;
+                string responseJson;
+                try
+                {
+                    response = await _httpClient.SendAsync(request, ct);
+                    responseJson = await response.Content.ReadAsStringAsync(ct);
+                }
+                catch (Exception ex) when (attempt < maxAttempts)
+                {
+                    _logger.LogWarning(ex, "Groq call failed (attempt {Attempt}/{Max}). Retrying...", attempt, maxAttempts);
+                    await Task.Delay(baseDelayMs * attempt, ct);
+                    goto NextAttempt;
+                }
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errMsg = GetErrorMessage(responseJson, (int)response.StatusCode, response.ReasonPhrase ?? "");
+
+                    // Groq JSON mode sometimes fails with failed_generation. Fallback once without json mode.
+                    if (useJsonMode && (errMsg.Contains("failed_generation", StringComparison.OrdinalIgnoreCase) ||
+                                        errMsg.Contains("Failed to generate JSON", StringComparison.OrdinalIgnoreCase)))
+                    {
+                        _logger.LogWarning("Groq JSON-mode failed_generation. Falling back to non-JSON mode. Msg: {Msg}", errMsg);
+                        useJsonMode = false;
+                        continue; // retry same attempt with non-json mode
+                    }
+
+                    // Handle TPM / rate-limit: wait and retry.
+                    if ((int)response.StatusCode == 429 || errMsg.Contains("Rate limit", StringComparison.OrdinalIgnoreCase) || errMsg.Contains("TPM", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var waitMs = TryParseRetryAfterMs(errMsg) ?? (baseDelayMs * attempt);
+                        if (attempt < maxAttempts)
+                        {
+                            _logger.LogWarning("Groq rate-limited (attempt {Attempt}/{Max}). Waiting {WaitMs}ms. Msg: {Msg}",
+                                attempt, maxAttempts, waitMs, errMsg);
+                            await Task.Delay(waitMs, ct);
+                            goto NextAttempt;
+                        }
+                    }
+
+                    _logger.LogWarning("Groq API error: {Msg}", errMsg);
+                    throw new InvalidOperationException(errMsg);
+                }
+
+                var doc = JsonDocument.Parse(responseJson);
+                string? text = null;
+                if (doc.RootElement.TryGetProperty("choices", out var choices) && choices.GetArrayLength() > 0)
+                {
+                    var first = choices[0];
+                    if (first.TryGetProperty("message", out var msg) && msg.TryGetProperty("content", out var content))
+                        text = content.GetString();
+                }
+                return (text, false);
+            }
+
+        NextAttempt:
+            ;
         }
 
-        var doc = JsonDocument.Parse(responseJson);
-        string? text = null;
-        if (doc.RootElement.TryGetProperty("choices", out var choices) && choices.GetArrayLength() > 0)
-        {
-            var first = choices[0];
-            if (first.TryGetProperty("message", out var msg) && msg.TryGetProperty("content", out var content))
-                text = content.GetString();
-        }
-        return (text, false);
+        // Should never reach here due to throw/return; keep compiler happy.
+        return (null, true);
     }
 
     private static string GetErrorMessage(string responseJson, int statusCode, string reasonPhrase)
@@ -406,13 +472,36 @@ public class StoryToGameService : IStoryToGameService
             if (doc.RootElement.TryGetProperty("error", out var err))
             {
                 if (err.TryGetProperty("message", out var msg))
-                    return msg.GetString() ?? $"{statusCode} {reasonPhrase}";
+                {
+                    var baseMsg = msg.GetString() ?? $"{statusCode} {reasonPhrase}";
+                    // Include failed_generation details if present (Groq JSON mode)
+                    if (err.TryGetProperty("failed_generation", out var fg) && fg.ValueKind == JsonValueKind.String)
+                        return $"{baseMsg} | failed_generation: {fg.GetString()}";
+                    return baseMsg;
+                }
                 if (err.TryGetProperty("error", out var nested))
                     return nested.GetProperty("message").GetString() ?? $"{statusCode} {reasonPhrase}";
             }
         }
         catch { }
         return $"{statusCode} {reasonPhrase}";
+    }
+
+    /// <summary>
+    /// Extract retry delay from Groq error messages like:
+    /// "Please try again in 1.615s."
+    /// Returns milliseconds (with a small safety buffer) or null if not found.
+    /// </summary>
+    private static int? TryParseRetryAfterMs(string message)
+    {
+        if (string.IsNullOrWhiteSpace(message)) return null;
+        var m = Regex.Match(message, @"try again in\s+(?<sec>\d+(?:\.\d+)?)s", RegexOptions.IgnoreCase);
+        if (!m.Success) return null;
+        if (!double.TryParse(m.Groups["sec"].Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var sec))
+            return null;
+        // +250ms buffer to avoid immediate re-limit
+        var ms = (int)Math.Ceiling(sec * 1000.0) + 250;
+        return Math.Clamp(ms, 200, 30_000);
     }
 
     private static string BuildMetadataPrompt(string story)

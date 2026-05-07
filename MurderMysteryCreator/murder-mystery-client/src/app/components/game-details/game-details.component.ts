@@ -354,6 +354,7 @@ interface UploadTarget {
               <button [class.active]="activeAppTab === 'photos'" (click)="activeAppTab = 'photos'" class="app-tab-btn">📷 Photos</button>
               <button [class.active]="activeAppTab === 'email'" (click)="activeAppTab = 'email'" class="app-tab-btn">✉️ Email</button>
               <button [class.active]="activeAppTab === 'notes'" (click)="activeAppTab = 'notes'" class="app-tab-btn">📝 Notes</button>
+              <button [class.active]="activeAppTab === 'files'" (click)="activeAppTab = 'files'" class="app-tab-btn">📁 Files</button>
               <button [class.active]="activeAppTab === 'calls'" (click)="activeAppTab = 'calls'" class="app-tab-btn">📞 Apeluri</button>
             </div>
 
@@ -437,6 +438,68 @@ interface UploadTarget {
                   <hr>
                 </div>
                 <button class="btn-primary" (click)="addNote()">+ Add Note</button>
+              </div>
+              <!-- Files -->
+              <div *ngIf="activeAppTab === 'files'" class="app-config-content">
+                <h4>Files App</h4>
+                <div *ngFor="let file of filesData; let i = index" class="note-item">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>File Name</label>
+                      <input [(ngModel)]="file.name" placeholder="Raport_autopsie.docx">
+                    </div>
+                    <div class="form-group">
+                      <label>Type</label>
+                      <select [(ngModel)]="file.type">
+                        <option value="Document">Document</option>
+                        <option value="Encrypted">Encrypted</option>
+                        <option value="Folder">Folder</option>
+                        <option value="Image">Image</option>
+                        <option value="Screenshot">Screenshot</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Format</label>
+                      <select [(ngModel)]="file.fileFormat">
+                        <option value="">Auto</option>
+                        <option value="docx">DOCX</option>
+                        <option value="pdf">PDF</option>
+                        <option value="xlsx">XLSX</option>
+                        <option value="txt">TXT</option>
+                        <option value="csv">CSV</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Size</label>
+                      <input [(ngModel)]="file.size" placeholder="128 KB">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Modified At</label>
+                      <input [(ngModel)]="file.modifiedAt" placeholder="18.04.2026 09:42">
+                    </div>
+                    <div class="form-group">
+                      <label>Description</label>
+                      <input [(ngModel)]="file.description" placeholder="Scurt context pentru fișier">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Content (DOCX/PDF/TXT)</label>
+                    <textarea [(ngModel)]="file.content" rows="3" placeholder="Conținut preview pentru document..."></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label>Spreadsheet Rows (JSON pentru XLSX/CSV)</label>
+                    <textarea [(ngModel)]="file.rowsJson" rows="3" placeholder='[{"ColoanaA":"Valoare","Suma":120}]'></textarea>
+                  </div>
+                  <div class="form-row">
+                    <button class="btn-icon" (click)="removeFile(i)" style="margin-top:4px">🗑️</button>
+                  </div>
+                  <hr>
+                </div>
+                <button class="btn-primary" (click)="addFile()">+ Add File</button>
               </div>
               <!-- Calls -->
               <div *ngIf="activeAppTab === 'calls'" class="app-config-content">
@@ -787,6 +850,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   photosData: any[] = [];
   emailsData: any[] = [];
   notesData: any[] = [];
+  filesData: any[] = [];
   callsData: any[] = [];
   deviceUploadRequirements: { [deviceId: number]: string[] } = {};
   deviceUploadTargets: { [deviceId: number]: UploadTarget[] } = {};
@@ -1312,6 +1376,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.photosData = [];
     this.emailsData = [];
     this.notesData = [];
+    this.filesData = [];
     this.callsData = [];
 
     this.deviceService.getDeviceApps(this.gameId, deviceId).subscribe({
@@ -1345,6 +1410,21 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
           } else if (app.appType === 'Notes') {
             const list = app.appData?.notes ?? app.appData?.Notes ?? [];
             this.notesData = list.map((n: any) => ({ title: n.title ?? n.Title ?? '', content: n.content ?? n.Content ?? '', time: n.time ?? n.Time ?? '' }));
+          } else if (app.appType === 'Files') {
+            const list = app.appData?.items ?? app.appData?.Items ?? [];
+            this.filesData = list.map((f: any) => {
+              const rows = f.rows ?? f.Rows ?? [];
+              return {
+                name: f.name ?? f.Name ?? '',
+                type: f.type ?? f.Type ?? 'Document',
+                description: f.description ?? f.Description ?? '',
+                fileFormat: f.fileFormat ?? f.FileFormat ?? '',
+                modifiedAt: f.modifiedAt ?? f.ModifiedAt ?? '',
+                size: f.size ?? f.Size ?? '',
+                content: f.content ?? f.Content ?? '',
+                rowsJson: rows && rows.length ? JSON.stringify(rows, null, 2) : ''
+              };
+            });
           } else if (app.appType === 'Calls' || app.appType === 'Phone') {
             const list = app.appData?.calls ?? app.appData?.Calls ?? [];
             this.callsData = list.map((c: any) => ({
@@ -1364,6 +1444,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.photosData = [];
         this.emailsData = [];
         this.notesData = [];
+        this.filesData = [];
         this.callsData = [];
       }
     });
@@ -1422,6 +1503,24 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   removeNote(index: number) {
     this.notesData.splice(index, 1);
+  }
+
+  // Files methods
+  addFile() {
+    this.filesData.push({
+      name: '',
+      type: 'Document',
+      description: '',
+      fileFormat: '',
+      modifiedAt: '',
+      size: '',
+      content: '',
+      rowsJson: ''
+    });
+  }
+
+  removeFile(index: number) {
+    this.filesData.splice(index, 1);
   }
 
   // Calls methods
@@ -1513,6 +1612,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.photosData = [];
     this.emailsData = [];
     this.notesData = [];
+    this.filesData = [];
     this.callsData = [];
   }
 
@@ -1538,6 +1638,30 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     if (this.notesData.length > 0) {
       this.deviceService.createDeviceApp(this.gameId, deviceId, { appType: 'Notes', appData: { notes: this.notesData } }).subscribe({ next: () => console.log('Notes saved'), error: (e) => console.error(e) });
+    }
+    if (this.filesData.length > 0) {
+      const items = this.filesData.map(f => {
+        let rows: any[] = [];
+        if (f.rowsJson && String(f.rowsJson).trim()) {
+          try {
+            const parsed = JSON.parse(f.rowsJson);
+            rows = Array.isArray(parsed) ? parsed : [];
+          } catch {
+            rows = [];
+          }
+        }
+        return {
+          name: f.name,
+          type: f.type,
+          description: f.description,
+          fileFormat: f.fileFormat,
+          modifiedAt: f.modifiedAt,
+          size: f.size,
+          content: f.content,
+          rows
+        };
+      });
+      this.deviceService.createDeviceApp(this.gameId, deviceId, { appType: 'Files', appData: { items } }).subscribe({ next: () => console.log('Files saved'), error: (e) => console.error(e) });
     }
     if (this.callsData.length > 0) {
       this.deviceService.createDeviceApp(this.gameId, deviceId, { appType: 'Calls', appData: { calls: this.callsData } }).subscribe({ next: () => console.log('Calls saved'), error: (e) => console.error(e) });

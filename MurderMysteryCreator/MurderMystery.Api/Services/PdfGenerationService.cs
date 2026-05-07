@@ -20,147 +20,200 @@ public class PdfGenerationService
         string role,
         byte[]? profileImage)
     {
+        var caseRef = BuildCaseReference(fullName);
+        var today = DateTime.UtcNow;
+
+        var storyText = ValueOrFallback(backstory, ValueOrFallback(description, string.Empty));
+        var statementText = ValueOrFallback(description, string.Empty);
+        var alibiText = ValueOrFallback(alibi, string.Empty);
+        var noteText = ValueOrFallback(motive, string.Empty);
+        var relationText = ValueOrFallback(relationToVictim, string.Empty);
+        var occupationText = ValueOrFallback(occupation, string.Empty);
+        var phoneText = string.Empty;
+
         return Document.Create(container =>
         {
             container.Page(page =>
             {
                 page.Size(PageSizes.A4);
-                page.Margin(1.15f, Unit.Centimetre);
-                page.PageColor("#efe2c6");
-                page.DefaultTextStyle(x => x.FontSize(11).FontFamily(Fonts.TimesNewRoman).FontColor("#2d2015"));
+                page.Margin(1.0f, Unit.Centimetre);
+                page.PageColor("#f2f0ea"); // desk/background, not the paper itself
+                page.DefaultTextStyle(x => x.FontSize(10.3f).FontFamily(Fonts.Georgia).FontColor("#111111"));
 
-                page.Background().Padding(8).Border(1).BorderColor("#8a6d4a");
-
-                page.Content().Column(column =>
+                page.Content()
+                    .Padding(10)
+                    .Element(paper =>
+                    {
+                        paper
+                            .Background("#fbfaf6") // paper
+                            .Border(1)
+                            .BorderColor("#dedad0")
+                            .Padding(18)
+                            .Column(column =>
                 {
-                    column.Spacing(10);
+                    column.Spacing(12);
 
+                    // Top bar (like the screenshot)
                     column.Item().Row(row =>
                     {
-                        row.ConstantItem(92).Height(92).Border(2).BorderColor("#6e5639").Background("#1f3550").AlignCenter().AlignMiddle().Column(seal =>
+                        row.RelativeItem().Row(left =>
                         {
-                            seal.Item().Text("SERVICIUL").FontSize(8).FontColor(Colors.White);
-                            seal.Item().Text("INVESTIGAȚII").FontSize(8).Bold().FontColor("#e9d08f");
-                            seal.Item().Text("CRIMINALE").FontSize(8).Bold().FontColor("#e9d08f");
-                            seal.Item().PaddingTop(4).Text("DIVIZIA").FontSize(7).FontColor(Colors.White);
-                            seal.Item().Text("DOSARE").FontSize(7).FontColor(Colors.White);
-                        });
-
-                        row.RelativeItem().PaddingLeft(14).Column(head =>
-                        {
-                            head.Item().Text("DOSAR SUSPECT")
-                                .FontSize(29).Bold().FontColor("#3a2416");
-                            head.Item().Text($"FIȘĂ PROFIL - {role?.ToUpperInvariant() ?? "SUSPECT"}")
-                                .FontSize(17).SemiBold().FontColor("#4b3422");
-                            head.Item().PaddingTop(4).Text($"Referință: {BuildCaseReference(fullName)}")
-                                .FontSize(11).Italic().FontColor("#6d543d");
-                        });
-                    });
-
-                    column.Item().Row(row =>
-                    {
-                        row.ConstantItem(185).Column(left =>
-                        {
-                            left.Item().Border(3).BorderColor("#70563b").Padding(10).Background("#f7efe2").Height(230).AlignCenter().AlignMiddle().Element(el =>
+                            left.ConstantItem(28).Height(28)
+                                .Border(1).BorderColor("#cfcabf")
+                                .Background("#ffffff")
+                                .AlignCenter().AlignMiddle()
+                                .Text("D").FontSize(12).Bold().FontColor("#1a1a1a");
+                            left.RelativeItem().PaddingLeft(10).Column(t =>
                             {
-                                if (profileImage is { Length: > 0 })
-                                    el.Image(profileImage).FitArea();
-                                else
-                                    el.Text("POZĂ\nLIPSĂ").AlignCenter().FontSize(20).Bold().FontColor("#70563b");
-                            });
-
-                            left.Item().Border(1).BorderColor("#70563b").Background("#b6975f").PaddingVertical(5).PaddingHorizontal(8).AlignCenter().Text(text =>
-                            {
-                                text.Span("SUSPECT: ").Bold().FontColor(Colors.White);
-                                text.Span(fullName.ToUpperInvariant()).Bold().FontColor(Colors.White);
+                                t.Item().Text("UNITATEA DE ANCHETĂ")
+                                    .FontSize(8.2f).FontColor("#6f6a60").LetterSpacing(0.4f);
+                                t.Item().Text("DOSAR CRIMINAL")
+                                    .FontSize(14.5f).Bold().FontColor("#111111");
+                                t.Item().Text("EVIDENȚA PERSOANE IMPLICATE")
+                                    .FontSize(8.2f).FontColor("#6f6a60").LetterSpacing(0.35f);
                             });
                         });
 
-                        row.RelativeItem().PaddingLeft(12).Column(right =>
+                        row.ConstantItem(200).AlignRight().Column(right =>
                         {
-                            right.Spacing(8);
-                            right.Item().Element(c => RenderSection(c, "DETALII SUSPECT", details =>
-                            {
-                                details.Spacing(4);
-                                details.Item().Text(text =>
-                                {
-                                    text.Span("Nume: ").Bold();
-                                    text.Span(fullName);
-                                });
-                                details.Item().Text(text =>
-                                {
-                                    text.Span("Statut dosar: ").Bold();
-                                    text.Span("ACTIV");
-                                });
-                                details.Item().Text(text =>
-                                {
-                                    text.Span("Ocupație: ").Bold();
-                                    text.Span(ValueOrFallback(occupation, "Necunoscut"));
-                                });
-                                details.Item().Text(text =>
-                                {
-                                    text.Span("Relație cu victima: ").Bold();
-                                    text.Span(ValueOrFallback(relationToVictim, "Neconfirmat în brief"));
-                                });
-                            }));
-
-                            right.Item().Element(c => RenderSection(c, "REZUMAT PROFIL", summary =>
-                            {
-                                summary.Spacing(4);
-                                summary.Item().Text(text =>
-                                {
-                                    text.Span("1. ALIBI: ").Bold();
-                                    text.Span(string.IsNullOrWhiteSpace(alibi) ? "Neprecizat / neverificat" : alibi);
-                                });
-                                summary.Item().Text(text =>
-                                {
-                                    text.Span("Comentarii: ").Italic();
-                                    text.Span("Date extrase exclusiv din brief-ul inițial.");
-                                });
-                            }));
+                            right.Item().AlignRight().Text("FIȘĂ PERSOANĂ")
+                                .FontSize(8.8f).FontColor("#6f6a60").LetterSpacing(0.5f);
+                            right.Item().AlignRight().Text($"Dosar nr.: {caseRef}")
+                                .FontSize(8.5f).FontColor("#6f6a60");
+                            right.Item().AlignRight().Text($"Data: {today:dd.MM.yyyy}")
+                                .FontSize(8.5f).FontColor("#6f6a60");
                         });
                     });
 
-                    column.Item().Element(c => RenderSection(c, "2. MOTIVUL SUSPICIUNII", body =>
-                    {
-                        body.Item().Text(ValueOrFallback(motive, "Nu există un motiv explicit în brief."));
-                    }));
+                    column.Item().LineHorizontal(1).LineColor("#d8d4ca");
 
-                    column.Item().Element(c => RenderSection(c, "3. DESCRIEREA CARACTERULUI", body =>
+                    // Name + photo
+                    column.Item().Row(row =>
                     {
-                        body.Item().Text(ValueOrFallback(description, "Nu există o descriere explicită în brief."));
-                    }));
-
-                    column.Item().Element(c => RenderSection(c, "4. DATE DE FOND & CUNOAȘTERE", body =>
-                    {
-                        body.Item().Text(ValueOrFallback(backstory, "Nu există informații de fundal suplimentare în brief."));
-                    }));
-
-                    column.Item().Element(c => RenderSection(c, "NOTE SUPLIMENTARE DE ANCHETĂ", body =>
-                    {
-                        body.Item().Text("Fișă generată automat pe baza informațiilor furnizate în brief. Conținutul trebuie verificat de către anchetator.");
-                        body.Item().PaddingTop(6).Text("........................................................................................................................");
-                        body.Item().Text("........................................................................................................................");
-                    }));
-
-                    column.Item().PaddingTop(8).Row(row =>
-                    {
-                        row.RelativeItem().Text(text =>
+                        row.RelativeItem().PaddingTop(6).Column(left =>
                         {
-                            text.Span("Semnătura Inspectorului: ").Italic();
-                            text.Span("____________________________");
+                            left.Item().Text(fullName.ToUpperInvariant()).FontSize(28).Bold().FontColor("#111111");
+                            left.Item().PaddingTop(6).Width(42).LineHorizontal(3).LineColor("#2a2a2a");
                         });
-                        row.RelativeItem().AlignRight().Text(text =>
+
+                        row.ConstantItem(158).AlignRight()
+                            .Border(1).BorderColor("#d8d4ca")
+                            .Background("#ffffff")
+                            .Padding(7).Height(124)
+                            .AlignCenter().AlignMiddle()
+                            .Element(el =>
                         {
-                            text.Span("Data: ").Italic();
-                            text.Span(DateTime.UtcNow.ToString("dd MMM yyyy").ToUpperInvariant());
+                            if (profileImage is { Length: > 0 })
+                                el.Image(profileImage).FitArea();
+                            else
+                                el.Column(c =>
+                                {
+                                    c.Item().Text("FOTOGRAFIE").FontSize(8).FontColor("#6f6a60").LetterSpacing(3.0f);
+                                    c.Item().PaddingTop(6).Height(52).Width(52).Border(1).BorderColor("#e1ddd3").AlignCenter().AlignMiddle()
+                                        .Text(" ").FontSize(1);
+                                });
                         });
                     });
 
-                    column.Item().PaddingTop(8).LineHorizontal(1).LineColor("#8a6d4a");
-                    column.Item().AlignCenter().Text("DOCUMENT OFICIAL INTERN | DOSAR GENERAT PENTRU JOC INVESTIGATIV")
-                        .FontSize(9).SemiBold().FontColor("#5d4732");
+                    // Meta row (3 columns with dividers)
+                    column.Item()
+                        .Border(1).BorderColor("#d8d4ca")
+                        .Background("#ffffff")
+                        .PaddingVertical(10)
+                        .Row(row =>
+                    {
+                        row.RelativeItem().PaddingHorizontal(12).Column(c =>
+                        {
+                            c.Item().Text("RELAȚIE CU CAZUL").FontSize(8).FontColor("#6f6a60").LetterSpacing(0.5f);
+                            c.Item().PaddingTop(5).Text(string.IsNullOrWhiteSpace(relationText) ? "-" : relationText)
+                                .FontSize(10.2f).SemiBold().ClampLines(3);
+                        });
+
+                        row.ConstantItem(1).Background("#e1ddd3");
+
+                        row.RelativeItem().PaddingHorizontal(12).Column(c =>
+                        {
+                            c.Item().Text("OCUPAȚIE").FontSize(8).FontColor("#6f6a60").LetterSpacing(0.6f);
+                            c.Item().PaddingTop(5).Text(string.IsNullOrWhiteSpace(occupationText) ? "-" : occupationText)
+                                .FontSize(10.2f).SemiBold().ClampLines(3);
+                        });
+
+                        row.ConstantItem(1).Background("#e1ddd3");
+
+                        row.RelativeItem().PaddingHorizontal(12).Column(c =>
+                        {
+                            c.Item().Text("TELEFON").FontSize(8).FontColor("#6f6a60").LetterSpacing(0.6f);
+                            c.Item().PaddingTop(5).Text(string.IsNullOrWhiteSpace(phoneText) ? "-" : phoneText)
+                                .FontSize(10.2f).SemiBold().ClampLines(2);
+                        });
+                    });
+
+                    // POVESTE
+                    column.Item().PaddingTop(2).Column(sec =>
+                    {
+                        sec.Item().Text("POVESTE").FontSize(8).FontColor("#6f6a60").LetterSpacing(0.7f);
+                        sec.Item().PaddingTop(6).LineHorizontal(1).LineColor("#d8d4ca");
+                        sec.Item().PaddingTop(10).Text(string.IsNullOrWhiteSpace(storyText) ? "-" : storyText)
+                            .FontSize(10.6f).LineHeight(1.45f).ClampLines(12);
+
+                        if (!string.IsNullOrWhiteSpace(noteText))
+                        {
+                            sec.Item().PaddingTop(10).PaddingLeft(18).Text($"„{noteText.Trim()}”")
+                                .Italic().FontSize(10.6f).FontColor("#55514a").ClampLines(3);
+                        }
+                    });
+
+                    // DECLARAȚIE PROPRIE
+                    column.Item().PaddingTop(10).Column(sec =>
+                    {
+                        sec.Item().Text("DECLARAȚIE PROPRIE").FontSize(8).FontColor("#6f6a60").LetterSpacing(0.7f);
+                        sec.Item().PaddingTop(6).LineHorizontal(1).LineColor("#d8d4ca");
+                        sec.Item().PaddingTop(10).Border(1).BorderColor("#e1ddd3").Background("#f3f1ea").Padding(10)
+                            .Text(string.IsNullOrWhiteSpace(statementText) ? "„-”" : $"„{statementText.Trim()}”")
+                            .Italic().FontSize(10.3f).FontColor("#55514a").ClampLines(5);
+                    });
+
+                    // ALIBI
+                    column.Item().PaddingTop(10).Column(sec =>
+                    {
+                        sec.Item().Text("ALIBI").FontSize(8).FontColor("#6f6a60").LetterSpacing(0.7f);
+                        sec.Item().PaddingTop(6).LineHorizontal(1).LineColor("#d8d4ca");
+                        sec.Item().PaddingTop(10).Text(string.IsNullOrWhiteSpace(alibiText) ? "-" : alibiText)
+                            .FontSize(10.6f).LineHeight(1.4f).ClampLines(3);
+
+                        if (!string.IsNullOrWhiteSpace(motive))
+                        {
+                            sec.Item().PaddingTop(10).Border(1).BorderColor("#e1ddd3").Background("#f3f1ea").PaddingVertical(8).PaddingHorizontal(10)
+                                .Row(r =>
+                                {
+                                    r.ConstantItem(10).AlignMiddle().Text("•").FontSize(14).FontColor("#b49b3a");
+                                    r.RelativeItem().Text(noteText).FontSize(9.9f).FontColor("#55514a").ClampLines(3);
+                                });
+                        }
+                    });
+
+                    // Footer line + signatures
+                    column.Item().PaddingTop(14).LineHorizontal(1).LineColor("#d8d4ca");
+                    column.Item().PaddingTop(10).Row(row =>
+                    {
+                        row.RelativeItem().Column(c =>
+                        {
+                            c.Item().Text("SEMNĂTURĂ PERSOANĂ").FontSize(8).FontColor("#6f6a60").LetterSpacing(0.5f);
+                            c.Item().PaddingTop(18).LineHorizontal(1).LineColor("#d8d4ca");
+                        });
+                        row.RelativeItem().Column(c =>
+                        {
+                            c.Item().Text("DATA").FontSize(8).FontColor("#6f6a60").LetterSpacing(0.6f);
+                            c.Item().PaddingTop(18).LineHorizontal(1).LineColor("#d8d4ca");
+                        });
+                        row.RelativeItem().Column(c =>
+                        {
+                            c.Item().Text("SEMNĂTURĂ OFIȚER ANCHETĂ").FontSize(8).FontColor("#6f6a60").LetterSpacing(0.35f);
+                            c.Item().PaddingTop(18).LineHorizontal(1).LineColor("#d8d4ca");
+                        });
+                    });
                 });
+                    });
             });
         }).GeneratePdf();
     }
@@ -180,11 +233,98 @@ public class PdfGenerationService
 
     private static string BuildCaseReference(string fullName)
     {
-        var initials = string.Concat((fullName ?? string.Empty)
+        var safeName = fullName ?? string.Empty;
+        var initials = string.Concat(safeName
             .Split(' ', StringSplitOptions.RemoveEmptyEntries)
             .Take(2)
             .Select(part => char.ToUpperInvariant(part[0])));
-        return $"{initials}-{DateTime.UtcNow:yyyy}-{Math.Abs(fullName.GetHashCode()) % 1000:D3}";
+        return $"{initials}-{DateTime.UtcNow:yyyy}-{Math.Abs(safeName.GetHashCode()) % 1000:D3}";
+    }
+
+    private static (string lastName, string firstName) SplitName(string fullName)
+    {
+        var parts = (fullName ?? string.Empty).Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length == 0) return (string.Empty, string.Empty);
+        if (parts.Length == 1) return (parts[0], string.Empty);
+        return (parts[^1], string.Join(' ', parts[..^1]));
+    }
+
+    private static bool IsSuspectRole(string? role)
+    {
+        if (string.IsNullOrWhiteSpace(role)) return true;
+        var r = role.Trim().ToLowerInvariant();
+        if (r.Contains("martor") || r.Contains("witness")) return false;
+        if (r.Contains("suspect")) return true;
+        return true;
+    }
+
+    private static void RenderFormSectionHeader(IContainer container, string title)
+    {
+        container
+            .Border(1)
+            .Background(Colors.Grey.Lighten3)
+            .PaddingVertical(3)
+            .PaddingHorizontal(6)
+            .AlignLeft()
+            .Text(title)
+            .FontSize(10)
+            .SemiBold();
+    }
+
+    private static void FormFieldOne(IContainer container, string label, string value)
+    {
+        container.Row(row =>
+        {
+            row.ConstantItem(110).Text(label).FontSize(10).SemiBold();
+            row.RelativeItem().Text(DotsLine(value)).FontSize(10);
+        });
+    }
+
+    private static void FormFieldTwo(IContainer container, string labelA, string valueA, string labelB, string valueB)
+    {
+        container.Row(row =>
+        {
+            row.ConstantItem(70).Text(labelA).FontSize(10).SemiBold();
+            row.RelativeItem().Text(DotsLine(valueA)).FontSize(10);
+            row.ConstantItem(86).PaddingLeft(8).Text(labelB).FontSize(10).SemiBold();
+            row.RelativeItem().Text(DotsLine(valueB)).FontSize(10);
+        });
+    }
+
+    private static void SexField(IContainer container, string value)
+    {
+        container.Row(row =>
+        {
+            row.ConstantItem(34).Text("SEX:").FontSize(10).SemiBold();
+            row.ConstantItem(24).Element(c => CheckboxLine(c, "M", string.Equals(value, "M", StringComparison.OrdinalIgnoreCase)));
+            row.ConstantItem(24).Element(c => CheckboxLine(c, "F", string.Equals(value, "F", StringComparison.OrdinalIgnoreCase)));
+            row.RelativeItem().Text(DotsLine(string.Empty)).FontSize(10);
+        });
+    }
+
+    private static void CheckboxLine(IContainer container, string label, bool isChecked)
+    {
+        container.Row(row =>
+        {
+            row.ConstantItem(12).Height(12).Border(1).AlignCenter().AlignMiddle().Text(isChecked ? "X" : string.Empty).FontSize(9).SemiBold();
+            row.ConstantItem(6);
+            row.RelativeItem().Text(label).FontSize(10).SemiBold();
+        });
+    }
+
+    private static string DotsLine(string? value, int totalChars = 60)
+    {
+        var v = (value ?? string.Empty).Trim();
+        if (v.Length >= totalChars) return v;
+        var dots = new string('.', Math.Max(0, totalChars - Math.Max(0, v.Length) - 1));
+        return string.IsNullOrEmpty(v) ? dots : $"{v} {dots}";
+    }
+
+    private static string ToShortSingleLine(string? value, int maxLen = 95)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return string.Empty;
+        var compact = string.Join(' ', value.Split(new[] { '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries)).Trim();
+        return compact.Length <= maxLen ? compact : compact[..(maxLen - 1)] + "…";
     }
 
     /// <summary>

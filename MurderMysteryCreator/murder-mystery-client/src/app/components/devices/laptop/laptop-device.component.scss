@@ -785,6 +785,10 @@
     &:hover {
         background: rgba(255, 255, 255, 0.05);
     }
+
+    &.active {
+        background: rgba(0, 120, 212, 0.24);
+    }
 }
 
 .email-header {
@@ -817,6 +821,46 @@
     font-size: 11px;
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
+}
+
+.windows-email-reader {
+    flex: 1;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    background: #181818;
+    padding: 14px;
+    overflow: auto;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Segoe UI', sans-serif;
+
+    h3 {
+        margin: 0 0 10px;
+        font-size: 15px;
+        color: #fff;
+    }
+
+    pre {
+        margin: 10px 0 0;
+        white-space: pre-wrap;
+        font-family: 'Segoe UI', sans-serif;
+        font-size: 12px;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.82);
+    }
+}
+
+.reader-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.windows-email-reader-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.35);
 }
 
 // ─── Notes (dark Notepad) ─────────────────────────────────────────────────────
@@ -870,7 +914,8 @@
     overflow-y: auto;
     max-height: 100%;
     background: #1c1c1c;
-    flex: 1;
+    flex: 0 0 42%;
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
 
     &::-webkit-scrollbar {
         width: 6px;
@@ -893,6 +938,10 @@
 
     &:hover {
         background: rgba(255, 255, 255, 0.05);
+    }
+
+    &.active {
+        background: rgba(0, 120, 212, 0.28);
     }
 }
 
@@ -938,6 +987,156 @@
     color: rgba(255, 255, 255, 0.3);
     padding: 24px;
     text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.windows-file-preview {
+    flex: 1;
+    background: #171717;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.windows-file-preview-placeholder {
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.4);
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 13px;
+}
+
+.win-preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: #202020;
+    font-family: 'Segoe UI', sans-serif;
+
+    strong {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 12px;
+    }
+
+    span {
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 11px;
+    }
+}
+
+.win-preview-doc,
+.win-preview-pdf,
+.win-preview-sheet {
+    flex: 1;
+    overflow: auto;
+}
+
+.docx-ribbon,
+.sheet-ribbon,
+.pdf-toolbar {
+    height: 34px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.docx-ribbon {
+    background: #0f3f73;
+    color: #fff;
+}
+
+.sheet-ribbon {
+    background: #1d6f42;
+    color: #fff;
+}
+
+.pdf-toolbar {
+    background: #4d4d4d;
+    color: #fff;
+}
+
+.win-preview-doc {
+    background: #f6f6f6;
+    color: #202020;
+
+    h3 {
+        margin: 16px 24px 8px;
+        font-size: 18px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    pre {
+        margin: 0 24px 24px;
+        white-space: pre-wrap;
+        font-family: 'Calibri', 'Segoe UI', sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+}
+
+.win-preview-pdf {
+    background: #2a2a2a;
+    padding: 18px;
+}
+
+.pdf-page {
+    width: min(92%, 520px);
+    margin: 0 auto;
+    background: #fff;
+    color: #222;
+    min-height: 260px;
+    border-radius: 4px;
+    padding: 18px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+    h4 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.45;
+        white-space: pre-wrap;
+    }
+}
+
+.win-preview-sheet {
+    background: #f3f8f4;
+    padding: 12px;
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        background: #fff;
+    }
+
+    th,
+    td {
+        border: 1px solid #d4ded6;
+        padding: 6px 8px;
+        text-align: left;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    th {
+        background: #e6f1e8;
+        font-weight: 600;
+    }
+}
+
+.win-preview-empty {
+    padding: 20px;
+    color: #385c41;
     font-family: 'Segoe UI', sans-serif;
 }
 

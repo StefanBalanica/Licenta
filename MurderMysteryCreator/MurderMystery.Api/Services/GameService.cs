@@ -405,7 +405,7 @@ public class GameService : IGameService
                     break;
 
                 relation = TryReadPrefixedValue(lines, ref i, "Relație:", relation);
-                if (!string.IsNullOrWhiteSpace(relation))
+                if (!string.IsNullOrWhiteSpace(relation) && current.StartsWith("Relație:", StringComparison.OrdinalIgnoreCase))
                     continue;
 
                 occupation = TryReadPrefixedValue(lines, ref i, "Ocupație:", occupation);
@@ -635,6 +635,39 @@ public class GameService : IGameService
                     .ToList();
                 filtered.AddRange(requiredMediaFiles);
                 device.Apps.Files.Items = filtered;
+            }
+
+            // Parse explicit file entries from "FISIERE/FIȘIERE" blocks (Fișier:, Ultima modificare:, etc).
+            // This ensures we keep ALL documents listed in the brief, not only placeholders.
+            if (hasReliableDeviceBlock)
+            {
+                var parsedFiles = ParseFilesFromStory(deviceScopedText);
+                if (parsedFiles.Count > 0)
+                {
+                    device.Apps.Files ??= new GeneratedFilesApp();
+                    var existing = device.Apps.Files.Items ?? new List<GeneratedFileItem>();
+                    foreach (var parsed in parsedFiles)
+                    {
+                        if (existing.Any(e => e.Name.Equals(parsed.Name, StringComparison.OrdinalIgnoreCase)))
+                            continue;
+                        existing.Add(parsed);
+                    }
+                    device.Apps.Files.Items = existing;
+                }
+            }
+
+            // Ensure file list is stable and complete: keep distinct by filename (case-insensitive).
+            if (device.Apps.Files?.Items != null && device.Apps.Files.Items.Count > 0)
+            {
+                device.Apps.Files.Items = device.Apps.Files.Items
+                    .GroupBy(f => f.Name ?? string.Empty, StringComparer.OrdinalIgnoreCase)
+                    .Select(g =>
+                    {
+                        // Prefer entry with richer Description
+                        return g.OrderByDescending(x => (x.Description ?? string.Empty).Length).First();
+                    })
+                    .Where(f => !string.IsNullOrWhiteSpace(f.Name))
+                    .ToList();
             }
 
             RedistributeFlatEmails(device.Apps.Email, ownerName);
@@ -1786,6 +1819,128 @@ public class GameService : IGameService
         }
 
         return (photos, mediaFiles);
+    }
+
+    private static List<GeneratedFileItem> ParseFilesFromStory(string story)
+    {
+        var files = new List<GeneratedFileItem>();
+        if (string.IsNullOrWhiteSpace(story))
+            return files;
+
+        var sectionStart = new[]
+        {
+            story.IndexOf("FIȘIERE", StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("FISIERE", StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("FILES", StringComparison.OrdinalIgnoreCase)
+        }
+        .Where(i => i >= 0)
+        .DefaultIfEmpty(-1)
+        .Min();
+        if (sectionStart < 0)
+            return files;
+
+        var sectionEnd = new[]
+        {
+            story.IndexOf("EMAIL", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("EMAIL-URI", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("MESAJE", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("APELURI", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("NOTE", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("NOTIȚE", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("NOTITE", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("POZE", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("FOTO", sectionStart, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("DISPOZITIV", sectionStart + 1, StringComparison.OrdinalIgnoreCase),
+            story.IndexOf("DEVICE", sectionStart + 1, StringComparison.OrdinalIgnoreCase)
+        }
+        .Where(i => i > sectionStart)
+        .DefaultIfEmpty(story.Length)
+        .Min();
+
+        var section = story.Substring(sectionStart, sectionEnd - sectionStart);
+        var lines = section.Split(new[] { '\r', '\n' }, StringSplitOptions.None)
+            .Select(l => l.Trim())
+            .ToList();
+
+        GeneratedFileItem? current = null;
+        var desc = new List<string>();
+        string? lastModified = null;
+
+        void CommitCurrent()
+        {
+            if (current == null)
+                return;
+
+            var descText = string.Join(" ", desc.Where(x => !string.IsNullOrWhiteSpace(x))).Trim();
+            if (!string.IsNullOrWhiteSpace(lastModified))
+            {
+                descText = string.IsNullOrWhiteSpace(descText)
+                    ? $"Ultima modificare: {lastModified}"
+                    : $"Ultima modificare: {lastModified}. {descText}";
+            }
+            current.Description = descText;
+            files.Add(current);
+            current = null;
+            desc.Clear();
+            lastModified = null;
+        }
+
+        foreach (var raw in lines)
+        {
+            var line = raw.Trim();
+            if (string.IsNullOrWhiteSpace(line))
+                continue;
+
+            var fileMatch = System.Text.RegularExpressions.Regex.Match(
+                line,
+                // allow extra trailing annotations after filename (e.g. "Fișier: X.pdf (semnat digital)")
+                @"^(?:Fi[sș]ier)\s*:\s*(?<name>[^\\/:*?""<>|]+?\.(?:docx|doc|pdf|xlsx|xls|csv|txt|jpg|jpeg|png|mp3|wav|m4a|ogg|mp4|webm))\b",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+            if (fileMatch.Success)
+            {
+                CommitCurrent();
+                var name = fileMatch.Groups["name"].Value.Trim();
+                var ext = Path.GetExtension(name).TrimStart('.').ToLowerInvariant();
+                var type = ext switch
+                {
+                    "jpg" or "jpeg" or "png" => "Image",
+                    "mp3" or "wav" or "m4a" or "ogg" => "Audio",
+                    "mp4" or "webm" => "Video",
+                    _ => "Document"
+                };
+                current = new GeneratedFileItem
+                {
+                    Name = name,
+                    Type = type,
+                    Description = string.Empty
+                };
+                continue;
+            }
+
+            if (current == null)
+                continue;
+
+            var modifiedMatch = System.Text.RegularExpressions.Regex.Match(
+                line,
+                @"^Ultima\s+modificare\s*:\s*(?<value>.+)$",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            if (modifiedMatch.Success)
+            {
+                lastModified = modifiedMatch.Groups["value"].Value.Trim();
+                continue;
+            }
+
+            desc.Add(line.Trim('"', '„', '”'));
+        }
+
+        CommitCurrent();
+
+        // keep unique by filename
+        return files
+            .GroupBy(f => f.Name, StringComparer.OrdinalIgnoreCase)
+            .Select(g => g.First())
+            .ToList();
     }
 
     private static bool DoesBlockMatchDevice(string header, string block, string ownerName, string deviceType)

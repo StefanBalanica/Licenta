@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { BaseDeviceComponent } from '../base-device.component';
+import { DeviceService } from '../../../services/device.service';
+import { FileItem } from '../../../models/device.models';
 
 @Component({
     selector: 'app-laptop-device',
@@ -10,6 +13,12 @@ import { BaseDeviceComponent } from '../base-device.component';
     styleUrls: ['./laptop-device.component.scss']
 })
 export class LaptopDeviceComponent extends BaseDeviceComponent implements OnInit, OnDestroy {
+    constructor(
+        protected override route: ActivatedRoute,
+        protected override deviceService: DeviceService
+    ) {
+        super(route, deviceService);
+    }
 
     // ── Live clock ──────────────────────────────────────────────────────────
     currentTime = '';
@@ -43,4 +52,44 @@ export class LaptopDeviceComponent extends BaseDeviceComponent implements OnInit
     readonly qwertyRow = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\'];
     readonly asdfRow = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', "'"];
     readonly zxcvRow = ['Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/'];
+
+    get selectedFileExtension(): string {
+        const explicit = (this.selectedFile?.fileFormat ?? '').trim().toLowerCase();
+        if (explicit) return explicit;
+        const fileName = this.selectedFile?.name ?? '';
+        const dotIndex = fileName.lastIndexOf('.');
+        return dotIndex > -1 ? fileName.substring(dotIndex + 1).toLowerCase() : '';
+    }
+
+    get selectedSpreadsheetColumns(): string[] {
+        const firstRow = this.selectedFile?.rows?.[0];
+        return firstRow ? Object.keys(firstRow) : [];
+    }
+
+    get filePreviewTitle(): string {
+        const fileName = this.selectedFile?.name ?? 'Preview';
+        const ext = this.selectedFileExtension;
+        if (!ext) return fileName;
+        return `${fileName} (${ext.toUpperCase()})`;
+    }
+
+    isFileType(file: FileItem, extensions: string[]): boolean {
+        const ext = (file.fileFormat ?? '').trim().toLowerCase() || this.extractExtension(file.name);
+        return extensions.includes(ext);
+    }
+
+    getFileIcon(file: FileItem): string {
+        if (this.isFileType(file, ['doc', 'docx', 'txt'])) return '📘';
+        if (this.isFileType(file, ['pdf'])) return '📕';
+        if (this.isFileType(file, ['xls', 'xlsx', 'csv'])) return '📗';
+        if (file.type === 'Folder') return '📁';
+        if (file.type === 'Image' || file.type === 'Screenshot') return '🖼';
+        if (file.type === 'Encrypted') return '🔒';
+        return '📄';
+    }
+
+    private extractExtension(fileName: string): string {
+        const dotIndex = fileName.lastIndexOf('.');
+        return dotIndex > -1 ? fileName.substring(dotIndex + 1).toLowerCase() : '';
+    }
 }

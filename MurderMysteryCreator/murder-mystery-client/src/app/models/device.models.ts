@@ -40,6 +40,11 @@ export interface FileItem {
     name: string;
     type: string;  // Encrypted, Screenshot, Document, Folder, Image
     description: string;
+    fileFormat?: string; // docx, pdf, xlsx, txt
+    modifiedAt?: string;
+    size?: string;
+    content?: string; // Used by text-like previews (docx/txt)
+    rows?: Record<string, string | number>[]; // Used by spreadsheet-like previews
 }
 
 export interface CallLog {

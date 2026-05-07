@@ -117,8 +117,10 @@
                             <button class="wc-close" (click)="goHome()">✕</button>
                         </div>
                     </div>
+                    <div class="window-content">
                     <div class="windows-email-list">
-                        <div *ngFor="let email of emails" class="windows-email">
+                        <div *ngFor="let email of emails" class="windows-email"
+                            (click)="selectEmail(email)" [class.active]="selectedEmail === email">
                             <div class="email-header">
                                 <strong>{{email.from}}</strong>
                                 <span>{{email.time}}</span>
@@ -126,6 +128,20 @@
                             <div class="email-subject">{{email.subject}}</div>
                             <p class="email-preview">{{email.preview}}</p>
                         </div>
+                    </div>
+                    <div class="windows-email-reader" *ngIf="selectedEmail; else emailPlaceholder">
+                        <h3>{{ selectedEmail.subject }}</h3>
+                        <div class="reader-meta">
+                            <span><strong>From:</strong> {{ selectedEmail.from }}</span>
+                            <span *ngIf="selectedEmail.time"><strong>Time:</strong> {{ selectedEmail.time }}</span>
+                        </div>
+                        <pre>{{ selectedEmail.body || selectedEmail.preview || 'No content available.' }}</pre>
+                    </div>
+                    <ng-template #emailPlaceholder>
+                        <div class="windows-email-reader windows-email-reader-placeholder">
+                            Select an email to read it.
+                        </div>
+                    </ng-template>
                     </div>
                 </div>
 
@@ -166,10 +182,9 @@
                     </div>
                     <div class="window-content">
                         <div class="windows-files-list">
-                            <div *ngFor="let file of files" class="win-file-item">
-                                <span class="win-file-icon">{{ file.type === 'Encrypted' ? '🔒' : file.type ===
-                                    'Screenshot' ? '🖼' : file.type === 'Folder' ? '📁' : file.type === 'Image' ? '🖼' :
-                                    '📄' }}</span>
+                            <div *ngFor="let file of files" class="win-file-item" (click)="selectFile(file)"
+                                [class.active]="selectedFile?.name === file.name">
+                                <span class="win-file-icon">{{ getFileIcon(file) }}</span>
                                 <div class="win-file-info">
                                     <strong>{{ file.name }}</strong>
                                     <span class="win-file-type">{{ file.type }}</span>
@@ -178,6 +193,52 @@
                             </div>
                             <div *ngIf="files.length === 0" class="win-files-empty">No files found.</div>
                         </div>
+                        <div class="windows-file-preview" *ngIf="selectedFile; else filePreviewPlaceholder">
+                            <div class="win-preview-header">
+                                <strong>{{ filePreviewTitle }}</strong>
+                                <span>{{ selectedFile.modifiedAt || 'Unknown date' }} · {{ selectedFile.size || '—' }}</span>
+                            </div>
+
+                            <div class="win-preview-doc" *ngIf="isFileType(selectedFile, ['doc', 'docx', 'txt'])">
+                                <div class="docx-ribbon">Word</div>
+                                <h3>{{ selectedFile.name }}</h3>
+                                <pre>{{ selectedFile.content || selectedFile.description || 'No content available.' }}</pre>
+                            </div>
+
+                            <div class="win-preview-pdf" *ngIf="isFileType(selectedFile, ['pdf'])">
+                                <div class="pdf-toolbar">
+                                    <span>PDF Viewer</span>
+                                </div>
+                                <div class="pdf-page">
+                                    <h4>{{ selectedFile.name }}</h4>
+                                    <p>{{ selectedFile.content || selectedFile.description || 'Preview not available.' }}</p>
+                                </div>
+                            </div>
+
+                            <div class="win-preview-sheet" *ngIf="isFileType(selectedFile, ['xls', 'xlsx', 'csv'])">
+                                <div class="sheet-ribbon">Excel</div>
+                                <table *ngIf="selectedFile.rows?.length; else noSheetData">
+                                    <thead>
+                                        <tr>
+                                            <th *ngFor="let col of selectedSpreadsheetColumns">{{ col }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of selectedFile.rows">
+                                            <td *ngFor="let col of selectedSpreadsheetColumns">{{ row[col] }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <ng-template #noSheetData>
+                                    <div class="win-preview-empty">No spreadsheet rows configured.</div>
+                                </ng-template>
+                            </div>
+                        </div>
+                        <ng-template #filePreviewPlaceholder>
+                            <div class="windows-file-preview windows-file-preview-placeholder">
+                                Select a file to preview it.
+                            </div>
+                        </ng-template>
                     </div>
                 </div>
 

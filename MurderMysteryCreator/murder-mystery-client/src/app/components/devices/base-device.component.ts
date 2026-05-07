@@ -383,7 +383,12 @@ export abstract class BaseDeviceComponent implements OnInit, OnDestroy {
         return (list || []).map((f: any) => ({
             name: f.name ?? f.Name ?? '',
             type: f.type ?? f.Type ?? 'Document',
-            description: f.description ?? f.Description ?? ''
+            description: f.description ?? f.Description ?? '',
+            fileFormat: f.fileFormat ?? f.FileFormat ?? '',
+            modifiedAt: f.modifiedAt ?? f.ModifiedAt ?? '',
+            size: f.size ?? f.Size ?? '',
+            content: f.content ?? f.Content ?? '',
+            rows: f.rows ?? f.Rows ?? []
         }));
     }
 
