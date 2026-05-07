@@ -27,10 +27,17 @@ function zxcvbnGroupValidator(group: AbstractControl): ValidationErrors | null {
   if (!pw) return null;
   const hardErrors = group.get('password')?.errors;
   const hardFailed = hardErrors && ['minLength','uppercase','lowercase','digit','special'].some(k => hardErrors[k]);
-  if (hardFailed) return null; // wait for hard rules to pass first
+  if (hardFailed) return null;
   const inputs = [group.get('firstName')?.value, group.get('lastName')?.value, group.get('email')?.value].filter(Boolean);
   const result = zxcvbn(pw, inputs);
   return result.score < 2 ? { zxcvbnWeak: true } : null;
+}
+
+// ── Password match validator (form-level) ─────────────────────────────────────
+function passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
+  const pw  = group.get('password')?.value ?? '';
+  const cpw = group.get('confirmPassword')?.value ?? '';
+  return cpw && pw !== cpw ? { passwordMismatch: true } : null;
 }
 
 // ── Feedback translations ─────────────────────────────────────────────────────
@@ -131,7 +138,13 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
                 <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 1 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
                 PAROLĂ
               </label>
-              <input class="inp" type="password" formControlName="password" placeholder="minimum 8 caractere"/>
+              <div class="inp-wrap">
+                <input class="inp" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="minimum 8 caractere" autocomplete="new-password"/>
+                <button type="button" class="eye-btn" (click)="showPassword = !showPassword" tabindex="-1">
+                  <svg *ngIf="!showPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4"/></svg>
+                  <svg *ngIf="showPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M1 1l22 22" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                </button>
+              </div>
 
               <!-- Strength bar -->
               <div class="strength-wrap" *ngIf="pwValue.length > 0">
@@ -144,12 +157,10 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
                   </div>
                   <span class="strength-lbl" [style.color]="strengthColor">{{ strengthLabel }}</span>
                 </div>
-                <!-- zxcvbn warning -->
                 <div class="pw-warning" *ngIf="zxcvbnWarning">
                   <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M8 2L14 14H2L8 2z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 7v3M8 12v.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
                   {{ zxcvbnWarning }}
                 </div>
-                <!-- zxcvbn suggestions -->
                 <ul class="pw-suggestions" *ngIf="zxcvbnSuggestions.length > 0">
                   <li *ngFor="let s of zxcvbnSuggestions">{{ s }}</li>
                 </ul>
@@ -163,6 +174,22 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
                 <li [class.ok]="!pwErrors['digit']"><span class="ri">{{ !pwErrors['digit'] ? '✓' : '○' }}</span> Cel puțin o cifră (0-9)</li>
                 <li [class.ok]="!pwErrors['special']"><span class="ri">{{ !pwErrors['special'] ? '✓' : '○' }}</span> Cel puțin un caracter special (!&#64;#$%^&amp;*)</li>
               </ul>
+            </div>
+
+            <!-- Confirm password -->
+            <div class="field" [class.field-err]="registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched">
+              <label class="lbl">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 1 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M7 10l2 2 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                CONFIRMĂ PAROLA
+              </label>
+              <div class="inp-wrap">
+                <input class="inp" [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" placeholder="repetă parola" autocomplete="new-password"/>
+                <button type="button" class="eye-btn" (click)="showConfirmPassword = !showConfirmPassword" tabindex="-1">
+                  <svg *ngIf="!showConfirmPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4"/></svg>
+                  <svg *ngIf="showConfirmPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M1 1l22 22" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                </button>
+              </div>
+              <span *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched" class="err-msg">Parolele nu coincid.</span>
             </div>
 
             <div *ngIf="errorMessage" class="error-banner">
@@ -235,6 +262,9 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
     .status-ok{color:#2d7a3a;font-size:15px;}
     .status-err{color:var(--red);font-size:15px;}
     .err-msg a{color:var(--amber);text-decoration:none;border-bottom:1px solid rgba(184,114,8,0.4);}
+    /* ── Eye toggle ── */
+    .eye-btn{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:transparent;border:none;cursor:pointer;color:var(--ink3);padding:4px;display:flex;align-items:center;transition:color .15s;}
+    .eye-btn:hover{color:var(--ink2);}
     .strength-wrap{margin-top:6px;display:flex;flex-direction:column;gap:4px;}
     .strength-row{display:flex;align-items:center;gap:8px;}
     .strength-segs{display:flex;gap:3px;flex:1;}
@@ -256,15 +286,18 @@ export class RegisterComponent implements AfterViewInit, OnDestroy {
   registerForm: FormGroup;
   loading = false;
   errorMessage = '';
+  showPassword = false;
+  showConfirmPassword = false;
   private cleanup?: () => void;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private http: HttpClient) {
     this.registerForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName:  ['', Validators.required],
-      email:     ['', [Validators.required, Validators.email], [this.emailAvailabilityValidator.bind(this)]],
-      password:  ['', [Validators.required, hardRulesValidator]]
-    }, { validators: zxcvbnGroupValidator });
+      firstName:       ['', Validators.required],
+      lastName:        ['', Validators.required],
+      email:           ['', [Validators.required, Validators.email], [this.emailAvailabilityValidator.bind(this)]],
+      password:        ['', [Validators.required, hardRulesValidator]],
+      confirmPassword: ['', Validators.required]
+    }, { validators: [zxcvbnGroupValidator, passwordMatchValidator] });
   }
 
   // ── Async email validator ─────────────────────────────────────────────────

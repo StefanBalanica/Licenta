@@ -18,6 +18,12 @@ function hardRulesValidator(control: AbstractControl): ValidationErrors | null {
   return Object.keys(e).length ? e : null;
 }
 
+function passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
+  const pw  = group.get('password')?.value ?? '';
+  const cpw = group.get('confirmPassword')?.value ?? '';
+  return cpw && pw !== cpw ? { passwordMismatch: true } : null;
+}
+
 @Component({
   selector: 'app-reset-password',
   standalone: true,
@@ -65,12 +71,18 @@ function hardRulesValidator(control: AbstractControl): ValidationErrors | null {
             <p class="card-sub">Alege o parolă nouă pentru contul tău.</p>
 
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
-              <div class="field" [class.field-err]="form.get('password')?.invalid && form.get('password')?.touched">
+            <div class="field" [class.field-err]="form.get('password')?.invalid && form.get('password')?.touched">
                 <label class="lbl">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 1 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
                   PAROLĂ NOUĂ
                 </label>
-                <input class="inp" type="password" formControlName="password" placeholder="minimum 8 caractere" autocomplete="new-password"/>
+                <div class="inp-wrap">
+                  <input class="inp" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="minimum 8 caractere" autocomplete="new-password"/>
+                  <button type="button" class="eye-btn" (click)="showPassword = !showPassword" tabindex="-1">
+                    <svg *ngIf="!showPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4"/></svg>
+                    <svg *ngIf="showPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M1 1l22 22" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                  </button>
+                </div>
 
                 <!-- Strength bar -->
                 <div class="strength-wrap" *ngIf="pwValue.length > 0">
@@ -97,6 +109,22 @@ function hardRulesValidator(control: AbstractControl): ValidationErrors | null {
                   <li [class.ok]="!pwErrors['digit']"><span class="ri">{{ !pwErrors['digit'] ? '✓' : '○' }}</span> Cel puțin o cifră (0-9)</li>
                   <li [class.ok]="!pwErrors['special']"><span class="ri">{{ !pwErrors['special'] ? '✓' : '○' }}</span> Cel puțin un caracter special (!&#64;#$%^&amp;*)</li>
                 </ul>
+              </div>
+
+              <!-- Confirm password -->
+              <div class="field" [class.field-err]="form.hasError('passwordMismatch') && form.get('confirmPassword')?.touched">
+                <label class="lbl">
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 1 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M7 10l2 2 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  CONFIRMĂ PAROLA
+                </label>
+                <div class="inp-wrap">
+                  <input class="inp" [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" placeholder="repetă parola" autocomplete="new-password"/>
+                  <button type="button" class="eye-btn" (click)="showConfirmPassword = !showConfirmPassword" tabindex="-1">
+                    <svg *ngIf="!showConfirmPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4"/></svg>
+                    <svg *ngIf="showConfirmPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M1 1l22 22" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                  </button>
+                </div>
+                <span *ngIf="form.hasError('passwordMismatch') && form.get('confirmPassword')?.touched" class="err-msg">Parolele nu coincid.</span>
               </div>
 
               <div *ngIf="errorMessage" class="error-banner">
@@ -134,7 +162,9 @@ function hardRulesValidator(control: AbstractControl): ValidationErrors | null {
     .form{display:flex;flex-direction:column;gap:14px;}
     .field{display:flex;flex-direction:column;gap:5px;}
     .lbl{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--amber);}
-    .inp{padding:11px 13px;border:1px solid var(--border-md);border-radius:8px;background:var(--bg);color:var(--ink);font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s;}
+    .inp{padding:11px 13px;border:1px solid var(--border-md);border-radius:8px;background:var(--bg);color:var(--ink);font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s;width:100%;}
+    .inp-wrap{position:relative;display:flex;align-items:center;}
+    .inp-wrap .inp{padding-right:38px;}
     .inp:focus{border-color:rgba(184,114,8,0.5);box-shadow:0 0 0 3px rgba(184,114,8,0.07);}
     .field-err .inp{border-color:rgba(155,32,32,0.4);}
     .error-banner{display:flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid rgba(155,32,32,0.2);background:rgba(155,32,32,0.05);border-radius:7px;font-size:13px;color:var(--red);flex-wrap:wrap;}
@@ -156,6 +186,9 @@ function hardRulesValidator(control: AbstractControl): ValidationErrors | null {
     .pw-rules li{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink3);transition:color .2s;}
     .pw-rules li.ok{color:#2d7a3a;}
     .ri{font-family:'JetBrains Mono',monospace;font-size:11px;width:14px;text-align:center;}
+    .err-msg{font-size:11.5px;color:var(--red);}
+    .eye-btn{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:transparent;border:none;cursor:pointer;color:var(--ink3);padding:4px;display:flex;align-items:center;transition:color .15s;}
+    .eye-btn:hover{color:var(--ink2);}
     /* Success */
     .success-box{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:8px 0 4px;}
     .success-icon{width:56px;height:56px;border-radius:50%;background:rgba(45,122,58,0.08);border:1px solid rgba(45,122,58,0.2);display:flex;align-items:center;justify-content:center;}
@@ -177,11 +210,14 @@ export class ResetPasswordComponent implements OnInit {
   done = false;
   errorMessage = '';
   showRetryLink = false;
+  showPassword = false;
+  showConfirmPassword = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
     this.form = this.fb.group({
-      password: ['', [Validators.required, hardRulesValidator]]
-    });
+      password:        ['', [Validators.required, hardRulesValidator]],
+      confirmPassword: ['', Validators.required]
+    }, { validators: passwordMatchValidator });
   }
 
   ngOnInit() {

@@ -6,6 +6,7 @@ import { ResetPasswordComponent } from './components/auth/reset-password.compone
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { GameBuilderComponent } from './components/game-builder/game-builder.component';
 import { GameDetailsComponent } from './components/game-details/game-details.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { authGuard } from './guards/auth.guard';
 import { deviceIsolationGuard } from './guards/device-isolation.guard';
 
@@ -18,6 +19,7 @@ export const routes: Routes = [
     // Creator routes: protected by both authGuard (must be logged in)
     // and deviceIsolationGuard (blocks device-only sessions).
     { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard, deviceIsolationGuard] },
+    { path: 'profile',   component: ProfileComponent,   canActivate: [authGuard, deviceIsolationGuard] },
     { path: 'games/new', component: GameBuilderComponent, canActivate: [authGuard, deviceIsolationGuard] },
     { path: 'games/:id/edit', component: GameBuilderComponent, canActivate: [authGuard, deviceIsolationGuard] },
     { path: 'games/:id', component: GameDetailsComponent, canActivate: [authGuard, deviceIsolationGuard] },

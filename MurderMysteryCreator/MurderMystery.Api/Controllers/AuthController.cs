@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MurderMystery.Api.DTOs;
 using MurderMystery.Api.Services;
@@ -129,5 +131,51 @@ public class AuthController : ControllerBase
             _logger.LogError(ex, "Error during reset-password");
             return StatusCode(500, new { message = "A apărut o eroare. Încearcă din nou." });
         }
+    }
+
+    /// <summary>Changes password for the currently authenticated user.</summary>
+    [Authorize]
+    [HttpPost("change-password")]
+    public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordDto dto)
+    {
+        var userId = GetCurrentUserId();
+        if (userId == null) return Unauthorized();
+        try
+        {
+            await _authService.ChangePasswordAsync(userId.Value, dto.CurrentPassword, dto.NewPassword);
+            return Ok(new { message = "Parola a fost actualizată." });
+        }
+        catch (ArgumentException ex)   { return BadRequest(new { message = ex.Message }); }
+        catch (InvalidOperationException ex) { return BadRequest(new { message = ex.Message }); }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error during change-password for user {UserId}", userId);
+            return StatusCode(500, new { message = "A apărut o eroare." });
+        }
+    }
+
+    /// <summary>Permanently deletes the authenticated user's account and all associated data.</summary>
+    [Authorize]
+    [HttpDelete("account")]
+    public async Task<ActionResult> DeleteAccount()
+    {
+        var userId = GetCurrentUserId();
+        if (userId == null) return Unauthorized();
+        try
+        {
+            await _authService.DeleteAccountAsync(userId.Value);
+            return Ok(new { message = "Contul a fost șters." });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error during delete-account for user {UserId}", userId);
+            return StatusCode(500, new { message = "A apărut o eroare." });
+        }
+    }
+
+    private int? GetCurrentUserId()
+    {
+        var claim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
+        return claim != null && int.TryParse(claim.Value, out var id) ? id : null;
     }
 }

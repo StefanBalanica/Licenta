@@ -51,7 +51,13 @@ import { AuthService } from '../../services/auth.service';
                 <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 1 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="10.5" r="1" fill="currentColor"/></svg>
                 PAROLĂ
               </label>
-              <input class="inp" type="password" formControlName="password" placeholder="••••••••" autocomplete="current-password"/>
+              <div class="inp-wrap">
+                <input class="inp" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="••••••••" autocomplete="current-password"/>
+                <button type="button" class="eye-btn" (click)="showPassword = !showPassword" tabindex="-1">
+                  <svg *ngIf="!showPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4"/></svg>
+                  <svg *ngIf="showPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M1 1l22 22" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                </button>
+              </div>
               <span *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="err-msg">Minimum 6 caractere.</span>
               <a routerLink="/forgot-password" class="forgot-link">Ai uitat parola?</a>
             </div>
@@ -108,9 +114,13 @@ import { AuthService } from '../../services/auth.service';
     .form{display:flex;flex-direction:column;gap:16px;}
     .field{display:flex;flex-direction:column;gap:6px;}
     .lbl{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--amber);}
-    .inp{padding:11px 13px;border:1px solid var(--border-md);border-radius:8px;background:var(--bg);color:var(--ink);font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s;}
+    .inp{padding:11px 13px;border:1px solid var(--border-md);border-radius:8px;background:var(--bg);color:var(--ink);font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s;width:100%;}
     .inp::placeholder{color:var(--ink3);font-style:italic;}
     .inp:focus{border-color:rgba(184,114,8,0.5);box-shadow:0 0 0 3px rgba(184,114,8,0.07);}
+    .inp-wrap{position:relative;display:flex;align-items:center;}
+    .inp-wrap .inp{padding-right:38px;}
+    .eye-btn{position:absolute;right:10px;background:transparent;border:none;cursor:pointer;color:var(--ink3);padding:4px;display:flex;align-items:center;transition:color .15s;}
+    .eye-btn:hover{color:var(--ink2);}
     .field-err .inp{border-color:rgba(155,32,32,0.4);}
     .err-msg{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--red);}
     .error-banner{display:flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid rgba(155,32,32,0.2);background:rgba(155,32,32,0.05);border-radius:7px;font-size:13px;color:var(--red);}
@@ -137,6 +147,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   loginForm: FormGroup;
   loading = false;
   errorMessage = '';
+  showPassword = false;
   private cleanup?: () => void;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -38,11 +38,33 @@ import { GameSummary } from '../../models/models';
               <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M5.5 8h5M8 5.5v5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
               AI Story
             </button>
-            <span class="user-tag">{{ userEmail }}</span>
-            <button class="btn-ghost" (click)="logout()">
-              <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M10 2h3v12h-3M7 11l3-3-3-3M2 8h8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Ieși
-            </button>
+            <!-- User Avatar Dropdown -->
+            <div class="user-menu" (clickOutside)="menuOpen = false">
+              <button class="user-avatar" (click)="menuOpen = !menuOpen" [class.avatar-open]="menuOpen" id="user-menu-btn">
+                <span class="avatar-initials">{{ userInitials }}</span>
+                <svg class="avatar-caret" width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="user-dropdown" *ngIf="menuOpen">
+                <div class="dropdown-header">
+                  <div class="dh-name">{{ userName }}</div>
+                  <div class="dh-email">{{ userEmail }}</div>
+                </div>
+                <div class="dropdown-sep"></div>
+                <button class="dropdown-item" (click)="goToProfile()">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="3" stroke="currentColor" stroke-width="1.2"/><path d="M2 15c0-2.7 2.7-4.5 6-4.5s6 1.8 6 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                  Profilul meu
+                </button>
+                <button class="dropdown-item" (click)="goToProfile()">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 1 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                  Schimbă parola
+                </button>
+                <div class="dropdown-sep"></div>
+                <button class="dropdown-item item-danger" (click)="logout()">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M10 2h3v12h-3M7 11l3-3-3-3M2 8h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Deconectare
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </nav>
@@ -205,7 +227,26 @@ import { GameSummary } from '../../models/models';
     @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
     .status-lbl{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);}
     .nav-right{display:flex;align-items:center;gap:8px;}
-    .user-tag{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--ink2);padding:4px 10px;border:1px solid var(--border-md);border-radius:20px;}
+
+    /* ── User dropdown ── */
+    .user-menu{position:relative;}
+    .user-avatar{display:flex;align-items:center;gap:6px;height:34px;padding:0 10px 0 6px;border:1px solid var(--border-md);border-radius:20px;background:transparent;cursor:pointer;transition:border-color .2s,background .2s;}
+    .user-avatar:hover,.avatar-open{background:rgba(28,43,74,0.05);border-color:rgba(28,43,74,0.2);}
+    .avatar-initials{width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;letter-spacing:0.5px;}
+    .avatar-caret{color:var(--ink3);transition:transform .2s;}
+    .avatar-open .avatar-caret{transform:rotate(180deg);}
+    .user-dropdown{position:absolute;top:calc(100% + 8px);right:0;width:220px;background:#fff;border:1px solid var(--border-md);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.12),0 2px 8px rgba(0,0,0,0.06);z-index:500;overflow:hidden;animation:ddIn .15s ease both;}
+    @keyframes ddIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+    .dropdown-header{padding:12px 14px 10px;}
+    .dh-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px;}
+    .dh-email{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .dropdown-sep{height:1px;background:var(--border);margin:2px 0;}
+    .dropdown-item{width:100%;display:flex;align-items:center;gap:9px;padding:9px 14px;background:transparent;border:none;text-align:left;font-size:13px;font-family:'Inter',sans-serif;color:var(--ink);cursor:pointer;transition:background .15s;}
+    .dropdown-item:hover{background:rgba(0,0,0,0.04);}
+    .dropdown-item svg{color:var(--ink3);flex-shrink:0;}
+    .item-danger{color:var(--red);}
+    .item-danger svg{color:var(--red);}
+    .item-danger:hover{background:rgba(155,32,32,0.05);}
 
     /* ── Buttons ── */
     .btn-ghost{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 12px;border:1px solid var(--border-md);border-radius:7px;background:transparent;color:var(--ink);font-size:12.5px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:border-color .2s,color .2s;}
@@ -331,6 +372,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   games: GameSummary[] = [];
   loading = true;
   userEmail = '';
+  userName = '';
+  userInitials = '';
+  menuOpen = false;
   showStoryPanel = false;
   storyText = '';
   generating = false;
@@ -341,7 +385,21 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   private cleanup?: () => void;
 
   constructor(private gameService: GameService, private authService: AuthService, private router: Router) {
-    this.userEmail = this.authService.currentUserValue?.email || '';
+    const user = this.authService.currentUserValue;
+    this.userEmail = user?.email || '';
+    const first = (user as any)?.firstName || '';
+    const last  = (user as any)?.lastName  || '';
+    this.userName = `${first} ${last}`.trim() || this.userEmail;
+    const initials = (first[0] || '') + (last[0] || '');
+    this.userInitials = initials.toUpperCase() || this.userEmail.substring(0, 2).toUpperCase();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.user-menu')) {
+      this.menuOpen = false;
+    }
   }
 
   ngOnInit() { this.loadGames(); }
@@ -404,6 +462,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   editGame(gameId: number) { this.router.navigate(['/games', gameId]); }
+
+  goToProfile() { this.menuOpen = false; this.router.navigate(['/profile']); }
 
   deleteGame(gameId: number) {
     if (confirm('Confirmi închiderea dosarului? Acțiunea este ireversibilă.')) {

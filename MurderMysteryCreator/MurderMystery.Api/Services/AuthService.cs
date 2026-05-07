@@ -220,4 +220,31 @@ public class AuthService : IAuthService
         resetToken.IsUsed = true;
         await _db.SaveChangesAsync();
     }
+
+    // ── Change Password (authenticated) ────────────────────────────────────────
+
+    public async Task ChangePasswordAsync(int userId, string currentPassword, string newPassword)
+    {
+        var user = await _db.Users.FindAsync(userId)
+            ?? throw new InvalidOperationException("Utilizatorul nu a fost găsit.");
+
+        if (!BCrypt.Net.BCrypt.Verify(currentPassword, user.PasswordHash))
+            throw new ArgumentException("Parola curentă este incorectă.");
+
+        ValidatePassword(newPassword);
+
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newPassword);
+        await _db.SaveChangesAsync();
+    }
+
+    // ── Delete Account ──────────────────────────────────────────────────────────
+
+    public async Task DeleteAccountAsync(int userId)
+    {
+        var user = await _db.Users.FindAsync(userId)
+            ?? throw new InvalidOperationException("Utilizatorul nu a fost găsit.");
+
+        _db.Users.Remove(user);
+        await _db.SaveChangesAsync();
+    }
 }
