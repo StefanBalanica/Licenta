@@ -41,7 +41,19 @@ export class AuthService {
     }
 
     isAuthenticated(): boolean {
-        return !!this.getToken();
+        const token = this.getToken();
+        if (!token) return false;
+
+        try {
+            // Decode the JWT payload (second segment, base64url encoded)
+            const payloadBase64 = token.split('.')[1];
+            const payload = JSON.parse(atob(payloadBase64));
+            // `exp` is in seconds; Date.now() is in milliseconds
+            return payload.exp * 1000 > Date.now();
+        } catch {
+            // Malformed token — treat as unauthenticated
+            return false;
+        }
     }
 
     get currentUserValue(): User | null {

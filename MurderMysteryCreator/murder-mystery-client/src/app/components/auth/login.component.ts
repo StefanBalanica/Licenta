@@ -53,6 +53,7 @@ import { AuthService } from '../../services/auth.service';
               </label>
               <input class="inp" type="password" formControlName="password" placeholder="••••••••" autocomplete="current-password"/>
               <span *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="err-msg">Minimum 6 caractere.</span>
+              <a routerLink="/forgot-password" class="forgot-link">Ai uitat parola?</a>
             </div>
 
             <div *ngIf="errorMessage" class="error-banner">
@@ -113,6 +114,9 @@ import { AuthService } from '../../services/auth.service';
     .field-err .inp{border-color:rgba(155,32,32,0.4);}
     .err-msg{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--red);}
     .error-banner{display:flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid rgba(155,32,32,0.2);background:rgba(155,32,32,0.05);border-radius:7px;font-size:13px;color:var(--red);}
+
+    .forgot-link{display:block;text-align:right;margin-top:4px;font-size:11.5px;color:var(--amber);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s;}
+    .forgot-link:hover{border-color:rgba(184,114,8,0.4);}
 
     .btn-submit{width:100%;height:42px;border:none;border-radius:8px;background:var(--navy);color:#fff;font-size:13.5px;font-family:'Inter',sans-serif;font-weight:500;cursor:pointer;transition:opacity .2s,transform .2s;margin-top:4px;display:flex;align-items:center;justify-content:center;}
     .btn-submit:hover:not(:disabled){opacity:.88;transform:translateY(-1px);}

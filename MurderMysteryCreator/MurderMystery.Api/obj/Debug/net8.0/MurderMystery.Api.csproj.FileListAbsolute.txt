@@ -986,3 +986,8 @@ D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\bin\Debug\net8.0-buildt
 D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\bin\Debug\net8.0-buildtest\runtimes\osx-x64\native\libQuestPdfSkia.dylib
 D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\bin\Debug\net8.0-buildtest\runtimes\win-x64\native\QuestPdfSkia.dll
 D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\bin\Debug\net8.0-buildtest\runtimes\win-x86\native\QuestPdfSkia.dll
+D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\bin\Debug\net8.0\MailKit.dll
+D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\bin\Debug\net8.0\MimeKit.dll
+D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

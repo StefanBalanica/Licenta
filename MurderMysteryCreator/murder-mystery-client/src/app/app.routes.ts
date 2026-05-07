@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login.component';
 import { RegisterComponent } from './components/auth/register.component';
+import { ForgotPasswordComponent } from './components/auth/forgot-password.component';
+import { ResetPasswordComponent } from './components/auth/reset-password.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { GameBuilderComponent } from './components/game-builder/game-builder.component';
 import { GameDetailsComponent } from './components/game-details/game-details.component';
@@ -9,10 +11,10 @@ import { deviceIsolationGuard } from './guards/device-isolation.guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
-    // Login & Register: blocked for device-only sessions (player has no credentials anyway,
-    // but prevents the session from leaking into the auth flow).
-    { path: 'login', component: LoginComponent, canActivate: [deviceIsolationGuard] },
-    { path: 'register', component: RegisterComponent, canActivate: [deviceIsolationGuard] },
+    { path: 'login',            component: LoginComponent,          canActivate: [deviceIsolationGuard] },
+    { path: 'register',         component: RegisterComponent,       canActivate: [deviceIsolationGuard] },
+    { path: 'forgot-password',  component: ForgotPasswordComponent, canActivate: [deviceIsolationGuard] },
+    { path: 'reset-password',   component: ResetPasswordComponent,  canActivate: [deviceIsolationGuard] },
     // Creator routes: protected by both authGuard (must be logged in)
     // and deviceIsolationGuard (blocks device-only sessions).
     { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard, deviceIsolationGuard] },

@@ -1,8 +1,67 @@
 import { Component, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { debounceTime, distinctUntilChanged, switchMap, map, catchError, first } from 'rxjs/operators';
+import { of, timer } from 'rxjs';
+import zxcvbn from 'zxcvbn';
+
+// ── Hard rules (field-level) ──────────────────────────────────────────────────
+function hardRulesValidator(control: AbstractControl): ValidationErrors | null {
+  const v: string = control.value ?? '';
+  if (!v) return null;
+  const e: Record<string, boolean> = {};
+  if (v.length < 8)                                        e['minLength'] = true;
+  if (!/[A-Z]/.test(v))                                   e['uppercase'] = true;
+  if (!/[a-z]/.test(v))                                   e['lowercase'] = true;
+  if (!/[0-9]/.test(v))                                   e['digit']     = true;
+  if (!/[!@#$%^&*()\-_=+\[\]{}|;:'",.<>?/\\`~]/.test(v)) e['special']  = true;
+  return Object.keys(e).length ? e : null;
+}
+
+// ── zxcvbn cross-field validator (form-level) ─────────────────────────────────
+function zxcvbnGroupValidator(group: AbstractControl): ValidationErrors | null {
+  const pw = group.get('password')?.value ?? '';
+  if (!pw) return null;
+  const hardErrors = group.get('password')?.errors;
+  const hardFailed = hardErrors && ['minLength','uppercase','lowercase','digit','special'].some(k => hardErrors[k]);
+  if (hardFailed) return null; // wait for hard rules to pass first
+  const inputs = [group.get('firstName')?.value, group.get('lastName')?.value, group.get('email')?.value].filter(Boolean);
+  const result = zxcvbn(pw, inputs);
+  return result.score < 2 ? { zxcvbnWeak: true } : null;
+}
+
+// ── Feedback translations ─────────────────────────────────────────────────────
+const WARN_RO: Record<string, string> = {
+  'This is a top-10 common password': 'Aceasta este printre cele mai comune 10 parole',
+  'This is a top-100 common password': 'Aceasta este printre cele mai comune 100 parole',
+  'This is a very common password': 'Parolă foarte comună',
+  'This is similar to a commonly used password': 'Similară cu o parolă des utilizată',
+  "Straight rows of keys are easy to guess": 'Model de tastatură ușor de ghicit',
+  "Short keyboard patterns are easy to guess": 'Model scurt de tastatură',
+  'Sequences like abc or 6543 are easy to guess': 'Secvențe simple, ușor de ghicit',
+  'Repeats like "abcabc" are only slightly harder to guess than "abc"': 'Repetițiile sunt ușor de ghicit',
+  'Recent years are easy to guess': 'Ani recenți, ușor de ghicit',
+  'Dates are often easy to guess': 'Datele sunt ușor de ghicit',
+  'A word by itself is easy to guess': 'Un singur cuvânt, ușor de ghicit',
+  'Names and surnames by themselves are easy to guess': 'Numele și prenumele sunt ușor de ghicit',
+  'Common names and surnames are easy to guess': 'Nume comune, ușor de ghicit',
+};
+const SUGG_RO: Record<string, string> = {
+  'Add another word or two. Uncommon words are better.': 'Adaugă un cuvânt sau două. Cuvintele neobișnuite sunt mai bune.',
+  'Use a longer keyboard pattern with more turns': 'Folosește un model mai lung pe tastatură, cu mai multe schimbări de direcție.',
+  'Avoid repeated words and characters': 'Evită cuvintele și caracterele repetate.',
+  'Avoid sequences': 'Evită secvențele (abc, 123).',
+  'Avoid recent years': 'Evită anii recenți.',
+  'Avoid years that are associated with you': 'Evită ani asociați cu tine.',
+  'Avoid dates and years that are associated with you': 'Evită datele și anii asociați cu tine.',
+  "Capitalization doesn't help very much": 'Majusculele singure nu ajută prea mult.',
+  "Reversed words aren't much harder to guess": 'Cuvintele inversate nu sunt mult mai sigure.',
+  "Predictable substitutions like '@' instead of 'a' don't help very much": 'Substituțiile predictibile (ex. @ în loc de a) nu ajută prea mult.',
+};
+const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
 
 @Component({
   selector: 'app-register',
@@ -55,17 +114,55 @@ import { AuthService } from '../../services/auth.service';
                 <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M1 5l7 5 7-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
                 EMAIL
               </label>
-              <input class="inp" type="email" formControlName="email" placeholder="investigator@politie.ro"/>
-              <span *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="err-msg">Email invalid.</span>
+              <div class="inp-wrap">
+                <input class="inp" type="email" formControlName="email" placeholder="investigator&#64;politie.ro"/>
+                <span class="inp-status" *ngIf="registerForm.get('email')?.value">
+                  <span *ngIf="registerForm.get('email')?.pending" class="status-spin"></span>
+                  <span *ngIf="!registerForm.get('email')?.pending && registerForm.get('email')?.valid" class="status-ok">✓</span>
+                  <span *ngIf="!registerForm.get('email')?.pending && registerForm.get('email')?.hasError('emailTaken')" class="status-err">✗</span>
+                </span>
+              </div>
+              <span *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched" class="err-msg">Email invalid.</span>
+              <span *ngIf="registerForm.get('email')?.hasError('emailTaken') && registerForm.get('email')?.touched" class="err-msg">Email deja înregistrat. <a routerLink="/login">Autentifică-te</a></span>
             </div>
 
-            <div class="field" [class.field-err]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+            <div class="field" [class.field-err]="(registerForm.get('password')?.invalid || registerForm.hasError('zxcvbnWeak')) && registerForm.get('password')?.touched">
               <label class="lbl">
                 <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 1 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
                 PAROLĂ
               </label>
-              <input class="inp" type="password" formControlName="password" placeholder="minimum 6 caractere"/>
-              <span *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="err-msg">Minimum 6 caractere.</span>
+              <input class="inp" type="password" formControlName="password" placeholder="minimum 8 caractere"/>
+
+              <!-- Strength bar -->
+              <div class="strength-wrap" *ngIf="pwValue.length > 0">
+                <div class="strength-row">
+                  <div class="strength-segs">
+                    <div class="seg" [style.background]="strengthScore >= 1 ? strengthColor : ''"></div>
+                    <div class="seg" [style.background]="strengthScore >= 2 ? strengthColor : ''"></div>
+                    <div class="seg" [style.background]="strengthScore >= 3 ? strengthColor : ''"></div>
+                    <div class="seg" [style.background]="strengthScore >= 4 ? strengthColor : ''"></div>
+                  </div>
+                  <span class="strength-lbl" [style.color]="strengthColor">{{ strengthLabel }}</span>
+                </div>
+                <!-- zxcvbn warning -->
+                <div class="pw-warning" *ngIf="zxcvbnWarning">
+                  <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M8 2L14 14H2L8 2z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 7v3M8 12v.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                  {{ zxcvbnWarning }}
+                </div>
+                <!-- zxcvbn suggestions -->
+                <ul class="pw-suggestions" *ngIf="zxcvbnSuggestions.length > 0">
+                  <li *ngFor="let s of zxcvbnSuggestions">{{ s }}</li>
+                </ul>
+              </div>
+
+              <!-- Hard rules checklist -->
+              <ul class="pw-rules" *ngIf="registerForm.get('password')?.touched || pwValue.length > 0">
+                <li [class.ok]="!pwErrors['minLength']"><span class="ri">{{ !pwErrors['minLength'] ? '✓' : '○' }}</span> Minimum 8 caractere</li>
+                <li [class.ok]="!pwErrors['uppercase']"><span class="ri">{{ !pwErrors['uppercase'] ? '✓' : '○' }}</span> Cel puțin o literă mare (A-Z)</li>
+                <li [class.ok]="!pwErrors['lowercase']"><span class="ri">{{ !pwErrors['lowercase'] ? '✓' : '○' }}</span> Cel puțin o literă mică (a-z)</li>
+                <li [class.ok]="!pwErrors['digit']"><span class="ri">{{ !pwErrors['digit'] ? '✓' : '○' }}</span> Cel puțin o cifră (0-9)</li>
+                <li [class.ok]="!pwErrors['special']"><span class="ri">{{ !pwErrors['special'] ? '✓' : '○' }}</span> Cel puțin un caracter special (!&#64;#$%^&amp;*)</li>
+              </ul>
             </div>
 
             <div *ngIf="errorMessage" class="error-banner">
@@ -73,8 +170,8 @@ import { AuthService } from '../../services/auth.service';
               {{ errorMessage }}
             </div>
 
-            <button type="submit" class="btn-submit" [disabled]="registerForm.invalid || loading">
-              <span *ngIf="!loading">Deschide dosar</span>
+            <button type="submit" class="btn-submit" [disabled]="registerForm.invalid || registerForm.pending || loading">
+              <span *ngIf="!loading">Creează cont</span>
               <span *ngIf="loading" class="spin-wrap"><span class="spin"></span>Se creează…</span>
             </button>
           </form>
@@ -130,6 +227,28 @@ import { AuthService } from '../../services/auth.service';
     .footer-link a{color:var(--amber);text-decoration:none;font-weight:500;margin-left:4px;border-bottom:1px solid rgba(184,114,8,0.3);padding-bottom:1px;transition:border-color .15s;}
     .footer-link a:hover{border-color:var(--amber);}
     .stamp{position:absolute;bottom:14px;right:16px;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(28,43,74,0.2);border:1px solid rgba(28,43,74,0.15);padding:2px 7px;border-radius:2px;transform:rotate(7deg);}
+
+    .inp-wrap{position:relative;display:flex;align-items:center;}
+    .inp-wrap .inp{flex:1;padding-right:34px;}
+    .inp-status{position:absolute;right:11px;font-size:14px;line-height:1;}
+    .status-spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(0,0,0,0.1);border-top-color:var(--amber);border-radius:50%;animation:spin .6s linear infinite;}
+    .status-ok{color:#2d7a3a;font-size:15px;}
+    .status-err{color:var(--red);font-size:15px;}
+    .err-msg a{color:var(--amber);text-decoration:none;border-bottom:1px solid rgba(184,114,8,0.4);}
+    .strength-wrap{margin-top:6px;display:flex;flex-direction:column;gap:4px;}
+    .strength-row{display:flex;align-items:center;gap:8px;}
+    .strength-segs{display:flex;gap:3px;flex:1;}
+    .seg{height:4px;flex:1;border-radius:99px;background:rgba(0,0,0,0.08);transition:background .35s;}
+    .strength-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.2px;text-transform:uppercase;white-space:nowrap;transition:color .3s;min-width:80px;text-align:right;}
+    .pw-warning{display:flex;align-items:center;gap:5px;font-size:11.5px;color:#c06010;font-style:italic;}
+    .pw-suggestions{list-style:none;padding-left:4px;display:flex;flex-direction:column;gap:2px;}
+    .pw-suggestions li{font-size:11px;color:var(--ink2);padding-left:10px;position:relative;}
+    .pw-suggestions li::before{content:'→';position:absolute;left:0;color:var(--ink3);}
+    /* ── Hard rules checklist ── */
+    .pw-rules{list-style:none;display:flex;flex-direction:column;gap:3px;padding:8px 0 2px;border-top:1px solid var(--border);margin-top:4px;}
+    .pw-rules li{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink3);transition:color .2s;}
+    .pw-rules li.ok{color:#2d7a3a;}
+    .ri{font-family:'JetBrains Mono',monospace;font-size:11px;width:14px;text-align:center;}
   `]
 })
 export class RegisterComponent implements AfterViewInit, OnDestroy {
@@ -139,14 +258,71 @@ export class RegisterComponent implements AfterViewInit, OnDestroy {
   errorMessage = '';
   private cleanup?: () => void;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private http: HttpClient) {
     this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
+      lastName:  ['', Validators.required],
+      email:     ['', [Validators.required, Validators.email], [this.emailAvailabilityValidator.bind(this)]],
+      password:  ['', [Validators.required, hardRulesValidator]]
+    }, { validators: zxcvbnGroupValidator });
   }
+
+  // ── Async email validator ─────────────────────────────────────────────────
+
+  emailAvailabilityValidator(control: AbstractControl) {
+    if (!control.value || control.hasError('email')) return of(null);
+    return timer(600).pipe(
+      switchMap(() =>
+        this.http.get<{ exists: boolean }>(`http://localhost:5230/api/auth/check-email?email=${encodeURIComponent(control.value)}`).pipe(
+          map(res => res.exists ? { emailTaken: true } : null),
+          catchError(() => of(null))
+        )
+      ),
+      first()
+    );
+  }
+
+  // ── Password strength helpers ────────────────────────────────────────────
+
+  get pwValue(): string { return this.registerForm.get('password')?.value ?? ''; }
+
+  get pwErrors(): Record<string, boolean> {
+    return (this.registerForm.get('password')?.errors as Record<string, boolean>) ?? {};
+  }
+
+  get strengthScore(): number {
+    const z = this._zxcvbn;
+    return z ? z.score : 0; // 0-4
+  }
+
+  get strengthColor(): string {
+    return ['#c0392b','#e67e22','#f39c12','#27ae60','#2ecc71'][this.strengthScore] ?? '#c0392b';
+  }
+
+  get strengthLabel(): string {
+    return ['Foarte slabă','Slabă','Acceptabilă','Bună','Excelentă'][this.strengthScore] ?? 'Foarte slabă';
+  }
+
+  private get _zxcvbn() {
+    if (!this.pwValue) return null;
+    const inputs = [
+      this.registerForm.get('firstName')?.value,
+      this.registerForm.get('lastName')?.value,
+      this.registerForm.get('email')?.value
+    ].filter(Boolean);
+    return zxcvbn(this.pwValue, inputs);
+  }
+
+  get zxcvbnWarning(): string {
+    const w = this._zxcvbn?.feedback?.warning ?? '';
+    return w ? tr(WARN_RO, w) : '';
+  }
+
+  get zxcvbnSuggestions(): string[] {
+    return (this._zxcvbn?.feedback?.suggestions ?? []).map(s => tr(SUGG_RO, s));
+  }
+
+  // ── Lifecycle & submit ───────────────────────────────────────────────────
 
   ngAfterViewInit() { this.cleanup = this.initCanvas(this.canvasRef.nativeElement); }
   ngOnDestroy() { this.cleanup?.(); }

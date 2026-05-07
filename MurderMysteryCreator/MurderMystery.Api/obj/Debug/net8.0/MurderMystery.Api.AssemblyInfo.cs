@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("2a6a0aaf-22c2-4214-8e84-b952aca32724")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("MurderMystery.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+381b34ed86861b2cf10487ef2fd920c06a5e3af0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+313d9301f2662288b536eae607f1f776aefe209d")]
 [assembly: System.Reflection.AssemblyProductAttribute("MurderMystery.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MurderMystery.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -27,6 +27,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IAIValidationService, AIValidationService>();
 builder.Services.AddScoped<IStoryToGameService, StoryToGameService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddHttpClient<StoryToGameService>();
 builder.Services.AddSingleton<IQRCodeService, QRCodeService>();
 builder.Services.AddSingleton<PdfGenerationService>();
@@ -123,6 +124,31 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Apply migrations and ensure schema consistency.
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<MurderMysteryDbContext>();
+    db.Database.Migrate();
+
+    // Safety net: ensure PasswordResetTokens exists even if migration history is inconsistent.
+    db.Database.ExecuteSqlRaw(@"
+        CREATE TABLE IF NOT EXISTS ""PasswordResetTokens"" (
+            ""Id"" SERIAL PRIMARY KEY,
+            ""UserId"" INTEGER NOT NULL,
+            ""TokenHash"" VARCHAR(64) NOT NULL,
+            ""ExpiresAt"" TIMESTAMP WITH TIME ZONE NOT NULL,
+            ""IsUsed"" BOOLEAN NOT NULL DEFAULT FALSE,
+            ""CreatedAt"" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+            CONSTRAINT ""FK_PasswordResetTokens_Users_UserId""
+                FOREIGN KEY (""UserId"") REFERENCES ""Users"" (""UserId"") ON DELETE CASCADE
+        );
+        CREATE UNIQUE INDEX IF NOT EXISTS ""IX_PasswordResetTokens_TokenHash""
+            ON ""PasswordResetTokens"" (""TokenHash"");
+        CREATE INDEX IF NOT EXISTS ""IX_PasswordResetTokens_UserId""
+            ON ""PasswordResetTokens"" (""UserId"");
+    ");
+}
 
 app.Run();
 

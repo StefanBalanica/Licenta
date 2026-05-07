@@ -1,0 +1,30 @@
+# ── .NET ─────────────────────────────────────────────────────────────────────
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+# Production / environment-specific appsettings (may contain real secrets)
+appsettings.Production.json
+appsettings.Staging.json
+
+# ── Node / Angular ────────────────────────────────────────────────────────────
+node_modules/
+dist/
+.angular/
+
+# ── Environment files ─────────────────────────────────────────────────────────
+.env
+.env.local
+.env.production
+
+# ── OS ───────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+build_err.txt
+build_output.txt
+build.log
