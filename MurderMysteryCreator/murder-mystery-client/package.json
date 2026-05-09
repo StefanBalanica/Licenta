@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "node --max-old-space-size=512 node_modules/@angular/cli/bin/ng.js build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators, A
 import { Router, RouterModule } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import zxcvbn from 'zxcvbn';
 
 function hardRulesValidator(control: AbstractControl): ValidationErrors | null {
