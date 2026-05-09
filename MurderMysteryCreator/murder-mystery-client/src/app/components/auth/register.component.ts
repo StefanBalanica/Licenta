@@ -215,7 +215,7 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
     .card-top-line{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(184,114,8,0.55),transparent);}
 
     .brand{display:flex;align-items:center;justify-content:center;margin-bottom:22px;}
-    .logo-img{width:110px;height:auto;display:block;margin:0 auto;}
+    .logo-img{width:130px;height:130px;object-fit:contain;display:block;margin:0 auto;}
     .card-divider{position:relative;height:1px;background:linear-gradient(90deg,transparent,var(--border-md),transparent);margin-bottom:24px;}
     .divider-lbl{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);padding:0 10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber);white-space:nowrap;}
     .card-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--ink);margin-bottom:6px;}
