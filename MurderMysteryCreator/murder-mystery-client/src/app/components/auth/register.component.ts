@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 import { AuthService } from '../../services/auth.service';
 import { debounceTime, distinctUntilChanged, switchMap, map, catchError, first } from 'rxjs/operators';
 import { of, timer } from 'rxjs';
@@ -291,7 +292,7 @@ export class RegisterComponent implements AfterViewInit, OnDestroy {
     if (!control.value || control.hasError('email')) return of(null);
     return timer(600).pipe(
       switchMap(() =>
-        this.http.get<{ exists: boolean }>(`http://localhost:5230/api/auth/check-email?email=${encodeURIComponent(control.value)}`).pipe(
+        this.http.get<{ exists: boolean }>(`${environment.apiUrl}/api/auth/check-email?email=${encodeURIComponent(control.value)}`).pipe(
           map(res => res.exists ? { emailTaken: true } : null),
           catchError(() => of(null))
         )

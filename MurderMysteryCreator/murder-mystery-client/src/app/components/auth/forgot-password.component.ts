@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-forgot-password',
@@ -124,7 +125,7 @@ export class ForgotPasswordComponent {
     this.errorMessage = '';
     const email = this.form.value.email;
     try {
-      await this.http.post('http://localhost:5230/api/auth/forgot-password', { email }).toPromise();
+      await this.http.post(`${environment.apiUrl}/api/auth/forgot-password`, { email }).toPromise();
       this.emailSent = email;
       this.sent = true;
     } catch {

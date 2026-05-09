@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 import zxcvbn from 'zxcvbn';
 
 // â”€â”€ Same hard-rules validator as register â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -232,7 +233,7 @@ export class ResetPasswordComponent implements OnInit {
     this.errorMessage = '';
     this.showRetryLink = false;
     try {
-      await this.http.post('http://localhost:5230/api/auth/reset-password', {
+      await this.http.post(`${environment.apiUrl}/api/auth/reset-password`, {
         token: this.token,
         newPassword: this.form.value.password
       }).toPromise();
