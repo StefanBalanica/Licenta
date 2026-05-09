@@ -144,7 +144,7 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
     @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
     .card-top-line{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(184,114,8,0.55),transparent);}
     .brand{display:flex;align-items:center;justify-content:center;margin-bottom:22px;}
-    .logo-img{width:90px;height:90px;object-fit:contain;display:block;}
+    .logo-img{width:110px;height:auto;display:block;margin:0 auto;}
     .card-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;color:var(--ink);margin-bottom:8px;}
     .card-sub{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:24px;}
     .form{display:flex;flex-direction:column;gap:14px;}

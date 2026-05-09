@@ -210,7 +210,7 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
     .nav-back{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--ink2);text-decoration:none;border:1px solid var(--border-md);border-radius:7px;padding:5px 11px;transition:color .15s,border-color .15s;}
     .nav-back:hover{color:var(--ink);border-color:rgba(0,0,0,0.2);}
     .nav-logo{display:flex;align-items:center;}
-    .logo-img{width:48px;height:48px;object-fit:contain;display:block;}
+    .logo-img{height:42px;width:auto;display:block;}
     .nav-spacer{width:80px;}
     /* Layout */
     .main{padding:40px 24px;}
