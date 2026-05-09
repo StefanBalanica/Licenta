@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DigitalDevice } from '../models/models';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DeviceService {
-    private apiUrl = 'http://localhost:5230/api/games';
+    private apiUrl = `${environment.apiUrl}/api/games`;
 
     constructor(private http: HttpClient) { }
 
@@ -68,7 +69,7 @@ export class DeviceService {
 
     // Public endpoint — no auth required (used by QR-scanned device pages)
     getDeviceByPublicSlug(slug: string): Observable<any> {
-        return this.http.get<any>(`http://localhost:5230/api/devices/public/${slug}`);
+        return this.http.get<any>(`${environment.apiUrl}/api/devices/public/${slug}`);
     }
 
     // Download QR code PDF

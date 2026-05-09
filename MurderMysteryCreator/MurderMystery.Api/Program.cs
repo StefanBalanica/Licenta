@@ -64,11 +64,16 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 // Configure CORS
+var frontendUrl = builder.Configuration["AppSettings:FrontendUrl"] ?? "http://localhost:4200";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins(
+                "http://localhost:4200",
+                "http://localhost:4201",
+                frontendUrl
+              )
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -116,7 +121,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// NOTE: UseHttpsRedirection is intentionally omitted.
+// Render handles HTTPS termination at the proxy level; enabling it here causes redirect loops.
 
 app.UseCors("AllowAngular");
 

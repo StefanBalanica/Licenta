@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators, A
 import { Router, RouterModule } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { environment } from '../../../../environments/environment';
 import zxcvbn from 'zxcvbn';
 
 function hardRulesValidator(control: AbstractControl): ValidationErrors | null {
@@ -359,7 +360,7 @@ export class ProfileComponent implements OnInit {
     const token = localStorage.getItem('auth_token');
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
     try {
-      await this.http.post('http://localhost:5230/api/auth/change-password', {
+      await this.http.post(`${environment.apiUrl}/api/auth/change-password`, {
         currentPassword: this.pwForm.value.currentPassword,
         newPassword: this.pwForm.value.newPassword
       }, { headers }).toPromise();
@@ -379,7 +380,7 @@ export class ProfileComponent implements OnInit {
     const token = localStorage.getItem('auth_token');
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
     try {
-      await this.http.delete('http://localhost:5230/api/auth/account', { headers }).toPromise();
+      await this.http.delete(`${environment.apiUrl}/api/auth/account`, { headers }).toPromise();
       this.authService.logout();
       this.router.navigate(['/login']);
     } catch (err: any) {

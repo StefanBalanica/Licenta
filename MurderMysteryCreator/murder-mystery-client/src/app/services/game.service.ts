@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Game, GameSummary } from '../models/models';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class GameService {
-    private apiUrl = 'http://localhost:5230/api/games';
+    private apiUrl = `${environment.apiUrl}/api/games`;
 
     constructor(private http: HttpClient) { }
 
