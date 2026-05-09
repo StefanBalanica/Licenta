@@ -15,19 +15,46 @@ QuestPDF.Settings.License = LicenseType.Community;
 
 // Handle both URL format (given by Render: postgresql://user:pass@host/db)
 // and standard key-value format (local: Host=...;Port=...;...)
-// Npgsql on Linux can SIGSEGV when parsing raw postgres:// URLs in some versions.
 var rawConnection = builder.Configuration.GetConnectionString("DefaultConnection") ?? "";
 var connectionString = rawConnection;
 if (rawConnection.StartsWith("postgresql://") || rawConnection.StartsWith("postgres://"))
 {
-    var uri = new Uri(rawConnection.Replace("postgresql://", "https://").Replace("postgres://", "https://"));
-    var userInfo = uri.UserInfo.Split(':', 2);
-    var host = uri.Host;
-    var port = uri.Port > 0 ? uri.Port : 5432;
-    var database = uri.AbsolutePath.TrimStart('/');
-    var user = Uri.UnescapeDataString(userInfo[0]);
-    var password = userInfo.Length > 1 ? Uri.UnescapeDataString(userInfo[1]) : "";
-    connectionString = $"Host={host};Port={port};Database={database};Username={user};Password={password};SSL Mode=Require;Trust Server Certificate=true";
+    // Manual parse — avoids Uri defaulting to port 443 when scheme is replaced with https://
+    var withoutScheme = rawConnection.Contains("://") ? rawConnection[(rawConnection.IndexOf("://") + 3)..] : rawConnection;
+    // withoutScheme = "user:password@host:port/database" OR "user:password@host/database"
+
+    var atIndex = withoutScheme.IndexOf('@');
+    var userInfoStr = withoutScheme[..atIndex];
+    var rest = withoutScheme[(atIndex + 1)..];
+
+    var userParts = userInfoStr.Split(':', 2);
+    var user = Uri.UnescapeDataString(userParts[0]);
+    var password = userParts.Length > 1 ? Uri.UnescapeDataString(userParts[1]) : "";
+
+    var slashIndex = rest.IndexOf('/');
+    var hostPort = slashIndex >= 0 ? rest[..slashIndex] : rest;
+    var database = slashIndex >= 0 ? rest[(slashIndex + 1)..] : "";
+
+    // Remove query string from database if present (e.g. ?sslmode=require)
+    var queryIndex = database.IndexOf('?');
+    if (queryIndex >= 0) database = database[..queryIndex];
+
+    // Detect port — default to 5432 if not specified
+    var colonIndex = hostPort.LastIndexOf(':');
+    string host;
+    int port;
+    if (colonIndex >= 0 && int.TryParse(hostPort[(colonIndex + 1)..], out port))
+    {
+        host = hostPort[..colonIndex];
+    }
+    else
+    {
+        host = hostPort;
+        port = 5432;
+    }
+
+    // Use SSL Mode=Prefer: tries SSL but falls back to plain (needed for Render internal connections)
+    connectionString = $"Host={host};Port={port};Database={database};Username={user};Password={password};SSL Mode=Prefer;Trust Server Certificate=true";
 }
 
 // Add DbContext
