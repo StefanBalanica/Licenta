@@ -46,27 +46,27 @@ const WARN_RO: Record<string, string> = {
   'This is a top-100 common password': 'Aceasta este printre cele mai comune 100 parole',
   'This is a very common password': 'Parola foarte comuna',
   'This is similar to a commonly used password': 'Similara cu o parola des utilizata',
-  "Straight rows of keys are easy to guess": 'Model de tastaturÄƒ uÈ™or de ghicit',
-  "Short keyboard patterns are easy to guess": 'Model scurt de tastaturÄƒ',
-  'Sequences like abc or 6543 are easy to guess': 'SecvenÈ›e simple, uÈ™or de ghicit',
-  'Repeats like "abcabc" are only slightly harder to guess than "abc"': 'RepetiÈ›iile sunt uÈ™or de ghicit',
-  'Recent years are easy to guess': 'Ani recenÈ›i, uÈ™or de ghicit',
-  'Dates are often easy to guess': 'Datele sunt uÈ™or de ghicit',
-  'A word by itself is easy to guess': 'Un singur cuvÃ¢nt, uÈ™or de ghicit',
-  'Names and surnames by themselves are easy to guess': 'Numele È™i prenumele sunt uÈ™or de ghicit',
-  'Common names and surnames are easy to guess': 'Nume comune, uÈ™or de ghicit',
+  "Straight rows of keys are easy to guess": 'Model de tastatură ușor de ghicit',
+  "Short keyboard patterns are easy to guess": 'Model scurt de tastatură',
+  'Sequences like abc or 6543 are easy to guess': 'SecvenȚe simple, ușor de ghicit',
+  'Repeats like "abcabc" are only slightly harder to guess than "abc"': 'RepetiȚiile sunt ușor de ghicit',
+  'Recent years are easy to guess': 'Ani recenȚi, ușor de ghicit',
+  'Dates are often easy to guess': 'Datele sunt ușor de ghicit',
+  'A word by itself is easy to guess': 'Un singur cuvânt, ușor de ghicit',
+  'Names and surnames by themselves are easy to guess': 'Numele și prenumele sunt ușor de ghicit',
+  'Common names and surnames are easy to guess': 'Nume comune, ușor de ghicit',
 };
 const SUGG_RO: Record<string, string> = {
-  'Add another word or two. Uncommon words are better.': 'AdaugÄƒ un cuvÃ¢nt sau douÄƒ. Cuvintele neobiÈ™nuite sunt mai bune.',
-  'Use a longer keyboard pattern with more turns': 'FoloseÈ™te un model mai lung pe tastaturÄƒ, cu mai multe schimbÄƒri de direcÈ›ie.',
-  'Avoid repeated words and characters': 'EvitÄƒ cuvintele È™i caracterele repetate.',
-  'Avoid sequences': 'EvitÄƒ secvenÈ›ele (abc, 123).',
-  'Avoid recent years': 'EvitÄƒ anii recenÈ›i.',
-  'Avoid years that are associated with you': 'EvitÄƒ ani asociaÈ›i cu tine.',
-  'Avoid dates and years that are associated with you': 'EvitÄƒ datele È™i anii asociaÈ›i cu tine.',
-  "Capitalization doesn't help very much": 'Majusculele singure nu ajutÄƒ prea mult.',
+  'Add another word or two. Uncommon words are better.': 'Adaugă un cuvânt sau două. Cuvintele neobișnuite sunt mai bune.',
+  'Use a longer keyboard pattern with more turns': 'Folosește un model mai lung pe tastatură, cu mai multe schimbări de direcȚie.',
+  'Avoid repeated words and characters': 'Evită cuvintele și caracterele repetate.',
+  'Avoid sequences': 'Evită secvenȚele (abc, 123).',
+  'Avoid recent years': 'Evită anii recenȚi.',
+  'Avoid years that are associated with you': 'Evită ani asociaȚi cu tine.',
+  'Avoid dates and years that are associated with you': 'Evită datele și anii asociaȚi cu tine.',
+  "Capitalization doesn't help very much": 'Majusculele singure nu ajută prea mult.',
   "Reversed words aren't much harder to guess": 'Cuvintele inversate nu sunt mult mai sigure.',
-  "Predictable substitutions like '@' instead of 'a' don't help very much": 'SubstituÈ›iile predictibile (ex. @ Ã®n loc de a) nu ajutÄƒ prea mult.',
+  "Predictable substitutions like '@' instead of 'a' don't help very much": 'SubstituȚiile predictibile (ex. @ în loc de a) nu ajută prea mult.',
 };
 const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
 
@@ -89,20 +89,20 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
             <span class="divider-lbl">DOSAR NOU</span>
           </div>
 
-          <h1 class="card-title">CreeazÄƒ cont</h1>
-          <p class="card-sub">CompleteazÄƒ formularul pentru a accesa platforma.</p>
+          <h1 class="card-title">Creează cont</h1>
+          <p class="card-sub">Completează formularul pentru a accesa platforma.</p>
 
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form">
             <div class="form-row">
               <div class="field" [class.field-err]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
                 <label class="lbl">PRENUME</label>
                 <input class="inp" type="text" formControlName="firstName" placeholder="Ion"/>
-                <span *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" class="err-msg">CÃ¢mp obligatoriu.</span>
+                <span *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" class="err-msg">Câmp obligatoriu.</span>
               </div>
               <div class="field" [class.field-err]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
                 <label class="lbl">NUME</label>
                 <input class="inp" type="text" formControlName="lastName" placeholder="Popescu"/>
-                <span *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" class="err-msg">CÃ¢mp obligatoriu.</span>
+                <span *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" class="err-msg">Câmp obligatoriu.</span>
               </div>
             </div>
 
@@ -120,13 +120,13 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
                 </span>
               </div>
               <span *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched" class="err-msg">Email invalid.</span>
-              <span *ngIf="registerForm.get('email')?.hasError('emailTaken') && registerForm.get('email')?.touched" class="err-msg">Email deja Ã®nregistrat. <a routerLink="/login">AutentificÄƒ-te</a></span>
+              <span *ngIf="registerForm.get('email')?.hasError('emailTaken') && registerForm.get('email')?.touched" class="err-msg">Email deja înregistrat. <a routerLink="/login">Autentifică-te</a></span>
             </div>
 
             <div class="field" [class.field-err]="(registerForm.get('password')?.invalid || registerForm.hasError('zxcvbnWeak')) && registerForm.get('password')?.touched">
               <label class="lbl">
                 <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 1 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-                PAROLÄ‚
+                PAROLĂ
               </label>
               <div class="inp-wrap">
                 <input class="inp" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="minimum 8 caractere" autocomplete="new-password"/>
@@ -159,10 +159,10 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
               <!-- Hard rules checklist -->
               <ul class="pw-rules" *ngIf="registerForm.get('password')?.touched || pwValue.length > 0">
                 <li [class.ok]="!pwErrors['minLength']"><span class="ri">{{ !pwErrors['minLength'] ? 'âœ“' : 'â—‹' }}</span> Minimum 8 caractere</li>
-                <li [class.ok]="!pwErrors['uppercase']"><span class="ri">{{ !pwErrors['uppercase'] ? 'âœ“' : 'â—‹' }}</span> Cel puÈ›in o literÄƒ mare (A-Z)</li>
-                <li [class.ok]="!pwErrors['lowercase']"><span class="ri">{{ !pwErrors['lowercase'] ? 'âœ“' : 'â—‹' }}</span> Cel puÈ›in o literÄƒ micÄƒ (a-z)</li>
-                <li [class.ok]="!pwErrors['digit']"><span class="ri">{{ !pwErrors['digit'] ? 'âœ“' : 'â—‹' }}</span> Cel puÈ›in o cifrÄƒ (0-9)</li>
-                <li [class.ok]="!pwErrors['special']"><span class="ri">{{ !pwErrors['special'] ? 'âœ“' : 'â—‹' }}</span> Cel puÈ›in un caracter special (!&#64;#$%^&amp;*)</li>
+                <li [class.ok]="!pwErrors['uppercase']"><span class="ri">{{ !pwErrors['uppercase'] ? 'âœ“' : 'â—‹' }}</span> Cel puȚin o literă mare (A-Z)</li>
+                <li [class.ok]="!pwErrors['lowercase']"><span class="ri">{{ !pwErrors['lowercase'] ? 'âœ“' : 'â—‹' }}</span> Cel puȚin o literă mică (a-z)</li>
+                <li [class.ok]="!pwErrors['digit']"><span class="ri">{{ !pwErrors['digit'] ? 'âœ“' : 'â—‹' }}</span> Cel puȚin o cifră (0-9)</li>
+                <li [class.ok]="!pwErrors['special']"><span class="ri">{{ !pwErrors['special'] ? 'âœ“' : 'â—‹' }}</span> Cel puȚin un caracter special (!&#64;#$%^&amp;*)</li>
               </ul>
             </div>
 
@@ -170,10 +170,10 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
             <div class="field" [class.field-err]="registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched">
               <label class="lbl">
                 <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 1 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M7 10l2 2 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                CONFIRMÄ‚ PAROLA
+                CONFIRMĂ PAROLA
               </label>
               <div class="inp-wrap">
-                <input class="inp" [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" placeholder="repetÄƒ parola" autocomplete="new-password"/>
+                <input class="inp" [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" placeholder="repetă parola" autocomplete="new-password"/>
                 <button type="button" class="eye-btn" (click)="showConfirmPassword = !showConfirmPassword" tabindex="-1">
                   <svg *ngIf="!showConfirmPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4"/></svg>
                   <svg *ngIf="showConfirmPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M1 1l22 22" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
@@ -188,12 +188,12 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
             </div>
 
             <button type="submit" class="btn-submit" [disabled]="registerForm.invalid || registerForm.pending || loading">
-              <span *ngIf="!loading">CreeazÄƒ cont</span>
-              <span *ngIf="loading" class="spin-wrap"><span class="spin"></span>Se creeazÄƒâ€¦</span>
+              <span *ngIf="!loading">Creează cont</span>
+              <span *ngIf="loading" class="spin-wrap"><span class="spin"></span>Se creeazăâ€¦</span>
             </button>
           </form>
 
-          <p class="footer-link">Ai deja cont? <a routerLink="/login">AutentificÄƒ-te</a></p>
+          <p class="footer-link">Ai deja cont? <a routerLink="/login">Autentifică-te</a></p>
           <div class="stamp">RECRUIT</div>
         </div>
       </div>
@@ -320,7 +320,7 @@ export class RegisterComponent implements AfterViewInit, OnDestroy {
   }
 
   get strengthLabel(): string {
-    return ['Foarte slabÄƒ','SlabÄƒ','AcceptabilÄƒ','BunÄƒ','ExcelentÄƒ'][this.strengthScore] ?? 'Foarte slabÄƒ';
+    return ['Foarte slabă','Slabă','Acceptabilă','Bună','Excelentă'][this.strengthScore] ?? 'Foarte slabă';
   }
 
   private get _zxcvbn() {
@@ -354,7 +354,7 @@ export class RegisterComponent implements AfterViewInit, OnDestroy {
       await this.authService.register(this.registerForm.value).toPromise();
       this.router.navigate(['/dashboard']);
     } catch (error: any) {
-      this.errorMessage = error.error?.message || 'ÃŽnregistrarea a eÈ™uat. ÃŽncearcÄƒ din nou.';
+      this.errorMessage = error.error?.message || 'Înregistrarea a eșuat. Încearcă din nou.';
     } finally { this.loading = false; }
   }
 

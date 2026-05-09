@@ -47,7 +47,7 @@ import { GameSummary } from '../../models/models';
                 </button>
                 <button class="dropdown-item" (click)="goToProfile()">
                   <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 1 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-                  SchimbÄƒ parola
+                  Schimbă parola
                 </button>
                 <div class="dropdown-sep"></div>
                 <button class="dropdown-item item-danger" (click)="logout()">
@@ -68,19 +68,19 @@ import { GameSummary } from '../../models/models';
           <div class="panel-head">
             <div>
               <div class="eyebrow">ASISTENT IA</div>
-              <h3 class="panel-title">ConstruieÈ™te dosar din naraÈ›iune</h3>
+              <h3 class="panel-title">Construiește dosar din naraȚiune</h3>
             </div>
             <button class="panel-close" (click)="showStoryPanel = false">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             </button>
           </div>
-          <p class="panel-hint">Introdu relatarea cazului â€” AI-ul extrage automat personaje, dispozitive, conversaÈ›ii È™i emailuri.</p>
+          <p class="panel-hint">Introdu relatarea cazului â€” AI-ul extrage automat personaje, dispozitive, conversaȚii și emailuri.</p>
           <textarea [(ngModel)]="storyText" class="story-area"
-            placeholder="Ex: Titlu: Crima din vilÄƒ. Personaje: Maria (soÈ›ia, motiv moÈ™tenire), Ion (majordomul). Dispozitive: Maria are un iPhone cu emailuri, note È™i conversaÈ›ii cu Dr. Ionescu..."
+            placeholder="Ex: Titlu: Crima din vilă. Personaje: Maria (soȚia, motiv moștenire), Ion (majordomul). Dispozitive: Maria are un iPhone cu emailuri, note și conversaȚii cu Dr. Ionescu..."
             rows="8"></textarea>
           <div *ngIf="generating" class="progress-wrap">
             <div class="progress-header">
-              <span>Se analizeazÄƒ povestea È™i se extrag dispozitivele...</span>
+              <span>Se analizează povestea și se extrag dispozitivele...</span>
               <span class="progress-pct">{{ progressPct }}%</span>
             </div>
             <div class="progress-bar">
@@ -88,7 +88,7 @@ import { GameSummary } from '../../models/models';
             </div>
           </div>
           <div class="panel-foot" *ngIf="!generating">
-            <button class="btn-ghost" (click)="showStoryPanel = false">AnuleazÄƒ</button>
+            <button class="btn-ghost" (click)="showStoryPanel = false">Anulează</button>
             <button class="btn-primary" (click)="generateFromStory()" [disabled]="!storyText.trim()">
               <span>Deschide dosar</span>
             </button>
@@ -99,7 +99,7 @@ import { GameSummary } from '../../models/models';
         <!-- Loading -->
         <div *ngIf="loading" class="center-state">
           <div class="loader"></div>
-          <p class="meta-lbl">SE ÃŽNCARCÄ‚ DOSARELEâ€¦</p>
+          <p class="meta-lbl">SE ÎNCARCĂ DOSARELEâ€¦</p>
         </div>
 
         <!-- Empty -->
@@ -113,7 +113,7 @@ import { GameSummary } from '../../models/models';
             </svg>
           </div>
           <h2 class="empty-title">Niciun dosar deschis</h2>
-          <p class="empty-sub">CreeazÄƒ primul caz sau importÄƒ o naraÈ›iune prin AI.</p>
+          <p class="empty-sub">Creează primul caz sau importă o naraȚiune prin AI.</p>
           <div class="empty-acts">
             <button class="btn-primary" (click)="createGame()">Dosar nou</button>
             <button class="btn-outline-amber" (click)="showStoryPanel = true">AI Story</button>
@@ -148,7 +148,7 @@ import { GameSummary } from '../../models/models';
                 {{ game.isPublished ? 'PUBLICAT' : 'ACTIV' }}
               </div>
               <h3 class="card-title">{{ game.title }}</h3>
-              <p class="card-desc">{{ game.description || 'Nicio descriere disponibilÄƒ.' }}</p>
+              <p class="card-desc">{{ game.description || 'Nicio descriere disponibilă.' }}</p>
 
               <div class="sep"></div>
 
@@ -170,7 +170,7 @@ import { GameSummary } from '../../models/models';
               <div class="card-footer">
                 <span class="card-date">{{ formatDate(game.updatedAt) }}</span>
                 <div class="card-acts">
-                  <button class="act-btn" (click)="editGame(game.gameId); $event.stopPropagation()" title="EditeazÄƒ">
+                  <button class="act-btn" (click)="editGame(game.gameId); $event.stopPropagation()" title="Editează">
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M11 2l3 3-9 9H2v-3L11 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
                   </button>
                   <button class="act-btn act-del" (click)="deleteGame(game.gameId); $event.stopPropagation()" title="È˜terge">
@@ -418,7 +418,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.storyError = '';
     this.progressPct = 0;
     
-    // AnimaÈ›ie fluidÄƒ pentru progress bar pÃ¢nÄƒ pe la 96%
+    // AnimaȚie fluidă pentru progress bar până pe la 96%
     this.progressInterval = setInterval(() => {
       if (this.progressPct < 96) {
         const step = Math.max(1, Math.floor((96 - this.progressPct) / 10));
@@ -431,7 +431,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         clearInterval(this.progressInterval);
         this.progressPct = 100;
         
-        // Timeout mic ca userul sÄƒ vadÄƒ cÄƒ a ajuns la 100% Ã®nainte de a se muta pagina
+        // Timeout mic ca userul să vadă că a ajuns la 100% înainte de a se muta pagina
         setTimeout(() => {
           this.generating = false; 
           this.showStoryPanel = false; 
@@ -444,7 +444,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         clearInterval(this.progressInterval);
         this.generating = false;
         this.progressPct = 0;
-        this.storyError = err.error?.message || 'Eroare la generare â€” verificÄƒ cheia API.';
+        this.storyError = err.error?.message || 'Eroare la generare â€” verifică cheia API.';
       }
     });
   }
@@ -454,10 +454,10 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   goToProfile() { this.menuOpen = false; this.router.navigate(['/profile']); }
 
   deleteGame(gameId: number) {
-    if (confirm('Confirmi Ã®nchiderea dosarului? AcÈ›iunea este ireversibilÄƒ.')) {
+    if (confirm('Confirmi închiderea dosarului? AcȚiunea este ireversibilă.')) {
       this.gameService.deleteGame(gameId).subscribe({
         next: () => { this.games = this.games.filter(g => g.gameId !== gameId); },
-        error: () => { alert('È˜tergerea a eÈ™uat'); }
+        error: () => { alert('È˜tergerea a eșuat'); }
       });
     }
   }
@@ -467,7 +467,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     const d = Math.floor((Date.now() - date.getTime()) / 86400000);
-    if (d === 0) return 'astÄƒzi';
+    if (d === 0) return 'astăzi';
     if (d === 1) return 'ieri';
     if (d < 7) return `acum ${d} zile`;
     return date.toLocaleDateString('ro-RO');

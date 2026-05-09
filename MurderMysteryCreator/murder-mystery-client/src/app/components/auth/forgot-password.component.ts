@@ -28,16 +28,16 @@ import { HttpClient } from '@angular/common/http';
             </div>
             <h2 class="success-title">Email trimis!</h2>
             <p class="success-msg">
-              DacÄƒ adresa <strong>{{ emailSent }}</strong> este Ã®nregistratÄƒ, vei primi un link de resetare Ã®n cÃ¢teva minute.<br>
-              VerificÄƒ È™i folderul <em>Spam</em>.
+              Dacă adresa <strong>{{ emailSent }}</strong> este înregistrată, vei primi un link de resetare în câteva minute.<br>
+              Verifică și folderul <em>Spam</em>.
             </p>
-            <a routerLink="/login" class="btn-back">ÃŽnapoi la autentificare</a>
+            <a routerLink="/login" class="btn-back">Înapoi la autentificare</a>
           </div>
 
           <!-- Form state -->
           <ng-container *ngIf="!sent">
             <h1 class="card-title">Ai uitat parola?</h1>
-            <p class="card-sub">Introdu emailul contului tÄƒu È™i Ã®È›i trimitem un link securizat de resetare.</p>
+            <p class="card-sub">Introdu emailul contului tău și îȚi trimitem un link securizat de resetare.</p>
 
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
               <div class="field" [class.field-err]="form.get('email')?.invalid && form.get('email')?.touched">
@@ -60,7 +60,7 @@ import { HttpClient } from '@angular/common/http';
               </button>
             </form>
 
-            <p class="footer-link"><a routerLink="/login">&#8592; ÃŽnapoi la autentificare</a></p>
+            <p class="footer-link"><a routerLink="/login">&#8592; Înapoi la autentificare</a></p>
           </ng-container>
 
           <div class="stamp">CONFIDENȚIAL</div>
@@ -128,7 +128,7 @@ export class ForgotPasswordComponent {
       this.emailSent = email;
       this.sent = true;
     } catch {
-      this.errorMessage = 'A apÄƒrut o eroare. ÃŽncearcÄƒ din nou.';
+      this.errorMessage = 'A apărut o eroare. Încearcă din nou.';
     } finally {
       this.loading = false;
     }

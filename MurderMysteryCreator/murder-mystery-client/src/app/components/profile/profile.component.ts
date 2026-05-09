@@ -57,7 +57,7 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
               </div>
               <div>
                 <div class="eyebrow">CONT</div>
-                <h2 class="section-title">InformaÈ›ii cont</h2>
+                <h2 class="section-title">InformaȚii cont</h2>
               </div>
             </div>
             <div class="info-grid">
@@ -89,18 +89,18 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
               </div>
               <div>
                 <div class="eyebrow">SECURITATE</div>
-                <h2 class="section-title">SchimbÄƒ parola</h2>
+                <h2 class="section-title">Schimbă parola</h2>
               </div>
             </div>
 
             <div *ngIf="pwSuccess" class="alert-success">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 8.5l2.5 2.5 4-5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Parola a fost actualizatÄƒ cu succes.
+              Parola a fost actualizată cu succes.
             </div>
 
             <form [formGroup]="pwForm" (ngSubmit)="changePassword()" class="form">
               <div class="field">
-                <label class="lbl">PAROLA CURENTÄ‚</label>
+                <label class="lbl">PAROLA CURENTĂ</label>
                 <div class="inp-wrap">
                   <input class="inp" [type]="showCurrentPassword ? 'text' : 'password'" formControlName="currentPassword" autocomplete="current-password"/>
                   <button type="button" class="eye-btn" (click)="showCurrentPassword = !showCurrentPassword" tabindex="-1">
@@ -110,7 +110,7 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
                 </div>
               </div>
               <div class="field">
-                <label class="lbl">PAROLA NOUÄ‚</label>
+                <label class="lbl">PAROLA NOUĂ</label>
                 <div class="inp-wrap">
                   <input class="inp" [type]="showNewPassword ? 'text' : 'password'" formControlName="newPassword" autocomplete="new-password"/>
                   <button type="button" class="eye-btn" (click)="showNewPassword = !showNewPassword" tabindex="-1">
@@ -133,18 +133,18 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
                 <!-- Rules -->
                 <ul class="pw-rules" *ngIf="newPwValue.length > 0">
                   <li [class.ok]="!newPwErrors['minLength']"><span class="ri">{{ !newPwErrors['minLength'] ? 'âœ“' : 'â—‹' }}</span> Minimum 8 caractere</li>
-                  <li [class.ok]="!newPwErrors['uppercase']"><span class="ri">{{ !newPwErrors['uppercase'] ? 'âœ“' : 'â—‹' }}</span> LiterÄƒ mare (A-Z)</li>
-                  <li [class.ok]="!newPwErrors['lowercase']"><span class="ri">{{ !newPwErrors['lowercase'] ? 'âœ“' : 'â—‹' }}</span> LiterÄƒ micÄƒ (a-z)</li>
-                  <li [class.ok]="!newPwErrors['digit']"><span class="ri">{{ !newPwErrors['digit'] ? 'âœ“' : 'â—‹' }}</span> CifrÄƒ (0-9)</li>
+                  <li [class.ok]="!newPwErrors['uppercase']"><span class="ri">{{ !newPwErrors['uppercase'] ? 'âœ“' : 'â—‹' }}</span> Literă mare (A-Z)</li>
+                  <li [class.ok]="!newPwErrors['lowercase']"><span class="ri">{{ !newPwErrors['lowercase'] ? 'âœ“' : 'â—‹' }}</span> Literă mică (a-z)</li>
+                  <li [class.ok]="!newPwErrors['digit']"><span class="ri">{{ !newPwErrors['digit'] ? 'âœ“' : 'â—‹' }}</span> Cifră (0-9)</li>
                   <li [class.ok]="!newPwErrors['special']"><span class="ri">{{ !newPwErrors['special'] ? 'âœ“' : 'â—‹' }}</span> Caracter special (!&#64;#$%)</li>
                 </ul>
               </div>
 
               <!-- Confirm new password -->
               <div class="field" [class.field-err]="pwForm.hasError('passwordMismatch') && pwForm.get('confirmNewPassword')?.touched">
-                <label class="lbl">CONFIRMÄ‚ PAROLA NOUÄ‚</label>
+                <label class="lbl">CONFIRMĂ PAROLA NOUĂ</label>
                 <div class="inp-wrap">
-                  <input class="inp" [type]="showConfirmNewPassword ? 'text' : 'password'" formControlName="confirmNewPassword" placeholder="repetÄƒ parola nouÄƒ" autocomplete="new-password"/>
+                  <input class="inp" [type]="showConfirmNewPassword ? 'text' : 'password'" formControlName="confirmNewPassword" placeholder="repetă parola nouă" autocomplete="new-password"/>
                   <button type="button" class="eye-btn" (click)="showConfirmNewPassword = !showConfirmNewPassword" tabindex="-1">
                     <svg *ngIf="!showConfirmNewPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4"/></svg>
                     <svg *ngIf="showConfirmNewPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M1 1l22 22" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
@@ -159,8 +159,8 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
               </div>
 
               <button type="submit" class="btn-primary" [disabled]="pwForm.invalid || pwLoading">
-                <span *ngIf="!pwLoading">ActualizeazÄƒ parola</span>
-                <span *ngIf="pwLoading" class="spin-wrap"><span class="spin"></span>Se salveazÄƒâ€¦</span>
+                <span *ngIf="!pwLoading">Actualizează parola</span>
+                <span *ngIf="pwLoading" class="spin-wrap"><span class="spin"></span>Se salveazăâ€¦</span>
               </button>
             </form>
           </section>
@@ -172,21 +172,21 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 11v6M14 11v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
               </div>
               <div>
-                <div class="eyebrow eyebrow-red">ZONÄ‚ PERICULOASÄ‚</div>
+                <div class="eyebrow eyebrow-red">ZONĂ PERICULOASĂ</div>
                 <h2 class="section-title">È˜terge contul</h2>
               </div>
             </div>
-            <p class="danger-desc">È˜tergerea contului este <strong>ireversibilÄƒ</strong>. Toate jocurile, personajele È™i dispozitivele asociate vor fi È™terse permanent.</p>
+            <p class="danger-desc">È˜tergerea contului este <strong>ireversibilă</strong>. Toate jocurile, personajele și dispozitivele asociate vor fi șterse permanent.</p>
 
             <!-- Confirm box (appears after click) -->
             <div *ngIf="confirmDelete" class="confirm-box">
-              <p class="confirm-msg">EÈ™ti sigur? Scrie <strong>STERGE</strong> pentru a confirma:</p>
+              <p class="confirm-msg">Ești sigur? Scrie <strong>STERGE</strong> pentru a confirma:</p>
               <input class="inp" [(ngModel)]="deleteConfirmText" placeholder="STERGE" [ngModelOptions]="{standalone: true}"/>
               <div class="confirm-acts">
-                <button class="btn-ghost" (click)="confirmDelete = false; deleteConfirmText = ''">AnuleazÄƒ</button>
+                <button class="btn-ghost" (click)="confirmDelete = false; deleteConfirmText = ''">Anulează</button>
                 <button class="btn-danger" [disabled]="deleteConfirmText !== 'STERGE' || deleteLoading" (click)="deleteAccount()">
                   <span *ngIf="!deleteLoading">È˜terge definitiv</span>
-                  <span *ngIf="deleteLoading" class="spin-wrap"><span class="spin spin-red"></span>Se È™tergeâ€¦</span>
+                  <span *ngIf="deleteLoading" class="spin-wrap"><span class="spin spin-red"></span>Se ștergeâ€¦</span>
                 </button>
               </div>
             </div>
@@ -340,7 +340,7 @@ export class ProfileComponent implements OnInit {
   private get _zx() { return this.newPwValue ? zxcvbn(this.newPwValue) : null; }
   get strengthScore(): number { return this._zx?.score ?? 0; }
   get strengthColor(): string { return ['#c0392b','#e67e22','#f39c12','#27ae60','#2ecc71'][this.strengthScore]; }
-  get strengthLabel(): string { return ['Foarte slabÄƒ','SlabÄƒ','AcceptabilÄƒ','BunÄƒ','ExcelentÄƒ'][this.strengthScore]; }
+  get strengthLabel(): string { return ['Foarte slabă','Slabă','Acceptabilă','Bună','Excelentă'][this.strengthScore]; }
 
   // â”€â”€ Change password â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   async changePassword() {
@@ -358,7 +358,7 @@ export class ProfileComponent implements OnInit {
       this.pwSuccess = true;
       this.pwForm.reset();
     } catch (err: any) {
-      this.pwError = err.error?.message || 'A apÄƒrut o eroare. ÃŽncearcÄƒ din nou.';
+      this.pwError = err.error?.message || 'A apărut o eroare. Încearcă din nou.';
     } finally {
       this.pwLoading = false;
     }
@@ -375,7 +375,7 @@ export class ProfileComponent implements OnInit {
       this.authService.logout();
       this.router.navigate(['/login']);
     } catch (err: any) {
-      alert(err.error?.message || 'È˜tergerea a eÈ™uat. ÃŽncearcÄƒ din nou.');
+      alert(err.error?.message || 'È˜tergerea a eșuat. Încearcă din nou.');
       this.deleteLoading = false;
     }
   }
