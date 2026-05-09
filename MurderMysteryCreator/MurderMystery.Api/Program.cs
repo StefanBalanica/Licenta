@@ -72,6 +72,7 @@ builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IAIValidationService, AIValidationService>();
 builder.Services.AddScoped<IStoryToGameService, StoryToGameService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddHttpClient<EmailService>(); // needed for Gmail API HTTP calls
 builder.Services.AddHttpClient<StoryToGameService>();
 builder.Services.AddSingleton<IQRCodeService, QRCodeService>();
 builder.Services.AddSingleton<PdfGenerationService>();
