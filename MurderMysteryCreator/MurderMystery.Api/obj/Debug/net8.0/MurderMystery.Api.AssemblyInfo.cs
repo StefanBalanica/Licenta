@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MurderMystery.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d096d808787e4addb632b7f2a1df131fe006d66b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+606093d0dbda35304f6e20dcafb82a66103466ff")]
 [assembly: System.Reflection.AssemblyProductAttribute("MurderMystery.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MurderMystery.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

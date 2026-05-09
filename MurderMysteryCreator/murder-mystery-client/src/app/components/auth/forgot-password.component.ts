@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -22,8 +22,8 @@ import { HttpClient } from '@angular/common/http';
               </svg>
             </div>
             <div>
-              <div class="brand-name">Murder Mystery</div>
-              <div class="brand-sub">RESETARE PAROLĂ</div>
+              <div class="brand-name">The Investigation</div>
+              <div class="brand-sub">RESETARE PAROLÄ‚</div>
             </div>
           </div>
 
@@ -37,16 +37,16 @@ import { HttpClient } from '@angular/common/http';
             </div>
             <h2 class="success-title">Email trimis!</h2>
             <p class="success-msg">
-              Dacă adresa <strong>{{ emailSent }}</strong> este înregistrată, vei primi un link de resetare în câteva minute.<br>
-              Verifică și folderul <em>Spam</em>.
+              DacÄƒ adresa <strong>{{ emailSent }}</strong> este Ã®nregistratÄƒ, vei primi un link de resetare Ã®n cÃ¢teva minute.<br>
+              VerificÄƒ È™i folderul <em>Spam</em>.
             </p>
-            <a routerLink="/login" class="btn-back">Înapoi la autentificare</a>
+            <a routerLink="/login" class="btn-back">ÃŽnapoi la autentificare</a>
           </div>
 
           <!-- Form state -->
           <ng-container *ngIf="!sent">
             <h1 class="card-title">Ai uitat parola?</h1>
-            <p class="card-sub">Introdu emailul contului tău și îți trimitem un link securizat de resetare.</p>
+            <p class="card-sub">Introdu emailul contului tÄƒu È™i Ã®È›i trimitem un link securizat de resetare.</p>
 
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
               <div class="field" [class.field-err]="form.get('email')?.invalid && form.get('email')?.touched">
@@ -65,14 +65,14 @@ import { HttpClient } from '@angular/common/http';
 
               <button type="submit" class="btn-submit" [disabled]="form.invalid || loading">
                 <span *ngIf="!loading">Trimite link de resetare</span>
-                <span *ngIf="loading" class="spin-wrap"><span class="spin"></span>Se trimite…</span>
+                <span *ngIf="loading" class="spin-wrap"><span class="spin"></span>Se trimiteâ€¦</span>
               </button>
             </form>
 
-            <p class="footer-link"><a routerLink="/login">&#8592; Înapoi la autentificare</a></p>
+            <p class="footer-link"><a routerLink="/login">&#8592; ÃŽnapoi la autentificare</a></p>
           </ng-container>
 
-          <div class="stamp">CONFIDENȚIAL</div>
+          <div class="stamp">CONFIDENÈšIAL</div>
         </div>
       </div>
     </div>
@@ -85,6 +85,7 @@ import { HttpClient } from '@angular/common/http';
     @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
     .card-top-line{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(184,114,8,0.55),transparent);}
     .brand{display:flex;align-items:center;gap:10px;margin-bottom:26px;}
+        .logo-img { width: 52px; height: 52px; object-fit: contain; }
     .brand-badge{width:30px;height:30px;border:1px solid rgba(184,114,8,0.35);background:rgba(184,114,8,0.06);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--amber);flex-shrink:0;}
     .brand-badge svg{width:16px;height:16px;}
     .brand-name{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--ink);}
@@ -140,9 +141,12 @@ export class ForgotPasswordComponent {
       this.emailSent = email;
       this.sent = true;
     } catch {
-      this.errorMessage = 'A apărut o eroare. Încearcă din nou.';
+      this.errorMessage = 'A apÄƒrut o eroare. ÃŽncearcÄƒ din nou.';
     } finally {
       this.loading = false;
     }
   }
 }
+
+
+

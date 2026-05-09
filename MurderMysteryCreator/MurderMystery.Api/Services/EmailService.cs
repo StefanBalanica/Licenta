@@ -26,13 +26,13 @@ public class EmailService : IEmailService
         var smtpPort = int.Parse(settings["SmtpPort"] ?? "587");
         var smtpUser = settings["SmtpUser"] ?? throw new InvalidOperationException("EmailSettings:SmtpUser not configured");
         var smtpPass = settings["SmtpPass"] ?? throw new InvalidOperationException("EmailSettings:SmtpPass not configured");
-        var senderName = settings["SenderName"] ?? "Murder Mystery";
+        var senderName = settings["SenderName"] ?? "The Investigation";
         var senderEmail = settings["SenderEmail"] ?? smtpUser;
 
         var message = new MimeMessage();
         message.From.Add(new MailboxAddress(senderName, senderEmail));
         message.To.Add(new MailboxAddress(toName, toEmail));
-        message.Subject = "Resetare parolă — Murder Mystery Creator";
+        message.Subject = "Resetare parolă — The Investigation";
 
         message.Body = new TextPart("html")
         {
@@ -65,9 +65,32 @@ public class EmailService : IEmailService
                 <!-- Header bar -->
                 <tr><td style="height:3px;background:linear-gradient(90deg,transparent,#b87208,transparent);"></td></tr>
                 <!-- Logo -->
-                <tr><td style="padding:32px 36px 0;">
-                  <p style="margin:0;font-family:'Georgia',serif;font-size:16px;font-weight:700;color:#1a1610;letter-spacing:0.5px;">Murder Mystery</p>
-                  <p style="margin:2px 0 0;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(26,22,16,0.3);">CREATOR PLATFORM</p>
+                <tr><td style="padding:24px 36px 0;text-align:center;">
+                  <img src="https://i.ibb.co/placeholder" alt="The Investigation" style="display:none"/>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="72" height="72" style="display:block;margin:0 auto;">
+                    <circle cx="250" cy="250" r="248" fill="white"/>
+                    <circle cx="250" cy="250" r="238" fill="none" stroke="#0d0d0d" stroke-width="18"/>
+                    <circle cx="250" cy="250" r="188" fill="none" stroke="#0d0d0d" stroke-width="7"/>
+                    <defs>
+                      <path id="arc-top-em" d="M 42,250 A 208,208 0 0,1 458,250"/>
+                      <path id="arc-bot-em" d="M 70,318 A 198,198 0 0,0 430,318"/>
+                    </defs>
+                    <text font-family="Georgia,serif" font-weight="700" font-size="37" fill="#0d0d0d" letter-spacing="4">
+                      <textPath href="#arc-top-em" startOffset="50%" text-anchor="middle">THE INVESTIGATION</textPath>
+                    </text>
+                    <text font-family="Georgia,serif" font-weight="700" font-size="28" fill="#0d0d0d" letter-spacing="3">
+                      <textPath href="#arc-bot-em" startOffset="50%" text-anchor="middle">FOLLOW THE EVIDENCE</textPath>
+                    </text>
+                    <ellipse cx="232" cy="165" rx="72" ry="11" fill="#0d0d0d"/>
+                    <path d="M 196,165 Q 194,118 213,104 Q 234,90 260,97 Q 282,105 284,140 L 284,165 Z" fill="#0d0d0d"/>
+                    <path d="M 220,164 Q 268,162 285,178 Q 302,196 295,220 Q 290,240 278,250 Q 265,260 252,260 Q 235,260 224,248 Q 208,232 210,208 Q 210,183 220,164 Z" fill="#0d0d0d"/>
+                    <rect x="231" y="258" width="27" height="22" fill="#0d0d0d"/>
+                    <path d="M 185,390 L 212,275 Q 222,258 250,256 Q 278,258 288,275 L 318,390 Z" fill="#0d0d0d"/>
+                    <path d="M 245,268 L 225,308 L 250,285 Z" fill="white"/>
+                    <path d="M 255,268 L 278,308 L 250,285 Z" fill="white"/>
+                    <circle cx="305" cy="225" r="32" fill="none" stroke="#0d0d0d" stroke-width="13"/>
+                    <line x1="328" y1="248" x2="348" y2="268" stroke="#0d0d0d" stroke-width="13" stroke-linecap="round"/>
+                  </svg>
                 </td></tr>
                 <!-- Divider -->
                 <tr><td style="padding:20px 36px 0;"><hr style="border:none;border-top:1px solid rgba(0,0,0,0.07);"></td></tr>
@@ -92,7 +115,7 @@ public class EmailService : IEmailService
                 <!-- Footer -->
                 <tr><td style="padding:0 36px 28px;">
                   <hr style="border:none;border-top:1px solid rgba(0,0,0,0.07);margin-bottom:16px;">
-                  <p style="margin:0;font-size:11px;color:rgba(26,22,16,0.3);">Murder Mystery Creator &bull; Acest email a fost trimis automat, nu răspunde la el.</p>
+                  <p style="margin:0;font-size:11px;color:rgba(26,22,16,0.3);">The Investigation &bull; Acest email a fost trimis automat, nu răspunde la el.</p>
                 </td></tr>
               </table>
             </td></tr>
