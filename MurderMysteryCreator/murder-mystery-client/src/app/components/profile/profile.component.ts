@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -39,13 +39,7 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
             Dashboard
           </a>
           <div class="nav-logo">
-            <div class="logo-badge">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L20 7V17L12 22L4 17V7L12 2Z" stroke="currentColor" stroke-width="1.4"/><path d="M12 7L16 9.5V14.5L12 17L8 14.5V9.5L12 7Z" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="0.8"/></svg>
-            </div>
-            <div>
-              <div class="logo-title">The Investigation</div>
-              <div class="logo-sub">PROFILUL MEU</div>
-            </div>
+            <img src="assets/logo.svg" class="logo-img" alt="The Investigation"/>
           </div>
           <div class="nav-spacer"></div>
         </div>
@@ -215,12 +209,8 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
     .nav-inner{max-width:860px;margin:0 auto;padding:0 24px;height:100%;display:flex;align-items:center;gap:16px;}
     .nav-back{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--ink2);text-decoration:none;border:1px solid var(--border-md);border-radius:7px;padding:5px 11px;transition:color .15s,border-color .15s;}
     .nav-back:hover{color:var(--ink);border-color:rgba(0,0,0,0.2);}
-    .nav-logo{display:flex;align-items:center;gap:9px;flex:1;justify-content:center;}
-        .logo-img { width: 52px; height: 52px; object-fit: contain; }
-    .logo-badge{width:28px;height:28px;border:1px solid rgba(184,114,8,0.35);background:rgba(184,114,8,0.06);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--amber);}
-    .logo-badge svg{width:14px;height:14px;}
-    .logo-title{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--ink);line-height:1.1;}
-    .logo-sub{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink3);}
+    .nav-logo{display:flex;align-items:center;}
+    .logo-img{width:48px;height:48px;object-fit:contain;display:block;}
     .nav-spacer{width:80px;}
     /* Layout */
     .main{padding:40px 24px;}

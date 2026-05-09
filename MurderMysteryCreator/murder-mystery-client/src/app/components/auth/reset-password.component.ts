@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
@@ -35,16 +35,7 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
           <div class="card-top-line"></div>
 
           <div class="brand">
-            <div class="brand-badge">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2L20 7V17L12 22L4 17V7L12 2Z" stroke="currentColor" stroke-width="1.4"/>
-                <path d="M12 7L16 9.5V14.5L12 17L8 14.5V9.5L12 7Z" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="0.8"/>
-              </svg>
-            </div>
-            <div>
-              <div class="brand-name">The Investigation</div>
-              <div class="brand-sub">PAROLÄ‚ NOUÄ‚</div>
-            </div>
+            <img src="assets/logo.svg" class="logo-img" alt="The Investigation"/>
           </div>
 
           <!-- Invalid / missing token -->
@@ -152,12 +143,8 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
     .card{position:relative;background:var(--surface);border:1px solid var(--border-md);border-radius:14px;padding:36px 36px 32px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.07);animation:fadeUp .5s ease both;}
     @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
     .card-top-line{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(184,114,8,0.55),transparent);}
-    .brand{display:flex;align-items:center;gap:10px;margin-bottom:26px;}
-        .logo-img { width: 52px; height: 52px; object-fit: contain; }
-    .brand-badge{width:30px;height:30px;border:1px solid rgba(184,114,8,0.35);background:rgba(184,114,8,0.06);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--amber);flex-shrink:0;}
-    .brand-badge svg{width:16px;height:16px;}
-    .brand-name{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--ink);}
-    .brand-sub{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink3);}
+    .brand{display:flex;align-items:center;justify-content:center;margin-bottom:22px;}
+    .logo-img{width:90px;height:90px;object-fit:contain;display:block;}
     .card-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;color:var(--ink);margin-bottom:8px;}
     .card-sub{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:24px;}
     .form{display:flex;flex-direction:column;gap:14px;}

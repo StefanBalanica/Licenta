@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -208,11 +208,8 @@ import { GameSummary } from '../../models/models';
       border-bottom:1px solid var(--border-md);
     }
     .nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:100%;display:flex;align-items:center;gap:20px;position:relative;z-index:1;}
-    .nav-logo{display:flex;align-items:center;gap:10px;}
-    .logo-badge{width:30px;height:30px;border:1px solid rgba(184,114,8,0.35);background:rgba(184,114,8,0.06);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--amber);}
-    .logo-badge svg{width:16px;height:16px;}
-    .logo-title{font-family:'Playfair Display',serif;font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.1;}
-    .logo-sub{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink3);}
+    .nav-logo{display:flex;align-items:center;}
+    .logo-img{width:48px;height:48px;object-fit:contain;display:block;}
     .nav-center{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;}
     .status-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:blink 3s ease-in-out infinite;}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}

@@ -1,4 +1,4 @@
-﻿import { Component, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -42,8 +42,8 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
 
 // â”€â”€ Feedback translations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const WARN_RO: Record<string, string> = {
-  'This is a top-10 common password': 'Aceasta este printre cele mai comune 10 parole',
-  'This is a top-100 common password': 'Aceasta este printre cele mai comune 100 parole',
+  'This is a top-10 common password': 'Aceasta este printre cele mai comune 10 PAROLĂ
+  'This is a top-100 common password': 'Aceasta este printre cele mai comune 100 PAROLĂ
   'This is a very common password': 'ParolÄƒ foarte comunÄƒ',
   'This is similar to a commonly used password': 'SimilarÄƒ cu o parolÄƒ des utilizatÄƒ',
   "Straight rows of keys are easy to guess": 'Model de tastaturÄƒ uÈ™or de ghicit',
@@ -82,17 +82,7 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
           <div class="card-top-line"></div>
 
           <div class="brand">
-            <div class="brand-badge">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2L20 7V17L12 22L4 17V7L12 2Z" stroke="currentColor" stroke-width="1.4"/>
-                <path d="M12 7L16 9.5V14.5L12 17L8 14.5V9.5L12 7Z" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="0.8"/>
-                <text x="12" y="15" text-anchor="middle" font-size="5" fill="currentColor" font-family="monospace" font-weight="700">+</text>
-              </svg>
-            </div>
-            <div>
-              <div class="brand-name">The Investigation</div>
-              <div class="brand-sub">NOI RECRUTAÈšI</div>
-            </div>
+            <img src="assets/logo.svg" class="logo-img" alt="The Investigation"/>
           </div>
 
           <div class="card-divider">
@@ -224,12 +214,8 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
     @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
     .card-top-line{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(184,114,8,0.55),transparent);}
 
-    .brand{display:flex;align-items:center;gap:10px;margin-bottom:22px;}
-        .logo-img { width: 52px; height: 52px; object-fit: contain; }
-    .brand-badge{width:30px;height:30px;border:1px solid rgba(184,114,8,0.35);background:rgba(184,114,8,0.06);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--amber);flex-shrink:0;}
-    .brand-badge svg{width:16px;height:16px;}
-    .brand-name{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--ink);}
-    .brand-sub{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink3);}
+    .brand{display:flex;align-items:center;justify-content:center;margin-bottom:22px;}
+    .logo-img{width:90px;height:90px;object-fit:contain;display:block;}
     .card-divider{position:relative;height:1px;background:linear-gradient(90deg,transparent,var(--border-md),transparent);margin-bottom:24px;}
     .divider-lbl{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);padding:0 10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber);white-space:nowrap;}
     .card-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--ink);margin-bottom:6px;}

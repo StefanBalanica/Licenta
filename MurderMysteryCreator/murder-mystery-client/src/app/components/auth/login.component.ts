@@ -1,4 +1,4 @@
-﻿import { Component, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -16,23 +16,14 @@ import { AuthService } from '../../services/auth.service';
           <div class="card-top-line"></div>
 
           <div class="brand">
-            <div class="brand-badge">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2L20 7V17L12 22L4 17V7L12 2Z" stroke="currentColor" stroke-width="1.4"/>
-                <path d="M12 7L16 9.5V14.5L12 17L8 14.5V9.5L12 7Z" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="0.8"/>
-              </svg>
-            </div>
-            <div>
-              <div class="brand-name">The Investigation</div>
-              <div class="brand-sub">CREATOR PLATFORM</div>
-            </div>
+            <img src="assets/logo.svg" class="logo-img" alt="The Investigation"/>
           </div>
 
           <div class="card-divider">
             <span class="divider-lbl">ACCES SECURIZAT</span>
           </div>
 
-          <h1 class="card-title">Bun venit Ã®napoi</h1>
+          <h1 class="card-title">Bun venit Înapoi</h1>
           <p class="card-sub">Introdu datele pentru a deschide dosarele tale.</p>
 
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
@@ -49,10 +40,10 @@ import { AuthService } from '../../services/auth.service';
             <div class="field" [class.field-err]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
               <label class="lbl">
                 <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 1 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="10.5" r="1" fill="currentColor"/></svg>
-                PAROLÄ‚
+                PAROLĂ
               </label>
               <div class="inp-wrap">
-                <input class="inp" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" autocomplete="current-password"/>
+                <input class="inp" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="••••••••" autocomplete="current-password"/>
                 <button type="button" class="eye-btn" (click)="showPassword = !showPassword" tabindex="-1">
                   <svg *ngIf="!showPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4"/></svg>
                   <svg *ngIf="showPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M1 1l22 22" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
@@ -68,13 +59,13 @@ import { AuthService } from '../../services/auth.service';
             </div>
 
             <button type="submit" class="btn-submit" [disabled]="loginForm.invalid || loading">
-              <span *ngIf="!loading">IntrÄƒ Ã®n sistem</span>
-              <span *ngIf="loading" class="spin-wrap"><span class="spin"></span>Se verificÄƒâ€¦</span>
+              <span *ngIf="!loading">Intrați în sistem</span>
+              <span *ngIf="loading" class="spin-wrap"><span class="spin"></span>Se verifică...</span>
             </button>
           </form>
 
-          <p class="footer-link">Nu ai cont? <a routerLink="/register">ÃŽnregistreazÄƒ-te</a></p>
-          <div class="stamp">CONFIDENÈšIAL</div>
+          <p class="footer-link">Nu ai cont? <a routerLink="/register">Înregistrează-te</a></p>
+          <div class="stamp">CONFIDENȚIAL</div>
         </div>
       </div>
     </div>
@@ -99,12 +90,8 @@ import { AuthService } from '../../services/auth.service';
     @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
     .card-top-line{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(184,114,8,0.55),transparent);}
 
-    .brand{display:flex;align-items:center;gap:10px;margin-bottom:22px;}
-        .logo-img { width: 52px; height: 52px; object-fit: contain; }
-    .brand-badge{width:30px;height:30px;border:1px solid rgba(184,114,8,0.35);background:rgba(184,114,8,0.06);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--amber);flex-shrink:0;}
-    .brand-badge svg{width:16px;height:16px;}
-    .brand-name{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--ink);}
-    .brand-sub{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink3);}
+    .brand{display:flex;align-items:center;justify-content:center;margin-bottom:22px;}
+    .logo-img{width:90px;height:90px;object-fit:contain;display:block;}
 
     .card-divider{position:relative;height:1px;background:linear-gradient(90deg,transparent,var(--border-md),transparent);margin-bottom:24px;}
     .divider-lbl{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);padding:0 10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber);white-space:nowrap;}
@@ -168,7 +155,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       await this.authService.login(this.loginForm.value.email, this.loginForm.value.password).toPromise();
       this.router.navigate(['/dashboard']);
     } catch (error: any) {
-      this.errorMessage = error.error?.message || 'Date incorecte. ÃŽncearcÄƒ din nou.';
+      this.errorMessage = error.error?.message || 'Date incorecte. Încearcă din nou.';
     } finally { this.loading = false; }
   }
 
