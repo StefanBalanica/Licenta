@@ -23,8 +23,8 @@ import { AuthService } from '../../services/auth.service';
             <span class="divider-lbl">ACCES SECURIZAT</span>
           </div>
 
-          <h1 class="card-title">Bun venit Înapoi</h1>
-          <p class="card-sub">Introdu datele pentru a deschide dosarele tale.</p>
+          <h1 class="card-title">Bun Venit</h1>
+          <p class="card-sub">Introdu datele tale pentru a te conecta.</p>
 
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
 
@@ -96,8 +96,8 @@ import { AuthService } from '../../services/auth.service';
     .card-divider{position:relative;height:1px;background:linear-gradient(90deg,transparent,var(--border-md),transparent);margin-bottom:24px;}
     .divider-lbl{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);padding:0 10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber);white-space:nowrap;}
 
-    .card-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--ink);margin-bottom:6px;}
-    .card-sub{font-size:13px;color:var(--ink2);font-style:italic;margin-bottom:26px;line-height:1.5;}
+    .card-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--ink);margin-bottom:6px;text-align:center;}
+    .card-sub{font-size:13px;color:var(--ink2);font-style:italic;margin-bottom:26px;line-height:1.5;text-align:center;}
 
     .form{display:flex;flex-direction:column;gap:16px;}
     .field{display:flex;flex-direction:column;gap:6px;}
