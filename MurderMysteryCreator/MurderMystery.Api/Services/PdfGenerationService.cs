@@ -9,6 +9,25 @@ namespace MurderMystery.Api.Services;
 /// </summary>
 public class PdfGenerationService
 {
+    // Fills a field value followed by dots up to totalWidth chars
+    private static string DotField(string? value, int totalWidth)
+    {
+        var v = (value ?? "").Trim();
+        if (v.Length >= totalWidth) return v;
+        return v + new string('.', totalWidth - v.Length);
+    }
+
+    private static string ValueOrFallback(string? value, string fallback)
+        => string.IsNullOrWhiteSpace(value) ? fallback : value.Trim();
+
+    private static bool IsSuspectRole(string? role)
+    {
+        if (string.IsNullOrWhiteSpace(role)) return true;
+        var r = role.Trim().ToLowerInvariant();
+        if (r.Contains("martor") || r.Contains("witness")) return false;
+        return true;
+    }
+
     public byte[] GenerateCharacterProfilePdf(
         string fullName,
         string occupation,
@@ -20,276 +39,220 @@ public class PdfGenerationService
         string role,
         byte[]? profileImage)
     {
-        var caseRef = $"SP-{DateTime.UtcNow:yyyy}-{Math.Abs(fullName.GetHashCode()) % 1000:D3}";
-        var today = DateTime.UtcNow;
+        var caseRef   = $"SP-{DateTime.UtcNow:yyyy}-{Math.Abs(fullName.GetHashCode()) % 1000:D3}";
+        var today     = DateTime.UtcNow;
         var isSuspect = IsSuspectRole(role);
 
-        // Parse phone from description (e.g. "| Numar telefon: 0733-109-882")
         var phone = System.Text.RegularExpressions.Regex.Match(
             description ?? "",
-            @"(?:telefon|phone|tel)[:\s]+([0-9][0-9\-\s]{5,14})",
+            @"(?:telefon|phone|tel)[\:\s]+([0-9][0-9\-\s]{5,14})",
             System.Text.RegularExpressions.RegexOptions.IgnoreCase
         ).Groups[1].Value.Trim();
 
-        // Better occupation: extract after "Ocupatie:" pipe segment
         var occMatch = System.Text.RegularExpressions.Regex.Match(
-            description ?? "",
-            @"Ocupa[t\u0163]ie[:\s]+([^|]+)",
-            System.Text.RegularExpressions.RegexOptions.IgnoreCase
-        );
+            description ?? "", @"Ocupa[t\u0163]ie[\:\s]+([^\|]+)",
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
         var cleanOccupation = occMatch.Success
             ? occMatch.Groups[1].Value.Trim()
-            : ValueOrFallback(occupation, "-");
+            : ValueOrFallback(occupation, "");
 
-        // Better relation: extract after "Relatie:" pipe segment
         var relMatch = System.Text.RegularExpressions.Regex.Match(
-            description ?? "",
-            @"Rela[t\u0163]ie[:\s]+([^|]+)",
-            System.Text.RegularExpressions.RegexOptions.IgnoreCase
-        );
+            description ?? "", @"Rela[t\u0163]ie[\:\s]+([^\|]+)",
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
         var cleanRelation = relMatch.Success
             ? relMatch.Groups[1].Value.Trim()
-            : ValueOrFallback(relationToVictim, "-");
+            : ValueOrFallback(relationToVictim, "");
 
-        var storyText  = ValueOrFallback(backstory, ValueOrFallback(description, string.Empty));
-        var alibiText  = ValueOrFallback(alibi, string.Empty);
-        var motiveText = ValueOrFallback(motive, string.Empty);
+        var storyText  = ValueOrFallback(backstory, ValueOrFallback(description, ""));
+        var alibiText  = ValueOrFallback(alibi, "");
+        var motiveText = ValueOrFallback(motive, "");
+
+        var nameParts = fullName.Trim().Split(' ', 2);
+        var firstName = nameParts.Length > 0 ? nameParts[0] : fullName;
+        var lastName  = nameParts.Length > 1 ? nameParts[1] : "";
+
+        // Build full statement text
+        var statement = storyText;
+        if (!string.IsNullOrWhiteSpace(alibiText))
+            statement += $"\n\nAlibi declarat: {alibiText}";
+        if (!string.IsNullOrWhiteSpace(motiveText))
+            statement += $"\n\nMobil posibil: {motiveText}";
 
         return Document.Create(container =>
         {
             container.Page(page =>
             {
                 page.Size(PageSizes.A4);
-                page.Margin(0);
+                page.Margin(35);
                 page.PageColor("#ffffff");
-                page.DefaultTextStyle(x => x.FontSize(10.5f).FontFamily(Fonts.Calibri).FontColor("#1c1c1c"));
+                page.DefaultTextStyle(x => x
+                    .FontSize(9.5f)
+                    .FontFamily("Courier New")
+                    .FontColor("#111111"));
 
                 page.Content().Column(main =>
                 {
                     main.Spacing(0);
 
-                    // ── HEADER ────────────────────────────────────────────────────
-                    main.Item().Background("#1a2744").Padding(18).Row(row =>
+                    // File number
+                    main.Item().Text($"Nr. Dosar : {caseRef}").FontSize(8.5f);
+                    main.Item().PaddingTop(8);
+
+                    // Title
+                    main.Item().Text("PROFIL SUSPECT").FontSize(22f).Bold();
+                    main.Item().PaddingTop(4).LineHorizontal(1.5f).LineColor("#111");
+                    main.Item().PaddingTop(12);
+
+                    // ── TOP BOX: Fields left + Photo right ──────────────────
+                    main.Item().Border(1).BorderColor("#555").Row(topRow =>
                     {
-                        row.RelativeItem().Column(left =>
+                        // Form fields
+                        topRow.RelativeItem().Padding(10).Column(fields =>
                         {
-                            left.Item().Text("MINISTERUL AFACERILOR INTERNE")
-                                .FontSize(7.5f).FontColor("#7a9ccf").LetterSpacing(1.2f);
-                            left.Item().PaddingTop(3).Text("INSPECTORATUL DE POLITIE CRIMINALA")
-                                .FontSize(15f).Bold().FontColor("#ffffff");
-                            left.Item().PaddingTop(2).Text("DIRECTIA DE INVESTIGATII — DOSAR PENAL")
-                                .FontSize(7.5f).FontColor("#7a9ccf").LetterSpacing(0.5f);
-                        });
+                            fields.Spacing(9);
 
-                        row.ConstantItem(190).Column(right =>
-                        {
-                            right.Item().AlignRight().Background("#9b1a1a")
-                                .PaddingHorizontal(12).PaddingVertical(5)
-                                .Text("CONFIDENTIAL").FontSize(8.5f).Bold()
-                                .FontColor("#ffffff").LetterSpacing(2f);
-                            right.Item().PaddingTop(8).AlignRight()
-                                .Text("FISA DE IDENTIFICARE PERSOANA")
-                                .FontSize(7.5f).FontColor("#7a9ccf").LetterSpacing(0.4f);
-                            right.Item().AlignRight().Text($"Nr. dosar: {caseRef}")
-                                .FontSize(9f).FontColor("#ccd8ee");
-                            right.Item().AlignRight().Text($"Data: {today:dd.MM.yyyy}")
-                                .FontSize(9f).FontColor("#ccd8ee");
-                            right.Item().PaddingTop(6).AlignRight()
-                                .Text(isSuspect ? "STATUS: SUSPECT" : "STATUS: MARTOR")
-                                .FontSize(8.5f).Bold()
-                                .FontColor(isSuspect ? "#ffb347" : "#6ee06e").LetterSpacing(0.6f);
-                        });
-                    });
-
-                    // Gold accent line
-                    main.Item().Height(4).Background("#c9a227");
-
-                    // ── BODY ──────────────────────────────────────────────────────
-                    main.Item().Padding(26).Column(body =>
-                    {
-                        body.Spacing(16);
-
-                        // Name + photo row
-                        body.Item().Row(row =>
-                        {
-                            row.RelativeItem().Column(left =>
+                            fields.Item().Text(t =>
                             {
-                                left.Item().Text("DATE PERSONALE")
-                                    .FontSize(7.5f).FontColor("#888").LetterSpacing(1.2f);
-                                left.Item().PaddingTop(4)
-                                    .Text(fullName.ToUpperInvariant())
-                                    .FontSize(30f).Bold().FontColor("#1a2744");
-                                left.Item().PaddingTop(6).Width(56).LineHorizontal(3).LineColor("#c9a227");
-                                left.Item().PaddingTop(14)
-                                    .Border(1)
-                                    .BorderColor(isSuspect ? "#9b1a1a" : "#1a6e1a")
-                                    .Background(isSuspect ? "#fff5f5" : "#f5fff5")
-                                    .PaddingHorizontal(14).PaddingVertical(5)
-                                    .Text(isSuspect ? "SUSPECT" : "MARTOR")
-                                    .FontSize(9.5f).Bold()
-                                    .FontColor(isSuspect ? "#9b1a1a" : "#1a6e1a").LetterSpacing(1.5f);
+                                t.Span("Prenume ").Bold();
+                                t.Span(DotField(firstName, 17));
+                                t.Span("  Nume de familie ").Bold();
+                                t.Span(DotField(lastName, 14));
                             });
 
-                            // Photo box
-                            row.ConstantItem(144).Height(170)
-                                .Border(2).BorderColor("#1a2744")
-                                .AlignCenter().AlignMiddle()
+                            fields.Item().Text(t =>
+                            {
+                                t.Span("Gen ").Bold();
+                                t.Span(DotField("", 10));
+                                t.Span("  Adresa ").Bold();
+                                t.Span(DotField("", 22));
+                            });
+
+                            fields.Item().Text(t =>
+                            {
+                                t.Span("Ocupatie ").Bold();
+                                t.Span(DotField(cleanOccupation, 18));
+                                t.Span("  Rol ").Bold();
+                                t.Span(DotField(isSuspect ? "Suspect" : "Martor", 10));
+                            });
+
+                            fields.Item().Text(t =>
+                            {
+                                t.Span("Relatie cu victima ").Bold();
+                                t.Span(DotField(cleanRelation, 36));
+                            });
+
+                            fields.Item().Text(t =>
+                            {
+                                t.Span("Telefon ").Bold();
+                                t.Span(DotField(phone, 16));
+                                t.Span("  Data nasterii ").Bold();
+                                t.Span(DotField("", 12));
+                            });
+
+                            fields.Item().Text(t =>
+                            {
+                                t.Span("Locul nasterii ").Bold();
+                                t.Span(DotField("", 18));
+                                t.Span("  Gen ").Bold();
+                                t.Span(DotField("", 10));
+                            });
+                        });
+
+                        // Photo box
+                        topRow.ConstantItem(1).Background("#555");
+                        topRow.ConstantItem(115).Column(photoCol =>
+                        {
+                            photoCol.Item().Height(165)
                                 .Element(el =>
                                 {
                                     if (profileImage is { Length: > 0 })
                                         el.Image(profileImage).FitArea();
                                     else
-                                        el.Background("#e6e2dc").Column(c =>
-                                        {
-                                            c.Item().PaddingTop(55).AlignCenter()
-                                                .Text("FOTOGRAFIE LIPSA")
-                                                .FontSize(8).FontColor("#999").Italic();
-                                        });
+                                        el.Background("#e8e8e8")
+                                            .AlignCenter().AlignMiddle()
+                                            .Column(c =>
+                                            {
+                                                c.Item().AlignCenter()
+                                                    .Text("FOTOGRAFIE")
+                                                    .FontSize(8f).FontColor("#888").Italic();
+                                            });
                                 });
                         });
+                    });
 
-                        // Divider
-                        body.Item().LineHorizontal(1).LineColor("#d8d8d8");
+                    main.Item().PaddingTop(12);
 
-                        // Info grid — 3 columns
-                        body.Item().Border(1).BorderColor("#d0d0d0").Row(row =>
+                    // ── INDIVIDUAL STATEMENT BOX ─────────────────────────────
+                    main.Item().Border(1).BorderColor("#555").Padding(10).Column(stmt =>
+                    {
+                        stmt.Item().Text("Declaratie Individuala").FontSize(12f).Bold();
+                        stmt.Item().PaddingTop(2)
+                            .Text("(Descrieti pe scurt relatia cu victima si locul in care va aflati in momentul incidentului)")
+                            .FontSize(7.5f).Italic().FontColor("#555");
+                        stmt.Item().PaddingTop(8);
+
+                        if (!string.IsNullOrWhiteSpace(statement))
                         {
-                            row.RelativeItem().Column(c =>
-                            {
-                                c.Item().Background("#1a2744").PaddingHorizontal(10).PaddingVertical(6)
-                                    .Text("RELATIE CU CAZUL")
-                                    .FontSize(7.5f).Bold().FontColor("#7a9ccf").LetterSpacing(0.8f);
-                                c.Item().Padding(10)
-                                    .Text(string.IsNullOrWhiteSpace(cleanRelation) ? "-" : cleanRelation)
-                                    .FontSize(10.5f).LineHeight(1.4f);
-                            });
-                            row.ConstantItem(1).Background("#d0d0d0");
-                            row.RelativeItem().Column(c =>
-                            {
-                                c.Item().Background("#1a2744").PaddingHorizontal(10).PaddingVertical(6)
-                                    .Text("OCUPATIE")
-                                    .FontSize(7.5f).Bold().FontColor("#7a9ccf").LetterSpacing(0.8f);
-                                c.Item().Padding(10)
-                                    .Text(string.IsNullOrWhiteSpace(cleanOccupation) ? "-" : cleanOccupation)
-                                    .FontSize(10.5f).LineHeight(1.4f);
-                            });
-                            row.ConstantItem(1).Background("#d0d0d0");
-                            row.ConstantItem(130).Column(c =>
-                            {
-                                c.Item().Background("#1a2744").PaddingHorizontal(10).PaddingVertical(6)
-                                    .Text("TELEFON")
-                                    .FontSize(7.5f).Bold().FontColor("#7a9ccf").LetterSpacing(0.8f);
-                                c.Item().Padding(10)
-                                    .Text(string.IsNullOrEmpty(phone) ? "-" : phone)
-                                    .FontSize(10.5f);
-                            });
-                        });
-
-                        // BACKGROUND / POVESTE
-                        if (!string.IsNullOrWhiteSpace(storyText))
-                        {
-                            body.Item().Column(sec =>
-                            {
-                                sec.Item().Row(r =>
-                                {
-                                    r.ConstantItem(4).Background("#1a2744");
-                                    r.RelativeItem().PaddingLeft(10)
-                                        .Text("BACKGROUND — SITUATIE SI CONTEXT")
-                                        .FontSize(8f).Bold().FontColor("#1a2744").LetterSpacing(0.8f);
-                                });
-                                sec.Item().PaddingTop(8).PaddingLeft(14)
-                                    .Text(storyText.Trim())
-                                    .FontSize(10.5f).LineHeight(1.55f);
-                            });
+                            stmt.Item().Text(statement.Trim())
+                                .FontSize(9.5f).LineHeight(1.8f);
                         }
-
-                        // ALIBI
-                        if (!string.IsNullOrWhiteSpace(alibiText))
+                        else
                         {
-                            body.Item().Column(sec =>
-                            {
-                                sec.Item().Row(r =>
-                                {
-                                    r.ConstantItem(4).Background("#c9a227");
-                                    r.RelativeItem().PaddingLeft(10)
-                                        .Text("ALIBI DECLARAT")
-                                        .FontSize(8f).Bold().FontColor("#1a2744").LetterSpacing(0.8f);
-                                });
-                                sec.Item().PaddingTop(8).PaddingLeft(14)
-                                    .Text(alibiText.Trim())
-                                    .FontSize(10.5f).LineHeight(1.55f);
-                            });
+                            for (int i = 0; i < 9; i++)
+                                stmt.Item().PaddingTop(i % 2 == 0 ? 0 : 2)
+                                    .Background(i % 2 == 0 ? "#ffffff" : "#f2f2f2")
+                                    .PaddingVertical(4)
+                                    .Text(new string('.', 78))
+                                    .FontSize(9f).FontColor("#ccc");
                         }
+                    });
 
-                        // MOBIL
-                        if (!string.IsNullOrWhiteSpace(motiveText))
-                        {
-                            body.Item().Column(sec =>
-                            {
-                                sec.Item().Row(r =>
-                                {
-                                    r.ConstantItem(4).Background("#9b1a1a");
-                                    r.RelativeItem().PaddingLeft(10)
-                                        .Text("MOBIL POSIBIL / OBSERVATII ANCHETA")
-                                        .FontSize(8f).Bold().FontColor("#1a2744").LetterSpacing(0.8f);
-                                });
-                                sec.Item().PaddingTop(8).PaddingLeft(14)
-                                    .Border(1).BorderColor("#e8cccc").Background("#fff8f8").Padding(12)
-                                    .Text(motiveText.Trim())
-                                    .FontSize(10.3f).Italic().FontColor("#5a2020").LineHeight(1.45f);
-                            });
-                        }
+                    main.Item().PaddingTop(12);
 
-                        // ── SIGNATURE BLOCK ──────────────────────────────────────
-                        body.Item().PaddingTop(16).LineHorizontal(1).LineColor("#c9a227");
-                        body.Item().PaddingTop(12).Row(row =>
+                    // ── BOTTOM TABLE ─────────────────────────────────────────
+                    main.Item().Border(1).BorderColor("#555").Row(botRow =>
+                    {
+                        // Left: label+value rows
+                        botRow.RelativeItem(3).Column(left =>
                         {
-                            row.RelativeItem().PaddingHorizontal(8).Column(c =>
+                            // Row 1: Data
+                            left.Item().BorderBottom(1).BorderColor("#555").Row(r =>
                             {
-                                c.Item().Text("SEMNATURA PERSOANA AUDIATA")
-                                    .FontSize(7.5f).FontColor("#888").LetterSpacing(0.5f);
-                                c.Item().PaddingTop(36).LineHorizontal(1).LineColor("#1a2744");
-                                c.Item().PaddingTop(4).Text(fullName)
-                                    .FontSize(8.5f).FontColor("#555");
+                                r.ConstantItem(110).BorderRight(1).BorderColor("#555")
+                                    .Padding(5).Text("Data inregistrarii").FontSize(8.5f).Bold();
+                                r.RelativeItem().Padding(5)
+                                    .Text(today.ToString("dd.MM.yyyy")).FontSize(9.5f);
                             });
-                            row.ConstantItem(110).PaddingHorizontal(8).Column(c =>
+                            // Row 2: Telefon
+                            left.Item().BorderBottom(1).BorderColor("#555").Row(r =>
                             {
-                                c.Item().Text("DATA")
-                                    .FontSize(7.5f).FontColor("#888").LetterSpacing(0.5f);
-                                c.Item().PaddingTop(36).LineHorizontal(1).LineColor("#1a2744");
-                                c.Item().PaddingTop(4).Text(today.ToString("dd.MM.yyyy"))
-                                    .FontSize(8.5f).FontColor("#555");
+                                r.ConstantItem(110).BorderRight(1).BorderColor("#555")
+                                    .Padding(5).Text("Numar telefon").FontSize(8.5f).Bold();
+                                r.RelativeItem().Padding(5)
+                                    .Text(string.IsNullOrEmpty(phone) ? "" : phone)
+                                    .FontSize(9.5f);
                             });
-                            row.RelativeItem().PaddingHorizontal(8).Column(c =>
+                            // Row 3: Email
+                            left.Item().Row(r =>
                             {
-                                c.Item().Text("SEMNATURA OFITER ANCHETA")
-                                    .FontSize(7.5f).FontColor("#888").LetterSpacing(0.5f);
-                                c.Item().PaddingTop(36).LineHorizontal(1).LineColor("#1a2744");
-                                c.Item().PaddingTop(4).Text("L.S.")
-                                    .FontSize(8.5f).FontColor("#555");
+                                r.ConstantItem(110).BorderRight(1).BorderColor("#555")
+                                    .Padding(5).Text("Adresa email").FontSize(8.5f).Bold();
+                                r.RelativeItem().Padding(5).Text("").FontSize(9.5f);
                             });
                         });
 
-                        // Footer
-                        body.Item().PaddingTop(12).AlignRight()
-                            .Text($"Document oficial · Nr. {caseRef} · Generat: {today:dd.MM.yyyy HH:mm}")
-                            .FontSize(7.5f).FontColor("#bbb").Italic();
+                        // Right: signature
+                        botRow.ConstantItem(1).Background("#555");
+                        botRow.RelativeItem(2).Padding(8).Column(sig =>
+                        {
+                            sig.Item().Text("Semnatura suspect").FontSize(8.5f).Bold();
+                            sig.Item().Height(50);
+                            sig.Item().LineHorizontal(1).LineColor("#555");
+                        });
                     });
                 });
             });
         }).GeneratePdf();
-    }
-
-    private static string ValueOrFallback(string? value, string fallback)
-        => string.IsNullOrWhiteSpace(value) ? fallback : value.Trim();
-
-    private static bool IsSuspectRole(string? role)
-    {
-        if (string.IsNullOrWhiteSpace(role)) return true;
-        var r = role.Trim().ToLowerInvariant();
-        if (r.Contains("martor") || r.Contains("witness")) return false;
-        if (r.Contains("suspect")) return true;
-        return true;
     }
 
     /// <summary>Generate a newspaper-style PDF</summary>
@@ -304,27 +267,22 @@ public class PdfGenerationService
                 page.PageColor(Colors.White);
                 page.DefaultTextStyle(x => x.FontSize(11).FontFamily(Fonts.Georgia));
 
-                page.Header()
-                    .BorderBottom(1)
-                    .Padding(10)
-                    .Row(row =>
+                page.Header().BorderBottom(1).Padding(10).Row(row =>
+                {
+                    row.RelativeItem().Column(column =>
                     {
-                        row.RelativeItem().Column(column =>
-                        {
-                            column.Item().Text("THE MYSTERY GAZETTE").FontSize(24).Bold();
-                            column.Item().Text(date).FontSize(10).Italic();
-                        });
+                        column.Item().Text("THE MYSTERY GAZETTE").FontSize(24).Bold();
+                        column.Item().Text(date).FontSize(10).Italic();
                     });
+                });
 
-                page.Content()
-                    .PaddingVertical(20)
-                    .Column(column =>
-                    {
-                        column.Spacing(10);
-                        column.Item().Text(headline).FontSize(20).Bold().FontColor(Colors.Black);
-                        column.Item().Text($"By {authorName}").FontSize(10).Italic().FontColor(Colors.Grey.Darken2);
-                        column.Item().PaddingTop(10).Text(content).FontSize(11).LineHeight(1.5f);
-                    });
+                page.Content().PaddingVertical(20).Column(column =>
+                {
+                    column.Spacing(10);
+                    column.Item().Text(headline).FontSize(20).Bold().FontColor(Colors.Black);
+                    column.Item().Text($"By {authorName}").FontSize(10).Italic().FontColor(Colors.Grey.Darken2);
+                    column.Item().PaddingTop(10).Text(content).FontSize(11).LineHeight(1.5f);
+                });
 
                 page.Footer().AlignCenter().Text(text =>
                 {
@@ -349,39 +307,33 @@ public class PdfGenerationService
                 page.PageColor(Colors.White);
                 page.DefaultTextStyle(x => x.FontSize(11).FontFamily(Fonts.Calibri));
 
-                page.Header()
-                    .BorderBottom(2)
-                    .Background(Colors.Grey.Lighten3)
-                    .Padding(15)
-                    .Column(column =>
-                    {
-                        column.Item().Text("OFFICIAL POLICE REPORT").FontSize(18).Bold();
-                        column.Item().Text("CONFIDENTIAL").FontSize(10).Italic().FontColor(Colors.Red.Medium);
-                    });
+                page.Header().BorderBottom(2).Background(Colors.Grey.Lighten3).Padding(15).Column(column =>
+                {
+                    column.Item().Text("RAPORT OFICIAL POLITIE").FontSize(18).Bold();
+                    column.Item().Text("CONFIDENTIAL").FontSize(10).Italic().FontColor(Colors.Red.Medium);
+                });
 
-                page.Content()
-                    .PaddingVertical(20)
-                    .Column(column =>
+                page.Content().PaddingVertical(20).Column(column =>
+                {
+                    column.Spacing(15);
+                    column.Item().Row(row =>
                     {
-                        column.Spacing(15);
-                        column.Item().Row(row =>
-                        {
-                            row.RelativeItem().Text($"Case Number: {caseNumber}").Bold();
-                            row.RelativeItem().Text($"Date: {date}").AlignRight();
-                        });
-                        column.Item().Row(row =>
-                        {
-                            row.RelativeItem().Text($"Reporting Officer: {officer}");
-                            row.RelativeItem().Text($"Incident Type: {incidentType}").AlignRight();
-                        });
-                        column.Item().LineHorizontal(1);
-                        column.Item().Text("INCIDENT DETAILS").FontSize(14).Bold().Underline();
-                        column.Item().Text(details).FontSize(11).LineHeight(1.5f);
+                        row.RelativeItem().Text($"Nr. dosar: {caseNumber}").Bold();
+                        row.RelativeItem().Text($"Data: {date}").AlignRight();
                     });
+                    column.Item().Row(row =>
+                    {
+                        row.RelativeItem().Text($"Ofiter: {officer}");
+                        row.RelativeItem().Text($"Tip incident: {incidentType}").AlignRight();
+                    });
+                    column.Item().LineHorizontal(1);
+                    column.Item().Text("DETALII INCIDENT").FontSize(14).Bold().Underline();
+                    column.Item().Text(details).FontSize(11).LineHeight(1.5f);
+                });
 
                 page.Footer().AlignCenter().Text(text =>
                 {
-                    text.Span("Page ");
+                    text.Span("Pagina ");
                     text.CurrentPageNumber();
                 });
             });
@@ -400,14 +352,12 @@ public class PdfGenerationService
                 page.PageColor(Colors.White);
                 page.DefaultTextStyle(x => x.FontSize(12));
 
-                page.Content()
-                    .PaddingVertical(20)
-                    .Column(column =>
-                    {
-                        column.Spacing(15);
-                        column.Item().Text(title).FontSize(18).Bold();
-                        column.Item().Text(content).FontSize(12).LineHeight(1.5f);
-                    });
+                page.Content().PaddingVertical(20).Column(column =>
+                {
+                    column.Spacing(15);
+                    column.Item().Text(title).FontSize(18).Bold();
+                    column.Item().Text(content).FontSize(12).LineHeight(1.5f);
+                });
             });
         }).GeneratePdf();
     }
@@ -423,20 +373,18 @@ public class PdfGenerationService
                 page.Margin(2, Unit.Centimetre);
                 page.PageColor(Colors.White);
 
-                page.Content()
-                    .PaddingVertical(20)
-                    .Column(column =>
-                    {
-                        column.Spacing(20);
-                        column.Item().AlignCenter().Text($"{deviceName}'s {deviceType}").FontSize(20).Bold();
-                        column.Item().AlignCenter().Text("Scan to Access Digital Evidence").FontSize(14);
-                        column.Item().AlignCenter().Image(qrCodeImage).FitWidth();
-                        column.Item().AlignCenter().Text(url).FontSize(10).Italic().FontColor(Colors.Grey.Medium);
-                        column.Item().PaddingTop(20).Text("Instructions:").FontSize(12).Bold();
-                        column.Item().Text("1. Open your phone's camera app").FontSize(11);
-                        column.Item().Text("2. Point at the QR code above").FontSize(11);
-                        column.Item().Text("3. Tap the notification to open the device simulator").FontSize(11);
-                    });
+                page.Content().PaddingVertical(20).Column(column =>
+                {
+                    column.Spacing(20);
+                    column.Item().AlignCenter().Text($"{deviceName}'s {deviceType}").FontSize(20).Bold();
+                    column.Item().AlignCenter().Text("Scan to Access Digital Evidence").FontSize(14);
+                    column.Item().AlignCenter().Image(qrCodeImage).FitWidth();
+                    column.Item().AlignCenter().Text(url).FontSize(10).Italic().FontColor(Colors.Grey.Medium);
+                    column.Item().PaddingTop(20).Text("Instructions:").FontSize(12).Bold();
+                    column.Item().Text("1. Open your phone's camera app").FontSize(11);
+                    column.Item().Text("2. Point at the QR code above").FontSize(11);
+                    column.Item().Text("3. Tap the notification to open the device simulator").FontSize(11);
+                });
             });
         }).GeneratePdf();
     }
