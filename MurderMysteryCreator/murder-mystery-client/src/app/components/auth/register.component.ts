@@ -42,10 +42,10 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
 
 // â”€â”€ Feedback translations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const WARN_RO: Record<string, string> = {
-  'This is a top-10 common password': 'Aceasta este printre cele mai comune 10 PAROLĂ
-  'This is a top-100 common password': 'Aceasta este printre cele mai comune 100 PAROLĂ
-  'This is a very common password': 'ParolÄƒ foarte comunÄƒ',
-  'This is similar to a commonly used password': 'SimilarÄƒ cu o parolÄƒ des utilizatÄƒ',
+  'This is a top-10 common password': 'Aceasta este printre cele mai comune 10 parole',
+  'This is a top-100 common password': 'Aceasta este printre cele mai comune 100 parole',
+  'This is a very common password': 'Parola foarte comuna',
+  'This is similar to a commonly used password': 'Similara cu o parola des utilizata',
   "Straight rows of keys are easy to guess": 'Model de tastaturÄƒ uÈ™or de ghicit',
   "Short keyboard patterns are easy to guess": 'Model scurt de tastaturÄƒ',
   'Sequences like abc or 6543 are easy to guess': 'SecvenÈ›e simple, uÈ™or de ghicit',
@@ -81,7 +81,7 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
         <div class="card">
           <div class="card-top-line"></div>
 
-          <div class="brand">
+          <div class="brand"><img src="assets/logo.svg" class="logo-img" alt="The Investigation"/>
             <img src="assets/logo.svg" class="logo-img" alt="The Investigation"/>
           </div>
 
@@ -259,7 +259,7 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
     .strength-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.2px;text-transform:uppercase;white-space:nowrap;transition:color .3s;min-width:80px;text-align:right;}
     .pw-warning{display:flex;align-items:center;gap:5px;font-size:11.5px;color:#c06010;font-style:italic;}
     .pw-suggestions{list-style:none;padding-left:4px;display:flex;flex-direction:column;gap:2px;}
-    .pw-suggestions li{font-size:11px;color:var(--ink2);padding-left:10px;position:relative;}
+    .pw-suggestions li::before{content:'>';position:absolute;left:0;color:var(--ink3);}
     .pw-suggestions li::before{content:'â†’';position:absolute;left:0;color:var(--ink3);}
     /* â”€â”€ Hard rules checklist â”€â”€ */
     .pw-rules{list-style:none;display:flex;flex-direction:column;gap:3px;padding:8px 0 2px;border-top:1px solid var(--border);margin-top:4px;}
