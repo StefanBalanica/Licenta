@@ -329,8 +329,8 @@ public class DigitalDevicesController : ControllerBase
             if (device == null || device.GameId != gameId)
                 return NotFound();
 
-            // Get frontend base URL from configuration (default to localhost:4200 for dev)
-            var frontendBaseUrl = _configuration["FrontendBaseUrl"] ?? "http://localhost:4200";
+            // Get frontend base URL from configuration
+            var frontendBaseUrl = _configuration["AppSettings:FrontendUrl"] ?? "http://localhost:4200";
 
             // Build clean public URL: /{deviceSlug}  e.g. /iphone-elodia
             var deviceSlug = CreateDeviceSlug(device.DeviceType, device.OwnerName);
