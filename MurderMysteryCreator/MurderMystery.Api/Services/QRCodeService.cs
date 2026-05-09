@@ -23,23 +23,12 @@ public class QRCodeService : IQRCodeService
         {
             using var qrGenerator = new QRCodeGenerator();
             var qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
-            
-            // Use PngByteQRCode which doesn't require System.Drawing for basic operations
+
+            // PngByteQRCode is pure managed code — no System.Drawing needed.
+            // pixelsPerModule ≈ size / typical QR module count (~25-35). Use 10 for ~250-350px.
             using var pngQrCode = new PngByteQRCode(qrCodeData);
-            var qrCodeBytes = pngQrCode.GetGraphic(20);
-            
-            // If we need to resize, we'll use System.Drawing
-            if (size != 300)
-            {
-                using var ms = new MemoryStream(qrCodeBytes);
-                using var originalBitmap = new Bitmap(ms);
-                using var resizedBitmap = new Bitmap(originalBitmap, new DrawingSize(size, size));
-                using var outputMs = new MemoryStream();
-                resizedBitmap.Save(outputMs, DrawingImageFormat.Png);
-                return outputMs.ToArray();
-            }
-            
-            return qrCodeBytes;
+            var pixelsPerModule = Math.Max(4, size / 30);
+            return pngQrCode.GetGraphic(pixelsPerModule);
         }
         catch (Exception ex)
         {

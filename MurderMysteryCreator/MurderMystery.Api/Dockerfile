@@ -3,8 +3,13 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-# Install libgdiplus required by System.Drawing.Common (QRCoder, PDF generation)
-RUN apt-get update && apt-get install -y libgdiplus libc6-dev && rm -rf /var/lib/apt/lists/*
+# Install libgdiplus (System.Drawing.Common) + fonts for QuestPDF PDF rendering on Linux
+RUN apt-get update && apt-get install -y \
+    libgdiplus \
+    libc6-dev \
+    fontconfig \
+    fonts-liberation \
+    && rm -rf /var/lib/apt/lists/*
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
