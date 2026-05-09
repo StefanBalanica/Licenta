@@ -34,14 +34,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    // svh = small viewport height — excludes browser chrome (URL bar, bottom nav)
+    height: 100svh;
     width: 100vw;
     // Dark studio-style backdrop
     background:
         radial-gradient(ellipse at 30% 20%, rgba(50, 50, 70, 0.9) 0%, transparent 60%),
         radial-gradient(ellipse at 75% 80%, rgba(30, 30, 50, 0.95) 0%, transparent 60%),
         linear-gradient(160deg, #0d0d14 0%, #16161f 40%, #1b1018 100%);
-    padding: 0;
+    padding: 8px;
+    box-sizing: border-box;
     overflow: hidden;
     position: fixed;
     top: 0;
@@ -57,6 +59,32 @@
     // Drop shadow for depth
     filter:
         drop-shadow(0 30px 60px rgba(0, 0, 0, 0.70)) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.50));
+
+    // ── Responsive: scale down on small mobile viewports ──────────────────
+    // Phones with viewport height < 680px (e.g. browser chrome takes ~100px)
+    @media (max-height: 680px) {
+        transform: scale(0.88);
+        transform-origin: center center;
+        // Compensate layout space: 637 × (1 - 0.88) / 2 ≈ 38px
+        margin-top: -38px;
+        margin-bottom: -38px;
+    }
+
+    @media (max-height: 620px) {
+        transform: scale(0.78);
+        transform-origin: center center;
+        // 637 × (1 - 0.78) / 2 ≈ 70px
+        margin-top: -70px;
+        margin-bottom: -70px;
+    }
+
+    @media (max-height: 560px) {
+        transform: scale(0.68);
+        transform-origin: center center;
+        // 637 × (1 - 0.68) / 2 ≈ 102px
+        margin-top: -102px;
+        margin-bottom: -102px;
+    }
 }
 
 // Physical side buttons — LEFT side (volume up / volume down / silent switch)
