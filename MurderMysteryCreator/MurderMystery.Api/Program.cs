@@ -13,9 +13,26 @@ var builder = WebApplication.CreateBuilder(args);
 // Configure QuestPDF license (community license)
 QuestPDF.Settings.License = LicenseType.Community;
 
+// Handle both URL format (given by Render: postgresql://user:pass@host/db)
+// and standard key-value format (local: Host=...;Port=...;...)
+// Npgsql on Linux can SIGSEGV when parsing raw postgres:// URLs in some versions.
+var rawConnection = builder.Configuration.GetConnectionString("DefaultConnection") ?? "";
+var connectionString = rawConnection;
+if (rawConnection.StartsWith("postgresql://") || rawConnection.StartsWith("postgres://"))
+{
+    var uri = new Uri(rawConnection.Replace("postgresql://", "https://").Replace("postgres://", "https://"));
+    var userInfo = uri.UserInfo.Split(':', 2);
+    var host = uri.Host;
+    var port = uri.Port > 0 ? uri.Port : 5432;
+    var database = uri.AbsolutePath.TrimStart('/');
+    var user = Uri.UnescapeDataString(userInfo[0]);
+    var password = userInfo.Length > 1 ? Uri.UnescapeDataString(userInfo[1]) : "";
+    connectionString = $"Host={host};Port={port};Database={database};Username={user};Password={password};SSL Mode=Require;Trust Server Certificate=true";
+}
+
 // Add DbContext
 builder.Services.AddDbContext<MurderMysteryDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(connectionString));
 
 // Add repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
