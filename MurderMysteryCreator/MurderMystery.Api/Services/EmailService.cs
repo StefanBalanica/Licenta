@@ -32,7 +32,7 @@ public class EmailService : IEmailService
         var message = new MimeMessage();
         message.From.Add(new MailboxAddress(senderName, senderEmail));
         message.To.Add(new MailboxAddress(toName, toEmail));
-        message.Subject = "Resetare parolă — The Investigation";
+        message.Subject = "Resetare parola - The Investigation";
 
         message.Body = new TextPart("html")
         {
@@ -40,13 +40,41 @@ public class EmailService : IEmailService
         };
 
         using var client = new SmtpClient();
+        // Explicit 15s timeout per operation - prevents hanging on blocked/slow ports
+        client.Timeout = 15_000;
+
+        // Global 25s deadline across all SMTP operations
+        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(25));
+
+        _logger.LogInformation("SMTP connecting to {Host}:{Port}...", smtpHost, smtpPort);
         try
         {
-            await client.ConnectAsync(smtpHost, smtpPort, SecureSocketOptions.StartTls);
-            // Gmail App Passwords work with or without spaces — strip to be safe
-            await client.AuthenticateAsync(smtpUser, smtpPass.Replace(" ", ""));
-            await client.SendAsync(message);
+            // Try port 587 (STARTTLS); fall back to 465 (SSL) if blocked
+            try
+            {
+                await client.ConnectAsync(smtpHost, smtpPort, SecureSocketOptions.StartTls, cts.Token);
+                _logger.LogInformation("SMTP connected via port {Port}", smtpPort);
+            }
+            catch (Exception ex587) when (smtpPort == 587)
+            {
+                _logger.LogWarning("Port 587 failed ({Msg}), retrying on 465...", ex587.Message);
+                await client.ConnectAsync(smtpHost, 465, SecureSocketOptions.SslOnConnect, cts.Token);
+                _logger.LogInformation("SMTP connected via port 465");
+            }
+
+            await client.AuthenticateAsync(smtpUser, smtpPass.Replace(" ", ""), cts.Token);
+            await client.SendAsync(message, cancellationToken: cts.Token);
             _logger.LogInformation("Password reset email sent to {Email}", toEmail);
+        }
+        catch (OperationCanceledException)
+        {
+            _logger.LogError("SMTP timed out for {Email} - outbound SMTP may be blocked on this host", toEmail);
+            throw new InvalidOperationException("Email timeout: SMTP connection could not be established in 25 seconds.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "SMTP error for {Email}: {Msg}", toEmail, ex.Message);
+            throw;
         }
         finally
         {
