@@ -332,7 +332,7 @@ export abstract class BaseDeviceComponent implements OnInit, OnDestroy {
                 messages = [{ sender: contact, content: lastMessage, timestamp: time, isOutgoing: false }];
             }
             if (messages.length === 0) {
-                messages = [{ sender: contact, content: '(fără conținut)', timestamp: time, isOutgoing: false }];
+                messages = [{ sender: contact, content: '(fara continut)', timestamp: time, isOutgoing: false }];
             }
             return {
                 contact,
@@ -592,7 +592,7 @@ export abstract class BaseDeviceComponent implements OnInit, OnDestroy {
 
         const expectedName = (photo.requiredUploadName ?? '').toLowerCase();
         if (expectedName && file.name.toLowerCase() !== expectedName) {
-            alert(`Numele fișierului trebuie să fie exact: ${photo.requiredUploadName}`);
+            alert(`Numele fisierului trebuie sa fie exact: ${photo.requiredUploadName}`);
             input.value = '';
             return;
         }

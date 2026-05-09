@@ -63,7 +63,7 @@ export class ChatbotComponent implements OnChanges, AfterViewChecked {
     private addWelcomeBubble() {
         this.bubbles.push({
             role: 'assistant',
-            content: '🕵️ Salut, investigator! Sunt asistentul tău misterios. Pune-mi orice întrebare despre joc și îți voi oferi indicii… fără spoilere.',
+            content: '🕵️ Salut, investigator! Sunt asistentul tau misterios. Pune-mi orice intrebare despre joc si iti voi oferi indicii… fara spoilere.',
             timestamp: new Date()
         });
     }
@@ -93,7 +93,7 @@ export class ChatbotComponent implements OnChanges, AfterViewChecked {
             error: () => {
                 this.bubbles.push({
                     role: 'assistant',
-                    content: '⚠️ Umbrele sunt prea dense acum… încearcă din nou.',
+                    content: '⚠️ Umbrele sunt prea dense acum… incearca din nou.',
                     timestamp: new Date()
                 });
                 this.isLoading = false;

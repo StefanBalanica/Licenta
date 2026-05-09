@@ -116,6 +116,8 @@ builder.Services.AddCors(options =>
         policy.WithOrigins(
                 "http://localhost:4200",
                 "http://localhost:4201",
+                "https://murdermystery-client.onrender.com",
+                "https://the-investigation.onrender.com",
                 frontendUrl
               )
               .AllowAnyHeader()

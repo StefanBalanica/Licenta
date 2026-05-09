@@ -203,7 +203,7 @@ interface Conversation {
               <div class="email-detail-subject">{{ selectedEmail.subject }}</div>
               <div class="email-detail-meta">
                 <span class="email-detail-from">De la: {{ selectedEmail.from }}</span>
-                <span *ngIf="selectedEmail.to" class="email-detail-to">Către: {{ selectedEmail.to }}</span>
+                <span *ngIf="selectedEmail.to" class="email-detail-to">Catre: {{ selectedEmail.to }}</span>
                 <span class="email-detail-time">{{ selectedEmail.time }}</span>
               </div>
               <div class="email-detail-body">{{ selectedEmail.body || selectedEmail.preview }}</div>
@@ -228,7 +228,7 @@ interface Conversation {
                   </ng-container>
                   <ng-container *ngSwitchCase="'sent'">
                     <div *ngFor="let email of emailSent" class="email-item" (click)="selectedEmail = email">
-                      <div class="email-from">Către: {{ email.to || email.from }}</div>
+                      <div class="email-from">Catre: {{ email.to || email.from }}</div>
                       <div class="email-subject">{{ email.subject }}</div>
                       <div class="email-preview">{{ email.preview || email.body }}</div>
                       <div class="email-time">{{ email.time }}</div>
@@ -241,7 +241,7 @@ interface Conversation {
                       <div class="email-preview">{{ email.preview || email.body }}</div>
                       <div class="email-time">{{ email.time }}</div>
                     </div>
-                    <div *ngIf="emailDrafts.length === 0" class="email-empty">Nicio ciornă</div>
+                    <div *ngIf="emailDrafts.length === 0" class="email-empty">Nicio ciorna</div>
                   </ng-container>
                 </ng-container>
               </div>
@@ -436,7 +436,7 @@ interface Conversation {
               <div *ngIf="selectedEmail" class="samsung-email-detail">
                 <div class="samsung-email-detail-meta">
                   <div><strong>De la:</strong> {{selectedEmail.from}}</div>
-                  <div *ngIf="selectedEmail.to"><strong>Către:</strong> {{selectedEmail.to}}</div>
+                  <div *ngIf="selectedEmail.to"><strong>Catre:</strong> {{selectedEmail.to}}</div>
                   <div><strong>Data:</strong> {{selectedEmail.time}}</div>
                 </div>
                 <div class="samsung-email-detail-body">{{selectedEmail.body || selectedEmail.preview}}</div>
@@ -461,7 +461,7 @@ interface Conversation {
                     </ng-container>
                     <ng-container *ngSwitchCase="'sent'">
                       <div *ngFor="let email of emailSent" class="samsung-email-item" (click)="selectedEmail = email">
-                        <div class="email-sender">Către: {{email.to || email.from}}</div>
+                        <div class="email-sender">Catre: {{email.to || email.from}}</div>
                         <div class="email-subject">{{email.subject}}</div>
                         <div class="email-preview">{{email.preview || email.body}}</div>
                         <div class="email-time">{{email.time}}</div>
@@ -474,7 +474,7 @@ interface Conversation {
                         <div class="email-preview">{{email.preview || email.body}}</div>
                         <div class="email-time">{{email.time}}</div>
                       </div>
-                      <div *ngIf="emailDrafts.length === 0" style="padding:16px;color:#999">Nicio ciornă</div>
+                      <div *ngIf="emailDrafts.length === 0" style="padding:16px;color:#999">Nicio ciorna</div>
                     </ng-container>
                   </ng-container>
                 </div>
@@ -611,7 +611,7 @@ interface Conversation {
                     </ng-container>
                     <ng-container *ngSwitchCase="'sent'">
                       <div *ngFor="let email of emailSent" class="windows-email" [class.selected-email]="selectedEmail === email" (click)="selectedEmail = email">
-                        <div class="email-header"><strong>Către: {{email.to || email.from}}</strong><span>{{email.time}}</span></div>
+                        <div class="email-header"><strong>Catre: {{email.to || email.from}}</strong><span>{{email.time}}</span></div>
                         <div class="email-subject">{{email.subject}}</div>
                         <p class="email-preview">{{email.preview || email.body}}</p>
                       </div>
@@ -622,7 +622,7 @@ interface Conversation {
                         <div class="email-subject">{{email.subject}}</div>
                         <p class="email-preview">{{email.preview || email.body}}</p>
                       </div>
-                      <div *ngIf="emailDrafts.length === 0" class="win-empty-folder">Nicio ciornă</div>
+                      <div *ngIf="emailDrafts.length === 0" class="win-empty-folder">Nicio ciorna</div>
                     </ng-container>
                   </ng-container>
                 </div>
@@ -633,12 +633,12 @@ interface Conversation {
                   <div class="win-email-detail-subject">{{selectedEmail.subject}}</div>
                   <div class="win-email-detail-meta">
                     <div><strong>De la:</strong> {{selectedEmail.from}}</div>
-                    <div *ngIf="selectedEmail.to"><strong>Către:</strong> {{selectedEmail.to}}</div>
+                    <div *ngIf="selectedEmail.to"><strong>Catre:</strong> {{selectedEmail.to}}</div>
                     <div><strong>Data:</strong> {{selectedEmail.time}}</div>
                   </div>
                   <div class="win-email-detail-body">{{selectedEmail.body || selectedEmail.preview}}</div>
                 </ng-container>
-                <div *ngIf="!selectedEmail" class="win-email-placeholder">Selectează un email pentru a-l citi</div>
+                <div *ngIf="!selectedEmail" class="win-email-placeholder">Selecteaza un email pentru a-l citi</div>
               </div>
             </div>
           </div>

@@ -38,7 +38,7 @@ import { AuthService } from '../../services/auth.service';
             <div class="field" [class.field-err]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
               <label class="lbl">
                 <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 1 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="10.5" r="1" fill="currentColor"/></svg>
-                PAROLĂ
+                PAROLA
               </label>
               <div class="inp-wrap">
                 <input class="inp" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="••••••••" autocomplete="current-password"/>
@@ -57,13 +57,13 @@ import { AuthService } from '../../services/auth.service';
             </div>
 
             <button type="submit" class="btn-submit" [disabled]="loginForm.invalid || loading">
-              <span *ngIf="!loading">Intrați în sistem</span>
-              <span *ngIf="loading" class="spin-wrap"><span class="spin"></span>Se verifică...</span>
+              <span *ngIf="!loading">Intrati in sistem</span>
+              <span *ngIf="loading" class="spin-wrap"><span class="spin"></span>Se verifica...</span>
             </button>
           </form>
 
-          <p class="footer-link">Nu ai cont? <a routerLink="/register">Înregistrează-te</a></p>
-          <div class="stamp">CONFIDENȚIAL</div>
+          <p class="footer-link">Nu ai cont? <a routerLink="/register">Inregistreaza-te</a></p>
+          <div class="stamp">CONFIDENTIAL</div>
         </div>
       </div>
     </div>
@@ -153,7 +153,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       await this.authService.login(this.loginForm.value.email, this.loginForm.value.password).toPromise();
       this.router.navigate(['/dashboard']);
     } catch (error: any) {
-      this.errorMessage = error.error?.message || 'Date incorecte. Încearcă din nou.';
+      this.errorMessage = error.error?.message || 'Date incorecte. Incearca din nou.';
     } finally { this.loading = false; }
   }
 

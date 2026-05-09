@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'app-forgot-password',
@@ -29,16 +30,16 @@ import { environment } from '../../../environments/environment';
             </div>
             <h2 class="success-title">Email trimis!</h2>
             <p class="success-msg">
-              Dacă adresa <strong>{{ emailSent }}</strong> este înregistrată, vei primi un link de resetare în câteva minute.<br>
-              Verifică și folderul <em>Spam</em>.
+              Daca adresa <strong>{{ emailSent }}</strong> este inregistrata, vei primi un link de resetare in cateva minute.<br>
+              Verifica si folderul <em>Spam</em>.
             </p>
-            <a routerLink="/login" class="btn-back">Înapoi la autentificare</a>
+            <a routerLink="/login" class="btn-back">Inapoi la autentificare</a>
           </div>
 
           <!-- Form state -->
           <ng-container *ngIf="!sent">
             <h1 class="card-title">Ai uitat parola?</h1>
-            <p class="card-sub">Introdu emailul contului tău și îȚi trimitem un link securizat de resetare.</p>
+            <p class="card-sub">Introdu emailul contului tau si iTi trimitem un link securizat de resetare.</p>
 
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
               <div class="field" [class.field-err]="form.get('email')?.invalid && form.get('email')?.touched">
@@ -57,14 +58,14 @@ import { environment } from '../../../environments/environment';
 
               <button type="submit" class="btn-submit" [disabled]="form.invalid || loading">
                 <span *ngIf="!loading">Trimite link de resetare</span>
-                <span *ngIf="loading" class="spin-wrap"><span class="spin"></span>Se trimiteâ€¦</span>
+                <span *ngIf="loading" class="spin-wrap"><span class="spin"></span>Se trimite...</span>
               </button>
             </form>
 
-            <p class="footer-link"><a routerLink="/login">&#8592; Înapoi la autentificare</a></p>
+            <p class="footer-link"><a routerLink="/login">&#8592; Inapoi la autentificare</a></p>
           </ng-container>
 
-          <div class="stamp">CONFIDENȚIAL</div>
+          <div class="stamp">CONFIDENTIAL</div>
         </div>
       </div>
     </div>
@@ -125,11 +126,18 @@ export class ForgotPasswordComponent {
     this.errorMessage = '';
     const email = this.form.value.email;
     try {
-      await this.http.post(`${environment.apiUrl}/api/auth/forgot-password`, { email }).toPromise();
+      await this.http
+        .post(`${environment.apiUrl}/api/auth/forgot-password`, { email })
+        .pipe(timeout(20000))
+        .toPromise();
       this.emailSent = email;
       this.sent = true;
-    } catch {
-      this.errorMessage = 'A apărut o eroare. Încearcă din nou.';
+    } catch (err: any) {
+      if (err?.name === 'TimeoutError') {
+        this.errorMessage = 'Serverul nu raspunde (pornire lenta). Incearca din nou in 30 secunde.';
+      } else {
+        this.errorMessage = 'A aparut o eroare. Incearca din nou.';
+      }
     } finally {
       this.loading = false;
     }

@@ -38,7 +38,7 @@ interface UploadTarget {
           </div>
           <button class="btn-edit" [routerLink]="['/games', gameId, 'edit']">
             <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M11 2l3 3-9 9H2v-3L11 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
-            Editează
+            Editeaza
           </button>
         </div>
       </nav>
@@ -71,14 +71,14 @@ interface UploadTarget {
         <div *ngIf="activeTab === 'overview'" class="tab-content">
           <div class="ov-card">
             <div class="ov-card-top"></div>
-            <div class="ov-label">NARAȚIUNEA CAZULUI</div>
+            <div class="ov-label">NARATIUNEA CAZULUI</div>
             <h3 class="ov-title">Povestea</h3>
             <p class="ov-body">{{ game?.story }}</p>
           </div>
           <div class="ov-card ov-solution">
             <div class="ov-card-top"></div>
             <div class="solution-badge-sm">GAME MASTER</div>
-            <div class="ov-label">SOLUȚIA</div>
+            <div class="ov-label">SOLUTIA</div>
             <h3 class="ov-title">Rezolvarea cazului</h3>
             <p class="ov-body">{{ game?.solution }}</p>
           </div>
@@ -89,7 +89,7 @@ interface UploadTarget {
           <div class="sec-head">
             <div>
               <div class="eyebrow">DOSARUL CAZULUI</div>
-              <h2 class="sec-title">Personaje &amp; Suspecți</h2>
+              <h2 class="sec-title">Personaje &amp; Suspecti</h2>
             </div>
             <button class="btn-primary" (click)="showCharacterForm = true" *ngIf="!showCharacterForm">
               + Personaj nou
@@ -169,17 +169,17 @@ interface UploadTarget {
                 <button class="btn-icon" (click)="editCharacter(character)">✏️</button>
                 <button class="btn-icon" (click)="deleteCharacter(character.characterId)">🗑️</button>
                 <button class="btn-action-outline btn-character-photo" (click)="triggerCharacterPhotoUpload(character.characterId)">
-                  📷 Încarcă poză
+                  📷 Incarca poza
                 </button>
                 <button class="btn-action-outline btn-character-pdf" (click)="generateCharacterProfilePdf(character)" [disabled]="isGeneratingCharacterPdf[character.characterId]">
-                  {{ isGeneratingCharacterPdf[character.characterId] ? 'Generez...' : 'Generează profil PDF' }}
+                  {{ isGeneratingCharacterPdf[character.characterId] ? 'Generez...' : 'Genereaza profil PDF' }}
                 </button>
               </div>
               <div class="character-photo-warning" *ngIf="!characterPhotos[character.characterId]">
-                Înainte de generare, încarcă poza personajului.
+                Inainte de generare, incarca poza personajului.
               </div>
               <div class="character-photo-ready" *ngIf="characterPhotos[character.characterId]">
-                Poză selectată: {{ characterPhotos[character.characterId].name }}
+                Poza selectata: {{ characterPhotos[character.characterId].name }}
               </div>
               <input
                 [id]="'character-photo-' + character.characterId"
@@ -255,30 +255,30 @@ interface UploadTarget {
                 </button>
                 <button class="btn-action-outline" style="margin-top:6px;width:100%" (click)="configureDeviceApps(device)">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.54 11.54l1.41 1.41M3.05 12.95l1.42-1.42M11.54 4.46l1.41-1.41" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-                  Configurare aplicații
+                  Configurare aplicatii
                 </button>
                 <button class="btn-action-outline" style="margin-top:6px;width:100%" (click)="editDevice(device)">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M11 2l3 3-9 9H2v-3L11 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
-                  Editează dispozitiv
+                  Editeaza dispozitiv
                 </button>
                 <button class="btn-action-danger" style="margin-top:6px;width:100%" (click)="deleteDevice(device.deviceId)">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 5h10M6 5V3h4v2M6 8v5M10 8v5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-                  Șterge dispozitiv
+                  Sterge dispozitiv
                 </button>
                 <button class="btn-action-outline" style="margin-top:6px;width:100%" *ngIf="deviceUploadTargets[device.deviceId]?.length" (click)="triggerDeviceUpload(device.deviceId)">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 3v7M5 6l3-3 3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-                  Încarcă fişier (foto/media)
+                  Incarca fisier (foto/media)
                 </button>
                 <!-- Audio apeluri: direct button for phones -->
                 <div *ngIf="device.deviceType === 'iPhone' || device.deviceType === 'Android'" style="margin-top:6px;">
-                  <label class="btn-action-audio" style="width:100%;cursor:pointer;" title="Ncărcă MP3 — se atribuie automat apelului corespunzător">
+                  <label class="btn-action-audio" style="width:100%;cursor:pointer;" title="Ncarca MP3 — se atribuie automat apelului corespunzator">
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 2h4v9a2 2 0 1 1-4 0V2z" stroke="currentColor" stroke-width="1.2"/><path d="M3 7h2M11 7h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-                    Încarcă audio apel (MP3)
+                    Incarca audio apel (MP3)
                     <input type="file" accept=".mp3,.m4a,.ogg,.wav" style="display:none" (change)="onCardCallAudioUpload(device, $event)">
                   </label>
                   <button class="btn-action-outline" style="margin-top:4px;width:100%;font-size:11.5px;" (click)="configureDeviceAppsOnTab(device, 'calls')">
                     <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.54 11.54l1.41 1.41M3.05 12.95l1.42-1.42M11.54 4.46l1.41-1.41" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-                    Gestionează apeluri
+                    Gestioneaza apeluri
                   </button>
                 </div>
               </div>
@@ -299,7 +299,7 @@ interface UploadTarget {
             <div class="modal-header">
               <div>
                 <div class="modal-eyebrow">{{ editingDevice ? 'EDITARE' : 'DISPOZITIV NOU' }}</div>
-                <h2 class="modal-title">{{ editingDevice ? 'Editează dispozitivul' : 'Adaugă dispozitiv' }}</h2>
+                <h2 class="modal-title">{{ editingDevice ? 'Editeaza dispozitivul' : 'Adauga dispozitiv' }}</h2>
               </div>
               <button class="modal-close" (click)="cancelDeviceForm()">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -321,13 +321,13 @@ interface UploadTarget {
                 </div>
               </div>
               <div class="info-box">
-                <p><strong>Notă:</strong> După creare, vei putea adăuga aplicații, mesaje, fotografii și alte conținuturi.</p>
+                <p><strong>Nota:</strong> Dupa creare, vei putea adauga aplicatii, mesaje, fotografii si alte continuturi.</p>
               </div>
               <div class="modal-actions">
-                <button type="button" class="btn-secondary" (click)="cancelDeviceForm()">Anulează</button>
+                <button type="button" class="btn-secondary" (click)="cancelDeviceForm()">Anuleaza</button>
                 <button type="button" class="btn-primary" (click)="saveDevice()" [disabled]="deviceForm.invalid">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  {{ editingDevice ? 'Actualizează' : 'Adaugă' }} dispozitiv
+                  {{ editingDevice ? 'Actualizeaza' : 'Adauga' }} dispozitiv
                 </button>
               </div>
             </form>
@@ -340,7 +340,7 @@ interface UploadTarget {
             <div class="modal-top-bar"></div>
             <div class="modal-header">
               <div>
-                <div class="modal-eyebrow">CONFIGURARE APLICAȚII</div>
+                <div class="modal-eyebrow">CONFIGURARE APLICATII</div>
                 <h2 class="modal-title">{{ configuringDevice.ownerName }}'s {{ configuringDevice.deviceType }}</h2>
               </div>
               <button class="modal-close" (click)="cancelAppConfig()">
@@ -483,12 +483,12 @@ interface UploadTarget {
                     </div>
                     <div class="form-group">
                       <label>Description</label>
-                      <input [(ngModel)]="file.description" placeholder="Scurt context pentru fișier">
+                      <input [(ngModel)]="file.description" placeholder="Scurt context pentru fisier">
                     </div>
                   </div>
                   <div class="form-group">
                     <label>Content (DOCX/PDF/TXT)</label>
-                    <textarea [(ngModel)]="file.content" rows="3" placeholder="Conținut preview pentru document..."></textarea>
+                    <textarea [(ngModel)]="file.content" rows="3" placeholder="Continut preview pentru document..."></textarea>
                   </div>
                   <div class="form-group">
                     <label>Spreadsheet Rows (JSON pentru XLSX/CSV)</label>
@@ -506,7 +506,7 @@ interface UploadTarget {
                 <h4>Apeluri telefonice</h4>
                 <div class="calls-info-box">
                   <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-                  Poți atașa un fișier audio <strong>MP3</strong> per apel. Fișierul va apărea în simulatorul de telefon la apăsarea apelului.
+                  Poti atasa un fisier audio <strong>MP3</strong> per apel. Fisierul va aparea in simulatorul de telefon la apasarea apelului.
                 </div>
                 <div *ngFor="let call of callsData; let i = index" class="call-item">
                   <div class="call-item-header">
@@ -523,8 +523,8 @@ interface UploadTarget {
                       </select>
                     </div>
                     <div class="form-group">
-                      <label>Număr / Nume</label>
-                      <input [(ngModel)]="call.contact" placeholder="Sorina Cioacă sau 0756-***-***">
+                      <label>Numar / Nume</label>
+                      <input [(ngModel)]="call.contact" placeholder="Sorina Cioaca sau 0756-***-***">
                     </div>
                   </div>
                   <div class="form-row">
@@ -537,7 +537,7 @@ interface UploadTarget {
                       <input [(ngModel)]="call.time" placeholder="17:02">
                     </div>
                     <div class="form-group">
-                      <label>Durată</label>
+                      <label>Durata</label>
                       <input [(ngModel)]="call.duration" placeholder="4 min 51 sec sau —">
                     </div>
                   </div>
@@ -545,11 +545,11 @@ interface UploadTarget {
                   <div class="call-audio-row">
                     <div class="call-audio-label">
                       <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M6 2h4v9a2 2 0 1 1-4 0V2z" stroke="currentColor" stroke-width="1.2"/><path d="M3 7h2M11 7h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-                      Înregistrare audio (opțional)
+                      Inregistrare audio (optional)
                     </div>
                     <div *ngIf="!call.audioUrl || call.audioUrl.startsWith('upload-required://')" class="call-audio-upload">
                       <span class="call-audio-filename" *ngIf="call.audioFileName">{{ call.audioFileName }}</span>
-                      <span class="call-audio-filename call-audio-empty" *ngIf="!call.audioFileName">Niciun fișier selectat</span>
+                      <span class="call-audio-filename call-audio-empty" *ngIf="!call.audioFileName">Niciun fisier selectat</span>
                       <label class="btn-audio-pick">
                         <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M8 3v7M5 6l3-3 3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
                         Alege MP3
@@ -558,21 +558,21 @@ interface UploadTarget {
                     </div>
                     <div *ngIf="call.audioUrl && !call.audioUrl.startsWith('upload-required://')" class="call-audio-ready">
                       <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      {{ call.audioFileName || 'Audio încărcat' }}
-                      <button class="call-audio-remove" (click)="call.audioUrl=''; call.audioFileName=''" title="Șterge audio">×</button>
+                      {{ call.audioFileName || 'Audio incarcat' }}
+                      <button class="call-audio-remove" (click)="call.audioUrl=''; call.audioFileName=''" title="Sterge audio">×</button>
                     </div>
                   </div>
                   <hr>
                 </div>
-                <button class="btn-primary" (click)="addCall()">+ Adaugă apel</button>
+                <button class="btn-primary" (click)="addCall()">+ Adauga apel</button>
               </div>
             </div>
 
             <div class="modal-actions">
-              <button type="button" class="btn-secondary" (click)="cancelAppConfig()">Anulează</button>
+              <button type="button" class="btn-secondary" (click)="cancelAppConfig()">Anuleaza</button>
               <button type="button" class="btn-primary" (click)="saveAppConfig()">
                 <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Salvează configurarea
+                Salveaza configurarea
               </button>
             </div>
           </div>
@@ -587,13 +587,13 @@ interface UploadTarget {
             </div>
           </div>
           <p style="font-size:13.5px;color:var(--ink2);font-style:italic;margin-bottom:24px;line-height:1.7">
-            Aceste dispozitive aparțin anchetatorului și au fost generate automat pe baza dosarului.
-            Laptopul conține baze de date clasificate, interogatorii și hărți. iPhone-ul conține apeluri înregistrate cu entitățile cazului.
+            Aceste dispozitive apartin anchetatorului si au fost generate automat pe baza dosarului.
+            Laptopul contine baze de date clasificate, interogatorii si harti. iPhone-ul contine apeluri inregistrate cu entitatile cazului.
           </p>
           <div *ngIf="investigatorDevices.length === 0" class="empty-state">
             <div class="empty-icon">🔍</div>
             <h3>Dispozitivele nu sunt disponibile</h3>
-            <p>Creați un dosar nou pentru a genera automat dispozitivele anchetatorului.</p>
+            <p>Creati un dosar nou pentru a genera automat dispozitivele anchetatorului.</p>
           </div>
           <div class="inv-devices-grid">
             <div *ngFor="let device of investigatorDevices" class="inv-device-card">
@@ -604,8 +604,8 @@ interface UploadTarget {
               </div>
               <div class="inv-device-type">{{ device.deviceType }}</div>
               <div class="inv-device-desc">
-                <span *ngIf="device.deviceType === 'Laptop'">Baze de date suspecți · Interogatorii · Camere CCTV · Hărți</span>
-                <span *ngIf="device.deviceType === 'iPhone'">Apeluri înregistrate · Mesaje · Note de anchetă</span>
+                <span *ngIf="device.deviceType === 'Laptop'">Baze de date suspecti · Interogatorii · Camere CCTV · Harti</span>
+                <span *ngIf="device.deviceType === 'iPhone'">Apeluri inregistrate · Mesaje · Note de ancheta</span>
               </div>
               <!-- upload notice for investigator devices -->
               <div *ngIf="deviceUploadRequirements[device.deviceId]?.length" class="sus-upload-notice">
@@ -631,22 +631,22 @@ interface UploadTarget {
                 </button>
                 <button class="btn-action-outline" style="margin-top:6px;width:100%" (click)="configureDeviceApps(device)">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.54 11.54l1.41 1.41M3.05 12.95l1.42-1.42M11.54 4.46l1.41-1.41" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-                  Configurare aplicații
+                  Configurare aplicatii
                 </button>
                 <button class="btn-action-outline" style="margin-top:6px;width:100%" *ngIf="deviceUploadTargets[device.deviceId]?.length" (click)="triggerDeviceUpload(device.deviceId)">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 3v7M5 6l3-3 3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-                  Încarcă fișier (foto/media)
+                  Incarca fisier (foto/media)
                 </button>
                 <!-- Audio apeluri: direct button for investigator phones -->
                 <div *ngIf="device.deviceType === 'iPhone' || device.deviceType === 'Android'" style="margin-top:6px;">
-                  <label class="btn-action-audio" style="width:100%;cursor:pointer;" title="Încarcă MP3 — se atribuie automat apelului corespunzător">
+                  <label class="btn-action-audio" style="width:100%;cursor:pointer;" title="Incarca MP3 — se atribuie automat apelului corespunzator">
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 2h4v9a2 2 0 1 1-4 0V2z" stroke="currentColor" stroke-width="1.2"/><path d="M3 7h2M11 7h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-                    Încarcă audio apel (MP3)
+                    Incarca audio apel (MP3)
                     <input type="file" accept=".mp3,.m4a,.ogg,.wav" style="display:none" (change)="onCardCallAudioUpload(device, $event)">
                   </label>
                   <button class="btn-action-outline" style="margin-top:4px;width:100%;font-size:11.5px;" (click)="configureDeviceAppsOnTab(device, 'calls')">
                     <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.54 11.54l1.41 1.41M3.05 12.95l1.42-1.42M11.54 4.46l1.41-1.41" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-                    Gestionează apeluri
+                    Gestioneaza apeluri
                   </button>
                 </div>
               </div>
@@ -1052,7 +1052,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.normalizeFileNameForCompare(t.fileName) === normalizedSelectedName
     );
     if (!target) {
-      alert(`Fișierul nu este cerut pentru acest dispozitiv. Nume așteptate: ${(targets.map(t => t.fileName)).join(', ')}`);
+      alert(`Fisierul nu este cerut pentru acest dispozitiv. Nume asteptate: ${(targets.map(t => t.fileName)).join(', ')}`);
       input.value = '';
       return;
     }
@@ -1074,7 +1074,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
         next: (apps: any[]) => {
           const app = apps.find(a => a.appId === target.appId);
           if (!app) {
-            alert('Nu am găsit aplicația pentru upload.');
+            alert('Nu am gasit aplicatia pentru upload.');
             return;
           }
 
@@ -1084,10 +1084,10 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
               const url = String(p.url ?? p.Url ?? '');
               return url.startsWith('upload-required://') && url.includes(target.fileName);
             });
-            if (idx < 0) { alert(`Placeholder-ul pentru ${target.fileName} nu mai există.`); return; }
+            if (idx < 0) { alert(`Placeholder-ul pentru ${target.fileName} nu mai exista.`); return; }
             photos[idx] = { ...photos[idx], url: dataUrl };
             this.deviceService.updateDeviceApp(this.gameId, deviceId, target.appId, { appData: { photos } }).subscribe({
-              next: () => { alert(`Upload reușit pentru ${target.fileName}.`); this.loadUploadRequirementsForDevices(); input.value = ''; },
+              next: () => { alert(`Upload reusit pentru ${target.fileName}.`); this.loadUploadRequirementsForDevices(); input.value = ''; },
               error: () => alert('Nu am putut salva poza.')
             });
             return;
@@ -1099,25 +1099,25 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
               const au = String(c.audioUrl ?? c.AudioUrl ?? '');
               return au.startsWith('upload-required://') && au.includes(target.fileName);
             });
-            if (idx < 0) { alert(`Placeholder-ul audio pentru ${target.fileName} nu mai există.`); return; }
+            if (idx < 0) { alert(`Placeholder-ul audio pentru ${target.fileName} nu mai exista.`); return; }
             calls[idx] = { ...calls[idx], audioUrl: dataUrl, audioFileName: target.fileName };
             this.deviceService.updateDeviceApp(this.gameId, deviceId, target.appId, { appData: { calls } }).subscribe({
-              next: () => { alert(`Audio încărcat: ${target.fileName}.`); this.loadUploadRequirementsForDevices(); input.value = ''; },
-              error: () => alert('Nu am putut salva fișierul audio.')
+              next: () => { alert(`Audio incarcat: ${target.fileName}.`); this.loadUploadRequirementsForDevices(); input.value = ''; },
+              error: () => alert('Nu am putut salva fisierul audio.')
             });
             return;
           }
 
           const items = [...(app.appData?.items ?? app.appData?.Items ?? [])];
           const idx = items.findIndex((f: any) => String(f.name ?? f.Name ?? '').toLowerCase() === target.fileName.toLowerCase());
-          if (idx < 0) { alert(`Fișierul ${target.fileName} nu există în lista de fișiere.`); return; }
+          if (idx < 0) { alert(`Fisierul ${target.fileName} nu exista in lista de fisiere.`); return; }
           items[idx] = { ...items[idx], description: `uploaded://${target.fileName}` };
           this.deviceService.updateDeviceApp(this.gameId, deviceId, target.appId, { appData: { items } }).subscribe({
-            next: () => { alert(`Upload reușit pentru ${target.fileName}.`); this.loadUploadRequirementsForDevices(); input.value = ''; },
-            error: () => alert('Nu am putut salva fișierul media.')
+            next: () => { alert(`Upload reusit pentru ${target.fileName}.`); this.loadUploadRequirementsForDevices(); input.value = ''; },
+            error: () => alert('Nu am putut salva fisierul media.')
           });
         },
-        error: () => alert('Nu am putut încărca datele aplicațiilor dispozitivului.')
+        error: () => alert('Nu am putut incarca datele aplicatiilor dispozitivului.')
       });
     };
     reader.readAsDataURL(file);
@@ -1198,7 +1198,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
     if (!validTypes.includes(file.type)) {
-      alert('Format poză invalid. Permis: JPG, PNG, WEBP.');
+      alert('Format poza invalid. Permis: JPG, PNG, WEBP.');
       input.value = '';
       return;
     }
@@ -1209,7 +1209,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   generateCharacterProfilePdf(character: Character) {
     const photo = this.characterPhotos[character.characterId];
     if (!photo) {
-      alert('Încarcă mai întâi poza personajului, apoi poți genera profilul PDF.');
+      alert('Incarca mai intai poza personajului, apoi poti genera profilul PDF.');
       return;
     }
 
@@ -1227,7 +1227,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       error: (error) => {
         console.error('Error generating character profile PDF:', error);
-        alert('Nu am putut genera profilul PDF. Verifică poza și încearcă din nou.');
+        alert('Nu am putut genera profilul PDF. Verifica poza si incearca din nou.');
       },
       complete: () => {
         this.isGeneratingCharacterPdf[character.characterId] = false;
@@ -1562,7 +1562,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
         next: (apps: any[]) => {
           const callsApp = apps.find(a => a.appType === 'Calls' || a.appType === 'Phone');
           if (!callsApp) {
-            alert('Niciun apel configurat pe acest dispozitiv. Adaugă mai întâi apeluri prin „Administrează apeluri & audio".');
+            alert('Niciun apel configurat pe acest dispozitiv. Adauga mai intai apeluri prin „Administreaza apeluri & audio".');
             return;
           }
 
@@ -1574,7 +1574,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
             return af === nameWithoutExt;
           });
 
-          // Priority 2: contact name match (e.g. file "Sorina.MP3" → contact "Sorina Cioacă")
+          // Priority 2: contact name match (e.g. file "Sorina.MP3" → contact "Sorina Cioaca")
           if (matchIdx < 0) {
             matchIdx = calls.findIndex((c: any) => {
               const contact = String(c.contact ?? c.Contact ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
@@ -1584,7 +1584,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
           if (matchIdx < 0) {
             const contacts = calls.map((c: any, i: number) => `${i + 1}. ${c.contact ?? c.Contact ?? 'Unknown'}`).join('\n');
-            alert(`Nu am putut potrivi automat fișierul "${file.name}" cu niciun apel.\n\nApeluri disponibile:\n${contacts}\n\nDeschide „Administrează apeluri & audio" și atașează manual.`);
+            alert(`Nu am putut potrivi automat fisierul "${file.name}" cu niciun apel.\n\nApeluri disponibile:\n${contacts}\n\nDeschide „Administreaza apeluri & audio" si ataseaza manual.`);
             return;
           }
 
@@ -1593,13 +1593,13 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
           this.deviceService.updateDeviceApp(this.gameId, device.deviceId, callsApp.appId, { appData: { calls } }).subscribe({
             next: () => {
               const contact = calls[matchIdx].contact ?? calls[matchIdx].Contact ?? '';
-              alert(`✅ Audio "${file.name}" atașat cu succes apelului cu ${contact}!`);
+              alert(`✅ Audio "${file.name}" atasat cu succes apelului cu ${contact}!`);
               input.value = '';
             },
-            error: () => alert('Nu am putut salva fișierul audio.')
+            error: () => alert('Nu am putut salva fisierul audio.')
           });
         },
-        error: () => alert('Nu am putut încărca datele aplicațiilor.')
+        error: () => alert('Nu am putut incarca datele aplicatiilor.')
       });
     };
     reader.readAsDataURL(file);
@@ -1667,7 +1667,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.deviceService.createDeviceApp(this.gameId, deviceId, { appType: 'Calls', appData: { calls: this.callsData } }).subscribe({ next: () => console.log('Calls saved'), error: (e) => console.error(e) });
     }
 
-    alert('Configurarea a fost salvată! Deschide dispozitivul pentru a vedea modificările.');
+    alert('Configurarea a fost salvata! Deschide dispozitivul pentru a vedea modificarile.');
     this.cancelAppConfig();
   }
 }

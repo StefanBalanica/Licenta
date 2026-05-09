@@ -14,7 +14,7 @@ import { GameSummary } from '../../models/models';
     <div class="page">
       <canvas #bgCvs class="bg-canvas"></canvas>
 
-      <!-- â”€â”€ NAVBAR â”€â”€ -->
+      <!-- a”€a”€ NAVBAR a”€a”€ -->
       <nav class="navbar">
         <div class="nav-inner">
           <div class="nav-logo">
@@ -47,7 +47,7 @@ import { GameSummary } from '../../models/models';
                 </button>
                 <button class="dropdown-item" (click)="goToProfile()">
                   <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 1 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-                  Schimbă parola
+                  Schimba parola
                 </button>
                 <div class="dropdown-sep"></div>
                 <button class="dropdown-item item-danger" (click)="logout()">
@@ -60,7 +60,7 @@ import { GameSummary } from '../../models/models';
         </div>
       </nav>
 
-      <!-- â”€â”€ MAIN â”€â”€ -->
+      <!-- a”€a”€ MAIN a”€a”€ -->
       <main class="main-wrap" (scroll)="onScroll()">
 
         <!-- AI Story panel -->
@@ -68,19 +68,19 @@ import { GameSummary } from '../../models/models';
           <div class="panel-head">
             <div>
               <div class="eyebrow">ASISTENT IA</div>
-              <h3 class="panel-title">Construiește dosar din naraȚiune</h3>
+              <h3 class="panel-title">Construieste dosar din naraTiune</h3>
             </div>
             <button class="panel-close" (click)="showStoryPanel = false">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             </button>
           </div>
-          <p class="panel-hint">Introdu relatarea cazului â€” AI-ul extrage automat personaje, dispozitive, conversaȚii și emailuri.</p>
+          <p class="panel-hint">Introdu relatarea cazului a€” AI-ul extrage automat personaje, dispozitive, conversaTii si emailuri.</p>
           <textarea [(ngModel)]="storyText" class="story-area"
-            placeholder="Ex: Titlu: Crima din vilă. Personaje: Maria (soȚia, motiv moștenire), Ion (majordomul). Dispozitive: Maria are un iPhone cu emailuri, note și conversaȚii cu Dr. Ionescu..."
+            placeholder="Ex: Titlu: Crima din vila. Personaje: Maria (soTia, motiv mostenire), Ion (majordomul). Dispozitive: Maria are un iPhone cu emailuri, note si conversaTii cu Dr. Ionescu..."
             rows="8"></textarea>
           <div *ngIf="generating" class="progress-wrap">
             <div class="progress-header">
-              <span>Se analizează povestea și se extrag dispozitivele...</span>
+              <span>Se analizeaza povestea si se extrag dispozitivele...</span>
               <span class="progress-pct">{{ progressPct }}%</span>
             </div>
             <div class="progress-bar">
@@ -88,7 +88,7 @@ import { GameSummary } from '../../models/models';
             </div>
           </div>
           <div class="panel-foot" *ngIf="!generating">
-            <button class="btn-ghost" (click)="showStoryPanel = false">Anulează</button>
+            <button class="btn-ghost" (click)="showStoryPanel = false">Anuleaza</button>
             <button class="btn-primary" (click)="generateFromStory()" [disabled]="!storyText.trim()">
               <span>Deschide dosar</span>
             </button>
@@ -99,7 +99,7 @@ import { GameSummary } from '../../models/models';
         <!-- Loading -->
         <div *ngIf="loading" class="center-state">
           <div class="loader"></div>
-          <p class="meta-lbl">SE ÎNCARCĂ DOSARELEâ€¦</p>
+          <p class="meta-lbl">SE INCARCA DOSARELE...</p>
         </div>
 
         <!-- Empty -->
@@ -113,7 +113,7 @@ import { GameSummary } from '../../models/models';
             </svg>
           </div>
           <h2 class="empty-title">Niciun dosar deschis</h2>
-          <p class="empty-sub">Creează primul caz sau importă o naraȚiune prin AI.</p>
+          <p class="empty-sub">Creeaza primul caz sau importa o naraTiune prin AI.</p>
           <div class="empty-acts">
             <button class="btn-primary" (click)="createGame()">Dosar nou</button>
             <button class="btn-outline-amber" (click)="showStoryPanel = true">AI Story</button>
@@ -148,7 +148,7 @@ import { GameSummary } from '../../models/models';
                 {{ game.isPublished ? 'PUBLICAT' : 'ACTIV' }}
               </div>
               <h3 class="card-title">{{ game.title }}</h3>
-              <p class="card-desc">{{ game.description || 'Nicio descriere disponibilă.' }}</p>
+              <p class="card-desc">{{ game.description || 'Nicio descriere disponibila.' }}</p>
 
               <div class="sep"></div>
 
@@ -170,10 +170,10 @@ import { GameSummary } from '../../models/models';
               <div class="card-footer">
                 <span class="card-date">{{ formatDate(game.updatedAt) }}</span>
                 <div class="card-acts">
-                  <button class="act-btn" (click)="editGame(game.gameId); $event.stopPropagation()" title="Editează">
+                  <button class="act-btn" (click)="editGame(game.gameId); $event.stopPropagation()" title="Editeaza">
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M11 2l3 3-9 9H2v-3L11 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
                   </button>
-                  <button class="act-btn act-del" (click)="deleteGame(game.gameId); $event.stopPropagation()" title="È˜terge">
+                  <button class="act-btn act-del" (click)="deleteGame(game.gameId); $event.stopPropagation()" title="Sterge">
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M5 4V3h6v1M3 4l1 9h8l1-9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
                   </button>
                 </div>
@@ -188,7 +188,7 @@ import { GameSummary } from '../../models/models';
   styles: [`
     :host{display:block}*{box-sizing:border-box;margin:0;padding:0}
 
-    /* â”€â”€ Variables â”€â”€ */
+    /* a”€a”€ Variables a”€a”€ */
     .page{
       --bg:#f5f2ec;--surface:#fff;--border:rgba(0,0,0,0.07);--border-md:rgba(0,0,0,0.11);
       --amber:#b87208;--amber-l:rgba(184,114,8,0.08);--gold:#c9962a;
@@ -198,10 +198,10 @@ import { GameSummary } from '../../models/models';
       min-height:100vh;background:var(--bg);position:relative;font-family:'Inter',sans-serif;color:var(--ink);
     }
 
-    /* â”€â”€ Canvas â”€â”€ */
+    /* a”€a”€ Canvas a”€a”€ */
     .bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
-    /* â”€â”€ Navbar â”€â”€ */
+    /* a”€a”€ Navbar a”€a”€ */
     .navbar{
       position:sticky;top:0;z-index:100;height:54px;
       background:rgba(245,242,236,0.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
@@ -216,7 +216,7 @@ import { GameSummary } from '../../models/models';
     .status-lbl{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);}
     .nav-right{display:flex;align-items:center;gap:8px;}
 
-    /* â”€â”€ User dropdown â”€â”€ */
+    /* a”€a”€ User dropdown a”€a”€ */
     .user-menu{position:relative;}
     .user-avatar{display:flex;align-items:center;gap:6px;height:34px;padding:0 10px 0 6px;border:1px solid var(--border-md);border-radius:20px;background:transparent;cursor:pointer;transition:border-color .2s,background .2s;}
     .user-avatar:hover,.avatar-open{background:rgba(28,43,74,0.05);border-color:rgba(28,43,74,0.2);}
@@ -236,7 +236,7 @@ import { GameSummary } from '../../models/models';
     .item-danger svg{color:var(--red);}
     .item-danger:hover{background:rgba(155,32,32,0.05);}
 
-    /* â”€â”€ Buttons â”€â”€ */
+    /* a”€a”€ Buttons a”€a”€ */
     .btn-ghost{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 12px;border:1px solid var(--border-md);border-radius:7px;background:transparent;color:var(--ink);font-size:12.5px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:border-color .2s,color .2s;}
     .btn-ghost:hover{border-color:rgba(0,0,0,0.25);color:var(--ink);}
     .btn-ghost:disabled{opacity:.4;cursor:not-allowed;}
@@ -248,10 +248,10 @@ import { GameSummary } from '../../models/models';
     .btn-primary:hover:not(:disabled){opacity:.88;transform:translateY(-1px);}
     .btn-primary:disabled{opacity:.4;cursor:not-allowed;}
 
-    /* â”€â”€ Main â”€â”€ */
+    /* a”€a”€ Main a”€a”€ */
     .main-wrap{max-width:1280px;margin:0 auto;padding:36px 24px;position:relative;z-index:1;}
 
-    /* â”€â”€ Story panel â”€â”€ */
+    /* a”€a”€ Story panel a”€a”€ */
     .story-panel{background:var(--surface);border:1px solid var(--border-md);border-radius:12px;padding:28px;margin-bottom:36px;box-shadow:0 4px 24px rgba(0,0,0,0.07);}
     .panel-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
     .panel-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--ink);}
@@ -268,7 +268,7 @@ import { GameSummary } from '../../models/models';
     .progress-bar{width:100%;height:6px;background:var(--border-md);border-radius:3px;overflow:hidden;}
     .progress-fill{height:100%;background:var(--amber);border-radius:3px;transition:width 0.4s ease-out;}
 
-    /* â”€â”€ Status states â”€â”€ */
+    /* a”€a”€ Status states a”€a”€ */
     .center-state{display:flex;flex-direction:column;align-items:center;padding:80px 20px;gap:14px;}
     .loader{width:36px;height:36px;border:2px solid rgba(184,114,8,0.15);border-top-color:var(--amber);border-radius:50%;animation:spin .8s linear infinite;}
     .meta-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);}
@@ -279,7 +279,7 @@ import { GameSummary } from '../../models/models';
     .empty-sub{font-size:14px;color:var(--ink2);font-style:italic;}
     .empty-acts{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
 
-    /* â”€â”€ Page header â”€â”€ */
+    /* a”€a”€ Page header a”€a”€ */
     .page-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;animation:fadeUp .5s ease both;}
     @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
     .eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:6px;font-weight:600;}
@@ -287,10 +287,10 @@ import { GameSummary } from '../../models/models';
     .count-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid rgba(184,114,8,0.4);border-radius:50%;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--amber);}
     .ph-right{display:flex;gap:8px;}
 
-    /* â”€â”€ Grid â”€â”€ */
+    /* a”€a”€ Grid a”€a”€ */
     .games-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
 
-    /* â”€â”€ Card â”€â”€ */
+    /* a”€a”€ Card a”€a”€ */
     .case-card{
       position:relative;background:var(--surface);border:1px solid var(--border);border-radius:12px;
       padding:22px 20px 18px;overflow:hidden;cursor:pointer;
@@ -350,7 +350,7 @@ import { GameSummary } from '../../models/models';
     .act-btn:hover{background:var(--navy-l);border-color:var(--navy);color:var(--navy);}
     .act-del:hover{background:rgba(155,32,32,0.06);border-color:var(--red);color:var(--red);}
 
-    /* â”€â”€ Responsive â”€â”€ */
+    /* a”€a”€ Responsive a”€a”€ */
     @media(max-width:900px){.games-grid{grid-template-columns:repeat(2,1fr);}}
     @media(max-width:580px){.games-grid{grid-template-columns:1fr;}.page-header{flex-direction:column;align-items:flex-start;gap:12px;}}
   `]
@@ -418,7 +418,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.storyError = '';
     this.progressPct = 0;
     
-    // AnimaȚie fluidă pentru progress bar până pe la 96%
+    // AnimaTie fluida pentru progress bar pana pe la 96%
     this.progressInterval = setInterval(() => {
       if (this.progressPct < 96) {
         const step = Math.max(1, Math.floor((96 - this.progressPct) / 10));
@@ -431,7 +431,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         clearInterval(this.progressInterval);
         this.progressPct = 100;
         
-        // Timeout mic ca userul să vadă că a ajuns la 100% înainte de a se muta pagina
+        // Timeout mic ca userul sa vada ca a ajuns la 100% inainte de a se muta pagina
         setTimeout(() => {
           this.generating = false; 
           this.showStoryPanel = false; 
@@ -444,7 +444,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         clearInterval(this.progressInterval);
         this.generating = false;
         this.progressPct = 0;
-        this.storyError = err.error?.message || 'Eroare la generare â€” verifică cheia API.';
+        this.storyError = err.error?.message || 'Eroare la generare a€” verifica cheia API.';
       }
     });
   }
@@ -454,10 +454,10 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   goToProfile() { this.menuOpen = false; this.router.navigate(['/profile']); }
 
   deleteGame(gameId: number) {
-    if (confirm('Confirmi închiderea dosarului? AcȚiunea este ireversibilă.')) {
+    if (confirm('Confirmi inchiderea dosarului? AcTiunea este ireversibila.')) {
       this.gameService.deleteGame(gameId).subscribe({
         next: () => { this.games = this.games.filter(g => g.gameId !== gameId); },
-        error: () => { alert('È˜tergerea a eșuat'); }
+        error: () => { alert('Stergerea a esuat'); }
       });
     }
   }
@@ -467,7 +467,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     const d = Math.floor((Date.now() - date.getTime()) / 86400000);
-    if (d === 0) return 'astăzi';
+    if (d === 0) return 'astazi';
     if (d === 1) return 'ieri';
     if (d < 7) return `acum ${d} zile`;
     return date.toLocaleDateString('ro-RO');

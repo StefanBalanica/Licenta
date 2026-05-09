@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import zxcvbn from 'zxcvbn';
 
-// â”€â”€ Same hard-rules validator as register â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// a”€a”€ Same hard-rules validator as register a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€
 function hardRulesValidator(control: AbstractControl): ValidationErrors | null {
   const v: string = control.value ?? '';
   if (!v) return null;
@@ -41,7 +41,7 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
 
           <!-- Invalid / missing token -->
           <div *ngIf="!token" class="error-state">
-            <p class="error-state-msg">Link invalid. <a routerLink="/forgot-password">Solicită un link nou</a>.</p>
+            <p class="error-state-msg">Link invalid. <a routerLink="/forgot-password">Solicita un link nou</a>.</p>
           </div>
 
           <!-- Success state -->
@@ -52,21 +52,21 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
                 <path d="M7 12.5l3.5 3.5 6.5-7" stroke="#2d7a3a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <h2 class="success-title">Parolă actualizată!</h2>
-            <p class="success-msg">Parola ta a fost schimbată cu succes. Acum te poȚi autentifica.</p>
+            <h2 class="success-title">Parola actualizata!</h2>
+            <p class="success-msg">Parola ta a fost schimbata cu succes. Acum te poTi autentifica.</p>
             <a routerLink="/login" class="btn-primary">Mergi la autentificare</a>
           </div>
 
           <!-- Form state -->
           <ng-container *ngIf="token && !done">
-            <h1 class="card-title">Setează parola nouă</h1>
-            <p class="card-sub">Alege o parolă nouă pentru contul tău.</p>
+            <h1 class="card-title">Seteaza parola noua</h1>
+            <p class="card-sub">Alege o parola noua pentru contul tau.</p>
 
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
             <div class="field" [class.field-err]="form.get('password')?.invalid && form.get('password')?.touched">
                 <label class="lbl">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 1 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-                  PAROLĂ NOUĂ
+                  PAROLA NOUA
                 </label>
                 <div class="inp-wrap">
                   <input class="inp" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="minimum 8 caractere" autocomplete="new-password"/>
@@ -95,11 +95,11 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
 
                 <!-- Rules checklist -->
                 <ul class="pw-rules" *ngIf="form.get('password')?.touched || pwValue.length > 0">
-                  <li [class.ok]="!pwErrors['minLength']"><span class="ri">{{ !pwErrors['minLength'] ? 'âœ“' : 'â—‹' }}</span> Minimum 8 caractere</li>
-                  <li [class.ok]="!pwErrors['uppercase']"><span class="ri">{{ !pwErrors['uppercase'] ? 'âœ“' : 'â—‹' }}</span> Cel puȚin o literă mare (A-Z)</li>
-                  <li [class.ok]="!pwErrors['lowercase']"><span class="ri">{{ !pwErrors['lowercase'] ? 'âœ“' : 'â—‹' }}</span> Cel puȚin o literă mică (a-z)</li>
-                  <li [class.ok]="!pwErrors['digit']"><span class="ri">{{ !pwErrors['digit'] ? 'âœ“' : 'â—‹' }}</span> Cel puȚin o cifră (0-9)</li>
-                  <li [class.ok]="!pwErrors['special']"><span class="ri">{{ !pwErrors['special'] ? 'âœ“' : 'â—‹' }}</span> Cel puȚin un caracter special (!&#64;#$%^&amp;*)</li>
+                  <li [class.ok]="!pwErrors['minLength']"><span class="ri">{{ !pwErrors['minLength'] ? 'aœ“' : 'a—‹' }}</span> Minimum 8 caractere</li>
+                  <li [class.ok]="!pwErrors['uppercase']"><span class="ri">{{ !pwErrors['uppercase'] ? 'aœ“' : 'a—‹' }}</span> Cel puTin o litera mare (A-Z)</li>
+                  <li [class.ok]="!pwErrors['lowercase']"><span class="ri">{{ !pwErrors['lowercase'] ? 'aœ“' : 'a—‹' }}</span> Cel puTin o litera mica (a-z)</li>
+                  <li [class.ok]="!pwErrors['digit']"><span class="ri">{{ !pwErrors['digit'] ? 'aœ“' : 'a—‹' }}</span> Cel puTin o cifra (0-9)</li>
+                  <li [class.ok]="!pwErrors['special']"><span class="ri">{{ !pwErrors['special'] ? 'aœ“' : 'a—‹' }}</span> Cel puTin un caracter special (!&#64;#$%^&amp;*)</li>
                 </ul>
               </div>
 
@@ -107,10 +107,10 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
               <div class="field" [class.field-err]="form.hasError('passwordMismatch') && form.get('confirmPassword')?.touched">
                 <label class="lbl">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 1 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M7 10l2 2 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  CONFIRMĂ PAROLA
+                  CONFIRMA PAROLA
                 </label>
                 <div class="inp-wrap">
-                  <input class="inp" [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" placeholder="repetă parola" autocomplete="new-password"/>
+                  <input class="inp" [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" placeholder="repeta parola" autocomplete="new-password"/>
                   <button type="button" class="eye-btn" (click)="showConfirmPassword = !showConfirmPassword" tabindex="-1">
                     <svg *ngIf="!showConfirmPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4"/></svg>
                     <svg *ngIf="showConfirmPassword" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M1 1l22 22" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
@@ -122,12 +122,12 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
               <div *ngIf="errorMessage" class="error-banner">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1L15 15H1L8 1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 6v4M8 12v.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
                 {{ errorMessage }}
-                <a *ngIf="showRetryLink" routerLink="/forgot-password" class="retry-link">Solicită un link nou</a>
+                <a *ngIf="showRetryLink" routerLink="/forgot-password" class="retry-link">Solicita un link nou</a>
               </div>
 
               <button type="submit" class="btn-submit" [disabled]="form.invalid || loading">
-                <span *ngIf="!loading">Salvează parola</span>
-                <span *ngIf="loading" class="spin-wrap"><span class="spin"></span>Se salveazăâ€¦</span>
+                <span *ngIf="!loading">Salveaza parola</span>
+                <span *ngIf="loading" class="spin-wrap"><span class="spin"></span>Se salveaza...</span>
               </button>
             </form>
           </ng-container>
@@ -213,7 +213,7 @@ export class ResetPasswordComponent implements OnInit {
     this.token = this.route.snapshot.queryParamMap.get('token') ?? '';
   }
 
-  // â”€â”€ Strength helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // a”€a”€ Strength helpers a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€
 
   get pwValue(): string { return this.form.get('password')?.value ?? ''; }
   get pwErrors(): Record<string, boolean> { return (this.form.get('password')?.errors as Record<string, boolean>) ?? {}; }
@@ -221,7 +221,7 @@ export class ResetPasswordComponent implements OnInit {
   private get _zxcvbn() { return this.pwValue ? zxcvbn(this.pwValue) : null; }
   get strengthScore(): number { return this._zxcvbn?.score ?? 0; }
   get strengthColor(): string { return ['#c0392b','#e67e22','#f39c12','#27ae60','#2ecc71'][this.strengthScore] ?? '#c0392b'; }
-  get strengthLabel(): string { return ['Foarte slabă','Slabă','Acceptabilă','Bună','Excelentă'][this.strengthScore] ?? 'Foarte slabă'; }
+  get strengthLabel(): string { return ['Foarte slaba','Slaba','Acceptabila','Buna','Excelenta'][this.strengthScore] ?? 'Foarte slaba'; }
   get zxcvbnWarning(): string {
     const w = this._zxcvbn?.feedback?.warning ?? '';
     return w || '';
@@ -239,7 +239,7 @@ export class ResetPasswordComponent implements OnInit {
       }).toPromise();
       this.done = true;
     } catch (err: any) {
-      this.errorMessage = err.error?.message || 'A apărut o eroare. Încearcă din nou.';
+      this.errorMessage = err.error?.message || 'A aparut o eroare. Incearca din nou.';
       this.showRetryLink = this.errorMessage.includes('expirat') || this.errorMessage.includes('invalid') || this.errorMessage.includes('utilizat');
     } finally {
       this.loading = false;

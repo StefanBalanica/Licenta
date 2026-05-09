@@ -23,10 +23,10 @@ import { Game } from '../../models/models';
           <h2 class="nav-title">{{ isEditMode ? 'Editare dosar' : 'Dosar nou' }}</h2>
           <div class="nav-acts">
             <button class="btn-ghost" (click)="saveDraft()" [disabled]="saving">
-              {{ saving ? 'Se salvează…' : 'Salvează draft' }}
+              {{ saving ? 'Se salveaza…' : 'Salveaza draft' }}
             </button>
             <button class="btn-primary" (click)="publish()" [disabled]="gameForm.invalid || saving">
-              Publică
+              Publica
             </button>
           </div>
         </div>
@@ -36,7 +36,7 @@ import { Game } from '../../models/models';
       <main class="main-wrap">
         <div class="page-header">
           <div class="eyebrow">{{ isEditMode ? 'EDITARE DOSAR' : 'DOSAR NOU' }}</div>
-          <h1 class="display-title">{{ isEditMode ? 'Modifică cazul' : 'Creează un caz nou' }}</h1>
+          <h1 class="display-title">{{ isEditMode ? 'Modifica cazul' : 'Creeaza un caz nou' }}</h1>
         </div>
 
         <form [formGroup]="gameForm" class="form-stack">
@@ -46,7 +46,7 @@ import { Game } from '../../models/models';
             <div class="section-head">
               <div class="section-num">01</div>
               <div>
-                <div class="section-eyebrow">INFORMAȚII DE BAZĂ</div>
+                <div class="section-eyebrow">INFORMATII DE BAZA</div>
                 <h3 class="section-title">Titlu & Descriere</h3>
               </div>
             </div>
@@ -56,8 +56,8 @@ import { Game } from '../../models/models';
               <span *ngIf="gameForm.get('title')?.invalid && gameForm.get('title')?.touched" class="err-msg">Titlul este obligatoriu.</span>
             </div>
             <div class="field">
-              <label class="lbl">DESCRIERE SCURTĂ</label>
-              <textarea class="inp inp-ta" rows="3" formControlName="description" placeholder="O prezentare succintă a misterului…"></textarea>
+              <label class="lbl">DESCRIERE SCURTA</label>
+              <textarea class="inp inp-ta" rows="3" formControlName="description" placeholder="O prezentare succinta a misterului…"></textarea>
             </div>
           </div>
 
@@ -66,17 +66,17 @@ import { Game } from '../../models/models';
             <div class="section-head">
               <div class="section-num">02</div>
               <div>
-                <div class="section-eyebrow">NARAȚIUNEA CAZULUI</div>
+                <div class="section-eyebrow">NARATIUNEA CAZULUI</div>
                 <h3 class="section-title">Povestea & Contextul</h3>
               </div>
             </div>
             <div class="field" [class.field-err]="gameForm.get('story')?.invalid && gameForm.get('story')?.touched">
-              <label class="lbl">NARAȚIUNEA *</label>
-              <p class="field-hint">Descrierea fundalului, a locului și a împrejurărilor. Aceasta va fi vizibilă pentru toți jucătorii.</p>
+              <label class="lbl">NARATIUNEA *</label>
+              <p class="field-hint">Descrierea fundalului, a locului si a imprejurarilor. Aceasta va fi vizibila pentru toti jucatorii.</p>
               <textarea class="inp inp-ta" rows="8" formControlName="story"
-                placeholder="Într-o noapte furtunasă la Vila Blackwood, industriașul milionar Charles Blackwood a fost găsit mort în biroul său. Poliția a concluzionat că este vorba de crimă, iar toți cei prezenți în seara aceea sunt suspecți…"
+                placeholder="Intr-o noapte furtunasa la Vila Blackwood, industriasul milionar Charles Blackwood a fost gasit mort in biroul sau. Politia a concluzionat ca este vorba de crima, iar toti cei prezenti in seara aceea sunt suspecti…"
                 [class.err-inp]="gameForm.get('story')?.invalid && gameForm.get('story')?.touched"></textarea>
-              <span *ngIf="gameForm.get('story')?.invalid && gameForm.get('story')?.touched" class="err-msg">Narațiunea este obligatorie.</span>
+              <span *ngIf="gameForm.get('story')?.invalid && gameForm.get('story')?.touched" class="err-msg">Naratiunea este obligatorie.</span>
             </div>
           </div>
 
@@ -88,28 +88,28 @@ import { Game } from '../../models/models';
                 <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="7" width="12" height="8" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M5 7V5a3 3 0 1 1 6 0v2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
               </div>
               <div>
-                <div class="section-eyebrow">SOLUȚIA CAZULUI</div>
-                <h3 class="section-title">Cine, cum și de ce</h3>
+                <div class="section-eyebrow">SOLUTIA CAZULUI</div>
+                <h3 class="section-title">Cine, cum si de ce</h3>
               </div>
             </div>
             <div class="field" [class.field-err]="gameForm.get('solution')?.invalid && gameForm.get('solution')?.touched">
-              <label class="lbl">SOLUȚIA *</label>
-              <p class="field-hint">Vizibil exclusiv game master-ului. Descrie cine a comis crima, cum și care a fost motivul.</p>
+              <label class="lbl">SOLUTIA *</label>
+              <p class="field-hint">Vizibil exclusiv game master-ului. Descrie cine a comis crima, cum si care a fost motivul.</p>
               <textarea class="inp inp-ta" rows="6" formControlName="solution"
-                placeholder="Majordomul James Morrison a comis crima cu o otravă rară din perioada militară, din răzbunare pentru moștenirea refuzată după 30 de ani de serviciu loial…"
+                placeholder="Majordomul James Morrison a comis crima cu o otrava rara din perioada militara, din razbunare pentru mostenirea refuzata dupa 30 de ani de serviciu loial…"
                 [class.err-inp]="gameForm.get('solution')?.invalid && gameForm.get('solution')?.touched"></textarea>
-              <span *ngIf="gameForm.get('solution')?.invalid && gameForm.get('solution')?.touched" class="err-msg">Soluția este obligatorie.</span>
+              <span *ngIf="gameForm.get('solution')?.invalid && gameForm.get('solution')?.touched" class="err-msg">Solutia este obligatorie.</span>
             </div>
           </div>
 
           <!-- Info box -->
           <div class="info-box">
-            <div class="info-title">Pași următori după crearea dosarului:</div>
+            <div class="info-title">Pasi urmatori dupa crearea dosarului:</div>
             <ul class="info-list">
-              <li><strong>Adaugă Suspecți</strong> — Personaje cu motive, aliburi și istorii</li>
-              <li><strong>Adaugă Dovezi Fizice</strong> — Documente, rapoarte, fragmente de presă</li>
-              <li><strong>Adaugă Dispozitive Digitale</strong> — Simulatoare de telefon cu mesaje, poze, emailuri</li>
-              <li><strong>Exportă & Joacă</strong> — Generează PDF-uri și coduri QR</li>
+              <li><strong>Adauga Suspecti</strong> — Personaje cu motive, aliburi si istorii</li>
+              <li><strong>Adauga Dovezi Fizice</strong> — Documente, rapoarte, fragmente de presa</li>
+              <li><strong>Adauga Dispozitive Digitale</strong> — Simulatoare de telefon cu mesaje, poze, emailuri</li>
+              <li><strong>Exporta & Joaca</strong> — Genereaza PDF-uri si coduri QR</li>
             </ul>
           </div>
 
@@ -217,7 +217,7 @@ export class GameBuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   loadGame(id: number) {
     this.gameService.getGame(id).subscribe({
       next: (game) => this.gameForm.patchValue({ title: game.title, description: game.description, story: game.story, solution: game.solution }),
-      error: () => { this.errorMessage = 'Eroare la încărcarea dosarului.'; }
+      error: () => { this.errorMessage = 'Eroare la incarcarea dosarului.'; }
     });
   }
 
