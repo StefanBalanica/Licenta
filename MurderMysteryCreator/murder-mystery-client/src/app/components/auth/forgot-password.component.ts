@@ -75,10 +75,10 @@ import { HttpClient } from '@angular/common/http';
     .card{position:relative;background:var(--surface);border:1px solid var(--border-md);border-radius:14px;padding:36px 36px 32px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.07);animation:fadeUp .5s ease both;}
     @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
     .card-top-line{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(184,114,8,0.55),transparent);}
-    .brand{display:flex;align-items:center;justify-content:center;margin-bottom:22px;}
+    .brand{display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
     .logo-img{width:130px;height:130px;object-fit:contain;display:block;margin:0 auto;}
-    .card-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;color:var(--ink);margin-bottom:8px;}
-    .card-sub{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:24px;}
+    .card-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;color:var(--ink);margin-bottom:8px;text-align:center;}
+    .card-sub{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:24px;text-align:center;}
     .form{display:flex;flex-direction:column;gap:16px;}
     .field{display:flex;flex-direction:column;gap:6px;}
     .lbl{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--amber);}

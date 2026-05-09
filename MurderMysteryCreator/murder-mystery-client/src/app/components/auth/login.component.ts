@@ -15,9 +15,7 @@ import { AuthService } from '../../services/auth.service';
         <div class="card">
           <div class="card-top-line"></div>
 
-          <div class="brand">
-            <img src="assets/logo.svg" class="logo-img" alt="The Investigation"/>
-          </div>
+          <div class="brand"><img src="assets/logo.svg" class="logo-img" alt="The Investigation"/></div>
 
           <div class="card-divider">
             <span class="divider-lbl">ACCES SECURIZAT</span>
@@ -90,7 +88,7 @@ import { AuthService } from '../../services/auth.service';
     @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
     .card-top-line{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(184,114,8,0.55),transparent);}
 
-    .brand{display:flex;align-items:center;justify-content:center;margin-bottom:22px;}
+    .brand{display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
     .logo-img{width:130px;height:130px;object-fit:contain;display:block;margin:0 auto;}
 
     .card-divider{position:relative;height:1px;background:linear-gradient(90deg,transparent,var(--border-md),transparent);margin-bottom:24px;}

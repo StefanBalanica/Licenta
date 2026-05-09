@@ -81,9 +81,7 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
         <div class="card">
           <div class="card-top-line"></div>
 
-          <div class="brand"><img src="assets/logo.svg" class="logo-img" alt="The Investigation"/>
-            <img src="assets/logo.svg" class="logo-img" alt="The Investigation"/>
-          </div>
+          <div class="brand"><img src="assets/logo.svg" class="logo-img" alt="The Investigation"/></div>
 
           <div class="card-divider">
             <span class="divider-lbl">DOSAR NOU</span>
@@ -214,12 +212,12 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
     @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
     .card-top-line{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(184,114,8,0.55),transparent);}
 
-    .brand{display:flex;align-items:center;justify-content:center;margin-bottom:22px;}
+    .brand{display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
     .logo-img{width:130px;height:130px;object-fit:contain;display:block;margin:0 auto;}
     .card-divider{position:relative;height:1px;background:linear-gradient(90deg,transparent,var(--border-md),transparent);margin-bottom:24px;}
     .divider-lbl{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);padding:0 10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber);white-space:nowrap;}
-    .card-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--ink);margin-bottom:6px;}
-    .card-sub{font-size:13px;color:var(--ink2);font-style:italic;margin-bottom:26px;line-height:1.5;}
+    .card-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--ink);margin-bottom:6px;text-align:center;}
+    .card-sub{font-size:13px;color:var(--ink2);font-style:italic;margin-bottom:26px;line-height:1.5;text-align:center;}
 
     .form{display:flex;flex-direction:column;gap:14px;}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
