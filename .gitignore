@@ -11,7 +11,7 @@ appsettings.Staging.json
 
 # ── Node / Angular ────────────────────────────────────────────────────────────
 node_modules/
-dist/
+# dist/ is committed for the Angular client (pre-built for Render deploy)
 .angular/
 
 # ── Environment files ─────────────────────────────────────────────────────────
