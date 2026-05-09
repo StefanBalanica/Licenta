@@ -120,7 +120,7 @@ export class ForgotPasswordComponent {
     });
   }
 
-  async onSubmit() {
+    async onSubmit() {
     if (this.form.invalid) return;
     this.loading = true;
     this.errorMessage = '';
@@ -128,15 +128,20 @@ export class ForgotPasswordComponent {
     try {
       await this.http
         .post(`${environment.apiUrl}/api/auth/forgot-password`, { email })
-        .pipe(timeout(20000))
+        .pipe(timeout(30000))
         .toPromise();
       this.emailSent = email;
       this.sent = true;
     } catch (err: any) {
       if (err?.name === 'TimeoutError') {
-        this.errorMessage = 'Serverul nu raspunde (pornire lenta). Incearca din nou in 30 secunde.';
+        this.errorMessage = 'Eroare: requestul a expirat dupa 30s (frontend timeout). API-ul nu a raspuns.';
+      } else if (err?.error?.message) {
+        // Show exact server error message
+        this.errorMessage = `Eroare server: ${err.error.message}`;
+      } else if (err?.status) {
+        this.errorMessage = `Eroare HTTP ${err.status}: ${err.statusText || 'necunoscuta'}`;
       } else {
-        this.errorMessage = 'A aparut o eroare. Incearca din nou.';
+        this.errorMessage = `Eroare necunoscuta: ${JSON.stringify(err?.message || err)}`;
       }
     } finally {
       this.loading = false;

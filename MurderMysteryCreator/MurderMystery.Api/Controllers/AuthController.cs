@@ -89,22 +89,82 @@ public class AuthController : ControllerBase
     }
 
     /// <summary>
-    /// Initiates the password reset flow. Always returns 200 OK to prevent
-    /// email enumeration attacks (even if the email doesn't exist).
+    /// Initiates the password reset flow.
+    /// Returns detailed error info for debugging SMTP issues.
     /// </summary>
     [HttpPost("forgot-password")]
     public async Task<ActionResult> ForgotPassword([FromBody] ForgotPasswordDto dto)
     {
         try
         {
+            _logger.LogInformation("[ForgotPassword] START for {Email}", dto.Email);
             await _authService.ForgotPasswordAsync(dto.Email);
+            _logger.LogInformation("[ForgotPassword] SUCCESS for {Email}", dto.Email);
+            return Ok(new { message = "Email trimis cu succes." });
+        }
+        catch (InvalidOperationException ex)
+        {
+            // Config errors (SmtpUser not set) or SMTP timeout
+            _logger.LogError(ex, "[ForgotPassword] CONFIG/TIMEOUT error for {Email}: {Msg}", dto.Email, ex.Message);
+            return StatusCode(503, new
+            {
+                message = $"Eroare serviciu email: {ex.Message}",
+                errorType = "ServiceError",
+                detail = ex.Message
+            });
+        }
+        catch (MailKit.Net.Smtp.SmtpCommandException ex)
+        {
+            // SMTP auth failure, bad credentials etc.
+            _logger.LogError(ex, "[ForgotPassword] SMTP command error: {StatusCode} {Msg}", ex.StatusCode, ex.Message);
+            return StatusCode(502, new
+            {
+                message = $"Eroare SMTP ({ex.StatusCode}): {ex.Message}",
+                errorType = "SmtpCommandError",
+                detail = ex.Message
+            });
+        }
+        catch (MailKit.Net.Smtp.SmtpProtocolException ex)
+        {
+            _logger.LogError(ex, "[ForgotPassword] SMTP protocol error: {Msg}", ex.Message);
+            return StatusCode(502, new
+            {
+                message = $"Eroare protocol SMTP: {ex.Message}",
+                errorType = "SmtpProtocolError",
+                detail = ex.Message
+            });
+        }
+        catch (System.Net.Sockets.SocketException ex)
+        {
+            // Port blocked / DNS failure / network unreachable
+            _logger.LogError(ex, "[ForgotPassword] Socket/network error (port blocked?): {Code} {Msg}", ex.SocketErrorCode, ex.Message);
+            return StatusCode(502, new
+            {
+                message = $"Eroare retea SMTP (port blocat?): [{ex.SocketErrorCode}] {ex.Message}",
+                errorType = "NetworkError",
+                detail = ex.Message
+            });
+        }
+        catch (OperationCanceledException ex)
+        {
+            _logger.LogError(ex, "[ForgotPassword] SMTP timeout for {Email}", dto.Email);
+            return StatusCode(504, new
+            {
+                message = "Timeout SMTP: conexiunea la Gmail a depasit 25 de secunde. Portul poate fi blocat de host.",
+                errorType = "Timeout",
+                detail = ex.Message
+            });
         }
         catch (Exception ex)
         {
-            // Log internally but return success to the caller.
-            _logger.LogError(ex, "Error during forgot-password for {Email}", dto.Email);
+            _logger.LogError(ex, "[ForgotPassword] UNEXPECTED error for {Email}: {Type} {Msg}", dto.Email, ex.GetType().Name, ex.Message);
+            return StatusCode(500, new
+            {
+                message = $"Eroare neasteptata ({ex.GetType().Name}): {ex.Message}",
+                errorType = ex.GetType().Name,
+                detail = ex.InnerException?.Message ?? ex.Message
+            });
         }
-        return Ok(new { message = "Dacă emailul există, vei primi un link de resetare în câteva minute." });
     }
 
     /// <summary>
