@@ -157,11 +157,11 @@ const tr = (map: Record<string, string>, s: string) => map[s] ?? s;
 
               <!-- Hard rules checklist -->
               <ul class="pw-rules" *ngIf="registerForm.get('password')?.touched || pwValue.length > 0">
-                <li [class.ok]="!pwErrors['minLength']"><span class="ri">{{ !pwErrors['minLength'] ? '▪️“' : '' }}</span> Minimum 8 caractere</li>
-                <li [class.ok]="!pwErrors['uppercase']"><span class="ri">{{ !pwErrors['uppercase'] ? '▪️“' : '' }}</span> Cel puTin o litera mare (A-Z)</li>
-                <li [class.ok]="!pwErrors['lowercase']"><span class="ri">{{ !pwErrors['lowercase'] ? '▪️“' : '' }}</span> Cel puTin o litera mica (a-z)</li>
-                <li [class.ok]="!pwErrors['digit']"><span class="ri">{{ !pwErrors['digit'] ? '▪️“' : '' }}</span> Cel puTin o cifra (0-9)</li>
-                <li [class.ok]="!pwErrors['special']"><span class="ri">{{ !pwErrors['special'] ? '▪️“' : '' }}</span> Cel puTin un caracter special (!&#64;#$%^&amp;*)</li>
+                <li [class.ok]="!pwErrors['minLength']"><span class="ri">{{ !pwErrors['minLength'] ? '▪️' : '' }}</span> Minimum 8 caractere</li>
+                <li [class.ok]="!pwErrors['uppercase']"><span class="ri">{{ !pwErrors['uppercase'] ? '▪️' : '' }}</span> Cel puTin o litera mare (A-Z)</li>
+                <li [class.ok]="!pwErrors['lowercase']"><span class="ri">{{ !pwErrors['lowercase'] ? '▪️' : '' }}</span> Cel puTin o litera mica (a-z)</li>
+                <li [class.ok]="!pwErrors['digit']"><span class="ri">{{ !pwErrors['digit'] ? '▪️' : '' }}</span> Cel puTin o cifra (0-9)</li>
+                <li [class.ok]="!pwErrors['special']"><span class="ri">{{ !pwErrors['special'] ? '▪️' : '' }}</span> Cel puTin un caracter special (!&#64;#$%^&amp;*)</li>
               </ul>
             </div>
 
