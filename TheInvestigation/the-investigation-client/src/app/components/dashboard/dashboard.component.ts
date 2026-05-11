@@ -14,6 +14,11 @@ import { GameSummary } from '../../models/models';
     <div class="page">
       <canvas #bgCvs class="bg-canvas"></canvas>
 
+      <!-- Fixed logo watermark — shows on dark sections via mix-blend-mode:screen -->
+      <div class="fixed-logo-wrap">
+        <img src="assets/logo_final.svg" class="fixed-logo-img" alt="">
+      </div>
+
       <!-- a”€a”€ NAVBAR a”€a”€ -->
       <nav class="navbar">
         <div class="nav-inner">
@@ -61,6 +66,17 @@ import { GameSummary } from '../../models/models';
       </nav>
 
       <!-- a”€a”€ MAIN a”€a”€ -->
+      <!-- Dark stats band -->
+      <div class="stats-band">
+        <div class="sband-item"><span class="sband-label">// CREATOR ACTIV</span><span class="sband-val">{{ userName || userInitials }}</span></div>
+        <div class="sband-divider"></div>
+        <div class="sband-item"><span class="sband-label">DOSARE DESCHISE</span><span class="sband-val">{{ games.length }}</span></div>
+        <div class="sband-divider"></div>
+        <div class="sband-item"><span class="sband-label">STATUS</span><span class="sband-val sband-live">LIVE</span></div>
+        <div class="sband-divider"></div>
+        <div class="sband-item"><button class="sband-cta" (click)="createGame()">+ Dosar Nou</button></div>
+      </div>
+
       <main class="main-wrap" (scroll)="onScroll()">
 
         <!-- AI Story panel -->
@@ -200,6 +216,21 @@ import { GameSummary } from '../../models/models';
 
     /* a”€a”€ Canvas a”€a”€ */
     .bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+    /* Fixed logo watermark */
+    .fixed-logo-wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:500;mix-blend-mode:screen;}
+    .fixed-logo-img{width:min(85vw,85vh);height:min(85vw,85vh);object-fit:contain;filter:invert(1);opacity:0.12;animation:logoBreath 8s ease-in-out infinite;}
+    @keyframes logoBreath{0%,100%{opacity:0.10;transform:scale(1);}50%{opacity:0.16;transform:scale(1.015);}}
+
+    /* Dark stats band */
+    .stats-band{background:var(--ink);color:#fff;padding:2.2rem 24px;display:flex;justify-content:center;align-items:center;gap:3.5rem;flex-wrap:wrap;position:relative;z-index:10;}
+    .sband-item{text-align:center;}
+    .sband-label{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:2px;opacity:.5;display:block;margin-bottom:.3rem;}
+    .sband-val{font-family:'Crimson Pro',serif;font-size:1.9rem;font-weight:700;display:block;line-height:1;}
+    .sband-live{color:#d43f33;font-family:'JetBrains Mono',monospace;font-size:.85rem;letter-spacing:2px;animation:blink 3s ease-in-out infinite;}
+    .sband-divider{width:1px;height:36px;background:rgba(255,255,255,.12);}
+    .sband-cta{background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff;padding:.5rem 1.2rem;font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:1px;cursor:pointer;transition:border-color .2s;}
+    .sband-cta:hover{border-color:#d43f33;color:#d43f33;}
 
     /* a”€a”€ Navbar a”€a”€ */
     .navbar{

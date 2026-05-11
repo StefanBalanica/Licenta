@@ -23,6 +23,8 @@ interface UploadTarget {
   template: `
     <div class="details-container">
       <canvas #bgCvs class="bg-canvas"></canvas>
+
+      <div class="fixed-logo-wrap"><img src="assets/logo_final.svg" class="fixed-logo-img" alt=""></div>
       <!-- Navbar -->
       <nav class="nb">
         <div class="nb-inner">
@@ -666,6 +668,11 @@ interface UploadTarget {
       min-height:100vh;background:var(--bg);font-family:'Public Sans',sans-serif;color:var(--ink);
     }
     .bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+    /* Fixed logo watermark */
+    .fixed-logo-wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:500;mix-blend-mode:screen;}
+    .fixed-logo-img{width:min(85vw,85vh);height:min(85vw,85vh);object-fit:contain;filter:invert(1);opacity:0.12;animation:logoBreath 8s ease-in-out infinite;}
+    @keyframes logoBreath{0%,100%{opacity:0.10;transform:scale(1);}50%{opacity:0.16;transform:scale(1.015);}}
     /* Navbar */
     .nb{position:sticky;top:0;z-index:100;height:54px;background:rgba(252,250,247,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border-md);}
     .nb-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:100%;display:flex;align-items:center;gap:12px;position:relative;z-index:1;}
