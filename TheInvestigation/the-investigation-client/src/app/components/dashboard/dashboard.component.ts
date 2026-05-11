@@ -22,18 +22,38 @@ import { GameSummary } from '../../models/models';
       <!-- a”€a”€ NAVBAR a”€a”€ -->
       <nav class="navbar">
         <div class="nav-inner">
+          <!-- Logo -->
           <div class="nav-logo">
-            <img src="assets/logo.svg" class="logo-img" alt="The Investigation" title="The Investigation"/>
+            <img src="assets/logo_final.svg" class="logo-img" alt="The Investigation" title="The Investigation"/>
           </div>
-          <div class="nav-center">
-            <span class="status-dot"></span>
-            <span class="status-lbl">SISTEM ACTIV</span>
+
+          <!-- Stats center -->
+          <div class="nav-stats">
+            <div class="ns-item">
+              <span class="ns-label">// CREATOR</span>
+              <span class="ns-val">{{ userName || userInitials }}</span>
+            </div>
+            <div class="ns-div"></div>
+            <div class="ns-item">
+              <span class="ns-label">DOSARE</span>
+              <span class="ns-val">{{ games.length }}</span>
+            </div>
+            <div class="ns-div"></div>
+            <div class="ns-item">
+              <span class="ns-label">STATUS</span>
+              <span class="ns-val ns-live">
+                <span class="status-dot"></span>LIVE
+              </span>
+            </div>
           </div>
+
+          <!-- Right actions -->
           <div class="nav-right">
             <button class="btn-outline-amber" (click)="showStoryPanel = !showStoryPanel">
               <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M5.5 8h5M8 5.5v5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
               AI Story
             </button>
+            <button class="btn-primary-nav" (click)="createGame()">+ Dosar nou</button>
             <!-- User Avatar Dropdown -->
             <div class="user-menu" (clickOutside)="menuOpen = false">
               <button class="user-avatar" (click)="menuOpen = !menuOpen" [class.avatar-open]="menuOpen" id="user-menu-btn">
@@ -63,21 +83,7 @@ import { GameSummary } from '../../models/models';
             </div>
           </div>
         </div>
-      </nav>
-
-      <!-- a”€a”€ MAIN a”€a”€ -->
-      <!-- Dark stats band -->
-      <div class="stats-band">
-        <div class="sband-item"><span class="sband-label">// CREATOR ACTIV</span><span class="sband-val">{{ userName || userInitials }}</span></div>
-        <div class="sband-divider"></div>
-        <div class="sband-item"><span class="sband-label">DOSARE DESCHISE</span><span class="sband-val">{{ games.length }}</span></div>
-        <div class="sband-divider"></div>
-        <div class="sband-item"><span class="sband-label">STATUS</span><span class="sband-val sband-live">LIVE</span></div>
-        <div class="sband-divider"></div>
-        <div class="sband-item"><button class="sband-cta" (click)="createGame()">+ Dosar Nou</button></div>
-      </div>
-
-      <main class="main-wrap" (scroll)="onScroll()">
+      </nav>      <main class="main-wrap" (scroll)="onScroll()">
 
         <!-- AI Story panel -->
         <div *ngIf="showStoryPanel" class="story-panel">
@@ -234,25 +240,33 @@ import { GameSummary } from '../../models/models';
 
     /* a”€a”€ Navbar a”€a”€ */
     .navbar{
-      position:sticky;top:0;z-index:100;height:54px;
-      background:rgba(252,250,247,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-      border-bottom:1px solid var(--border-md);
+      position:sticky;top:0;z-index:100;height:72px;
+      background:var(--ink);
+      border-bottom:2px solid rgba(255,255,255,0.06);
     }
-    .nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:100%;display:flex;align-items:center;gap:20px;position:relative;z-index:1;}
-    .nav-logo{display:flex;align-items:center;}
-    .logo-img{height:44px;width:44px;object-fit:contain;display:block;}
-    .nav-center{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;}
-    .status-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:blink 3s ease-in-out infinite;}
+    .nav-inner{max-width:1400px;margin:0 auto;padding:0 28px;height:100%;display:flex;align-items:center;gap:24px;position:relative;z-index:1;}
+    .nav-logo{display:flex;align-items:center;flex-shrink:0;}
+    .logo-img{height:52px;width:52px;object-fit:contain;display:block;filter:invert(1);opacity:0.92;}
+
+    /* Nav stats (center) */
+    .nav-stats{flex:1;display:flex;align-items:center;justify-content:center;gap:2.5rem;}
+    .ns-item{text-align:center;}
+    .ns-label{font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:2px;color:rgba(255,255,255,.4);display:block;margin-bottom:.15rem;}
+    .ns-val{font-family:'Crimson Pro',serif;font-size:1.4rem;font-weight:700;color:#fff;display:block;line-height:1.1;}
+    .ns-live{display:flex;align-items:center;gap:5px;font-size:.8rem;font-family:'JetBrains Mono',monospace;color:#d43f33;letter-spacing:1px;}
+    .ns-div{width:1px;height:28px;background:rgba(255,255,255,.1);}
+
+    .status-dot{width:5px;height:5px;border-radius:50%;background:#d43f33;box-shadow:0 0 6px #d43f33;animation:blink 3s ease-in-out infinite;flex-shrink:0;}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
-    .status-lbl{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);}
+    .status-lbl{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);}
     .nav-right{display:flex;align-items:center;gap:8px;}
 
     /* a”€a”€ User dropdown a”€a”€ */
     .user-menu{position:relative;}
-    .user-avatar{display:flex;align-items:center;gap:6px;height:34px;padding:0 10px 0 6px;border:1px solid var(--border-md);border-radius:20px;background:transparent;cursor:pointer;transition:border-color .2s,background .2s;}
+    .user-avatar{display:flex;align-items:center;gap:6px;height:34px;padding:0 10px 0 6px;border:1px solid rgba(255,255,255,.15);border-radius:20px;background:rgba(255,255,255,.05);cursor:pointer;transition:border-color .2s,background .2s;}
     .user-avatar:hover,.avatar-open{background:rgba(28,43,74,0.05);border-color:rgba(28,43,74,0.2);}
-    .avatar-initials{width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;letter-spacing:0.5px;}
-    .avatar-caret{color:var(--ink3);transition:transform .2s;}
+    .avatar-initials{width:24px;height:24px;border-radius:50%;background:#d43f33;color:#fff;font-size:.6rem;font-family:'JetBrains Mono',monospace;display:flex;align-items:center;justify-content:center;font-weight:700;}
+    .avatar-caret{color:rgba(255,255,255,.4);transition:transform .2s;}
     .avatar-open .avatar-caret{transform:rotate(180deg);}
     .user-dropdown{position:absolute;top:calc(100% + 8px);right:0;width:220px;background:#fff;border:1px solid var(--border-md);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.12),0 2px 8px rgba(0,0,0,0.06);z-index:500;overflow:hidden;animation:ddIn .15s ease both;}
     @keyframes ddIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
@@ -272,10 +286,11 @@ import { GameSummary } from '../../models/models';
     .btn-ghost:hover{border-color:rgba(0,0,0,0.25);color:var(--ink);}
     .btn-ghost:disabled{opacity:.4;cursor:not-allowed;}
     .btn-ghost svg{flex-shrink:0;}
-    .btn-outline-amber{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 13px;border:1px solid rgba(184,114,8,0.45);border-radius:7px;background:transparent;color:var(--amber);font-size:12.5px;font-weight:600;font-family:'Public Sans',sans-serif;cursor:pointer;transition:background .2s,border-color .2s;}
-    .btn-outline-amber:hover{background:var(--amber-l);border-color:rgba(184,114,8,0.65);}
+    .btn-outline-amber{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 12px;border:1px solid rgba(255,255,255,.2);border-radius:3px;background:transparent;color:rgba(255,255,255,.75);font-size:11px;font-weight:600;font-family:'JetBrains Mono',monospace;letter-spacing:.5px;cursor:pointer;transition:border-color .2s,color .2s;}
+    .btn-outline-amber:hover{border-color:#d43f33;color:#d43f33;}
     .btn-outline-amber svg{flex-shrink:0;}
-    .btn-primary{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 15px;border:none;border-radius:7px;background:var(--navy);color:#fff;font-size:12.5px;font-family:'Public Sans',sans-serif;font-weight:600;cursor:pointer;transition:opacity .2s,transform .2s;}
+    .btn-primary{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 14px;border:none;border-radius:3px;background:#d43f33;color:#fff;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:.5px;cursor:pointer;transition:background .2s;}
+    .btn-primary-nav{display:inline-flex;align-items:center;height:32px;padding:0 14px;border:none;border-radius:3px;background:#d43f33;color:#fff;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:.5px;cursor:pointer;transition:background .2s;}
     .btn-primary:hover:not(:disabled){opacity:.88;transform:translateY(-1px);}
     .btn-primary:disabled{opacity:.4;cursor:not-allowed;}
 
