@@ -100,49 +100,49 @@ interface UploadTarget {
 
           <!-- Add Character Form -->
           <div *ngIf="showCharacterForm" class="character-form">
-            <h3>{{ editingCharacter ? 'Edit Character' : 'New Character' }}</h3>
+            <h3>{{ editingCharacter ? 'Actualizeaza Personajul' : 'Personaj Nou' }}</h3>
             <form [formGroup]="characterForm">
               <div class="form-row">
                 <div class="form-group">
-                  <label>Name *</label>
+                  <label>Nume*</label>
                   <input type="text" formControlName="name" placeholder="James Morrison">
                 </div>
                 <div class="form-group">
-                  <label>Role *</label>
+                  <label>Rol*</label>
                   <select formControlName="role">
-                    <option value="Victim">Victim</option>
-                    <option value="Suspect">Suspect</option>
-                    <option value="Witness">Witness</option>
-                    <option value="Investigator">Investigator</option>
+                    <option value="victima">Victima</option>
+                    <option value="suspect">Suspect</option>
+                    <option value="martor">Martor</option>
+                    <option value="anchetator">Anchetator</option>
                   </select>
                 </div>
               </div>
 
               <div class="form-group">
-                <label>Description</label>
-                <textarea formControlName="description" rows="2" placeholder="Physical appearance and personality..."></textarea>
+                <label>Descriere</label>
+                <textarea formControlName="description" rows="2" placeholder="Descriere fizica si personalitatea..."></textarea>
               </div>
 
               <div class="form-group">
-                <label>Backstory</label>
-                <textarea formControlName="backstory" rows="3" placeholder="Their history and relationship to the victim..."></textarea>
+                <label>Background</label>
+                <textarea formControlName="backstory" rows="3" placeholder="Istoria sa si relatia cu victima..."></textarea>
               </div>
 
               <div class="form-row">
                 <div class="form-group">
                   <label>Motive</label>
-                  <textarea formControlName="motive" rows="2" placeholder="Why they might have done it..."></textarea>
+                  <textarea formControlName="motive" rows="2" placeholder="De ce ar fi putut face asta..."></textarea>
                 </div>
                 <div class="form-group">
                   <label>Alibi</label>
-                  <textarea formControlName="alibi" rows="2" placeholder="Where they claim to have been..."></textarea>
+                  <textarea formControlName="alibi" rows="2" placeholder="Unde spun ei ca au fost..."></textarea>
                 </div>
               </div>
 
               <div class="form-actions">
                 <button type="button" class="btn-secondary" (click)="cancelCharacterForm()">Cancel</button>
-                <button type="button" class="btn-primary" (click)="saveCharacter()" [disabled]="characterForm.invalid">
-                  {{ editingCharacter ? 'Update' : 'Add' }} Character
+                <button type="button" class="btn-primary" (click)="saveCharacter()" [disabled]="characterForm.invalid"> 
+                  {{ editingCharacter ? 'Actualizeaza' : 'Adaugă' }} Personaj
                 </button>
               </div>
             </form>
@@ -1028,7 +1028,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
             this.deviceUploadTargets[device.deviceId] = targets;
           }
         },
-        error: () => {}
+        error: () => { }
       });
     });
   }
