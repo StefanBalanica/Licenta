@@ -197,13 +197,95 @@ footer ul a:hover { color:var(--ink); }
 .footer-bottom { max-width:1200px; margin:3rem auto 0; padding-top:2rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; }
 .footer-bottom p { font-size:.75rem; font-family:'JetBrains Mono'; color:var(--muted); }
 
-/* RESPONSIVE */
+/* ── Prevent horizontal scroll on all screens ── */
+:host { overflow-x:hidden; display:block; }
+* { max-width:100%; }
+
+/* RESPONSIVE ── tablet */
 @media(max-width:900px) {
-  .hero { grid-template-columns:1fr; padding:4rem 2rem; }
-  nav { padding:1.2rem 2rem; }
-  .stats-bar { gap:2rem; padding:2rem; }
-  .section, .marketplace-section, .cta-banner, .about-section { padding:4rem 2rem; }
-  .steps, .about-section { grid-template-columns:1fr; }
+  nav { padding:1.2rem 1.5rem; }
+  .nav-links { gap:1.2rem; }
+  .nav-links a { font-size:.82rem; }
+  .btn-primary { padding:.65rem 1.2rem; font-size:.85rem; }
+
+  .hero { grid-template-columns:1fr; padding:3.5rem 1.5rem; gap:2.5rem; }
+  .board { transform:none; }
+
+  .stats-bar { gap:2rem; padding:2.5rem 1.5rem; }
+
+  .section, .marketplace-section, .cta-banner, .about-section { padding:4rem 1.5rem; }
+  .steps { grid-template-columns:1fr; }
+  .about-section { grid-template-columns:1fr; gap:2.5rem; }
+  .about-img { display:none; }
+
   .footer-inner { grid-template-columns:1fr 1fr; gap:2rem; }
   .footer-bottom { flex-direction:column; text-align:center; }
+  footer { padding:3rem 1.5rem; }
+}
+
+/* RESPONSIVE ── telefon */
+@media(max-width:600px) {
+  /* Nav – hamburger simplu: logo stânga, buton dreapta */
+  nav {
+    padding:.9rem 1rem;
+    flex-wrap:wrap;
+    gap:.6rem;
+  }
+  nav > a img { height:36px; }
+  nav > a span { font-size:1rem; }
+  .nav-links {
+    width:100%;
+    flex-direction:column;
+    align-items:stretch;
+    gap:.5rem;
+    order:3;
+    border-top:1px solid var(--border);
+    padding-top:.75rem;
+  }
+  .nav-links a { font-size:.88rem; padding:.4rem 0; }
+  .nav-links .btn-primary {
+    text-align:center;
+    padding:.75rem;
+    font-size:.88rem;
+  }
+
+  /* Hero */
+  .hero { padding:2.5rem 1rem; gap:2rem; }
+  .hero h1 { font-size:clamp(2rem,8vw,2.8rem); }
+  .hero p { font-size:1rem; }
+  .hero-cta { flex-direction:column; align-items:flex-start; gap:1rem; }
+  .badge-physical { font-size:.7rem; }
+  .board { display:none; }
+
+  /* Stats */
+  .stats-bar { padding:2rem 1rem; gap:1.5rem; }
+  .stat-num { font-size:1.7rem; }
+  .stat-label { font-size:.65rem; }
+
+  /* How it works */
+  .section { padding:3rem 1rem; }
+  .steps { grid-template-columns:1fr; border:none; gap:0; }
+  .step { border:none; border-bottom:1px solid var(--ink); padding:1.8rem 1rem; }
+  .step:last-child { border-bottom:none; }
+
+  /* Marketplace */
+  .marketplace-section { padding:3rem 1rem; }
+  .games-grid { grid-template-columns:1fr; gap:1rem; }
+  .card-img { height:160px; }
+
+  /* CTA */
+  .cta-banner { padding:4rem 1rem; }
+  .cta-btns { flex-direction:column; align-items:center; }
+
+  /* About */
+  .about-section { padding:3rem 1rem; grid-template-columns:1fr; }
+  .about-img { display:none; }
+  .about-text h2 { font-size:1.8rem; }
+  .about-meta { padding:1rem; }
+
+  /* Footer */
+  footer { padding:2.5rem 1rem; }
+  .footer-inner { grid-template-columns:1fr; gap:1.5rem; }
+  .footer-bottom { flex-direction:column; text-align:center; gap:.5rem; margin-top:1.5rem; }
+  .footer-bottom p { font-size:.68rem; }
 }

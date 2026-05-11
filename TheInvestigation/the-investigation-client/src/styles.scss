@@ -48,6 +48,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden; /* previne scroll orizontal pe orice pagina */
 }
 
 body {
@@ -56,6 +57,7 @@ body {
   color: var(--ink);
   min-height: 100vh;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 /* ─── Scrollbar ──────────────────────────────────────────────── */
