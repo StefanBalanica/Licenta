@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -106,10 +106,10 @@ import { GameSummary } from '../../models/models';
         <div *ngIf="!loading && games.length === 0" class="empty-state">
           <div class="empty-icon">
             <svg viewBox="0 0 80 80" fill="none">
-              <rect x="10" y="10" width="60" height="68" rx="4" stroke="#b87208" stroke-width="1.5" fill="rgba(184,114,8,0.04)"/>
-              <path d="M10 20 H70" stroke="#b87208" stroke-width="1" opacity="0.4"/>
-              <rect x="10" y="10" width="24" height="12" rx="3" fill="rgba(184,114,8,0.1)" stroke="#b87208" stroke-width="1" opacity="0.6"/>
-              <path d="M20 36 h40 M20 46 h40 M20 56 h26" stroke="#b87208" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+              <rect x="10" y="10" width="60" height="68" rx="4" stroke="#d43f33" stroke-width="1.5" fill="rgba(184,114,8,0.04)"/>
+              <path d="M10 20 H70" stroke="#d43f33" stroke-width="1" opacity="0.4"/>
+              <rect x="10" y="10" width="24" height="12" rx="3" fill="rgba(184,114,8,0.1)" stroke="#d43f33" stroke-width="1" opacity="0.6"/>
+              <path d="M20 36 h40 M20 46 h40 M20 56 h26" stroke="#d43f33" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
             </svg>
           </div>
           <h2 class="empty-title">Niciun dosar deschis</h2>
@@ -190,12 +190,12 @@ import { GameSummary } from '../../models/models';
 
     /* a”€a”€ Variables a”€a”€ */
     .page{
-      --bg:#f5f2ec;--surface:#fff;--border:rgba(0,0,0,0.07);--border-md:rgba(0,0,0,0.11);
-      --amber:#b87208;--amber-l:rgba(184,114,8,0.08);--gold:#c9962a;
-      --navy:#1c2b4a;--navy-l:rgba(28,43,74,0.06);
-      --ink:#1a1610;--ink2:rgba(26,22,16,0.62);--ink3:rgba(26,22,16,0.40);
+      --bg:#fcfaf7;--surface:#fff;--border:rgba(0,0,0,0.07);--border-md:rgba(0,0,0,0.11);
+      --amber:#d43f33;--amber-l:rgba(212,63,51,0.07);--gold:#c9962a;
+      --navy:#1a1a1a;--navy-l:rgba(26,26,26,0.06);
+      --ink:#1a1a1a;--ink2:rgba(26,22,16,0.62);--ink3:rgba(26,22,16,0.40);
       --green:#4a7a56;--red:#9b2020;
-      min-height:100vh;background:var(--bg);position:relative;font-family:'Inter',sans-serif;color:var(--ink);
+      min-height:100vh;background:var(--bg);position:relative;font-family:'Public Sans',sans-serif;color:var(--ink);
     }
 
     /* a”€a”€ Canvas a”€a”€ */
@@ -204,7 +204,7 @@ import { GameSummary } from '../../models/models';
     /* a”€a”€ Navbar a”€a”€ */
     .navbar{
       position:sticky;top:0;z-index:100;height:54px;
-      background:rgba(245,242,236,0.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+      background:rgba(252,250,247,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
       border-bottom:1px solid var(--border-md);
     }
     .nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:100%;display:flex;align-items:center;gap:20px;position:relative;z-index:1;}
@@ -229,7 +229,7 @@ import { GameSummary } from '../../models/models';
     .dh-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px;}
     .dh-email{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
     .dropdown-sep{height:1px;background:var(--border);margin:2px 0;}
-    .dropdown-item{width:100%;display:flex;align-items:center;gap:9px;padding:9px 14px;background:transparent;border:none;text-align:left;font-size:13px;font-family:'Inter',sans-serif;color:var(--ink);cursor:pointer;transition:background .15s;}
+    .dropdown-item{width:100%;display:flex;align-items:center;gap:9px;padding:9px 14px;background:transparent;border:none;text-align:left;font-size:13px;font-family:'Public Sans',sans-serif;color:var(--ink);cursor:pointer;transition:background .15s;}
     .dropdown-item:hover{background:rgba(0,0,0,0.04);}
     .dropdown-item svg{color:var(--ink3);flex-shrink:0;}
     .item-danger{color:var(--red);}
@@ -237,14 +237,14 @@ import { GameSummary } from '../../models/models';
     .item-danger:hover{background:rgba(155,32,32,0.05);}
 
     /* a”€a”€ Buttons a”€a”€ */
-    .btn-ghost{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 12px;border:1px solid var(--border-md);border-radius:7px;background:transparent;color:var(--ink);font-size:12.5px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:border-color .2s,color .2s;}
+    .btn-ghost{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 12px;border:1px solid var(--border-md);border-radius:7px;background:transparent;color:var(--ink);font-size:12.5px;font-weight:500;font-family:'Public Sans',sans-serif;cursor:pointer;transition:border-color .2s,color .2s;}
     .btn-ghost:hover{border-color:rgba(0,0,0,0.25);color:var(--ink);}
     .btn-ghost:disabled{opacity:.4;cursor:not-allowed;}
     .btn-ghost svg{flex-shrink:0;}
-    .btn-outline-amber{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 13px;border:1px solid rgba(184,114,8,0.45);border-radius:7px;background:transparent;color:var(--amber);font-size:12.5px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background .2s,border-color .2s;}
+    .btn-outline-amber{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 13px;border:1px solid rgba(184,114,8,0.45);border-radius:7px;background:transparent;color:var(--amber);font-size:12.5px;font-weight:600;font-family:'Public Sans',sans-serif;cursor:pointer;transition:background .2s,border-color .2s;}
     .btn-outline-amber:hover{background:var(--amber-l);border-color:rgba(184,114,8,0.65);}
     .btn-outline-amber svg{flex-shrink:0;}
-    .btn-primary{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 15px;border:none;border-radius:7px;background:var(--navy);color:#fff;font-size:12.5px;font-family:'Inter',sans-serif;font-weight:600;cursor:pointer;transition:opacity .2s,transform .2s;}
+    .btn-primary{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 15px;border:none;border-radius:7px;background:var(--navy);color:#fff;font-size:12.5px;font-family:'Public Sans',sans-serif;font-weight:600;cursor:pointer;transition:opacity .2s,transform .2s;}
     .btn-primary:hover:not(:disabled){opacity:.88;transform:translateY(-1px);}
     .btn-primary:disabled{opacity:.4;cursor:not-allowed;}
 
@@ -254,17 +254,17 @@ import { GameSummary } from '../../models/models';
     /* a”€a”€ Story panel a”€a”€ */
     .story-panel{background:var(--surface);border:1px solid var(--border-md);border-radius:12px;padding:28px;margin-bottom:36px;box-shadow:0 4px 24px rgba(0,0,0,0.07);}
     .panel-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
-    .panel-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--ink);}
+    .panel-title{font-family:'Crimson Pro',serif;font-size:20px;font-weight:600;color:var(--ink);}
     .panel-close{width:28px;height:28px;border:1px solid var(--border-md);border-radius:6px;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink2);transition:background .15s;}
     .panel-close:hover{background:rgba(0,0,0,0.04);}
     .panel-hint{font-size:13px;color:var(--ink2);margin-bottom:16px;font-style:italic;line-height:1.6;}
-    .story-area{width:100%;padding:12px 14px;border:1px solid var(--border-md);border-radius:8px;font-size:13.5px;font-family:'Inter',sans-serif;color:var(--ink);background:var(--bg);resize:vertical;outline:none;line-height:1.65;margin-bottom:16px;transition:border-color .2s;}
+    .story-area{width:100%;padding:12px 14px;border:1px solid var(--border-md);border-radius:8px;font-size:13.5px;font-family:'Public Sans',sans-serif;color:var(--ink);background:var(--bg);resize:vertical;outline:none;line-height:1.65;margin-bottom:16px;transition:border-color .2s;}
     .story-area::placeholder{color:var(--ink3);font-style:italic;}
     .story-area:focus{border-color:rgba(184,114,8,0.45);}
     .panel-foot{display:flex;gap:10px;align-items:center;}
     .story-err{margin-top:12px;font-size:12.5px;color:var(--red);font-family:'JetBrains Mono',monospace;}
     .progress-wrap{margin-bottom:16px;}
-    .progress-header{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink2);margin-bottom:8px;font-weight:600;font-family:'Inter',sans-serif;}
+    .progress-header{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink2);margin-bottom:8px;font-weight:600;font-family:'Public Sans',sans-serif;}
     .progress-bar{width:100%;height:6px;background:var(--border-md);border-radius:3px;overflow:hidden;}
     .progress-fill{height:100%;background:var(--amber);border-radius:3px;transition:width 0.4s ease-out;}
 
@@ -275,7 +275,7 @@ import { GameSummary } from '../../models/models';
     .empty-state{display:flex;flex-direction:column;align-items:center;padding:80px 20px;gap:12px;text-align:center;}
     .empty-icon{margin-bottom:8px;}
     .empty-icon svg{width:72px;height:72px;}
-    .empty-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--ink);}
+    .empty-title{font-family:'Crimson Pro',serif;font-size:26px;font-weight:400;color:var(--ink);}
     .empty-sub{font-size:14px;color:var(--ink2);font-style:italic;}
     .empty-acts{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
 
@@ -283,7 +283,7 @@ import { GameSummary } from '../../models/models';
     .page-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;animation:fadeUp .5s ease both;}
     @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
     .eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:6px;font-weight:600;}
-    .display-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:10px;}
+    .display-title{font-family:'Crimson Pro',serif;font-size:32px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:10px;}
     .count-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid rgba(184,114,8,0.4);border-radius:50%;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--amber);}
     .ph-right{display:flex;gap:8px;}
 
@@ -316,7 +316,7 @@ import { GameSummary } from '../../models/models';
     .case-card:hover .card-pin{opacity:1;transform:scale(1);}
     .watermark{
       position:absolute;bottom:12px;right:16px;
-      font-family:'Playfair Display',serif;font-style:italic;font-size:52px;font-weight:400;
+      font-family:'Crimson Pro',serif;font-style:italic;font-size:52px;font-weight:400;
       color:rgba(28,43,74,0.028);line-height:1;pointer-events:none;
       transition:color .25s;
     }
@@ -328,9 +328,9 @@ import { GameSummary } from '../../models/models';
     .status-pip{width:4px;height:4px;border-radius:50%;animation:blink 2.5s ease-in-out infinite;}
     .pip-green{background:var(--green);}
     .pip-amber{background:var(--amber);animation:blink 2.5s ease-in-out infinite;}
-    .card-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--ink);margin-bottom:7px;transition:color .2s;line-height:1.3;}
+    .card-title{font-family:'Crimson Pro',serif;font-size:16px;font-weight:700;color:var(--ink);margin-bottom:7px;transition:color .2s;line-height:1.3;}
     .case-card:hover .card-title{color:var(--navy);}
-    .card-desc{font-family:'Inter',sans-serif;font-size:12.5px;font-style:italic;color:var(--ink2);line-height:1.6;margin-bottom:14px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+    .card-desc{font-family:'Public Sans',sans-serif;font-size:12.5px;font-style:italic;color:var(--ink2);line-height:1.6;margin-bottom:14px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
     .sep{height:1px;background:var(--border);margin-bottom:12px;}
     .card-stats{display:flex;gap:14px;margin-bottom:12px;}
     .stat{display:flex;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;color:var(--ink2);}

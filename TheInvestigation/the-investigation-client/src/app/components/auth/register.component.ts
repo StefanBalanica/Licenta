@@ -1,4 +1,4 @@
-import { Component, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+﻿import { Component, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -202,9 +202,9 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
     :host{display:block}*{box-sizing:border-box;margin:0;padding:0}
 
     .page{
-      --bg:#f5f2ec;--surface:#fff;--border:rgba(0,0,0,0.07);--border-md:rgba(0,0,0,0.11);
-      --amber:#b87208;--navy:#1c2b4a;--ink:#1a1610;--ink2:rgba(26,22,16,0.45);--ink3:rgba(26,22,16,0.22);--red:#9b2020;
-      min-height:100vh;background:var(--bg);position:relative;font-family:'Inter',sans-serif;
+      --bg:#fcfaf7;--surface:#fff;--border:rgba(0,0,0,0.07);--border-md:rgba(0,0,0,0.11);
+      --amber:#d43f33;--navy:#1a1a1a;--ink:#1a1a1a;--ink2:rgba(26,22,16,0.45);--ink3:rgba(26,22,16,0.22);--red:#9b2020;
+      min-height:100vh;background:var(--bg);position:relative;font-family:'Public Sans',sans-serif;
     }
     .bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
     .scene{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 20px;}
@@ -217,20 +217,20 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
     .logo-img{width:130px;height:130px;object-fit:contain;display:block;margin:0 auto;}
     .card-divider{position:relative;height:1px;background:linear-gradient(90deg,transparent,var(--border-md),transparent);margin-bottom:24px;}
     .divider-lbl{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);padding:0 10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber);white-space:nowrap;}
-    .card-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--ink);margin-bottom:6px;text-align:center;}
+    .card-title{font-family:'Crimson Pro',serif;font-size:26px;font-weight:400;color:var(--ink);margin-bottom:6px;text-align:center;}
     .card-sub{font-size:13px;color:var(--ink2);font-style:italic;margin-bottom:26px;line-height:1.5;text-align:center;}
 
     .form{display:flex;flex-direction:column;gap:14px;}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
     .field{display:flex;flex-direction:column;gap:5px;}
     .lbl{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--amber);}
-    .inp{padding:11px 13px;border:1px solid var(--border-md);border-radius:8px;background:var(--bg);color:var(--ink);font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s;}
+    .inp{padding:11px 13px;border:1px solid var(--border-md);border-radius:8px;background:var(--bg);color:var(--ink);font-size:14px;font-family:'Public Sans',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s;}
     .inp::placeholder{color:var(--ink3);font-style:italic;}
-    .inp:focus{border-color:rgba(184,114,8,0.5);box-shadow:0 0 0 3px rgba(184,114,8,0.07);}
+    .inp:focus{border-color:rgba(184,114,8,0.5);box-shadow:0 0 0 3px rgba(212,63,51,0.07);}
     .field-err .inp{border-color:rgba(155,32,32,0.4);}
     .err-msg{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--red);}
     .error-banner{display:flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid rgba(155,32,32,0.2);background:rgba(155,32,32,0.05);border-radius:7px;font-size:13px;color:var(--red);}
-    .btn-submit{width:100%;height:42px;border:none;border-radius:8px;background:var(--navy);color:#fff;font-size:13.5px;font-family:'Inter',sans-serif;font-weight:500;cursor:pointer;transition:opacity .2s,transform .2s;margin-top:4px;display:flex;align-items:center;justify-content:center;}
+    .btn-submit{width:100%;height:42px;border:none;border-radius:8px;background:var(--navy);color:#fff;font-size:13.5px;font-family:'Public Sans',sans-serif;font-weight:500;cursor:pointer;transition:opacity .2s,transform .2s;margin-top:4px;display:flex;align-items:center;justify-content:center;}
     .btn-submit:hover:not(:disabled){opacity:.88;transform:translateY(-1px);}
     .btn-submit:disabled{opacity:.4;cursor:not-allowed;}
     .spin-wrap{display:flex;align-items:center;gap:8px;}

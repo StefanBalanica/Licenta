@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -203,9 +203,9 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
   `,
   styles: [`
     :host{display:block}*{box-sizing:border-box;margin:0;padding:0}
-    .page{--bg:#f5f2ec;--surface:#fff;--border:rgba(0,0,0,0.07);--border-md:rgba(0,0,0,0.11);--amber:#b87208;--navy:#1c2b4a;--ink:#1a1610;--ink2:rgba(26,22,16,0.55);--ink3:rgba(26,22,16,0.28);--red:#9b2020;--green:#2d7a3a;min-height:100vh;background:var(--bg);font-family:'Inter',sans-serif;color:var(--ink);}
+    .page{--bg:#fcfaf7;--surface:#fff;--border:rgba(0,0,0,0.07);--border-md:rgba(0,0,0,0.11);--amber:#d43f33;--navy:#1a1a1a;--ink:#1a1a1a;--ink2:rgba(26,22,16,0.55);--ink3:rgba(26,22,16,0.28);--red:#9b2020;--green:#2d7a3a;min-height:100vh;background:var(--bg);font-family:'Public Sans',sans-serif;color:var(--ink);}
     /* Navbar */
-    .navbar{position:sticky;top:0;z-index:100;height:54px;background:rgba(245,242,236,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-md);}
+    .navbar{position:sticky;top:0;z-index:100;height:54px;background:rgba(252,250,247,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-md);}
     .nav-inner{max-width:860px;margin:0 auto;padding:0 24px;height:100%;display:flex;align-items:center;gap:16px;}
     .nav-back{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--ink2);text-decoration:none;border:1px solid var(--border-md);border-radius:7px;padding:5px 11px;transition:color .15s,border-color .15s;}
     .nav-back:hover{color:var(--ink);border-color:rgba(0,0,0,0.2);}
@@ -229,22 +229,22 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
     .section-icon-red{background:rgba(155,32,32,0.05);color:var(--red);border-color:rgba(155,32,32,0.15);}
     .eyebrow{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber);margin-bottom:3px;}
     .eyebrow-red{color:var(--red);}
-    .section-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--ink);}
+    .section-title{font-family:'Crimson Pro',serif;font-size:18px;font-weight:600;color:var(--ink);}
     /* Info grid */
     .info-grid{display:flex;flex-direction:column;gap:0;}
     .info-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);}
     .info-row:last-child{border-bottom:none;}
     .info-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);}
     .info-val{font-size:13.5px;color:var(--ink);font-weight:500;}
-    .role-badge{display:inline-flex;align-items:center;padding:2px 9px;background:rgba(28,43,74,0.06);border:1px solid rgba(28,43,74,0.15);border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:var(--navy);letter-spacing:1px;}
+    .role-badge{display:inline-flex;align-items:center;padding:2px 9px;background:rgba(26,26,26,0.06);border:1px solid rgba(28,43,74,0.15);border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:var(--navy);letter-spacing:1px;}
     /* Form */
     .form{display:flex;flex-direction:column;gap:14px;}
     .field{display:flex;flex-direction:column;gap:6px;}
     .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--amber);}
-    .inp{padding:10px 13px;border:1px solid var(--border-md);border-radius:8px;background:var(--bg);color:var(--ink);font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s;font-family:'Inter',sans-serif;width:100%;}
+    .inp{padding:10px 13px;border:1px solid var(--border-md);border-radius:8px;background:var(--bg);color:var(--ink);font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s;font-family:'Public Sans',sans-serif;width:100%;}
     .inp-wrap{position:relative;display:flex;align-items:center;}
     .inp-wrap .inp{padding-right:38px;}
-    .inp:focus{border-color:rgba(184,114,8,0.5);box-shadow:0 0 0 3px rgba(184,114,8,0.07);}
+    .inp:focus{border-color:rgba(184,114,8,0.5);box-shadow:0 0 0 3px rgba(212,63,51,0.07);}
     .eye-btn{position:absolute;right:10px;background:transparent;border:none;cursor:pointer;color:var(--ink3);padding:4px;display:flex;align-items:center;transition:color .15s;}
     .eye-btn:hover{color:var(--ink2);}
     .err-small{font-size:11.5px;color:var(--red);}
@@ -262,7 +262,7 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
     .alert-success{display:flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid rgba(45,122,58,0.25);background:rgba(45,122,58,0.06);border-radius:8px;font-size:13px;color:var(--green);margin-bottom:14px;}
     .alert-error{display:flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid rgba(155,32,32,0.2);background:rgba(155,32,32,0.05);border-radius:7px;font-size:13px;color:var(--red);}
     /* Buttons */
-    .btn-primary{width:100%;height:40px;border:none;border-radius:8px;background:var(--navy);color:#fff;font-size:13px;font-family:'Inter',sans-serif;font-weight:500;cursor:pointer;transition:opacity .2s,transform .2s;display:flex;align-items:center;justify-content:center;margin-top:4px;}
+    .btn-primary{width:100%;height:40px;border:none;border-radius:8px;background:var(--navy);color:#fff;font-size:13px;font-family:'Public Sans',sans-serif;font-weight:500;cursor:pointer;transition:opacity .2s,transform .2s;display:flex;align-items:center;justify-content:center;margin-top:4px;}
     .btn-primary:hover:not(:disabled){opacity:.88;transform:translateY(-1px);}
     .btn-primary:disabled{opacity:.4;cursor:not-allowed;}
     .btn-ghost{height:36px;padding:0 14px;border:1px solid var(--border-md);border-radius:7px;background:transparent;color:var(--ink);font-size:13px;cursor:pointer;transition:border-color .15s;}
