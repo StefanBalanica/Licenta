@@ -259,7 +259,7 @@ const tr = (map: Record<string, string>, s: string) => map[s] ?? s;
     .pw-warning{display:flex;align-items:center;gap:5px;font-size:11.5px;color:#c06010;font-style:italic;}
     .pw-suggestions{list-style:none;padding-left:4px;display:flex;flex-direction:column;gap:2px;}
     .pw-suggestions li::before{content:'>';position:absolute;left:0;color:var(--ink3);}
-    .pw-suggestions li::before{content:'▪️’';position:absolute;left:0;color:var(--ink3);}
+    .pw-suggestions li::before{content:'▪️';position:absolute;left:0;color:var(--ink3);}
     /* a”€a”€ Hard rules checklist a”€a”€ */
     .pw-rules{list-style:none;display:flex;flex-direction:column;gap:3px;padding:8px 0 2px;border-top:1px solid var(--border);margin-top:4px;}
     .pw-rules li{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink3);transition:color .2s;}
