@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folsosind — În spatele urmelor</title>
+    <!-- Fonturi care sugerează documente și presă -->
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;1,400&family=Public+Sans:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --paper: #fcfaf7;
+            --ink: #1a1a1a;
+            --accent: #d43f33; /* Un roșu de "anchetă" în loc de albastrul corporate */
+            --muted: #66625f;
+            --border: #e2deda;
+        }
+
+        /* Textură de hîrtie/noise pentru a sparge gradientul digital perfect */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        body {
+            background-color: var(--paper);
+            color: var(--ink);
+            font-family: 'Public Sans', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* NAV - Mai aerisit, mai puțin "template" */
+        nav {
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--ink);
+            letter-spacing: -1px;
+        }
+
+        .nav-brand span { color: var(--accent); }
+
+        /* HERO - Focus pe emoție, nu pe UI-ul pluginului */
+        .hero {
+            padding: 8rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            text-decoration: underline;
+            text-decoration-color: var(--accent);
+            text-underline-offset: 8px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--muted);
+            max-width: 500px;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Butoane - Fără umbre rotunde de iPhone, mai degrabă stil "press" */
+        .btn-primary {
+            background: var(--ink);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid var(--ink);
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Vizualul de "Rețea" - L-am făcut să pară o schiță pe o masă de lucru */
+        .investigation-board {
+            position: relative;
+            background: #fff;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: 15px 15px 0px var(--border);
+            transform: rotate(2deg); /* Imperfecțiune umană */
+        }
+
+        .tag {
+            position: absolute;
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
+            top: -10px;
+            right: 20px;
+        }
+
+        /* Secțiuni - Layout asimetric */
+        .section {
+            padding: 6rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-split {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 0;
+            border: 1px solid var(--ink);
+        }
+
+        .feature-box {
+            padding: 3rem;
+            border: 1px solid var(--ink);
+            background: white;
+        }
+
+        .feature-box:nth-child(even) {
+            background: var(--ink);
+            color: white;
+        }
+
+        .feature-box h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer mai "legal" și serios */
+        footer {
+            background: #f0ede9;
+            padding: 4rem;
+            border-top: 1px solid var(--border);
+            margin-top: 6rem;
+        }
+
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; padding: 4rem 2rem; }
+            .nav { padding: 1rem 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#" class="nav-brand">FOLSOSIND<span>.</span></a>
+    <div style="display: flex; gap: 2rem; align-items: center;">
+        <a href="#features" style="text-decoration:none; color: var(--muted); font-size: 0.9rem;">Metodologie</a>
+        <a href="#pricing" class="btn-primary">Începe Ancheta</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div>
+        <p style="font-family: 'JetBrains Mono'; color: var(--accent); font-size: 0.8rem; margin-bottom: 1rem;">// DOSAR DESCHIS: 2025-001</p>
+        <h1>Există o ordine în <em>haos</em>. Noi o găsim.</h1>
+        <p>Folsosind nu este un simplu plugin. Este partenerul tău tăcut care conectează firele pe care mintea umană le scapă din vedere.</p>
+        <div style="display: flex; gap: 1.5rem;">
+            <a href="#" class="btn-primary">Deschide Dosarul</a>
+            <a href="#" style="color: var(--ink); font-weight: 600; padding: 1rem 0;">Vezi cum funcționează →</a>
+        </div>
+    </div>
+
+    <div class="investigation-board">
+        <div class="tag">CONFIDENȚIAL</div>
+        <p style="font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--muted); margin-bottom: 1rem;">SCANARE_SURSĂ: LIVE</p>
+        <!-- Un SVG care pare desenat mai neglijent -->
+        <svg viewBox="0 0 200 150" fill="none" stroke="currentColor">
+            <circle cx="40" cy="40" r="4" fill="var(--accent)" stroke="none"/>
+            <circle cx="160" cy="110" r="4" fill="var(--ink)" stroke="none"/>
+            <path d="M40 40 Q 100 20 160 110" stroke="var(--accent)" stroke-width="0.5" stroke-dasharray="2 2"/>
+            <path d="M40 40 L 100 80 L 160 110" stroke="var(--ink)" stroke-width="1.5" opacity="0.3"/>
+            <text x="45" y="35" font-family="JetBrains Mono" font-size="6">Sursă A</text>
+            <text x="120" y="125" font-family="JetBrains Mono" font-size="6">Destinație Finală</text>
+        </svg>
+        <div style="margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem; font-size: 0.8rem; font-style: italic;">
+            "Dovada nr. 14: Legătură directă între entitățile scanate."
+        </div>
+    </div>
+</section>
+
+<section class="section" id="features">
+    <h2 style="font-family: 'Crimson Pro'; font-size: 2.5rem; margin-bottom: 3rem;">Nu colectăm date. <em>Construim cazuri.</em></h2>
+    
+    <div class="feature-split">
+        <div class="feature-box">
+            <h3>Privirea de Ansamblu</h3>
+            <p>Pluginul analizează paginile web nu ca pe un text, ci ca pe o scenă a crimei. Identifică anomalii pe care ochii obosiți le ignoră.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Arhiva Criptată</h3>
+            <p>Notele tale rămân ale tale. Fără cloud, fără baze de date partajate. Doar tu și adevărul tău, stocat local.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Urma Banilor</h3>
+            <p>Detectează automat entități financiare și conexiuni între portofele digitale sau firme paravan.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Rapoarte de mână</h3>
+            <p>Exportă datele într-un format care arată ca și cum ar fi fost dactilografiat, gata pentru masa de lucru.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="text-align: center; background: #1a1a1a; color: white;">
+    <h2 style="font-family: 'Crimson Pro'; font-size: 3rem;">Gata să vezi ce se ascunde?</h2>
+    <p style="margin-bottom: 2.5rem; opacity: 0.8;">Alătură-te celor 4,000 de anchetatori care folosesc Folsosind.</p>
+    <a href="#" class="btn-primary" style="background: var(--accent); border-color: var(--accent);">Descarcă Instrumentul</a>
+</section>
+
+<footer>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem;">
+        <div>
+            <h4 style="font-family: 'Crimson Pro'; font-size: 1.2rem;">FOLSOSIND</h4>
+            <p style="font-size: 0.8rem; color: var(--muted);">Un proiect dedicat transparenței și adevărului digital. 2024-2025.</p>
+        </div>
+        <div>
+            <h4 style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Acces</h4>
+            <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
+                <li><a href="#" style="color: var(--muted); text-decoration: none;">Metodologie</a></li>
+                <li><a href="#" style="color: var(--muted); text-decoration: none;">Etica Anchetei</a></li>
+            </ul>
+        </div>
+        <div style="text-align: right;">
+            <p style="font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--muted);">LOCAȚIE: BUCUREȘTI, RO<br>STATUS: OPERAȚIONAL</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './components/auth/login.component';
 import { RegisterComponent } from './components/auth/register.component';
 import { ForgotPasswordComponent } from './components/auth/forgot-password.component';
@@ -11,7 +12,7 @@ import { authGuard } from './guards/auth.guard';
 import { deviceIsolationGuard } from './guards/device-isolation.guard';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '', component: LandingComponent },  // Public landing page — no auth required
     { path: 'login',            component: LoginComponent,          canActivate: [deviceIsolationGuard] },
     { path: 'register',         component: RegisterComponent,       canActivate: [deviceIsolationGuard] },
     { path: 'forgot-password',  component: ForgotPasswordComponent, canActivate: [deviceIsolationGuard] },

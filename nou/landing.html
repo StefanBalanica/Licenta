@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Investigation — Marketplace Jocuri Fizice</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;1,400&family=Public+Sans:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --paper: #fcfaf7;
+      --ink: #1a1a1a;
+      --accent: #d43f33;
+      --muted: #66625f;
+      --border: #e2deda;
+      --gold: #c8922a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Public Sans', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      padding: 1.8rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-brand {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--ink);
+      letter-spacing: -1px;
+    }
+
+    .nav-brand span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: #fff;
+      padding: .8rem 1.8rem;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid var(--ink);
+      transition: all .25s;
+      cursor: pointer;
+      font-family: 'Public Sans', sans-serif;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+      padding: .8rem 1.8rem;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid var(--accent);
+      transition: all .25s;
+    }
+
+    .btn-accent:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .btn-ghost {
+      color: var(--ink);
+      font-weight: 600;
+      padding: .8rem 0;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color .2s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+    }
+
+    /* HERO */
+    .hero {
+      padding: 7rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-tag {
+      font-family: 'JetBrains Mono';
+      color: var(--accent);
+      font-size: .75rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .hero h1 {
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      text-decoration: underline;
+      text-decoration-color: var(--accent);
+      text-underline-offset: 8px;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .badge-physical {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: .5rem 1rem;
+      font-size: .78rem;
+      font-family: 'JetBrains Mono';
+      margin-top: 1.5rem;
+    }
+
+    .badge-physical::before {
+      content: "🗂";
+      font-size: 1rem;
+    }
+
+    /* ═══ Cork Investigation Board ═══ */
+    .board {
+      position: relative;
+      background-color: #c9a76b;
+      background-image:
+        radial-gradient(ellipse at 18% 25%, rgba(140,95,30,0.35) 0%, transparent 55%),
+        radial-gradient(ellipse at 82% 68%, rgba(160,110,40,0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(200,160,70,0.15) 0%, transparent 65%),
+        repeating-radial-gradient(circle at 25% 40%, rgba(110,75,20,0.12) 0px, rgba(110,75,20,0.12) 1px, transparent 1px, transparent 9px),
+        repeating-radial-gradient(circle at 70% 30%, rgba(120,85,25,0.1) 0px, rgba(120,85,25,0.1) 1px, transparent 1px, transparent 13px);
+      border: 6px solid #7a5921;
+      box-shadow:
+        inset 0 0 50px rgba(0,0,0,0.22),
+        inset 0 0 20px rgba(100,65,10,0.15),
+        10px 10px 0 rgba(0,0,0,0.18),
+        18px 18px 0 rgba(0,0,0,0.07);
+      transform: rotate(1deg);
+      padding: 0;
+      overflow: hidden;
+      border-radius: 3px;
+    }
+    .board-topbar {
+      background: rgba(248,244,235,0.96);
+      padding: 9px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid rgba(0,0,0,0.13);
+    }
+    .board-mono { font-family:'JetBrains Mono';font-size:.62rem;color:var(--muted);letter-spacing:.5px; }
+    .board-tag { background:var(--accent);color:#fff;padding:3px 10px;font-size:.6rem;font-family:'JetBrains Mono';letter-spacing:1.5px;font-weight:700; }
+    .cork-area { position:relative;height:276px;overflow:hidden; }
+    .cork-string { position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none; }
+    .cork-deco { position:absolute;z-index:1;user-select:none; }
+    .deco-fp  { top:6px;left:68%;font-size:2rem;opacity:.18;filter:grayscale(1); }
+    .deco-key { bottom:12px;right:4px;font-size:1.4rem;opacity:.22;transform:rotate(-22deg); }
+    .deco-ev  { bottom:6px;left:4px;background:rgba(254,240,138,0.9);font-family:'JetBrains Mono';font-size:.5rem;padding:5px 7px;color:#555;transform:rotate(3deg);box-shadow:1px 1px 4px rgba(0,0,0,0.2);border:1px solid rgba(0,0,0,0.06); }
+    .cork-news {
+      position:absolute;top:8px;right:8px;z-index:3;
+      background:#f7f4ee;width:90px;padding:6px 7px;
+      box-shadow:2px 2px 6px rgba(0,0,0,0.25);transform:rotate(1.5deg);
+      border:1px solid rgba(0,0,0,0.07);
+    }
+    .news-head { font-family:'Crimson Pro',serif;font-size:.95rem;font-weight:700;border-bottom:2px solid var(--ink);margin-bottom:3px;padding-bottom:1px; }
+    .news-body { font-size:.5rem;line-height:1.5;color:var(--muted);font-family:'JetBrains Mono'; }
+    .cork-fp {
+      position:absolute;top:6px;left:6px;z-index:3;
+      width:48px;height:48px;background:rgba(240,235,225,0.9);
+      box-shadow:1px 1px 5px rgba(0,0,0,0.3);transform:rotate(-4deg);
+      display:flex;align-items:center;justify-content:center;font-size:1.8rem;
+    }
+    .cn { position:absolute;z-index:3; }
+    .cn-creator { top:30px;left:26px; }
+    .cn-joc     { top:100px;left:37%; }
+    .cn-jucator { top:158px;left:58%; }
+    .node-lbl {
+      font-family:'JetBrains Mono';font-size:.62rem;font-weight:700;
+      color:var(--ink);margin-bottom:5px;letter-spacing:.5px;
+      text-shadow:0 1px 2px rgba(255,255,255,0.7);
+    }
+    .cork-pin {
+      width:13px;height:13px;border-radius:50%;
+      position:absolute;top:-7px;left:50%;transform:translateX(-50%);
+      z-index:5;box-shadow:0 2px 5px rgba(0,0,0,0.55),inset 0 1px 2px rgba(255,255,255,0.35);
+    }
+    .cork-pin::after {
+      content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);
+      width:3px;height:6px;background:inherit;filter:brightness(0.65);
+      border-radius:0 0 2px 2px;
+    }
+    .pin-r { background:radial-gradient(circle at 35% 30%,#ff7070,#d43f33); }
+    .pin-g { background:radial-gradient(circle at 35% 30%,#ffd060,#c8922a); }
+    .pin-d { background:radial-gradient(circle at 35% 30%,#666,#1a1a1a); }
+    .note-white {
+      background:#fff;
+      border:1px solid rgba(0,0,0,0.09);
+      box-shadow:2px 3px 8px rgba(0,0,0,0.22),0 0 0 0.5px rgba(0,0,0,0.05);
+      padding:8px 10px;
+      font-family:'JetBrains Mono';font-size:.55rem;color:var(--ink);
+      line-height:1.8;min-width:108px;
+      background-image:repeating-linear-gradient(transparent,transparent 18px,rgba(99,160,220,0.12) 18px,rgba(99,160,220,0.12) 19px);
+    }
+    .note-yellow {
+      background:#fef08a;
+      border:1px solid rgba(0,0,0,0.07);
+      box-shadow:2px 3px 7px rgba(0,0,0,0.22);
+      padding:9px 11px;
+      font-family:'JetBrains Mono';font-size:.58rem;color:#333;line-height:1.7;
+    }
+    .rot-l { transform:rotate(-3deg); }
+    .rot-r { transform:rotate(2.5deg); }
+    .board-quote {
+      background:rgba(248,244,235,0.97);
+      padding:9px 14px;
+      border-top:1px solid rgba(0,0,0,0.12);
+      font-size:.78rem;font-style:italic;color:var(--muted);
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      background: var(--ink);
+      color: #fff;
+      padding: 4rem;
+      display: flex;
+      justify-content: center;
+      gap: 5rem;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Crimson Pro', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: .75rem;
+      font-family: 'JetBrains Mono';
+      opacity: .6;
+      letter-spacing: 1px;
+    }
+
+    /* HOW IT WORKS */
+    .section {
+      padding: 6rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono';
+      font-size: .72rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .section h2 {
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 3rem;
+      font-weight: 700;
+    }
+
+    .section h2 em {
+      font-style: italic;
+      text-decoration: underline;
+      text-decoration-color: var(--accent);
+      text-underline-offset: 6px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--ink);
+    }
+
+    .step {
+      padding: 2.5rem;
+      border: 1px solid var(--ink);
+    }
+
+    .step:nth-child(even) {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .step-num {
+      font-family: 'JetBrains Mono';
+      font-size: .7rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .step h3 {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.6rem;
+      margin-bottom: .8rem;
+    }
+
+    .step p {
+      font-size: .9rem;
+      opacity: .8;
+    }
+
+    /* MARKETPLACE */
+    .marketplace-section {
+      padding: 6rem 4rem;
+      background: #f5f2ee;
+      border-top: 1px solid var(--border);
+    }
+
+    .marketplace-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .marketplace-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .filters {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: none;
+      border: 1px solid var(--border);
+      padding: .4rem 1rem;
+      font-size: .8rem;
+      cursor: pointer;
+      font-family: 'Public Sans';
+      transition: all .2s;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .game-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      transition: transform .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 8px 8px 0 var(--border);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #e8e4df, #d4cfc9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+    }
+
+    .card-physical-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--ink);
+      color: #fff;
+      font-size: .65rem;
+      font-family: 'JetBrains Mono';
+      padding: 3px 8px;
+      letter-spacing: .5px;
+    }
+
+    .card-body {
+      padding: 1.25rem;
+    }
+
+    .card-creator {
+      font-size: .72rem;
+      font-family: 'JetBrains Mono';
+      color: var(--muted);
+      margin-bottom: .4rem;
+    }
+
+    .card-title {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: .5rem;
+      line-height: 1.2;
+    }
+
+    .card-desc {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: .75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-price {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .card-price small {
+      font-size: .7rem;
+      font-family: 'Public Sans';
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .btn-card {
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      padding: .55rem 1.1rem;
+      font-size: .8rem;
+      cursor: pointer;
+      font-family: 'Public Sans';
+      font-weight: 600;
+      transition: background .2s;
+    }
+
+    .btn-card:hover {
+      background: var(--accent);
+    }
+
+    .card-tags {
+      display: flex;
+      gap: .4rem;
+      flex-wrap: wrap;
+      margin-bottom: .75rem;
+    }
+
+    .tag-pill {
+      font-size: .65rem;
+      font-family: 'JetBrains Mono';
+      padding: 2px 8px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .rating {
+      font-size: .75rem;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    /* CTA BANNER */
+    .cta-banner {
+      background: var(--ink);
+      color: #fff;
+      padding: 6rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: "// DOSAR DESCHIS";
+      font-family: 'JetBrains Mono';
+      font-size: .65rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-banner h2 {
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin-bottom: 1rem;
+    }
+
+    .cta-banner p {
+      color: rgba(255, 255, 255, .65);
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ABOUT */
+    .about-section {
+      padding: 7rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #e8e4df;
+      border: 1px solid var(--border);
+      box-shadow: 10px 10px 0 var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+    }
+
+    .about-text .section-label {
+      margin-bottom: .8rem;
+    }
+
+    .about-text h2 {
+      font-family: 'Crimson Pro', serif;
+      font-size: 2.4rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      font-size: .95rem;
+    }
+
+    .about-text strong {
+      color: var(--ink);
+    }
+
+    .about-meta {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+
+    .about-meta p {
+      font-size: .78rem;
+      font-family: 'JetBrains Mono';
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .about-meta p+p {
+      margin-top: .4rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #f0ede9;
+      padding: 4rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    footer h4 {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    footer ul {
+      list-style: none;
+    }
+
+    footer ul li {
+      margin-bottom: .5rem;
+    }
+
+    footer ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .88rem;
+      transition: color .2s;
+    }
+
+    footer ul a:hover {
+      color: var(--ink);
+    }
+
+    .footer-brand {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: .75rem;
+    }
+
+    .footer-brand span {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 3rem auto 0;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-bottom p {
+      font-size: .75rem;
+      font-family: 'JetBrains Mono';
+      color: var(--muted);
+    }
+
+    /* RESPONSIVE */
+    /* Fixed logo watermark — visible only on dark sections via screen blend */
+    .fixed-logo-wrap {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 500;
+      mix-blend-mode: screen;
+    }
+
+    .fixed-logo-img {
+      width: min(95vw, 95vh);
+      height: min(95vw, 95vh);
+      object-fit: contain;
+      filter: invert(1);
+      opacity: 0.13;
+      animation: logoBreath 8s ease-in-out infinite;
+    }
+
+    @keyframes logoBreath {
+
+      0%,
+      100% {
+        opacity: 0.11;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.16;
+        transform: scale(1.015);
+      }
+    }
+
+    @media(max-width:900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 4rem 2rem;
+      }
+
+      nav {
+        padding: 1.2rem 2rem;
+      }
+
+      .stats-bar {
+        gap: 2rem;
+        padding: 2rem;
+      }
+
+      .section {
+        padding: 4rem 2rem;
+      }
+
+      .marketplace-section {
+        padding: 4rem 2rem;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .about-section {
+        grid-template-columns: 1fr;
+        padding: 4rem 2rem;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Fixed watermark logo — visible through dark sections -->
+  <div class="fixed-logo-wrap">
+    <img src="../TheInvestigation/logo/logo_final.svg" class="fixed-logo-img" alt="">
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" style="display:flex;align-items:center;gap:.75rem;text-decoration:none;">
+      <img src="../TheInvestigation/logo/logo_final.svg" alt="The Investigation Logo" style="height:52px;width:auto;">
+      <span
+        style="font-family:'Crimson Pro',serif;font-size:1.3rem;font-weight:700;color:var(--ink);letter-spacing:-0.5px;">THE
+        <span style="color:var(--accent)">INVESTIGATION</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#marketplace">Marketplace</a>
+      <a href="#about">Despre</a>
+      <a href="#" class="btn-primary">Încarcă Jocul Tău →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <span class="hero-tag">// FORMAT: PRINT & PLAY · PHYSICAL FOLDER GAMES</span>
+      <h1>Creativitatea lor.<br>Masa <em>ta</em> de joc.</h1>
+      <p>The Investigation este locul unde studenții transformă liniile de cod în distracție palpabilă. Descoperă
+        universuri create de colegii tăi — gata de imprimat și pus pe masă.</p>
+      <div class="hero-cta">
+        <a href="#marketplace" class="btn-primary">Explorează Jocurile →</a>
+        <a href="#how" class="btn-ghost">Cum funcționează</a>
+      </div>
+      <div class="badge-physical">Physical Folder Games · Print &amp; Play · Nu sunt jocuri video</div>
+    </div>
+    <div class="board">
+
+      <!-- Top bar -->
+      <div class="board-topbar">
+        <p class="board-mono">SCANARE_PIAȚĂ: LIVE · 2025-001</p>
+        <span class="board-tag">DOSAR ACTIV</span>
+      </div>
+
+      <!-- Cork canvas -->
+      <div class="cork-area">
+
+        <!-- Red yarn web (SVG overlay) -->
+        <svg class="cork-string" viewBox="0 0 320 276" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+          <!-- ── PRIMARY connections between nodes ─────────────── -->
+          <!-- Creator → Joc (curved arc) -->
+          <path d="M 88 34 Q 150 8 164 100" stroke="#d43f33" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- Joc → Jucător (straight) -->
+          <path d="M 166 102 L 231 160" stroke="#d43f33" stroke-width="2.2" stroke-linecap="round"/>
+
+          <!-- ── WEB: strings radiating OUT from nodes ──────────── -->
+          <!-- Creator → newspaper top-right -->
+          <path d="M 90 32 L 235 14" stroke="#d43f33" stroke-width="1.6" stroke-linecap="round" opacity="0.78"/>
+          <!-- Creator → bottom-right (long diagonal) -->
+          <path d="M 90 38 L 320 170" stroke="#d43f33" stroke-width="1.4" stroke-linecap="round" opacity="0.55"/>
+          <!-- Creator → bottom-left corner -->
+          <path d="M 86 40 L 0 276" stroke="#d43f33" stroke-width="1.3" stroke-linecap="round" opacity="0.45"/>
+
+          <!-- Joc → top-left edge -->
+          <path d="M 162 102 L 4 8" stroke="#d43f33" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+          <!-- Joc → right edge middle -->
+          <path d="M 168 104 L 320 82" stroke="#d43f33" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/>
+          <!-- Joc → bottom-right corner -->
+          <path d="M 170 106 L 320 276" stroke="#d43f33" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/>
+          <!-- Joc → left edge -->
+          <path d="M 162 106 L 0 136" stroke="#d43f33" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/>
+
+          <!-- Jucător → top-center -->
+          <path d="M 233 158 L 188 0" stroke="#d43f33" stroke-width="1.5" stroke-linecap="round" opacity="0.72"/>
+          <!-- Jucător → left edge -->
+          <path d="M 229 162 L 0 198" stroke="#d43f33" stroke-width="1.4" stroke-linecap="round" opacity="0.6"/>
+          <!-- Jucător → bottom-left -->
+          <path d="M 228 165 L 0 276" stroke="#d43f33" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/>
+          <!-- Jucător → top-right corner -->
+          <path d="M 235 156 L 320 0" stroke="#d43f33" stroke-width="1.2" stroke-linecap="round" opacity="0.42"/>
+
+          <!-- ── CROSS strings (pure atmosphere, no node anchor) ── -->
+          <!-- top-left → bottom-right -->
+          <path d="M 0 20 L 320 245" stroke="#d43f33" stroke-width="1.1" stroke-linecap="round" opacity="0.32"/>
+          <!-- top-right → bottom-left -->
+          <path d="M 320 30 L 10 270" stroke="#d43f33" stroke-width="1.1" stroke-linecap="round" opacity="0.28"/>
+
+        </svg>
+
+
+        <!-- Fingerprint photo (top-left) -->
+        <div class="cork-fp">🔏</div>
+
+        <!-- Newspaper clipping (top-right) -->
+        <div class="cork-news">
+          <div class="news-head">News</div>
+          <div class="news-body">studenții creează jocuri · platformă educativă marketplace · print &amp; play</div>
+        </div>
+
+        <!-- CREATOR node (red pin) -->
+        <div class="cn cn-creator">
+          <div class="cork-pin pin-r"></div>
+          <div class="node-lbl">Creator</div>
+          <div class="note-white rot-l">
+            <div>- IDEE · PLATFORMĂ</div>
+            <div>- MECANICĂ</div>
+            <div>&nbsp;&nbsp;- CONTROL</div>
+            <div>&nbsp;&nbsp;- DESIGN &amp; UX</div>
+            <div>&nbsp;&nbsp;- MECANICĂ</div>
+          </div>
+        </div>
+
+        <!-- JOC node (golden pin) -->
+        <div class="cn cn-joc">
+          <div class="cork-pin pin-g"></div>
+          <div class="node-lbl">Joc</div>
+          <div class="note-white rot-r" style="min-width:96px;">
+            <div style="font-size:.75rem;color:#d43f33;font-weight:700;margin-bottom:3px;">beta 💿</div>
+            <div>Unity / Godot</div>
+            <div style="opacity:.55;font-size:.5rem;font-style:italic;">void PlayerMove(){}</div>
+          </div>
+        </div>
+
+        <!-- JUCĂTOR node (dark pin) -->
+        <div class="cn cn-jucator">
+          <div class="cork-pin pin-d"></div>
+          <div class="node-lbl">Jucător</div>
+          <div class="note-yellow rot-l">
+            <div>Gamer tag:</div>
+            <div style="font-size:.82rem;font-weight:700;color:#1a1a1a;">PlayerONE</div>
+          </div>
+        </div>
+
+        <!-- Decorative elements -->
+        <div class="cork-deco deco-fp">🔍</div>
+        <div class="cork-deco deco-key">🔑</div>
+        <div class="cork-deco deco-ev">ARCADE<br>CABINET<br>KEY</div>
+
+      </div><!-- end cork-area -->
+
+      <!-- Quote bar -->
+      <div class="board-quote">„Jocuri concepute de studenți. Imprimate de tine. Jucate împreună."</div>
+
+    </div>
+
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-num" id="stat-users">—</span><span class="stat-label">Jucători
+        Înregistrați</span></div>
+    <div class="stat"><span class="stat-num" id="stat-games">47</span><span class="stat-label">Jocuri Disponibile</span>
+    </div>
+    <div class="stat"><span class="stat-num">4.8★</span><span class="stat-label">Rating Mediu</span></div>
+    <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Print &amp; Play</span></div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how">
+    <span class="section-label">// Metodologie</span>
+    <h2>Nu cumperi un produs.<br><em>Deschizi un dosar.</em></h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">PASUL_01</span>
+        <h3>Explorezi</h3>
+        <p>Navighezi prin marketplace-ul de jocuri fizice create de studenți. Fiecare joc e un univers gândit de la
+          zero.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">PASUL_02</span>
+        <h3>Achiziționezi</h3>
+        <p>Plătești direct creatorul. Primești fișierele PDF optimizate pentru printare. Simplu, rapid, corect.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">PASUL_03</span>
+        <h3>Imprimi &amp; Joci</h3>
+        <p>Printezi, tai, asamblezi. În câteva minute ai pe masă un joc creat de un student din România.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKETPLACE -->
+  <section class="marketplace-section" id="marketplace">
+    <div class="marketplace-inner">
+      <div class="marketplace-header">
+        <div>
+          <span class="section-label">// Piața de Jocuri</span>
+          <h2 style="font-family:'Crimson Pro',serif;font-size:2.2rem;margin:0;">Alege-ți dosarul.</h2>
+        </div>
+      </div>
+
+      <!-- Loading state -->
+      <div id="games-loading" style="text-align:center;padding:4rem;color:var(--muted);font-family:'JetBrains Mono';font-size:.8rem;letter-spacing:1px;">
+        // SE ÎNCARCĂ DOSARELE...
+      </div>
+
+      <!-- Empty state -->
+      <div id="games-empty" style="display:none;text-align:center;padding:4rem;">
+        <p style="font-family:'JetBrains Mono';font-size:.8rem;color:var(--muted);">// NICIUN DOSAR PUBLIC MOMENTAN</p>
+        <p style="color:var(--muted);margin-top:.5rem;font-size:.9rem;">Fii primul creator care publică un joc!</p>
+      </div>
+
+      <!-- Grid populat din API -->
+      <div class="games-grid" id="games-grid" style="display:none;"></div>
+
+      <div id="games-footer" style="text-align:center;margin-top:3rem;display:none;">
+        <a href="#" class="btn-primary" id="games-count-btn">Vezi Toate Jocurile</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <h2>Ai creat un joc? Pune-l pe piață.</h2>
+    <p>Platforma noastră e construită de studenți, pentru studenți. Încarcă-ți jocul, setează prețul și câștigă din
+      creativitate.</p>
+    <div class="cta-btns">
+      <a href="#" class="btn-accent">Devino Creator →</a>
+      <a href="#"
+        style="color:rgba(255,255,255,.7);font-weight:600;padding:.8rem;text-decoration:none;border-bottom:2px solid rgba(255,255,255,.3);">Află
+        mai multe</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="about-img">👨‍💻</div>
+    <div class="about-text">
+      <span class="section-label">// Dosar Creator</span>
+      <h2>Omul din spatele dosarului.</h2>
+      <p>Sunt student în <strong>anul 3 la Facultatea de Informatică Aplicată</strong>, Universitatea Transilvania din
+        Brașov (UNITBV). Am construit The Investigation pentru că am crezut că există o punte între cod și creativitate
+        — și că studenții pot crea produse reale, nu doar proiecte de facultate.</p>
+      <p>Am transformat liniile de cod în distracție palpabilă. Aici nu doar te joci, ci <strong>descoperi universuri
+          create de colegii tăi</strong>, gata de scos la imprimantă și pus pe masă.</p>
+      <p>Acest proiect este vârful de lance al parcursului meu academic — o lucrare de licență care trăiește, respiră și
+        generează valoare reală.</p>
+      <div class="about-meta">
+        <p>INSTITUȚIE: Universitatea Transilvania din Brașov</p>
+        <p>FACULTATE: Informatică Aplicată</p>
+        <p>STATUS: Proiect Licență · An III · 2023-2026</p>
+        <p>DOMENIU: Web Development · Game Design · UX</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem;">
+          <img src="../TheInvestigation/logo/logo_final.svg" alt="Logo" style="height:40px;width:auto;">
+          <span style="font-family:'Crimson Pro',serif;font-size:1.3rem;font-weight:700;color:var(--ink);">THE <span
+              style="color:var(--accent)">INVESTIGATION</span></span>
+        </div>
+        <p style="font-size:.85rem;color:var(--muted);max-width:240px;">Marketplace de jocuri fizice Print &amp; Play,
+          create de studenți din România.</p>
+      </div>
+      <div>
+        <h4>Marketplace</h4>
+        <ul>
+          <li><a href="#">Toate Jocurile</a></li>
+          <li><a href="#">Mister &amp; Investigatie</a></li>
+          <li><a href="#">Strategie</a></li>
+          <li><a href="#">Familie</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Creatori</h4>
+        <ul>
+          <li><a href="#">Cum Incarc un joc?</a></li>
+          <li><a href="#">Preturi &amp; Comisioane</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Info</h4>
+        <ul>
+          <li><a href="#">Despre Proiect</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">UNITBV</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 The Investigation · Proiect Licenta UNITBV · Toate drepturile rezervate</p>
+      <p style="font-family:'JetBrains Mono';font-size:.68rem;">LOCALITATE: BRASOV, RO</p>
+    </div>
+  </footer>
+
+  <script>
+    // ─── CONFIG ──────────────────────────────────────────────
+    // Schimbă cu URL-ul real al API-ului tău de pe Render:
+    const API_URL = 'https://murdermystery.onrender.com/api/stats';
+    const REFRESH_INTERVAL_MS = 30000; // 30 secunde
+    // ─────────────────────────────────────────────────────────
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+
+    // ─── LIVE STATS ──────────────────────────────────────────
+    function animateCounter(el, target, duration = 1200) {
+      const start = parseInt(el.textContent) || 0;
+      if (start === target) return;
+      const startTime = performance.now();
+      const update = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        el.textContent = Math.round(start + (target - start) * ease);
+        if (progress < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    }
+
+    async function fetchStats() {
+      try {
+        const res = await fetch(API_URL, { method: 'GET', cache: 'no-cache' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+
+        const userEl = document.getElementById('stat-users');
+        const gameEl = document.getElementById('stat-games');
+
+        if (userEl && data.userCount !== undefined) {
+          animateCounter(userEl, data.userCount);
+        }
+        if (gameEl && data.gameCount !== undefined) {
+          animateCounter(gameEl, data.gameCount);
+        }
+      } catch (err) {
+        console.warn('[Stats] Could not fetch live stats:', err.message);
+        // Fallback — keep displayed values as-is
+      }
+    }
+
+    // Fetch imediat la load + la fiecare REFRESH_INTERVAL_MS
+    fetchStats();
+    setInterval(fetchStats, REFRESH_INTERVAL_MS);
+    // ─────────────────────────────────────────────────────────
+
+    // ─── PUBLIC GAMES (din API) ──────────────────────────────
+    const DOSAR_IMG = 'dosar_card.png'; // imaginea dosarului
+
+    function buildGameCard(game) {
+      const desc = game.description
+        ? game.description.slice(0, 100) + (game.description.length > 100 ? '...' : '')
+        : 'Dosar de anchetă creat de un student. Imprimabil, gata de jucat.';
+
+      return `
+        <div class="game-card">
+          <div class="card-img" style="padding:0;overflow:hidden;background:#f5f0ea;">
+            <img src="${DOSAR_IMG}" alt="Dosar ${game.title}"
+              style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+            <div class="card-physical-badge">PRINT &amp; PLAY</div>
+          </div>
+          <div class="card-body">
+            <p class="card-creator">de ${game.creatorName} &nbsp;·&nbsp; ${game.createdAt}</p>
+            <h3 class="card-title">${game.title}</h3>
+            <p class="card-desc">${desc}</p>
+            <div class="card-footer">
+              <span style="font-family:'JetBrains Mono';font-size:.65rem;color:var(--accent);letter-spacing:1px;">DOSAR PUBLIC</span>
+              <button class="btn-card">Detalii →</button>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    async function fetchPublicGames() {
+      const loading = document.getElementById('games-loading');
+      const empty   = document.getElementById('games-empty');
+      const grid    = document.getElementById('games-grid');
+      const footer  = document.getElementById('games-footer');
+      const countBtn = document.getElementById('games-count-btn');
+
+      try {
+        const res = await fetch(API_URL.replace('/stats', '/stats/public-games'), { cache: 'no-cache' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const games = await res.json();
+
+        loading.style.display = 'none';
+
+        if (!games || games.length === 0) {
+          empty.style.display = 'block';
+          return;
+        }
+
+        grid.innerHTML = games.map(buildGameCard).join('');
+        grid.style.display = 'grid';
+        footer.style.display = 'block';
+        if (countBtn) countBtn.textContent = `Vezi Toate Jocurile (${games.length})`;
+      } catch (err) {
+        console.warn('[Games] Could not fetch public games:', err.message);
+        loading.textContent = '// EROARE LA ÎNCĂRCARE — ÎNCEARCĂ DIN NOU';
+      }
+    }
+
+    fetchPublicGames();
+    // ─────────────────────────────────────────────────────────
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,248 @@
+<!-- Fixed watermark logo -->
+<div class="fixed-logo-wrap">
+  <img src="assets/logo_final.svg" class="fixed-logo-img" alt="">
+</div>
+
+<!-- NAV -->
+<nav>
+  <a routerLink="/" style="display:flex;align-items:center;gap:.75rem;text-decoration:none;">
+    <img src="assets/logo_final.svg" alt="The Investigation Logo" style="height:52px;width:auto;">
+    <span style="font-family:'Crimson Pro',serif;font-size:1.3rem;font-weight:700;color:var(--ink);letter-spacing:-0.5px;">THE
+      <span style="color:var(--accent)">INVESTIGATION</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#marketplace" (click)="scrollTo('marketplace',$event)">Marketplace</a>
+    <a href="#about" (click)="scrollTo('about',$event)">Despre</a>
+    <a routerLink="/register" class="btn-primary">Încarcă Jocul Tău →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <span class="hero-tag">// FORMAT: PRINT &amp; PLAY · PHYSICAL FOLDER GAMES</span>
+    <h1>Creativitatea lor.<br>Masa <em>ta</em> de joc.</h1>
+    <p>The Investigation este locul unde studenții transformă liniile de cod în distracție palpabilă. Descoperă
+      universuri create de colegii tăi — gata de imprimat și pus pe masă.</p>
+    <div class="hero-cta">
+      <a href="#marketplace" (click)="scrollTo('marketplace',$event)" class="btn-primary">Explorează Jocurile →</a>
+      <a href="#how" (click)="scrollTo('how',$event)" class="btn-ghost">Cum funcționează</a>
+    </div>
+    <div class="badge-physical">Physical Folder Games · Print &amp; Play · Nu sunt jocuri video</div>
+  </div>
+
+  <!-- Cork Investigation Board -->
+  <div class="board">
+    <div class="board-topbar">
+      <p class="board-mono">SCANARE_PIAȚĂ: LIVE · 2025-001</p>
+      <span class="board-tag">DOSAR ACTIV</span>
+    </div>
+    <div class="cork-area">
+      <svg class="cork-string" viewBox="0 0 320 276" fill="none">
+        <path d="M 88 34 Q 150 8 164 100" stroke="#d43f33" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M 166 102 L 231 160" stroke="#d43f33" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M 90 32 L 235 14" stroke="#d43f33" stroke-width="1.6" stroke-linecap="round" opacity="0.78"/>
+        <path d="M 90 38 L 320 170" stroke="#d43f33" stroke-width="1.4" stroke-linecap="round" opacity="0.55"/>
+        <path d="M 86 40 L 0 276" stroke="#d43f33" stroke-width="1.3" stroke-linecap="round" opacity="0.45"/>
+        <path d="M 162 102 L 4 8" stroke="#d43f33" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+        <path d="M 168 104 L 320 82" stroke="#d43f33" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/>
+        <path d="M 170 106 L 320 276" stroke="#d43f33" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/>
+        <path d="M 162 106 L 0 136" stroke="#d43f33" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/>
+        <path d="M 233 158 L 188 0" stroke="#d43f33" stroke-width="1.5" stroke-linecap="round" opacity="0.72"/>
+        <path d="M 229 162 L 0 198" stroke="#d43f33" stroke-width="1.4" stroke-linecap="round" opacity="0.6"/>
+        <path d="M 228 165 L 0 276" stroke="#d43f33" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/>
+        <path d="M 235 156 L 320 0" stroke="#d43f33" stroke-width="1.2" stroke-linecap="round" opacity="0.42"/>
+        <path d="M 0 20 L 320 245" stroke="#d43f33" stroke-width="1.1" stroke-linecap="round" opacity="0.32"/>
+        <path d="M 320 30 L 10 270" stroke="#d43f33" stroke-width="1.1" stroke-linecap="round" opacity="0.28"/>
+      </svg>
+      <div class="cork-fp">🔏</div>
+      <div class="cork-news">
+        <div class="news-head">News</div>
+        <div class="news-body">studenții creează jocuri · platformă educativă marketplace</div>
+      </div>
+      <div class="cn cn-creator">
+        <div class="cork-pin pin-r"></div>
+        <div class="node-lbl">Creator</div>
+        <div class="note-white rot-l">
+          <div>- IDEE · PLATFORMĂ</div><div>- MECANICĂ</div>
+          <div>&nbsp;&nbsp;- CONTROL</div><div>&nbsp;&nbsp;- DESIGN &amp; UX</div>
+        </div>
+      </div>
+      <div class="cn cn-joc">
+        <div class="cork-pin pin-g"></div>
+        <div class="node-lbl">Joc</div>
+        <div class="note-white rot-r" style="min-width:96px;">
+          <div style="font-size:.75rem;color:#d43f33;font-weight:700;margin-bottom:3px;">beta 💿</div>
+          <div>Unity / Godot</div>
+          <div style="opacity:.55;font-size:.5rem;font-style:italic;">void PlayerMove()&#123;&#125;</div>
+
+        </div>
+      </div>
+      <div class="cn cn-jucator">
+        <div class="cork-pin pin-d"></div>
+        <div class="node-lbl">Jucător</div>
+        <div class="note-yellow rot-l">
+          <div>Gamer tag:</div>
+          <div style="font-size:.82rem;font-weight:700;color:#1a1a1a;">PlayerONE</div>
+        </div>
+      </div>
+      <div class="cork-deco deco-fp">🔍</div>
+      <div class="cork-deco deco-key">🔑</div>
+      <div class="cork-deco deco-ev">ARCADE<br>CABINET<br>KEY</div>
+    </div>
+    <div class="board-quote">„Jocuri concepute de studenți. Imprimate de tine. Jucate împreună."</div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat"><span class="stat-num">{{ userCount }}</span><span class="stat-label">Jucători Înregistrați</span></div>
+  <div class="stat"><span class="stat-num">{{ gameCount }}</span><span class="stat-label">Jocuri Disponibile</span></div>
+  <div class="stat"><span class="stat-num">4.8★</span><span class="stat-label">Rating Mediu</span></div>
+  <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Print &amp; Play</span></div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <span class="section-label">// Metodologie</span>
+  <h2>Nu cumperi un produs.<br><em>Deschizi un dosar.</em></h2>
+  <div class="steps">
+    <div class="step">
+      <span class="step-num">PASUL_01</span>
+      <h3>Explorezi</h3>
+      <p>Navighezi prin marketplace-ul de jocuri fizice create de studenți. Fiecare joc e un univers gândit de la zero.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">PASUL_02</span>
+      <h3>Achiziționezi</h3>
+      <p>Plătești direct creatorul. Primești fișierele PDF optimizate pentru printare. Simplu, rapid, corect.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">PASUL_03</span>
+      <h3>Imprimi &amp; Joci</h3>
+      <p>Printezi, tai, asamblezi. În câteva minute ai pe masă un joc creat de un student din România.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETPLACE -->
+<section class="marketplace-section" id="marketplace">
+  <div class="marketplace-inner">
+    <div class="marketplace-header">
+      <div>
+        <span class="section-label">// Piața de Jocuri</span>
+        <h2 style="font-family:'Crimson Pro',serif;font-size:2.2rem;margin:0;">Alege-ți dosarul.</h2>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="gamesLoading" style="text-align:center;padding:4rem;color:#66625f;font-family:'JetBrains Mono';font-size:.8rem;letter-spacing:1px;">
+      // SE ÎNCARCĂ DOSARELE...
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="!gamesLoading && gamesError" style="text-align:center;padding:4rem;color:#d43f33;font-family:'JetBrains Mono';font-size:.8rem;">
+      // EROARE LA ÎNCĂRCARE
+    </div>
+
+    <!-- Empty -->
+    <div *ngIf="!gamesLoading && !gamesError && games.length === 0" style="text-align:center;padding:4rem;">
+      <p style="font-family:'JetBrains Mono';font-size:.8rem;color:#66625f;">// NICIUN DOSAR PUBLIC MOMENTAN</p>
+      <p style="color:#66625f;margin-top:.5rem;font-size:.9rem;">Fii primul creator care publică un joc!</p>
+    </div>
+
+    <!-- Games grid -->
+    <div class="games-grid" *ngIf="!gamesLoading && !gamesError && games.length > 0">
+      <div class="game-card" *ngFor="let game of games">
+        <div class="card-img" style="padding:0;overflow:hidden;background:#f5f0ea;">
+          <img src="assets/dosar_card.png" [alt]="game.title" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div class="card-physical-badge">PRINT &amp; PLAY</div>
+        </div>
+        <div class="card-body">
+          <p class="card-creator">de {{ game.creatorName }} &nbsp;·&nbsp; {{ game.createdAt }}</p>
+          <h3 class="card-title">{{ game.title }}</h3>
+          <p class="card-desc">{{ truncate(game.description) }}</p>
+          <div class="card-footer">
+            <span style="font-family:'JetBrains Mono';font-size:.65rem;color:#d43f33;letter-spacing:1px;">DOSAR PUBLIC</span>
+            <a routerLink="/login" class="btn-card">Detalii →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!gamesLoading && !gamesError && games.length > 0" style="text-align:center;margin-top:3rem;">
+      <a routerLink="/login" class="btn-primary">Vezi Toate Jocurile ({{ games.length }})</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Ai creat un joc? Pune-l pe piață.</h2>
+  <p>Platforma noastră e construită de studenți, pentru studenți. Încarcă-ți jocul, setează prețul și câștigă din creativitate.</p>
+  <div class="cta-btns">
+    <a routerLink="/register" class="btn-accent">Devino Creator →</a>
+    <a href="#about" (click)="scrollTo('about',$event)"
+       style="color:rgba(255,255,255,.7);font-weight:600;padding:.8rem;text-decoration:none;border-bottom:2px solid rgba(255,255,255,.3);">Află mai multe</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-img">👨‍💻</div>
+  <div class="about-text">
+    <span class="section-label">// Dosar Creator</span>
+    <h2>Omul din spatele dosarului.</h2>
+    <p>Sunt student în <strong>anul 3 la Facultatea de Informatică Aplicată</strong>, Universitatea Transilvania din
+      Brașov (UNITBV). Am construit The Investigation pentru că am crezut că există o punte între cod și creativitate
+      — și că studenții pot crea produse reale, nu doar proiecte de facultate.</p>
+    <p>Am transformat liniile de cod în distracție palpabilă. Aici nu doar te joci, ci <strong>descoperi universuri
+        create de colegii tăi</strong>, gata de scos la imprimantă și pus pe masă.</p>
+    <div class="about-meta">
+      <p>INSTITUȚIE: Universitatea Transilvania din Brașov</p>
+      <p>FACULTATE: Informatică Aplicată</p>
+      <p>STATUS: Proiect Licență · An III · 2023-2026</p>
+      <p>DOMENIU: Web Development · Game Design · UX</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem;">
+        <img src="assets/logo_final.svg" alt="Logo" style="height:40px;width:auto;">
+        <span style="font-family:'Crimson Pro',serif;font-size:1.3rem;font-weight:700;color:var(--ink);">THE
+          <span style="color:var(--accent)">INVESTIGATION</span></span>
+      </div>
+      <p style="font-size:.85rem;color:#66625f;max-width:240px;">Marketplace de jocuri fizice Print &amp; Play,
+        create de studenți din România.</p>
+    </div>
+    <div>
+      <h4>Marketplace</h4>
+      <ul>
+        <li><a href="#marketplace" (click)="scrollTo('marketplace',$event)">Toate Jocurile</a></li>
+        <li><a href="#marketplace" (click)="scrollTo('marketplace',$event)">Mister &amp; Investigatie</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Creatori</h4>
+      <ul>
+        <li><a routerLink="/register">Cum Incarc un joc?</a></li>
+        <li><a routerLink="/login">Intră în cont</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Info</h4>
+      <ul>
+        <li><a href="#about" (click)="scrollTo('about',$event)">Despre Proiect</a></li>
+        <li><a href="#about" (click)="scrollTo('about',$event)">UNITBV</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 The Investigation · Proiect Licenta UNITBV · Toate drepturile rezervate</p>
+    <p style="font-family:'JetBrains Mono';font-size:.68rem;">LOCALITATE: BRASOV, RO</p>
+  </div>
+</footer>
