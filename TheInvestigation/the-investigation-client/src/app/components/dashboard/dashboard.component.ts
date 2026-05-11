@@ -23,7 +23,7 @@ import { GameSummary } from '../../models/models';
       <nav class="navbar">
         <div class="nav-inner">
           <!-- Logo -->
-          <div class="nav-logo">
+          <div class="nav-logo" style="cursor: pointer;" (click)="goToLanding()">
             <img src="assets/logo_final.svg" class="logo-img" alt="The Investigation" title="The Investigation"/>
           </div>
 
@@ -205,7 +205,7 @@ import { GameSummary } from '../../models/models';
                 </div>
                 <div class="stat">
                   <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><rect x="3" y="1" width="10" height="14" rx="2" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="11" r="1" fill="currentColor"/></svg>
-                  {{ game.deviceCount }}<span class="stat-lbl">DISÐŸ.</span>
+                  {{ game.deviceCount }}<span class="stat-lbl">DISPOZITIVE.</span>
                 </div>
               </div>
 
@@ -648,6 +648,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   goToProfile() { this.menuOpen = false; this.router.navigate(['/profile']); }
+  goToLanding() { this.router.navigate(['/']); }
 
   deleteGame(gameId: number) {
     if (confirm('Confirmi inchiderea dosarului? AcTiunea este ireversibila.')) {
