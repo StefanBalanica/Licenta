@@ -435,8 +435,60 @@ import { GameSummary } from '../../models/models';
     .publish-foot{display:flex;justify-content:flex-end;gap:10px;margin-top:10px;padding-top:16px;border-top:1px solid var(--border);}
 
     /* a”€a”€ Responsive a”€a”€ */
-    @media(max-width:900px){.games-grid{grid-template-columns:repeat(2,1fr);}}
-    @media(max-width:580px){.games-grid{grid-template-columns:1fr;}.page-header{flex-direction:column;align-items:flex-start;gap:12px;}}
+    @media(max-width:900px){
+      .games-grid{grid-template-columns:repeat(2,1fr);}
+      .main-wrap{padding:24px 16px;}
+    }
+
+    @media(max-width:640px){
+      /* Navbar */
+      .navbar{height:auto;min-height:56px;}
+      .nav-inner{flex-wrap:wrap;padding:10px 14px;gap:8px;}
+      .nav-logo .logo-img{height:36px;width:36px;}
+      .nav-stats{flex:none;width:100%;order:3;justify-content:flex-start;gap:1.2rem;padding:6px 0 2px;border-top:1px solid rgba(255,255,255,.06);}
+      .ns-label{font-size:.48rem;letter-spacing:1.5px;}
+      .ns-val{font-size:1.1rem;}
+      .ns-div{height:20px;}
+      .nav-right{gap:6px;}
+      .btn-outline-amber{padding:0 10px;font-size:10px;height:30px;}
+      .btn-primary-nav{padding:0 10px;font-size:10px;height:30px;}
+      .user-avatar{height:30px;padding:0 8px 0 5px;}
+      .avatar-initials{width:20px;height:20px;font-size:.55rem;}
+
+      /* Main */
+      .main-wrap{padding:16px 12px;}
+
+      /* Grid */
+      .games-grid{grid-template-columns:1fr;gap:10px;}
+
+      /* Card */
+      .case-card{padding:16px 14px 14px;}
+      .watermark{font-size:38px;bottom:8px;right:10px;}
+      .act-btn{opacity:1;transform:translateX(0);}
+
+      /* Page header */
+      .page-header{flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:18px;}
+      .display-title{font-size:24px;}
+
+      /* Story panel */
+      .story-panel{padding:18px 14px;}
+      .panel-foot{flex-direction:column;}
+      .panel-foot .btn-ghost,.panel-foot .btn-primary{width:100%;justify-content:center;height:40px;}
+
+      /* Publish modal – slide up din jos pe mobil */
+      .publish-overlay{align-items:flex-end;padding:0;}
+      .publish-dialog{border-radius:16px 16px 0 0;max-width:100%;padding:22px 18px 32px;}
+      .publish-foot{flex-direction:column;}
+      .publish-foot .btn-ghost,.publish-foot .btn-primary{width:100%;justify-content:center;height:42px;font-size:.85rem;}
+
+      /* User dropdown */
+      .user-dropdown{right:0;left:auto;width:200px;}
+    }
+
+    @media(max-width:380px){
+      .nav-stats{display:none;}
+      .nav-inner{padding:8px 10px;}
+    }
   `]
 })
 export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
