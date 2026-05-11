@@ -1,0 +1,9 @@
+﻿D:\Github\Licenta\TheInvestigation\TheInvestigation.Api\.testobj\Debug\net8.0\TheInvestigation.Api.csproj.AssemblyReference.cache
+D:\Github\Licenta\TheInvestigation\TheInvestigation.Api\.testobj\Debug\net8.0\rpswa.dswa.cache.json
+D:\Github\Licenta\TheInvestigation\TheInvestigation.Api\.testobj\Debug\net8.0\TheInvestigation.Api.GeneratedMSBuildEditorConfig.editorconfig
+D:\Github\Licenta\TheInvestigation\TheInvestigation.Api\.testobj\Debug\net8.0\TheInvestigation.Api.AssemblyInfoInputs.cache
+D:\Github\Licenta\TheInvestigation\TheInvestigation.Api\.testobj\Debug\net8.0\TheInvestigation.Api.AssemblyInfo.cs
+D:\Github\Licenta\TheInvestigation\TheInvestigation.Api\.testobj\Debug\net8.0\TheInvestigation.Api.csproj.CoreCompileInputs.cache
+D:\Github\Licenta\TheInvestigation\TheInvestigation.Api\.testobj\Debug\net8.0\TheInvestigation.Api.MvcApplicationPartsAssemblyInfo.cs
+D:\Github\Licenta\TheInvestigation\TheInvestigation.Api\.testobj\Debug\net8.0\TheInvestigation.Api.MvcApplicationPartsAssemblyInfo.cache
+D:\Github\Licenta\TheInvestigation\TheInvestigation.Api\.testobj\Debug\net8.0\TheInvestigation.Api.sourcelink.json

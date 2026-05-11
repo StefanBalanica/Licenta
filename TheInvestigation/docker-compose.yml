@@ -1,0 +1,50 @@
+﻿version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: murdermystery-db
+    environment:
+      POSTGRES_DB: murdermystery
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - murdermystery-network
+
+  api:
+    build:
+      context: ./TheInvestigation.Api
+      dockerfile: Dockerfile
+    container_name: murdermystery-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=murdermystery;Username=postgres;Password=postgres
+    ports:
+      - "7000:8080"
+    depends_on:
+      - postgres
+    networks:
+      - murdermystery-network
+
+  client:
+    build:
+      context: ./the-investigation-client
+      dockerfile: Dockerfile
+    container_name: murdermystery-client
+    ports:
+      - "4200:80"
+    depends_on:
+      - api
+    networks:
+      - murdermystery-network
+
+volumes:
+  postgres_data:
+
+networks:
+  murdermystery-network:
+    driver: bridge

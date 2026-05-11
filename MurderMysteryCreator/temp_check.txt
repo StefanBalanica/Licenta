@@ -1,1 +1,0 @@
-﻿              Dacă adresa <strong>{{ emailSent }}</strong> este înregistrată, vei primi un link de resetare în câteva minute.<br>

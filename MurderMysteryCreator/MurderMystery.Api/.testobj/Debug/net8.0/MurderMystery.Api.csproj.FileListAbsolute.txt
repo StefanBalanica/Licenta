@@ -1,9 +1,0 @@
-D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\.testobj\Debug\net8.0\MurderMystery.Api.csproj.AssemblyReference.cache
-D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\.testobj\Debug\net8.0\rpswa.dswa.cache.json
-D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\.testobj\Debug\net8.0\MurderMystery.Api.GeneratedMSBuildEditorConfig.editorconfig
-D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\.testobj\Debug\net8.0\MurderMystery.Api.AssemblyInfoInputs.cache
-D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\.testobj\Debug\net8.0\MurderMystery.Api.AssemblyInfo.cs
-D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\.testobj\Debug\net8.0\MurderMystery.Api.csproj.CoreCompileInputs.cache
-D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\.testobj\Debug\net8.0\MurderMystery.Api.MvcApplicationPartsAssemblyInfo.cs
-D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\.testobj\Debug\net8.0\MurderMystery.Api.MvcApplicationPartsAssemblyInfo.cache
-D:\Github\Licenta\MurderMysteryCreator\MurderMystery.Api\.testobj\Debug\net8.0\MurderMystery.Api.sourcelink.json
