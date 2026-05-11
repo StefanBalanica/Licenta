@@ -118,6 +118,26 @@ import { GameSummary } from '../../models/models';
           <p *ngIf="storyError" class="story-err">{{ storyError }}</p>
         </div>
 
+        <!-- Publicare marketplace -->
+        <div *ngIf="publishModalOpen" class="publish-overlay" (click)="publishModalOpen = false">
+          <div class="publish-dialog" (click)="$event.stopPropagation()">
+            <div class="publish-head">
+              <div class="eyebrow">MARKETPLACE</div>
+              <h3 class="publish-title">Publica dosarul</h3>
+            </div>
+            <p class="publish-hint">Jocul va aparea pe pagina principala, cu numele si pretul setate mai jos.</p>
+            <label class="publish-lbl">Nume joc</label>
+            <input type="text" class="publish-input" [(ngModel)]="publishDraftTitle" maxlength="200" />
+            <label class="publish-lbl">Pret (RON)</label>
+            <input type="text" class="publish-input" [(ngModel)]="publishDraftPrice" inputmode="decimal" placeholder="ex: 25 sau 19.99" />
+            <p *ngIf="publishError" class="publish-err">{{ publishError }}</p>
+            <div class="publish-foot">
+              <button type="button" class="btn-ghost" (click)="publishModalOpen = false" [disabled]="publishSaving">Anuleaza</button>
+              <button type="button" class="btn-primary" (click)="submitPublish()" [disabled]="publishSaving">{{ publishSaving ? 'Se publica...' : 'Publica' }}</button>
+            </div>
+          </div>
+        </div>
+
         <!-- Loading -->
         <div *ngIf="loading" class="center-state">
           <div class="loader"></div>
@@ -149,10 +169,6 @@ import { GameSummary } from '../../models/models';
               <div class="eyebrow">DOSARE ACTIVE</div>
               <h1 class="display-title">Cazurile tale <span class="count-badge">{{ games.length }}</span></h1>
             </div>
-            <div class="ph-right">
-              <button class="btn-outline-amber" (click)="showStoryPanel = true">AI Story</button>
-              <button class="btn-primary" (click)="createGame()">+ Dosar nou</button>
-            </div>
           </div>
 
           <div class="games-grid">
@@ -171,6 +187,10 @@ import { GameSummary } from '../../models/models';
               </div>
               <h3 class="card-title">{{ game.title }}</h3>
               <p class="card-desc">{{ game.description || 'Nicio descriere disponibila.' }}</p>
+
+              <div *ngIf="!game.isPublished" class="card-publish">
+                <button type="button" class="btn-publish" (click)="openPublishModal(game, $event)">Publica</button>
+              </div>
 
               <div class="sep"></div>
 
@@ -331,7 +351,6 @@ import { GameSummary } from '../../models/models';
     .eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:6px;font-weight:600;}
     .display-title{font-family:'Crimson Pro',serif;font-size:32px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:10px;}
     .count-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid rgba(184,114,8,0.4);border-radius:50%;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--amber);}
-    .ph-right{display:flex;gap:8px;}
 
     /* a”€a”€ Grid a”€a”€ */
     .games-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
@@ -396,6 +415,25 @@ import { GameSummary } from '../../models/models';
     .act-btn:hover{background:var(--navy-l);border-color:var(--navy);color:var(--navy);}
     .act-del:hover{background:rgba(155,32,32,0.06);border-color:var(--red);color:var(--red);}
 
+    .card-publish{margin-top:10px;margin-bottom:2px;}
+    .btn-publish{
+      width:100%;padding:.5rem .75rem;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;
+      border:1px solid var(--amber);background:var(--amber-l);color:var(--amber);border-radius:6px;cursor:pointer;font-weight:600;
+      transition:background .15s,color .15s,border-color .15s;
+    }
+    .btn-publish:hover{background:var(--amber);color:#fff;border-color:var(--amber);}
+
+    .publish-overlay{position:fixed;inset:0;z-index:220;background:rgba(26,22,16,.55);display:flex;align-items:center;justify-content:center;padding:20px;}
+    .publish-dialog{background:#fff;border:1px solid var(--border);border-radius:12px;max-width:420px;width:100%;padding:22px 24px;box-shadow:0 20px 50px rgba(0,0,0,.14);}
+    .publish-head .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:2px;color:var(--amber);margin-bottom:6px;}
+    .publish-title{font-family:'Crimson Pro',serif;font-size:1.35rem;font-weight:700;color:var(--navy);margin:0;}
+    .publish-hint{font-size:.82rem;color:var(--ink2);margin:12px 0 16px;line-height:1.45;}
+    .publish-lbl{display:block;font-size:.68rem;font-family:'JetBrains Mono',monospace;letter-spacing:1px;color:var(--ink3);margin-bottom:6px;}
+    .publish-input{width:100%;padding:10px 12px;border:1px solid var(--border-md);border-radius:8px;font-size:.95rem;margin-bottom:14px;font-family:inherit;box-sizing:border-box;}
+    .publish-input:focus{outline:none;border-color:var(--amber);}
+    .publish-err{color:var(--red);font-size:.82rem;margin:-6px 0 12px;}
+    .publish-foot{display:flex;justify-content:flex-end;gap:10px;margin-top:10px;padding-top:16px;border-top:1px solid var(--border);}
+
     /* a”€a”€ Responsive a”€a”€ */
     @media(max-width:900px){.games-grid{grid-template-columns:repeat(2,1fr);}}
     @media(max-width:580px){.games-grid{grid-template-columns:1fr;}.page-header{flex-direction:column;align-items:flex-start;gap:12px;}}
@@ -415,6 +453,13 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   storyError = '';
   progressPct = 0;
   progressInterval: any;
+
+  publishModalOpen = false;
+  publishGameId: number | null = null;
+  publishDraftTitle = '';
+  publishDraftPrice: string | number = '';
+  publishSaving = false;
+  publishError = '';
 
   private cleanup?: () => void;
 
@@ -482,7 +527,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
           this.generating = false; 
           this.showStoryPanel = false; 
           this.storyText = '';
-          this.games = [...this.games, { gameId: game.gameId, title: game.title, description: game.description, isPublished: game.isPublished, createdAt: game.createdAt, updatedAt: game.updatedAt, characterCount: game.characterCount, evidenceCount: game.evidenceCount, deviceCount: game.deviceCount }];
+          this.games = [...this.games, { gameId: game.gameId, title: game.title, description: game.description, isPublished: game.isPublished, priceRon: game.priceRon ?? null, createdAt: game.createdAt, updatedAt: game.updatedAt, characterCount: game.characterCount, evidenceCount: game.evidenceCount, deviceCount: game.deviceCount }];
           this.router.navigate(['/games', game.gameId]);
         }, 600);
       },
@@ -496,6 +541,59 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   editGame(gameId: number) { this.router.navigate(['/games', gameId]); }
+
+  openPublishModal(game: GameSummary, ev: MouseEvent) {
+    ev.stopPropagation();
+    this.publishGameId = game.gameId;
+    this.publishDraftTitle = game.title || '';
+    const p = game.priceRon;
+    this.publishDraftPrice = p != null && p !== undefined ? String(p) : '';
+    this.publishError = '';
+    this.publishSaving = false;
+    this.publishModalOpen = true;
+  }
+
+  submitPublish() {
+    if (this.publishGameId == null || this.publishSaving) return;
+    const title = (this.publishDraftTitle || '').trim();
+    if (!title) {
+      this.publishError = 'Introdu numele jocului.';
+      return;
+    }
+    const raw = String(this.publishDraftPrice).trim().replace(',', '.');
+    if (raw === '') {
+      this.publishError = 'Introdu pretul in RON (poti folosi 0 pentru gratuit).';
+      return;
+    }
+    const price = parseFloat(raw);
+    if (Number.isNaN(price) || price < 0) {
+      this.publishError = 'Pret invalid.';
+      return;
+    }
+    this.publishSaving = true;
+    this.publishError = '';
+    this.gameService.publishGame(this.publishGameId, { title, priceRon: price }).subscribe({
+      next: (g) => {
+        this.publishSaving = false;
+        this.publishModalOpen = false;
+        const ix = this.games.findIndex((x) => x.gameId === g.gameId);
+        if (ix >= 0) {
+          this.games[ix] = {
+            ...this.games[ix],
+            title: g.title,
+            isPublished: g.isPublished,
+            priceRon: g.priceRon ?? null,
+            updatedAt: g.updatedAt
+          };
+        }
+        this.games = [...this.games];
+      },
+      error: (err) => {
+        this.publishSaving = false;
+        this.publishError = err.error?.message || 'Publicarea a esuat.';
+      }
+    });
+  }
 
   goToProfile() { this.menuOpen = false; this.router.navigate(['/profile']); }
 

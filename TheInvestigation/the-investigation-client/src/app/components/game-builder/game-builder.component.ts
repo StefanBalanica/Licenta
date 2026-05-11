@@ -236,14 +236,21 @@ export class GameBuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   async publish() {
     if (this.gameForm.invalid) return;
     this.saving = true; this.errorMessage = '';
+    const title = (this.gameForm.value.title || '').trim();
+    if (!title) {
+      this.errorMessage = 'Titlul este obligatoriu pentru publicare.';
+      this.saving = false;
+      return;
+    }
+    const publishBody = { title, priceRon: 0 };
     try {
       const data = { ...this.gameForm.value, isPublished: true };
       if (this.isEditMode && this.gameId) {
         await this.gameService.updateGame(this.gameId, data).toPromise();
-        await this.gameService.publishGame(this.gameId).toPromise();
+        await this.gameService.publishGame(this.gameId, publishBody).toPromise();
       } else {
         const game = await this.gameService.createGame(data).toPromise();
-        if (game) await this.gameService.publishGame(game.gameId).toPromise();
+        if (game) await this.gameService.publishGame(game.gameId, { title: game.title, priceRon: 0 }).toPromise();
       }
       this.router.navigate(['/dashboard']);
     } catch (error: any) { this.errorMessage = error.error?.message || 'Eroare la publicare.'; }

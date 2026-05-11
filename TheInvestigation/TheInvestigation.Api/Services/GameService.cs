@@ -123,7 +123,7 @@ public class GameService : IGameService
         await _gameRepository.DeleteAsync(game);
     }
 
-    public async Task<GameDto> PublishGameAsync(int gameId, int userId)
+    public async Task<GameDto> PublishGameAsync(int gameId, int userId, PublishGameDto dto)
     {
         var game = await _gameRepository.GetGameWithDetailsAsync(gameId);
         
@@ -137,6 +137,24 @@ public class GameService : IGameService
             throw new UnauthorizedAccessException("You do not have access to this game");
         }
 
+        var title = dto.Title?.Trim() ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            throw new ArgumentException("Title is required to publish.");
+        }
+
+        if (title.Length > 200)
+        {
+            throw new ArgumentException("Title must be at most 200 characters.");
+        }
+
+        if (dto.PriceRon < 0)
+        {
+            throw new ArgumentException("Price cannot be negative.");
+        }
+
+        game.Title = title;
+        game.PriceRon = dto.PriceRon;
         game.IsPublished = true;
         game.UpdatedAt = DateTime.UtcNow;
 
@@ -2095,6 +2113,7 @@ public class GameService : IGameService
             Story = game.Story,
             Solution = game.Solution,
             IsPublished = game.IsPublished,
+            PriceRon = game.PriceRon,
             CreatedAt = game.CreatedAt,
             UpdatedAt = game.UpdatedAt,
             CharacterCount = game.Characters.Count,
@@ -2111,6 +2130,7 @@ public class GameService : IGameService
             Title = game.Title,
             Description = game.Description,
             IsPublished = game.IsPublished,
+            PriceRon = game.PriceRon,
             CreatedAt = game.CreatedAt,
             UpdatedAt = game.UpdatedAt,
             CharacterCount = game.Characters.Count,

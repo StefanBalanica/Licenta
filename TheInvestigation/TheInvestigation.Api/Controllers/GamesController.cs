@@ -178,16 +178,25 @@ public class GamesController : ControllerBase
     }
 
     /// <summary>
-    /// Publish a game
+    /// Publish a game (marketplace title and price in RON; appears on the public landing page).
     /// </summary>
     [HttpPost("{id}/publish")]
-    public async Task<ActionResult<GameDto>> PublishGame(int id)
+    public async Task<ActionResult<GameDto>> PublishGame(int id, [FromBody] PublishGameDto dto)
     {
+        if (dto == null || string.IsNullOrWhiteSpace(dto.Title))
+        {
+            return BadRequest(new { message = "Title is required." });
+        }
+
         try
         {
             var userId = GetUserId();
-            var game = await _gameService.PublishGameAsync(id, userId);
+            var game = await _gameService.PublishGameAsync(id, userId, dto);
             return Ok(game);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
         }
         catch (KeyNotFoundException ex)
         {

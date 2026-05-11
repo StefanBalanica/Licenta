@@ -13,7 +13,7 @@ public interface IGameService
     Task<IEnumerable<GameSummaryDto>> GetUserGamesAsync(int userId);
     Task<GameDto> UpdateGameAsync(int gameId, int userId, UpdateGameDto updateGameDto);
     Task DeleteGameAsync(int gameId, int userId);
-    Task<GameDto> PublishGameAsync(int gameId, int userId);
+    Task<GameDto> PublishGameAsync(int gameId, int userId, PublishGameDto dto);
 
     /// <summary>
     /// Generates a full game from a story using AI (Gemini): creates game, characters, devices and apps.

@@ -62,6 +62,16 @@ export class LandingComponent implements OnInit, OnDestroy {
     return text.length > max ? text.slice(0, max) + '...' : text;
   }
 
+  formatPriceRon(value: number | null | undefined): string {
+    if (value === null || value === undefined) return '';
+    return new Intl.NumberFormat('ro-RO', {
+      style: 'currency',
+      currency: 'RON',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2
+    }).format(value);
+  }
+
   scrollTo(id: string, event: Event) {
     event.preventDefault();
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });

@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+/* src/styles.scss */
+:root {
+  --paper: #fcfaf7;
+  --ink: #1a1a1a;
+  --accent: #d43f33;
+  --muted: #66625f;
+  --border: #e2deda;
+  --gold: #c8922a;
+  --bg: #fcfaf7;
+  --surface: #ffffff;
+  --border-md: rgba(0,0,0,0.11);
+  --amber: #d43f33;
+  --amber-l: rgba(212,63,51,0.07);
+  --navy: #1a1a1a;
+  --navy-l: rgba(26,26,26,0.06);
+  --ink2: rgba(26,26,26,0.62);
+  --ink3: rgba(26,26,26,0.40);
+  --green: #4a7a56;
+  --red: #d43f33;
+  --crimson: #8b1a1a;
+  --font-serif:
+    "Crimson Pro",
+    Georgia,
+    serif;
+  --font-body:
+    "Public Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  --font-mono:
+    "JetBrains Mono",
+    "Fira Code",
+    monospace;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+::selection {
+  background: rgba(212, 63, 51, 0.15);
+  color: var(--ink);
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* angular:styles/global:styles */
+/*# sourceMappingURL=styles.css.map */

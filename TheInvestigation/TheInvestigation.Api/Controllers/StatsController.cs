@@ -52,6 +52,7 @@ public class StatsController : ControllerBase
                 g.GameId,
                 g.Title,
                 g.Description,
+                g.PriceRon,
                 CreatorName = g.User.FirstName + " " + g.User.LastName,
                 CreatedAt = g.CreatedAt.ToString("yyyy-MM-dd")
             })

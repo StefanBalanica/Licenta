@@ -23,6 +23,15 @@ public class UpdateGameDto
 }
 
 /// <summary>
+/// Body for publishing a game to the marketplace (title and price shown on the landing page).
+/// </summary>
+public class PublishGameDto
+{
+    public required string Title { get; set; }
+    public decimal PriceRon { get; set; }
+}
+
+/// <summary>
 /// DTO for game response
 /// </summary>
 public class GameDto
@@ -34,6 +43,7 @@ public class GameDto
     public string? Story { get; set; }
     public string? Solution { get; set; }
     public bool IsPublished { get; set; }
+    public decimal? PriceRon { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     public int CharacterCount { get; set; }
@@ -50,6 +60,7 @@ public class GameSummaryDto
     public required string Title { get; set; }
     public string? Description { get; set; }
     public bool IsPublished { get; set; }
+    public decimal? PriceRon { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     public int CharacterCount { get; set; }

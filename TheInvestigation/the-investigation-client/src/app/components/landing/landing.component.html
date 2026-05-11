@@ -157,10 +157,12 @@
         <div class="card-img" style="padding:0;overflow:hidden;background:#f5f0ea;">
           <img src="assets/dosar_card.png" [alt]="game.title" style="width:100%;height:100%;object-fit:cover;display:block;">
           <div class="card-physical-badge">PRINT &amp; PLAY</div>
+          <span class="listing-live-dot" title="Joc public in marketplace"></span>
         </div>
         <div class="card-body">
           <p class="card-creator">de {{ game.creatorName }} &nbsp;·&nbsp; {{ game.createdAt }}</p>
           <h3 class="card-title">{{ game.title }}</h3>
+          <p class="card-price" *ngIf="game.priceRon != null && game.priceRon !== undefined">{{ formatPriceRon(game.priceRon) }}</p>
           <p class="card-desc">{{ truncate(game.description) }}</p>
           <div class="card-footer">
             <span style="font-family:'JetBrains Mono';font-size:.65rem;color:#d43f33;letter-spacing:1px;">DOSAR PUBLIC</span>

@@ -19,6 +19,9 @@ public class Game
     
     public bool IsPublished { get; set; } = false;
     
+    /// <summary>Listing price in RON (set when the game is published).</summary>
+    public decimal? PriceRon { get; set; }
+    
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;

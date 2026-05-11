@@ -30,6 +30,8 @@ export interface Game {
   story?: string;
   solution?: string;
   isPublished: boolean;
+  /** Listing price in RON when published */
+  priceRon?: number | null;
   createdAt: string;
   updatedAt: string;
   characterCount: number;
@@ -42,6 +44,7 @@ export interface GameSummary {
   title: string;
   description?: string;
   isPublished: boolean;
+  priceRon?: number | null;
   createdAt: string;
   updatedAt: string;
   characterCount: number;
