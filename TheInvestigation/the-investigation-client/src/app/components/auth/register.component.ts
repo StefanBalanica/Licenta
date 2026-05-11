@@ -14,11 +14,11 @@ function hardRulesValidator(control: AbstractControl): ValidationErrors | null {
   const v: string = control.value ?? '';
   if (!v) return null;
   const e: Record<string, boolean> = {};
-  if (v.length < 8)                                        e['minLength'] = true;
-  if (!/[A-Z]/.test(v))                                   e['uppercase'] = true;
-  if (!/[a-z]/.test(v))                                   e['lowercase'] = true;
-  if (!/[0-9]/.test(v))                                   e['digit']     = true;
-  if (!/[!@#$%^&*()\-_=+\[\]{}|;:'",.<>?/\\`~]/.test(v)) e['special']  = true;
+  if (v.length < 8) e['minLength'] = true;
+  if (!/[A-Z]/.test(v)) e['uppercase'] = true;
+  if (!/[a-z]/.test(v)) e['lowercase'] = true;
+  if (!/[0-9]/.test(v)) e['digit'] = true;
+  if (!/[!@#$%^&*()\-_=+\[\]{}|;:'",.<>?/\\`~]/.test(v)) e['special'] = true;
   return Object.keys(e).length ? e : null;
 }
 
@@ -27,7 +27,7 @@ function zxcvbnGroupValidator(group: AbstractControl): ValidationErrors | null {
   const pw = group.get('password')?.value ?? '';
   if (!pw) return null;
   const hardErrors = group.get('password')?.errors;
-  const hardFailed = hardErrors && ['minLength','uppercase','lowercase','digit','special'].some(k => hardErrors[k]);
+  const hardFailed = hardErrors && ['minLength', 'uppercase', 'lowercase', 'digit', 'special'].some(k => hardErrors[k]);
   if (hardFailed) return null;
   const inputs = [group.get('firstName')?.value, group.get('lastName')?.value, group.get('email')?.value].filter(Boolean);
   const result = zxcvbn(pw, inputs);
@@ -36,7 +36,7 @@ function zxcvbnGroupValidator(group: AbstractControl): ValidationErrors | null {
 
 // a”€a”€ Password match validator (form-level) a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€
 function passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
-  const pw  = group.get('password')?.value ?? '';
+  const pw = group.get('password')?.value ?? '';
   const cpw = group.get('confirmPassword')?.value ?? '';
   return cpw && pw !== cpw ? { passwordMismatch: true } : null;
 }
@@ -69,7 +69,7 @@ const SUGG_RO: Record<string, string> = {
   "Reversed words aren't much harder to guess": 'Cuvintele inversate nu sunt mult mai sigure.',
   "Predictable substitutions like '@' instead of 'a' don't help very much": 'SubstituTiile predictibile (ex. @ in loc de a) nu ajuta prea mult.',
 };
-const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
+const tr = (map: Record<string, string>, s: string) => map[s] ?? s;
 
 @Component({
   selector: 'app-register',
@@ -157,11 +157,11 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
 
               <!-- Hard rules checklist -->
               <ul class="pw-rules" *ngIf="registerForm.get('password')?.touched || pwValue.length > 0">
-                <li [class.ok]="!pwErrors['minLength']"><span class="ri">{{ !pwErrors['minLength'] ? 'aœ“' : 'a—‹' }}</span> Minimum 8 caractere</li>
-                <li [class.ok]="!pwErrors['uppercase']"><span class="ri">{{ !pwErrors['uppercase'] ? 'aœ“' : 'a—‹' }}</span> Cel puTin o litera mare (A-Z)</li>
-                <li [class.ok]="!pwErrors['lowercase']"><span class="ri">{{ !pwErrors['lowercase'] ? 'aœ“' : 'a—‹' }}</span> Cel puTin o litera mica (a-z)</li>
-                <li [class.ok]="!pwErrors['digit']"><span class="ri">{{ !pwErrors['digit'] ? 'aœ“' : 'a—‹' }}</span> Cel puTin o cifra (0-9)</li>
-                <li [class.ok]="!pwErrors['special']"><span class="ri">{{ !pwErrors['special'] ? 'aœ“' : 'a—‹' }}</span> Cel puTin un caracter special (!&#64;#$%^&amp;*)</li>
+                <li [class.ok]="!pwErrors['minLength']"><span class="ri">{{ !pwErrors['minLength'] ? '▪️“' : '' }}</span> Minimum 8 caractere</li>
+                <li [class.ok]="!pwErrors['uppercase']"><span class="ri">{{ !pwErrors['uppercase'] ? '▪️“' : '' }}</span> Cel puTin o litera mare (A-Z)</li>
+                <li [class.ok]="!pwErrors['lowercase']"><span class="ri">{{ !pwErrors['lowercase'] ? '▪️“' : '' }}</span> Cel puTin o litera mica (a-z)</li>
+                <li [class.ok]="!pwErrors['digit']"><span class="ri">{{ !pwErrors['digit'] ? '▪️“' : '' }}</span> Cel puTin o cifra (0-9)</li>
+                <li [class.ok]="!pwErrors['special']"><span class="ri">{{ !pwErrors['special'] ? '▪️“' : '' }}</span> Cel puTin un caracter special (!&#64;#$%^&amp;*)</li>
               </ul>
             </div>
 
@@ -259,7 +259,7 @@ const tr = (map: Record<string,string>, s: string) => map[s] ?? s;
     .pw-warning{display:flex;align-items:center;gap:5px;font-size:11.5px;color:#c06010;font-style:italic;}
     .pw-suggestions{list-style:none;padding-left:4px;display:flex;flex-direction:column;gap:2px;}
     .pw-suggestions li::before{content:'>';position:absolute;left:0;color:var(--ink3);}
-    .pw-suggestions li::before{content:'a†’';position:absolute;left:0;color:var(--ink3);}
+    .pw-suggestions li::before{content:'▪️’';position:absolute;left:0;color:var(--ink3);}
     /* a”€a”€ Hard rules checklist a”€a”€ */
     .pw-rules{list-style:none;display:flex;flex-direction:column;gap:3px;padding:8px 0 2px;border-top:1px solid var(--border);margin-top:4px;}
     .pw-rules li{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink3);transition:color .2s;}
@@ -278,10 +278,10 @@ export class RegisterComponent implements AfterViewInit, OnDestroy {
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private http: HttpClient) {
     this.registerForm = this.fb.group({
-      firstName:       ['', Validators.required],
-      lastName:        ['', Validators.required],
-      email:           ['', [Validators.required, Validators.email], [this.emailAvailabilityValidator.bind(this)]],
-      password:        ['', [Validators.required, hardRulesValidator]],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email], [this.emailAvailabilityValidator.bind(this)]],
+      password: ['', [Validators.required, hardRulesValidator]],
       confirmPassword: ['', Validators.required]
     }, { validators: [zxcvbnGroupValidator, passwordMatchValidator] });
   }
@@ -315,11 +315,11 @@ export class RegisterComponent implements AfterViewInit, OnDestroy {
   }
 
   get strengthColor(): string {
-    return ['#c0392b','#e67e22','#f39c12','#27ae60','#2ecc71'][this.strengthScore] ?? '#c0392b';
+    return ['#c0392b', '#e67e22', '#f39c12', '#27ae60', '#2ecc71'][this.strengthScore] ?? '#c0392b';
   }
 
   get strengthLabel(): string {
-    return ['Foarte slaba','Slaba','Acceptabila','Buna','Excelenta'][this.strengthScore] ?? 'Foarte slaba';
+    return ['Foarte slaba', 'Slaba', 'Acceptabila', 'Buna', 'Excelenta'][this.strengthScore] ?? 'Foarte slaba';
   }
 
   private get _zxcvbn() {

@@ -90,7 +90,7 @@ import { GameSummary } from '../../models/models';
           <div class="panel-head">
             <div>
               <div class="eyebrow">ASISTENT IA</div>
-              <h3 class="panel-title">Construieste dosar din naraTiune</h3>
+              <h3 class="panel-title">Construieste dosar din naratiune</h3>
             </div>
             <button class="panel-close" (click)="showStoryPanel = false">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -155,7 +155,7 @@ import { GameSummary } from '../../models/models';
             </svg>
           </div>
           <h2 class="empty-title">Niciun dosar deschis</h2>
-          <p class="empty-sub">Creeaza primul caz sau importa o naraTiune prin AI.</p>
+          <p class="empty-sub">Creeaza primul tău scenariu si lasă AI-ul să=l transforme</p>
           <div class="empty-acts">
             <button class="btn-primary" (click)="createGame()">Dosar nou</button>
             <button class="btn-outline-amber" (click)="showStoryPanel = true">AI Story</button>
@@ -519,7 +519,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     const user = this.authService.currentUserValue;
     this.userEmail = user?.email || '';
     const first = (user as any)?.firstName || '';
-    const last  = (user as any)?.lastName  || '';
+    const last = (user as any)?.lastName || '';
     this.userName = `${first} ${last}`.trim() || this.userEmail;
     const initials = (first[0] || '') + (last[0] || '');
     this.userInitials = initials.toUpperCase() || this.userEmail.substring(0, 2).toUpperCase();
@@ -556,11 +556,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   generateFromStory() {
     const story = this.storyText?.trim();
     if (!story || this.generating) return;
-    
-    this.generating = true; 
+
+    this.generating = true;
     this.storyError = '';
     this.progressPct = 0;
-    
+
     // AnimaTie fluida pentru progress bar pana pe la 96%
     this.progressInterval = setInterval(() => {
       if (this.progressPct < 96) {
@@ -573,11 +573,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       next: (game) => {
         clearInterval(this.progressInterval);
         this.progressPct = 100;
-        
+
         // Timeout mic ca userul sa vada ca a ajuns la 100% inainte de a se muta pagina
         setTimeout(() => {
-          this.generating = false; 
-          this.showStoryPanel = false; 
+          this.generating = false;
+          this.showStoryPanel = false;
           this.storyText = '';
           this.games = [...this.games, { gameId: game.gameId, title: game.title, description: game.description, isPublished: game.isPublished, priceRon: game.priceRon ?? null, createdAt: game.createdAt, updatedAt: game.updatedAt, characterCount: game.characterCount, evidenceCount: game.evidenceCount, deviceCount: game.deviceCount }];
           this.router.navigate(['/games', game.gameId]);
