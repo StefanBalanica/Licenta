@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using TheInvestigation.Api.DTOs;
 using TheInvestigation.Api.Models;
 using TheInvestigation.Api.Repositories;
@@ -156,6 +156,24 @@ public class GameService : IGameService
         game.Title = title;
         game.PriceRon = dto.PriceRon;
         game.IsPublished = true;
+        game.UpdatedAt = DateTime.UtcNow;
+
+        await _gameRepository.UpdateAsync(game);
+
+        return MapToDto(game);
+    }
+
+    public async Task<GameDto> UnpublishGameAsync(int gameId, int userId)
+    {
+        var game = await _gameRepository.GetGameWithDetailsAsync(gameId);
+
+        if (game == null)
+            throw new KeyNotFoundException($"Game with ID {gameId} not found");
+
+        if (game.UserId != userId)
+            throw new UnauthorizedAccessException("You do not have access to this game");
+
+        game.IsPublished = false;
         game.UpdatedAt = DateTime.UtcNow;
 
         await _gameRepository.UpdateAsync(game);

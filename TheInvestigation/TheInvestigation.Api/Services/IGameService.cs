@@ -1,4 +1,4 @@
-﻿using TheInvestigation.Api.DTOs;
+using TheInvestigation.Api.DTOs;
 using TheInvestigation.Api.Models;
 
 namespace TheInvestigation.Api.Services;
@@ -14,6 +14,7 @@ public interface IGameService
     Task<GameDto> UpdateGameAsync(int gameId, int userId, UpdateGameDto updateGameDto);
     Task DeleteGameAsync(int gameId, int userId);
     Task<GameDto> PublishGameAsync(int gameId, int userId, PublishGameDto dto);
+    Task<GameDto> UnpublishGameAsync(int gameId, int userId);
 
     /// <summary>
     /// Generates a full game from a story using AI (Gemini): creates game, characters, devices and apps.

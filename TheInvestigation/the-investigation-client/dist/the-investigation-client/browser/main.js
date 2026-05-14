@@ -75,6 +75,7 @@ import {
   ɵɵresetView,
   ɵɵresolveDocument,
   ɵɵrestoreView,
+  ɵɵsanitizeUrl,
   ɵɵstyleProp,
   ɵɵtemplate,
   ɵɵtext,
@@ -1750,104 +1751,309 @@ var require_main = __commonJS({
 // src/app/components/landing/landing.component.ts
 function LandingComponent_div_170_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 93);
+    \u0275\u0275elementStart(0, "div", 94);
     \u0275\u0275text(1, " // SE \xCENCARC\u0102 DOSARELE... ");
     \u0275\u0275elementEnd();
   }
 }
 function LandingComponent_div_171_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 94);
+    \u0275\u0275elementStart(0, "div", 95);
     \u0275\u0275text(1, " // EROARE LA \xCENC\u0102RCARE ");
     \u0275\u0275elementEnd();
   }
 }
 function LandingComponent_div_172_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 95)(1, "p", 96);
+    \u0275\u0275elementStart(0, "div", 96)(1, "p", 97);
     \u0275\u0275text(2, "// NICIUN DOSAR PUBLIC MOMENTAN");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "p", 97);
+    \u0275\u0275elementStart(3, "p", 98);
     \u0275\u0275text(4, "Fii primul creator care public\u0103 un joc!");
     \u0275\u0275elementEnd()();
   }
 }
 function LandingComponent_div_173_div_1_p_11_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "p", 113);
+    \u0275\u0275elementStart(0, "p", 114);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const game_r1 = \u0275\u0275nextContext().$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(2);
+    const game_r2 = \u0275\u0275nextContext().$implicit;
+    const ctx_r2 = \u0275\u0275nextContext(2);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r1.formatPriceRon(game_r1.priceRon));
+    \u0275\u0275textInterpolate(ctx_r2.formatPriceRon(game_r2.priceRon));
   }
 }
 function LandingComponent_div_173_div_1_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 100)(1, "div", 101);
-    \u0275\u0275element(2, "img", 102);
-    \u0275\u0275elementStart(3, "div", 103);
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 101)(1, "div", 102);
+    \u0275\u0275element(2, "img", 103);
+    \u0275\u0275elementStart(3, "div", 104);
     \u0275\u0275text(4, "PRINT & PLAY");
     \u0275\u0275elementEnd();
-    \u0275\u0275element(5, "span", 104);
+    \u0275\u0275element(5, "span", 105);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "div", 105)(7, "p", 106);
+    \u0275\u0275elementStart(6, "div", 106)(7, "p", 107);
     \u0275\u0275text(8);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "h3", 107);
+    \u0275\u0275elementStart(9, "h3", 108);
     \u0275\u0275text(10);
     \u0275\u0275elementEnd();
-    \u0275\u0275template(11, LandingComponent_div_173_div_1_p_11_Template, 2, 1, "p", 108);
-    \u0275\u0275elementStart(12, "p", 109);
+    \u0275\u0275template(11, LandingComponent_div_173_div_1_p_11_Template, 2, 1, "p", 109);
+    \u0275\u0275elementStart(12, "p", 110);
     \u0275\u0275text(13);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(14, "div", 110)(15, "span", 111);
+    \u0275\u0275elementStart(14, "div", 111)(15, "span", 112);
     \u0275\u0275text(16, "DOSAR PUBLIC");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(17, "a", 112);
+    \u0275\u0275elementStart(17, "button", 113);
+    \u0275\u0275listener("click", function LandingComponent_div_173_div_1_Template_button_click_17_listener() {
+      const game_r2 = \u0275\u0275restoreView(_r1).$implicit;
+      const ctx_r2 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r2.openDetails(game_r2));
+    });
     \u0275\u0275text(18, "Detalii \u2192");
     \u0275\u0275elementEnd()()()();
   }
   if (rf & 2) {
-    const game_r1 = ctx.$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(2);
+    const game_r2 = ctx.$implicit;
+    const ctx_r2 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(2);
-    \u0275\u0275property("alt", game_r1.title);
+    \u0275\u0275property("alt", game_r2.title);
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate2("de ", game_r1.creatorName, " \xA0\xB7\xA0 ", game_r1.createdAt, "");
+    \u0275\u0275textInterpolate2("de ", game_r2.creatorName, " \xA0\xB7\xA0 ", game_r2.createdAt, "");
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(game_r1.title);
+    \u0275\u0275textInterpolate(game_r2.title);
     \u0275\u0275advance();
-    \u0275\u0275property("ngIf", game_r1.priceRon != null && game_r1.priceRon !== void 0);
+    \u0275\u0275property("ngIf", game_r2.priceRon != null && game_r2.priceRon !== void 0);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.truncate(game_r1.description));
+    \u0275\u0275textInterpolate(ctx_r2.truncate(game_r2.description));
   }
 }
 function LandingComponent_div_173_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 98);
-    \u0275\u0275template(1, LandingComponent_div_173_div_1_Template, 19, 6, "div", 99);
+    \u0275\u0275elementStart(0, "div", 99);
+    \u0275\u0275template(1, LandingComponent_div_173_div_1_Template, 19, 6, "div", 100);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
+    const ctx_r2 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275property("ngForOf", ctx_r1.games);
+    \u0275\u0275property("ngForOf", ctx_r2.games);
   }
 }
 function LandingComponent_div_174_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 114)(1, "a", 115);
+    \u0275\u0275elementStart(0, "div", 115)(1, "a", 116);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
+    const ctx_r2 = \u0275\u0275nextContext();
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("Vezi Toate Jocurile (", ctx_r1.games.length, ")");
+    \u0275\u0275textInterpolate1("Vezi Toate Jocurile (", ctx_r2.games.length, ")");
+  }
+}
+function LandingComponent_div_212_div_19_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 147);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r2 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r2.selectedGame.priceRon === 0 ? "GRATUIT" : ctx_r2.formatPriceRon(ctx_r2.selectedGame.priceRon), " ");
+  }
+}
+function LandingComponent_div_212_div_47_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 148)(1, "div", 149);
+    \u0275\u0275text(2, "// REZUMAT");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "p", 150);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r2 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(ctx_r2.truncate(ctx_r2.selectedGame.story, 400));
+  }
+}
+function LandingComponent_div_212_div_48_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 148)(1, "div", 149);
+    \u0275\u0275text(2, "// DESCRIERE");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "p", 150);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r2 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(ctx_r2.selectedGame.description);
+  }
+}
+function LandingComponent_div_212_div_49_div_4_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 157);
+    \u0275\u0275namespaceSVG();
+    \u0275\u0275elementStart(1, "svg", 154);
+    \u0275\u0275element(2, "rect", 138)(3, "circle", 139);
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const d_r5 = ctx.$implicit;
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate1(" ", d_r5, " ");
+  }
+}
+function LandingComponent_div_212_div_49_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 148)(1, "div", 149);
+    \u0275\u0275text(2, "// DISPOZITIVE ANCHETATOR");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 151);
+    \u0275\u0275template(4, LandingComponent_div_212_div_49_div_4_Template, 5, 1, "div", 152);
+    \u0275\u0275elementStart(5, "div", 153);
+    \u0275\u0275namespaceSVG();
+    \u0275\u0275elementStart(6, "svg", 154);
+    \u0275\u0275element(7, "rect", 155)(8, "path", 156);
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(9, " Laptop anchetator ");
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r2 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(4);
+    \u0275\u0275property("ngForOf", ctx_r2.getDeviceChips(ctx_r2.selectedGame.deviceCount));
+  }
+}
+function LandingComponent_div_212_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r4 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 117);
+    \u0275\u0275listener("click", function LandingComponent_div_212_Template_div_click_0_listener() {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.closeDetails());
+    });
+    \u0275\u0275elementStart(1, "div", 118);
+    \u0275\u0275listener("click", function LandingComponent_div_212_Template_div_click_1_listener($event) {
+      \u0275\u0275restoreView(_r4);
+      return \u0275\u0275resetView($event.stopPropagation());
+    });
+    \u0275\u0275elementStart(2, "button", 119);
+    \u0275\u0275listener("click", function LandingComponent_div_212_Template_button_click_2_listener() {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.closeDetails());
+    });
+    \u0275\u0275namespaceSVG();
+    \u0275\u0275elementStart(3, "svg", 120);
+    \u0275\u0275element(4, "path", 121);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275namespaceHTML();
+    \u0275\u0275elementStart(5, "div", 122);
+    \u0275\u0275element(6, "img", 123);
+    \u0275\u0275elementStart(7, "div", 124);
+    \u0275\u0275text(8, "PRINT & PLAY");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(9, "div", 125)(10, "div", 126);
+    \u0275\u0275text(11, "DOSAR DE ANCHET\u0102");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "h2", 127);
+    \u0275\u0275text(13);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(14, "p", 128);
+    \u0275\u0275namespaceSVG();
+    \u0275\u0275elementStart(15, "svg", 129);
+    \u0275\u0275element(16, "circle", 130)(17, "path", 131);
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(18);
+    \u0275\u0275elementEnd();
+    \u0275\u0275template(19, LandingComponent_div_212_div_19_Template, 2, 1, "div", 132);
+    \u0275\u0275namespaceHTML();
+    \u0275\u0275elementStart(20, "div", 133)(21, "div", 134);
+    \u0275\u0275namespaceSVG();
+    \u0275\u0275elementStart(22, "svg", 120);
+    \u0275\u0275element(23, "circle", 135)(24, "path", 136);
+    \u0275\u0275elementEnd();
+    \u0275\u0275namespaceHTML();
+    \u0275\u0275elementStart(25, "span");
+    \u0275\u0275text(26);
+    \u0275\u0275elementStart(27, "em");
+    \u0275\u0275text(28, "suspec\u021Bi");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275element(29, "div", 137);
+    \u0275\u0275elementStart(30, "div", 134);
+    \u0275\u0275namespaceSVG();
+    \u0275\u0275elementStart(31, "svg", 120);
+    \u0275\u0275element(32, "rect", 138)(33, "circle", 139);
+    \u0275\u0275elementEnd();
+    \u0275\u0275namespaceHTML();
+    \u0275\u0275elementStart(34, "span");
+    \u0275\u0275text(35);
+    \u0275\u0275elementStart(36, "em");
+    \u0275\u0275text(37, "dispozitive");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275element(38, "div", 137);
+    \u0275\u0275elementStart(39, "div", 134);
+    \u0275\u0275namespaceSVG();
+    \u0275\u0275elementStart(40, "svg", 120);
+    \u0275\u0275element(41, "rect", 140)(42, "rect", 141)(43, "rect", 142);
+    \u0275\u0275elementEnd();
+    \u0275\u0275namespaceHTML();
+    \u0275\u0275elementStart(44, "span")(45, "em");
+    \u0275\u0275text(46, "Ancheta activa");
+    \u0275\u0275elementEnd()()()();
+    \u0275\u0275template(47, LandingComponent_div_212_div_47_Template, 5, 1, "div", 143)(48, LandingComponent_div_212_div_48_Template, 5, 1, "div", 143)(49, LandingComponent_div_212_div_49_Template, 10, 1, "div", 143);
+    \u0275\u0275elementStart(50, "div", 144)(51, "a", 145);
+    \u0275\u0275listener("click", function LandingComponent_div_212_Template_a_click_51_listener() {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.closeDetails());
+    });
+    \u0275\u0275text(52, "Acceseaza dosarul \u2192");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(53, "button", 146);
+    \u0275\u0275listener("click", function LandingComponent_div_212_Template_button_click_53_listener() {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.closeDetails());
+    });
+    \u0275\u0275text(54, "Inchide");
+    \u0275\u0275elementEnd()()()()();
+  }
+  if (rf & 2) {
+    let tmp_5_0;
+    let tmp_6_0;
+    const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275advance(6);
+    \u0275\u0275property("alt", ctx_r2.selectedGame.title);
+    \u0275\u0275advance(7);
+    \u0275\u0275textInterpolate(ctx_r2.selectedGame.title);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate2(" ", ctx_r2.selectedGame.creatorName, " \xA0\xB7\xA0 ", ctx_r2.selectedGame.createdAt, " ");
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r2.selectedGame.priceRon != null);
+    \u0275\u0275advance(7);
+    \u0275\u0275textInterpolate1("", (tmp_5_0 = ctx_r2.selectedGame.characterCount) !== null && tmp_5_0 !== void 0 ? tmp_5_0 : "\u2014", " ");
+    \u0275\u0275advance(9);
+    \u0275\u0275textInterpolate1("", (tmp_6_0 = ctx_r2.selectedGame.deviceCount) !== null && tmp_6_0 !== void 0 ? tmp_6_0 : "\u2014", " ");
+    \u0275\u0275advance(12);
+    \u0275\u0275property("ngIf", ctx_r2.selectedGame.story);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r2.selectedGame.story && ctx_r2.selectedGame.description);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r2.selectedGame.deviceCount && ctx_r2.selectedGame.deviceCount > 0);
   }
 }
 var API_BASE = "https://murdermystery-api.onrender.com/api";
@@ -1857,6 +2063,7 @@ var LandingComponent = class _LandingComponent {
   games = [];
   gamesLoading = true;
   gamesError = false;
+  selectedGame = null;
   statsInterval;
   ngOnInit() {
     this.fetchStats();
@@ -1897,6 +2104,20 @@ var LandingComponent = class _LandingComponent {
       }
     });
   }
+  openDetails(game) {
+    this.selectedGame = game;
+    document.body.style.overflow = "hidden";
+  }
+  closeDetails() {
+    this.selectedGame = null;
+    document.body.style.overflow = "";
+  }
+  /** Returns an array of device chip labels (phones only, excluding the investigator's built-in devices).
+   *  deviceCount already includes the 2 investigator devices, so suspect phones = deviceCount - 2, min 0. */
+  getDeviceChips(deviceCount) {
+    const suspectPhones = Math.max(0, (deviceCount ?? 0) - 2);
+    return Array.from({ length: suspectPhones }, (_, i) => `Telefon suspect ${i + 1}`);
+  }
   truncate(text, max = 100) {
     if (!text)
       return "Dosar de anchet\u0103 creat de un student. Imprimabil, gata de jucat.";
@@ -1919,7 +2140,7 @@ var LandingComponent = class _LandingComponent {
   static \u0275fac = function LandingComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _LandingComponent)();
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _LandingComponent, selectors: [["app-landing"]], standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 258, vars: 7, consts: [[1, "fixed-logo-wrap"], ["src", "assets/logo_final.svg", "alt", "", 1, "fixed-logo-img"], ["routerLink", "/", 2, "display", "flex", "align-items", "center", "gap", ".75rem", "text-decoration", "none"], ["src", "assets/logo_final.svg", "alt", "The Investigation Logo", 2, "height", "52px", "width", "auto"], [2, "font-family", "'Crimson Pro',serif", "font-size", "1.3rem", "font-weight", "700", "color", "var(--ink)", "letter-spacing", "-0.5px"], [2, "color", "var(--accent)"], [1, "nav-links"], ["href", "#marketplace", 3, "click"], ["href", "#about", 3, "click"], ["routerLink", "/register", 1, "btn-primary"], [1, "hero"], [1, "hero-tag"], [1, "hero-cta"], ["href", "#marketplace", 1, "btn-primary", 3, "click"], ["href", "#how", 1, "btn-ghost", 3, "click"], [1, "badge-physical"], [1, "board"], [1, "board-topbar"], [1, "board-mono"], [1, "board-tag"], [1, "cork-area"], ["viewBox", "0 0 320 276", "fill", "none", 1, "cork-string"], ["d", "M 88 34 Q 150 8 164 100", "stroke", "#d43f33", "stroke-width", "2.2", "stroke-linecap", "round"], ["d", "M 166 102 L 231 160", "stroke", "#d43f33", "stroke-width", "2.2", "stroke-linecap", "round"], ["d", "M 90 32 L 235 14", "stroke", "#d43f33", "stroke-width", "1.6", "stroke-linecap", "round", "opacity", "0.78"], ["d", "M 90 38 L 320 170", "stroke", "#d43f33", "stroke-width", "1.4", "stroke-linecap", "round", "opacity", "0.55"], ["d", "M 86 40 L 0 276", "stroke", "#d43f33", "stroke-width", "1.3", "stroke-linecap", "round", "opacity", "0.45"], ["d", "M 162 102 L 4 8", "stroke", "#d43f33", "stroke-width", "1.5", "stroke-linecap", "round", "opacity", "0.7"], ["d", "M 168 104 L 320 82", "stroke", "#d43f33", "stroke-width", "1.5", "stroke-linecap", "round", "opacity", "0.65"], ["d", "M 170 106 L 320 276", "stroke", "#d43f33", "stroke-width", "1.3", "stroke-linecap", "round", "opacity", "0.5"], ["d", "M 162 106 L 0 136", "stroke", "#d43f33", "stroke-width", "1.3", "stroke-linecap", "round", "opacity", "0.5"], ["d", "M 233 158 L 188 0", "stroke", "#d43f33", "stroke-width", "1.5", "stroke-linecap", "round", "opacity", "0.72"], ["d", "M 229 162 L 0 198", "stroke", "#d43f33", "stroke-width", "1.4", "stroke-linecap", "round", "opacity", "0.6"], ["d", "M 228 165 L 0 276", "stroke", "#d43f33", "stroke-width", "1.3", "stroke-linecap", "round", "opacity", "0.5"], ["d", "M 235 156 L 320 0", "stroke", "#d43f33", "stroke-width", "1.2", "stroke-linecap", "round", "opacity", "0.42"], ["d", "M 0 20 L 320 245", "stroke", "#d43f33", "stroke-width", "1.1", "stroke-linecap", "round", "opacity", "0.32"], ["d", "M 320 30 L 10 270", "stroke", "#d43f33", "stroke-width", "1.1", "stroke-linecap", "round", "opacity", "0.28"], [1, "cork-fp"], [1, "cork-news"], [1, "news-head"], [1, "news-body"], [1, "cn", "cn-creator"], [1, "cork-pin", "pin-r"], [1, "node-lbl"], [1, "note-white", "rot-l"], [1, "cn", "cn-joc"], [1, "cork-pin", "pin-g"], [1, "note-white", "rot-r", 2, "min-width", "96px"], [2, "font-size", ".75rem", "color", "#d43f33", "font-weight", "700", "margin-bottom", "3px"], [2, "opacity", ".55", "font-size", ".5rem", "font-style", "italic"], [1, "cn", "cn-jucator"], [1, "cork-pin", "pin-d"], [1, "note-yellow", "rot-l"], [2, "font-size", ".82rem", "font-weight", "700", "color", "#1a1a1a"], [1, "cork-deco", "deco-fp"], [1, "cork-deco", "deco-key"], [1, "cork-deco", "deco-ev"], [1, "board-quote"], [1, "stats-bar"], [1, "stat"], [1, "stat-num"], [1, "stat-label"], ["id", "how", 1, "section"], [1, "section-label"], [1, "steps"], [1, "step"], [1, "step-num"], ["id", "marketplace", 1, "marketplace-section"], [1, "marketplace-inner"], [1, "marketplace-header"], [2, "font-family", "'Crimson Pro',serif", "font-size", "2.2rem", "margin", "0"], ["style", "text-align:center;padding:4rem;color:#66625f;font-family:'JetBrains Mono';font-size:.8rem;letter-spacing:1px;", 4, "ngIf"], ["style", "text-align:center;padding:4rem;color:#d43f33;font-family:'JetBrains Mono';font-size:.8rem;", 4, "ngIf"], ["style", "text-align:center;padding:4rem;", 4, "ngIf"], ["class", "games-grid", 4, "ngIf"], ["style", "text-align:center;margin-top:3rem;", 4, "ngIf"], [1, "cta-banner"], [1, "cta-btns"], ["routerLink", "/register", 1, "btn-accent"], ["href", "#about", 2, "color", "rgba(255,255,255,.7)", "font-weight", "600", "padding", ".8rem", "text-decoration", "none", "border-bottom", "2px solid rgba(255,255,255,.3)", 3, "click"], ["id", "about", 1, "about-section"], [1, "about-img"], [1, "about-text"], [1, "about-meta"], [1, "footer-inner"], [2, "display", "flex", "align-items", "center", "gap", ".6rem", "margin-bottom", ".75rem"], ["src", "assets/logo_final.svg", "alt", "Logo", 2, "height", "40px", "width", "auto"], [2, "font-family", "'Crimson Pro',serif", "font-size", "1.3rem", "font-weight", "700", "color", "var(--ink)"], [2, "font-size", ".85rem", "color", "#66625f", "max-width", "240px"], ["routerLink", "/register"], ["routerLink", "/login"], [1, "footer-bottom"], [2, "font-family", "'JetBrains Mono'", "font-size", ".68rem"], [2, "text-align", "center", "padding", "4rem", "color", "#66625f", "font-family", "'JetBrains Mono'", "font-size", ".8rem", "letter-spacing", "1px"], [2, "text-align", "center", "padding", "4rem", "color", "#d43f33", "font-family", "'JetBrains Mono'", "font-size", ".8rem"], [2, "text-align", "center", "padding", "4rem"], [2, "font-family", "'JetBrains Mono'", "font-size", ".8rem", "color", "#66625f"], [2, "color", "#66625f", "margin-top", ".5rem", "font-size", ".9rem"], [1, "games-grid"], ["class", "game-card", 4, "ngFor", "ngForOf"], [1, "game-card"], [1, "card-img", 2, "padding", "0", "overflow", "hidden", "background", "#f5f0ea"], ["src", "assets/dosar_card.png", 2, "width", "100%", "height", "100%", "object-fit", "cover", "display", "block", 3, "alt"], [1, "card-physical-badge"], ["title", "Joc public in marketplace", 1, "listing-live-dot"], [1, "card-body"], [1, "card-creator"], [1, "card-title"], ["class", "card-price", 4, "ngIf"], [1, "card-desc"], [1, "card-footer"], [2, "font-family", "'JetBrains Mono'", "font-size", ".65rem", "color", "#d43f33", "letter-spacing", "1px"], ["routerLink", "/login", 1, "btn-card"], [1, "card-price"], [2, "text-align", "center", "margin-top", "3rem"], ["routerLink", "/login", 1, "btn-primary"]], template: function LandingComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _LandingComponent, selectors: [["app-landing"]], standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 259, vars: 8, consts: [[1, "fixed-logo-wrap"], ["src", "assets/logo_final.svg", "alt", "", 1, "fixed-logo-img"], ["routerLink", "/", 2, "display", "flex", "align-items", "center", "gap", ".75rem", "text-decoration", "none"], ["src", "assets/logo_final.svg", "alt", "The Investigation Logo", 2, "height", "52px", "width", "auto"], [2, "font-family", "'Crimson Pro',serif", "font-size", "1.3rem", "font-weight", "700", "color", "var(--ink)", "letter-spacing", "-0.5px"], [2, "color", "var(--accent)"], [1, "nav-links"], ["href", "#marketplace", 3, "click"], ["href", "#about", 3, "click"], ["routerLink", "/register", 1, "btn-primary"], [1, "hero"], [1, "hero-tag"], [1, "hero-cta"], ["href", "#marketplace", 1, "btn-primary", 3, "click"], ["href", "#how", 1, "btn-ghost", 3, "click"], [1, "badge-physical"], [1, "board"], [1, "board-topbar"], [1, "board-mono"], [1, "board-tag"], [1, "cork-area"], ["viewBox", "0 0 320 276", "fill", "none", 1, "cork-string"], ["d", "M 88 34 Q 150 8 164 100", "stroke", "#d43f33", "stroke-width", "2.2", "stroke-linecap", "round"], ["d", "M 166 102 L 231 160", "stroke", "#d43f33", "stroke-width", "2.2", "stroke-linecap", "round"], ["d", "M 90 32 L 235 14", "stroke", "#d43f33", "stroke-width", "1.6", "stroke-linecap", "round", "opacity", "0.78"], ["d", "M 90 38 L 320 170", "stroke", "#d43f33", "stroke-width", "1.4", "stroke-linecap", "round", "opacity", "0.55"], ["d", "M 86 40 L 0 276", "stroke", "#d43f33", "stroke-width", "1.3", "stroke-linecap", "round", "opacity", "0.45"], ["d", "M 162 102 L 4 8", "stroke", "#d43f33", "stroke-width", "1.5", "stroke-linecap", "round", "opacity", "0.7"], ["d", "M 168 104 L 320 82", "stroke", "#d43f33", "stroke-width", "1.5", "stroke-linecap", "round", "opacity", "0.65"], ["d", "M 170 106 L 320 276", "stroke", "#d43f33", "stroke-width", "1.3", "stroke-linecap", "round", "opacity", "0.5"], ["d", "M 162 106 L 0 136", "stroke", "#d43f33", "stroke-width", "1.3", "stroke-linecap", "round", "opacity", "0.5"], ["d", "M 233 158 L 188 0", "stroke", "#d43f33", "stroke-width", "1.5", "stroke-linecap", "round", "opacity", "0.72"], ["d", "M 229 162 L 0 198", "stroke", "#d43f33", "stroke-width", "1.4", "stroke-linecap", "round", "opacity", "0.6"], ["d", "M 228 165 L 0 276", "stroke", "#d43f33", "stroke-width", "1.3", "stroke-linecap", "round", "opacity", "0.5"], ["d", "M 235 156 L 320 0", "stroke", "#d43f33", "stroke-width", "1.2", "stroke-linecap", "round", "opacity", "0.42"], ["d", "M 0 20 L 320 245", "stroke", "#d43f33", "stroke-width", "1.1", "stroke-linecap", "round", "opacity", "0.32"], ["d", "M 320 30 L 10 270", "stroke", "#d43f33", "stroke-width", "1.1", "stroke-linecap", "round", "opacity", "0.28"], [1, "cork-fp"], [1, "cork-news"], [1, "news-head"], [1, "news-body"], [1, "cn", "cn-creator"], [1, "cork-pin", "pin-r"], [1, "node-lbl"], [1, "note-white", "rot-l"], [1, "cn", "cn-joc"], [1, "cork-pin", "pin-g"], [1, "note-white", "rot-r", 2, "min-width", "96px"], [2, "font-size", ".75rem", "color", "#d43f33", "font-weight", "700", "margin-bottom", "3px"], [2, "opacity", ".55", "font-size", ".5rem", "font-style", "italic"], [1, "cn", "cn-jucator"], [1, "cork-pin", "pin-d"], [1, "note-yellow", "rot-l"], [2, "font-size", ".82rem", "font-weight", "700", "color", "#1a1a1a"], [1, "cork-deco", "deco-fp"], [1, "cork-deco", "deco-key"], [1, "cork-deco", "deco-ev"], [1, "board-quote"], [1, "stats-bar"], [1, "stat"], [1, "stat-num"], [1, "stat-label"], ["id", "how", 1, "section"], [1, "section-label"], [1, "steps"], [1, "step"], [1, "step-num"], ["id", "marketplace", 1, "marketplace-section"], [1, "marketplace-inner"], [1, "marketplace-header"], [2, "font-family", "'Crimson Pro',serif", "font-size", "2.2rem", "margin", "0"], ["style", "text-align:center;padding:4rem;color:#66625f;font-family:'JetBrains Mono';font-size:.8rem;letter-spacing:1px;", 4, "ngIf"], ["style", "text-align:center;padding:4rem;color:#d43f33;font-family:'JetBrains Mono';font-size:.8rem;", 4, "ngIf"], ["style", "text-align:center;padding:4rem;", 4, "ngIf"], ["class", "games-grid", 4, "ngIf"], ["style", "text-align:center;margin-top:3rem;", 4, "ngIf"], [1, "cta-banner"], [1, "cta-btns"], ["routerLink", "/register", 1, "btn-accent"], ["href", "#about", 2, "color", "rgba(255,255,255,.7)", "font-weight", "600", "padding", ".8rem", "text-decoration", "none", "border-bottom", "2px solid rgba(255,255,255,.3)", 3, "click"], ["id", "about", 1, "about-section"], [1, "about-img"], [1, "about-text"], [1, "about-meta"], ["class", "detail-overlay", 3, "click", 4, "ngIf"], [1, "footer-inner"], [2, "display", "flex", "align-items", "center", "gap", ".6rem", "margin-bottom", ".75rem"], ["src", "assets/logo_final.svg", "alt", "Logo", 2, "height", "40px", "width", "auto"], [2, "font-family", "'Crimson Pro',serif", "font-size", "1.3rem", "font-weight", "700", "color", "var(--ink)"], [2, "font-size", ".85rem", "color", "#66625f", "max-width", "240px"], ["routerLink", "/register"], ["routerLink", "/login"], [1, "footer-bottom"], [2, "font-family", "'JetBrains Mono'", "font-size", ".68rem"], [2, "text-align", "center", "padding", "4rem", "color", "#66625f", "font-family", "'JetBrains Mono'", "font-size", ".8rem", "letter-spacing", "1px"], [2, "text-align", "center", "padding", "4rem", "color", "#d43f33", "font-family", "'JetBrains Mono'", "font-size", ".8rem"], [2, "text-align", "center", "padding", "4rem"], [2, "font-family", "'JetBrains Mono'", "font-size", ".8rem", "color", "#66625f"], [2, "color", "#66625f", "margin-top", ".5rem", "font-size", ".9rem"], [1, "games-grid"], ["class", "game-card", 4, "ngFor", "ngForOf"], [1, "game-card"], [1, "card-img", 2, "padding", "0", "overflow", "hidden", "background", "#f5f0ea"], ["src", "assets/dosar_card.png", 2, "width", "100%", "height", "100%", "object-fit", "cover", "display", "block", 3, "alt"], [1, "card-physical-badge"], ["title", "Joc public in marketplace", 1, "listing-live-dot"], [1, "card-body"], [1, "card-creator"], [1, "card-title"], ["class", "card-price", 4, "ngIf"], [1, "card-desc"], [1, "card-footer"], [2, "font-family", "'JetBrains Mono'", "font-size", ".65rem", "color", "#d43f33", "letter-spacing", "1px"], [1, "btn-card", 3, "click"], [1, "card-price"], [2, "text-align", "center", "margin-top", "3rem"], ["routerLink", "/login", 1, "btn-primary"], [1, "detail-overlay", 3, "click"], [1, "detail-dialog", 3, "click"], ["aria-label", "Inchide", 1, "detail-close", 3, "click"], ["width", "14", "height", "14", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M12 4L4 12M4 4l8 8", "stroke", "currentColor", "stroke-width", "1.5", "stroke-linecap", "round"], [1, "detail-cover"], ["src", "assets/dosar_card.png", 1, "detail-cover-img", 3, "alt"], [1, "detail-cover-badge"], [1, "detail-body"], [1, "detail-eyebrow"], [1, "detail-title"], [1, "detail-creator"], ["width", "11", "height", "11", "viewBox", "0 0 16 16", "fill", "none"], ["cx", "8", "cy", "5.5", "r", "3", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M2 15c0-2.7 2.7-4.5 6-4.5s6 1.8 6 4.5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["class", "detail-price", 4, "ngIf"], [1, "detail-stats"], [1, "detail-stat"], ["cx", "8", "cy", "5.5", "r", "3", "stroke", "currentColor", "stroke-width", "1.2"], ["d", "M2 15c0-2.7 2.7-4.5 6-4.5s6 1.8 6 4.5", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round"], [1, "detail-stat-sep"], ["x", "3", "y", "1", "width", "10", "height", "14", "rx", "2", "stroke", "currentColor", "stroke-width", "1.2"], ["cx", "8", "cy", "11", "r", "1", "fill", "currentColor"], ["x", "2", "y", "11", "width", "12", "height", "4", "rx", "1", "stroke", "currentColor", "stroke-width", "1.2"], ["x", "5", "y", "7", "width", "6", "height", "4", "stroke", "currentColor", "stroke-width", "1.2"], ["x", "6", "y", "1", "width", "4", "height", "6", "rx", "1", "stroke", "currentColor", "stroke-width", "1.2"], ["class", "detail-section", 4, "ngIf"], [1, "detail-cta"], ["routerLink", "/login", 1, "btn-detail-primary", 3, "click"], [1, "btn-detail-ghost", 3, "click"], [1, "detail-price"], [1, "detail-section"], [1, "detail-section-label"], [1, "detail-story"], [1, "detail-devices"], ["class", "detail-device-chip", 4, "ngFor", "ngForOf"], [1, "detail-device-chip", "chip-laptop"], ["width", "12", "height", "12", "viewBox", "0 0 16 16", "fill", "none"], ["x", "1", "y", "3", "width", "14", "height", "10", "rx", "1.5", "stroke", "currentColor", "stroke-width", "1.2"], ["d", "M0 13h16", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round"], [1, "detail-device-chip"]], template: function LandingComponent_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "div", 0);
       \u0275\u0275element(1, "img", 1);
@@ -2095,7 +2316,7 @@ var LandingComponent = class _LandingComponent {
       \u0275\u0275text(145, "Explorezi");
       \u0275\u0275elementEnd();
       \u0275\u0275elementStart(146, "p");
-      \u0275\u0275text(147, "Navighezi prin marketplace-ul de jocuri fizice create de studen\u021Bi. Fiecare joc e un univers g\xE2ndit de la zero.");
+      \u0275\u0275text(147, "Navighezi prin marketplace-ul de jocuri fizice create de studen\u021Bi. Fiecare joc e un univers g\xE2ndit de la zero. ");
       \u0275\u0275elementEnd()();
       \u0275\u0275elementStart(148, "div", 65)(149, "span", 66);
       \u0275\u0275text(150, "PASUL_02");
@@ -2104,16 +2325,16 @@ var LandingComponent = class _LandingComponent {
       \u0275\u0275text(152, "Achizi\u021Bionezi");
       \u0275\u0275elementEnd();
       \u0275\u0275elementStart(153, "p");
-      \u0275\u0275text(154, "Pl\u0103te\u0219ti direct creatorul. Prime\u0219ti fi\u0219ierele PDF optimizate pentru printare. Simplu, rapid, corect.");
+      \u0275\u0275text(154, "Pl\u0103te\u0219ti direct creatorul. Prime\u0219ti dosarul printat, in format fizic. Simplu, rapid, corect. ");
       \u0275\u0275elementEnd()();
       \u0275\u0275elementStart(155, "div", 65)(156, "span", 66);
       \u0275\u0275text(157, "PASUL_03");
       \u0275\u0275elementEnd();
       \u0275\u0275elementStart(158, "h3");
-      \u0275\u0275text(159, "Imprimi & Joci");
+      \u0275\u0275text(159, "Joci");
       \u0275\u0275elementEnd();
       \u0275\u0275elementStart(160, "p");
-      \u0275\u0275text(161, "Printezi, tai, asamblezi. \xCEn c\xE2teva minute ai pe mas\u0103 un joc creat de un student din Rom\xE2nia.");
+      \u0275\u0275text(161, "\xCEn c\xE2teva minute ai pe mas\u0103 un joc creat de un student din Rom\xE2nia.");
       \u0275\u0275elementEnd()()()();
       \u0275\u0275elementStart(162, "section", 67)(163, "div", 68)(164, "div", 69)(165, "div")(166, "span", 63);
       \u0275\u0275text(167, "// Pia\u021Ba de Jocuri");
@@ -2173,60 +2394,61 @@ var LandingComponent = class _LandingComponent {
       \u0275\u0275elementStart(210, "p");
       \u0275\u0275text(211, "DOMENIU: Web Development \xB7 Game Design \xB7 UX");
       \u0275\u0275elementEnd()()()();
-      \u0275\u0275elementStart(212, "footer")(213, "div", 84)(214, "div")(215, "div", 85);
-      \u0275\u0275element(216, "img", 86);
-      \u0275\u0275elementStart(217, "span", 87);
-      \u0275\u0275text(218, "THE ");
-      \u0275\u0275elementStart(219, "span", 5);
-      \u0275\u0275text(220, "INVESTIGATION");
+      \u0275\u0275template(212, LandingComponent_div_212_Template, 55, 10, "div", 84);
+      \u0275\u0275elementStart(213, "footer")(214, "div", 85)(215, "div")(216, "div", 86);
+      \u0275\u0275element(217, "img", 87);
+      \u0275\u0275elementStart(218, "span", 88);
+      \u0275\u0275text(219, "THE ");
+      \u0275\u0275elementStart(220, "span", 5);
+      \u0275\u0275text(221, "INVESTIGATION");
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(221, "p", 88);
-      \u0275\u0275text(222, "Marketplace de jocuri fizice Print & Play, create de studen\u021Bi din Rom\xE2nia.");
+      \u0275\u0275elementStart(222, "p", 89);
+      \u0275\u0275text(223, "Marketplace de jocuri fizice Print & Play, create de studen\u021Bi din Rom\xE2nia.");
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(223, "div")(224, "h4");
-      \u0275\u0275text(225, "Marketplace");
+      \u0275\u0275elementStart(224, "div")(225, "h4");
+      \u0275\u0275text(226, "Marketplace");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(226, "ul")(227, "li")(228, "a", 7);
-      \u0275\u0275listener("click", function LandingComponent_Template_a_click_228_listener($event) {
+      \u0275\u0275elementStart(227, "ul")(228, "li")(229, "a", 7);
+      \u0275\u0275listener("click", function LandingComponent_Template_a_click_229_listener($event) {
         return ctx.scrollTo("marketplace", $event);
       });
-      \u0275\u0275text(229, "Toate Jocurile");
+      \u0275\u0275text(230, "Toate Jocurile");
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(230, "li")(231, "a", 7);
-      \u0275\u0275listener("click", function LandingComponent_Template_a_click_231_listener($event) {
+      \u0275\u0275elementStart(231, "li")(232, "a", 7);
+      \u0275\u0275listener("click", function LandingComponent_Template_a_click_232_listener($event) {
         return ctx.scrollTo("marketplace", $event);
       });
-      \u0275\u0275text(232, "Mister & Investigatie");
+      \u0275\u0275text(233, "Mister & Investigatie");
       \u0275\u0275elementEnd()()()();
-      \u0275\u0275elementStart(233, "div")(234, "h4");
-      \u0275\u0275text(235, "Creatori");
+      \u0275\u0275elementStart(234, "div")(235, "h4");
+      \u0275\u0275text(236, "Creatori");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(236, "ul")(237, "li")(238, "a", 89);
-      \u0275\u0275text(239, "Cum Incarc un joc?");
+      \u0275\u0275elementStart(237, "ul")(238, "li")(239, "a", 90);
+      \u0275\u0275text(240, "Cum Incarc un joc?");
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(240, "li")(241, "a", 90);
-      \u0275\u0275text(242, "Intr\u0103 \xEEn cont");
+      \u0275\u0275elementStart(241, "li")(242, "a", 91);
+      \u0275\u0275text(243, "Intr\u0103 \xEEn cont");
       \u0275\u0275elementEnd()()()();
-      \u0275\u0275elementStart(243, "div")(244, "h4");
-      \u0275\u0275text(245, "Info");
+      \u0275\u0275elementStart(244, "div")(245, "h4");
+      \u0275\u0275text(246, "Info");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(246, "ul")(247, "li")(248, "a", 8);
-      \u0275\u0275listener("click", function LandingComponent_Template_a_click_248_listener($event) {
+      \u0275\u0275elementStart(247, "ul")(248, "li")(249, "a", 8);
+      \u0275\u0275listener("click", function LandingComponent_Template_a_click_249_listener($event) {
         return ctx.scrollTo("about", $event);
       });
-      \u0275\u0275text(249, "Despre Proiect");
+      \u0275\u0275text(250, "Despre Proiect");
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(250, "li")(251, "a", 8);
-      \u0275\u0275listener("click", function LandingComponent_Template_a_click_251_listener($event) {
+      \u0275\u0275elementStart(251, "li")(252, "a", 8);
+      \u0275\u0275listener("click", function LandingComponent_Template_a_click_252_listener($event) {
         return ctx.scrollTo("about", $event);
       });
-      \u0275\u0275text(252, "UNITBV");
+      \u0275\u0275text(253, "UNITBV");
       \u0275\u0275elementEnd()()()()();
-      \u0275\u0275elementStart(253, "div", 91)(254, "p");
-      \u0275\u0275text(255, "\xA9 2026 The Investigation \xB7 Proiect Licenta UNITBV \xB7 Toate drepturile rezervate");
+      \u0275\u0275elementStart(254, "div", 92)(255, "p");
+      \u0275\u0275text(256, "\xA9 2026 The Investigation \xB7 Proiect Licenta UNITBV \xB7 Toate drepturile rezervate");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(256, "p", 92);
-      \u0275\u0275text(257, "LOCALITATE: BRASOV, RO");
+      \u0275\u0275elementStart(257, "p", 93);
+      \u0275\u0275text(258, "LOCALITATE: BRASOV, RO");
       \u0275\u0275elementEnd()()();
     }
     if (rf & 2) {
@@ -2244,8 +2466,10 @@ var LandingComponent = class _LandingComponent {
       \u0275\u0275property("ngIf", !ctx.gamesLoading && !ctx.gamesError && ctx.games.length > 0);
       \u0275\u0275advance();
       \u0275\u0275property("ngIf", !ctx.gamesLoading && !ctx.gamesError && ctx.games.length > 0);
+      \u0275\u0275advance(38);
+      \u0275\u0275property("ngIf", ctx.selectedGame);
     }
-  }, dependencies: [CommonModule, NgForOf, NgIf, RouterModule, RouterLink], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n  --paper: #fcfaf7;\n  --ink: #1a1a1a;\n  --accent: #d43f33;\n  --muted: #66625f;\n  --border: #e2deda;\n  --gold: #c8922a;\n  background: var(--paper);\n  color: var(--ink);\n  font-family: "Public Sans", sans-serif;\n  line-height: 1.6;\n}\n*[_ngcontent-%COMP%] {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n.fixed-logo-wrap[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  pointer-events: none;\n  z-index: 500;\n  mix-blend-mode: screen;\n}\n.fixed-logo-img[_ngcontent-%COMP%] {\n  width: min(95vw, 95vh);\n  height: min(95vw, 95vh);\n  object-fit: contain;\n  filter: invert(1);\n  opacity: 0.13;\n  animation: _ngcontent-%COMP%_logoBreath 8s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_logoBreath {\n  0%, 100% {\n    opacity: 0.11;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.16;\n    transform: scale(1.015);\n  }\n}\nnav[_ngcontent-%COMP%] {\n  padding: 1.8rem 4rem;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border-bottom: 1px solid var(--border);\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 2rem;\n  align-items: center;\n}\n.nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: var(--muted);\n  font-size: 0.9rem;\n  transition: color 0.2s;\n}\n.nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  color: var(--ink);\n}\n.btn-primary[_ngcontent-%COMP%] {\n  background: var(--ink);\n  color: #fff;\n  padding: 0.8rem 1.8rem;\n  text-decoration: none;\n  font-weight: 600;\n  border: 2px solid var(--ink);\n  transition: all 0.25s;\n  cursor: pointer;\n  font-family: "Public Sans";\n  font-size: 0.95rem;\n  display: inline-block;\n}\n.btn-primary[_ngcontent-%COMP%]:hover {\n  background: var(--accent);\n  border-color: var(--accent);\n}\n.btn-accent[_ngcontent-%COMP%] {\n  background: var(--accent);\n  color: #fff;\n  padding: 0.8rem 1.8rem;\n  text-decoration: none;\n  font-weight: 600;\n  border: 2px solid var(--accent);\n  transition: all 0.25s;\n  display: inline-block;\n}\n.btn-accent[_ngcontent-%COMP%]:hover {\n  background: var(--ink);\n  border-color: var(--ink);\n}\n.btn-ghost[_ngcontent-%COMP%] {\n  color: var(--ink);\n  font-weight: 600;\n  padding: 0.8rem 0;\n  text-decoration: none;\n  border-bottom: 2px solid transparent;\n  transition: border-color 0.2s;\n}\n.btn-ghost[_ngcontent-%COMP%]:hover {\n  border-color: var(--accent);\n}\n.btn-card[_ngcontent-%COMP%] {\n  background: var(--ink);\n  color: #fff;\n  border: none;\n  padding: 0.55rem 1.1rem;\n  font-size: 0.8rem;\n  cursor: pointer;\n  font-family: "Public Sans";\n  font-weight: 600;\n  transition: background 0.2s;\n  text-decoration: none;\n}\n.btn-card[_ngcontent-%COMP%]:hover {\n  background: var(--accent);\n}\n.hero[_ngcontent-%COMP%] {\n  padding: 7rem 4rem;\n  max-width: 1200px;\n  margin: 0 auto;\n  display: grid;\n  grid-template-columns: 1.2fr 0.8fr;\n  gap: 4rem;\n  align-items: center;\n}\n.hero-tag[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono";\n  color: var(--accent);\n  font-size: 0.75rem;\n  margin-bottom: 1rem;\n  display: block;\n}\n.hero[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: clamp(2.8rem, 5.5vw, 4.2rem);\n  line-height: 1.05;\n  margin-bottom: 1.5rem;\n  font-weight: 700;\n}\n.hero[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%]   em[_ngcontent-%COMP%] {\n  font-style: italic;\n  text-decoration: underline;\n  text-decoration-color: var(--accent);\n  text-underline-offset: 8px;\n}\n.hero[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 1.15rem;\n  color: var(--muted);\n  max-width: 480px;\n  margin-bottom: 2rem;\n}\n.hero-cta[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 1.5rem;\n  align-items: center;\n  flex-wrap: wrap;\n}\n.badge-physical[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  background: #fff;\n  border: 1px solid var(--border);\n  padding: 0.5rem 1rem;\n  font-size: 0.78rem;\n  font-family: "JetBrains Mono";\n  margin-top: 1.5rem;\n}\n.badge-physical[_ngcontent-%COMP%]::before {\n  content: "\\1f5c2";\n  font-size: 1rem;\n}\n.board[_ngcontent-%COMP%] {\n  position: relative;\n  background-color: #c9a76b;\n  background-image:\n    radial-gradient(\n      ellipse at 18% 25%,\n      rgba(140, 95, 30, 0.35) 0%,\n      transparent 55%),\n    radial-gradient(\n      ellipse at 82% 68%,\n      rgba(160, 110, 40, 0.3) 0%,\n      transparent 50%),\n    repeating-radial-gradient(\n      circle at 25% 40%,\n      rgba(110, 75, 20, 0.12) 0px,\n      rgba(110, 75, 20, 0.12) 1px,\n      transparent 1px,\n      transparent 9px);\n  border: 6px solid #7a5921;\n  box-shadow:\n    inset 0 0 50px rgba(0, 0, 0, 0.22),\n    10px 10px 0 rgba(0, 0, 0, 0.18),\n    18px 18px 0 rgba(0, 0, 0, 0.07);\n  transform: rotate(1deg);\n  padding: 0;\n  overflow: hidden;\n  border-radius: 3px;\n}\n.board-topbar[_ngcontent-%COMP%] {\n  background: rgba(248, 244, 235, 0.96);\n  padding: 9px 14px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border-bottom: 2px solid rgba(0, 0, 0, 0.13);\n}\n.board-mono[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono";\n  font-size: 0.62rem;\n  color: var(--muted);\n  letter-spacing: 0.5px;\n}\n.board-tag[_ngcontent-%COMP%] {\n  background: var(--accent);\n  color: #fff;\n  padding: 3px 10px;\n  font-size: 0.6rem;\n  font-family: "JetBrains Mono";\n  letter-spacing: 1.5px;\n  font-weight: 700;\n}\n.cork-area[_ngcontent-%COMP%] {\n  position: relative;\n  height: 276px;\n  overflow: hidden;\n}\n.cork-string[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  pointer-events: none;\n}\n.cork-deco[_ngcontent-%COMP%] {\n  position: absolute;\n  z-index: 1;\n  -webkit-user-select: none;\n  user-select: none;\n}\n.deco-fp[_ngcontent-%COMP%] {\n  top: 6px;\n  left: 68%;\n  font-size: 2rem;\n  opacity: 0.18;\n  filter: grayscale(1);\n}\n.deco-key[_ngcontent-%COMP%] {\n  bottom: 12px;\n  right: 4px;\n  font-size: 1.4rem;\n  opacity: 0.22;\n  transform: rotate(-22deg);\n}\n.deco-ev[_ngcontent-%COMP%] {\n  bottom: 6px;\n  left: 4px;\n  background: rgba(254, 240, 138, 0.9);\n  font-family: "JetBrains Mono";\n  font-size: 0.5rem;\n  padding: 5px 7px;\n  color: #555;\n  transform: rotate(3deg);\n  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);\n  border: 1px solid rgba(0, 0, 0, 0.06);\n}\n.cork-news[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 8px;\n  right: 8px;\n  z-index: 3;\n  background: #f7f4ee;\n  width: 90px;\n  padding: 6px 7px;\n  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);\n  transform: rotate(1.5deg);\n  border: 1px solid rgba(0, 0, 0, 0.07);\n}\n.news-head[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 0.95rem;\n  font-weight: 700;\n  border-bottom: 2px solid var(--ink);\n  margin-bottom: 3px;\n  padding-bottom: 1px;\n}\n.news-body[_ngcontent-%COMP%] {\n  font-size: 0.5rem;\n  line-height: 1.5;\n  color: var(--muted);\n  font-family: "JetBrains Mono";\n}\n.cork-fp[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 6px;\n  left: 6px;\n  z-index: 3;\n  width: 48px;\n  height: 48px;\n  background: rgba(240, 235, 225, 0.9);\n  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);\n  transform: rotate(-4deg);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.8rem;\n}\n.cn[_ngcontent-%COMP%] {\n  position: absolute;\n  z-index: 3;\n}\n.cn-creator[_ngcontent-%COMP%] {\n  top: 30px;\n  left: 26px;\n}\n.cn-joc[_ngcontent-%COMP%] {\n  top: 100px;\n  left: 37%;\n}\n.cn-jucator[_ngcontent-%COMP%] {\n  top: 158px;\n  left: 58%;\n}\n.node-lbl[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono";\n  font-size: 0.62rem;\n  font-weight: 700;\n  color: var(--ink);\n  margin-bottom: 5px;\n  letter-spacing: 0.5px;\n  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);\n}\n.cork-pin[_ngcontent-%COMP%] {\n  width: 13px;\n  height: 13px;\n  border-radius: 50%;\n  position: absolute;\n  top: -7px;\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 5;\n  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.55), inset 0 1px 2px rgba(255, 255, 255, 0.35);\n}\n.cork-pin[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: -5px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 3px;\n  height: 6px;\n  background: inherit;\n  filter: brightness(0.65);\n  border-radius: 0 0 2px 2px;\n}\n.pin-r[_ngcontent-%COMP%] {\n  background:\n    radial-gradient(\n      circle at 35% 30%,\n      #ff7070,\n      #d43f33);\n}\n.pin-g[_ngcontent-%COMP%] {\n  background:\n    radial-gradient(\n      circle at 35% 30%,\n      #ffd060,\n      #c8922a);\n}\n.pin-d[_ngcontent-%COMP%] {\n  background:\n    radial-gradient(\n      circle at 35% 30%,\n      #666,\n      #1a1a1a);\n}\n.note-white[_ngcontent-%COMP%] {\n  background: #fff;\n  border: 1px solid rgba(0, 0, 0, 0.09);\n  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.22);\n  padding: 8px 10px;\n  font-family: "JetBrains Mono";\n  font-size: 0.55rem;\n  color: var(--ink);\n  line-height: 1.8;\n  min-width: 108px;\n  background-image:\n    repeating-linear-gradient(\n      transparent,\n      transparent 18px,\n      rgba(99, 160, 220, 0.12) 18px,\n      rgba(99, 160, 220, 0.12) 19px);\n}\n.note-yellow[_ngcontent-%COMP%] {\n  background: #fef08a;\n  border: 1px solid rgba(0, 0, 0, 0.07);\n  box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.22);\n  padding: 9px 11px;\n  font-family: "JetBrains Mono";\n  font-size: 0.58rem;\n  color: #333;\n  line-height: 1.7;\n}\n.rot-l[_ngcontent-%COMP%] {\n  transform: rotate(-3deg);\n}\n.rot-r[_ngcontent-%COMP%] {\n  transform: rotate(2.5deg);\n}\n.board-quote[_ngcontent-%COMP%] {\n  background: rgba(248, 244, 235, 0.97);\n  padding: 9px 14px;\n  border-top: 1px solid rgba(0, 0, 0, 0.12);\n  font-size: 0.78rem;\n  font-style: italic;\n  color: var(--muted);\n}\n.stats-bar[_ngcontent-%COMP%] {\n  background: var(--ink);\n  color: #fff;\n  padding: 4rem;\n  display: flex;\n  justify-content: center;\n  gap: 5rem;\n  flex-wrap: wrap;\n  position: relative;\n}\n.stat[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.stat-num[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 2.2rem;\n  font-weight: 700;\n  display: block;\n}\n.stat-label[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-family: "JetBrains Mono";\n  opacity: 0.6;\n  letter-spacing: 1px;\n}\n.section[_ngcontent-%COMP%] {\n  padding: 6rem 4rem;\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.section-label[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono";\n  font-size: 0.72rem;\n  color: var(--accent);\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  display: block;\n  margin-bottom: 1rem;\n}\n.section[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: clamp(2rem, 4vw, 3rem);\n  margin-bottom: 3rem;\n  font-weight: 700;\n}\n.section[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%]   em[_ngcontent-%COMP%] {\n  font-style: italic;\n  text-decoration: underline;\n  text-decoration-color: var(--accent);\n  text-underline-offset: 6px;\n}\n.steps[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0;\n  border: 1px solid var(--ink);\n}\n.step[_ngcontent-%COMP%] {\n  padding: 2.5rem;\n  border: 1px solid var(--ink);\n}\n.step[_ngcontent-%COMP%]:nth-child(even) {\n  background: var(--ink);\n  color: #fff;\n}\n.step-num[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono";\n  font-size: 0.7rem;\n  color: var(--accent);\n  margin-bottom: 1rem;\n  display: block;\n}\n.step[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 1.6rem;\n  margin-bottom: 0.8rem;\n}\n.step[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  opacity: 0.8;\n}\n.marketplace-section[_ngcontent-%COMP%] {\n  padding: 6rem 4rem;\n  background: #f5f2ee;\n  border-top: 1px solid var(--border);\n}\n.marketplace-inner[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.marketplace-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: flex-end;\n  margin-bottom: 3rem;\n  flex-wrap: wrap;\n  gap: 1rem;\n}\n.games-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.5rem;\n}\n.game-card[_ngcontent-%COMP%] {\n  background: #fff;\n  border: 1px solid var(--border);\n  transition: transform 0.25s, box-shadow 0.25s;\n  position: relative;\n  overflow: hidden;\n}\n.game-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: 8px 8px 0 var(--border);\n}\n.card-img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  background:\n    linear-gradient(\n      135deg,\n      #e8e4df,\n      #d4cfc9);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 3rem;\n  position: relative;\n}\n.card-physical-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 10px;\n  left: 10px;\n  background: var(--ink);\n  color: #fff;\n  font-size: 0.65rem;\n  font-family: "JetBrains Mono";\n  padding: 3px 8px;\n  letter-spacing: 0.5px;\n}\n.listing-live-dot[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  background: #3d8b55;\n  box-shadow: 0 0 0 3px rgba(61, 139, 85, 0.4);\n  z-index: 2;\n  animation: _ngcontent-%COMP%_livePulse 2.2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_livePulse {\n  0%, 100% {\n    box-shadow: 0 0 0 3px rgba(61, 139, 85, 0.4);\n    transform: scale(1);\n  }\n  50% {\n    box-shadow: 0 0 0 7px rgba(61, 139, 85, 0.12);\n    transform: scale(1.05);\n  }\n}\n.card-body[_ngcontent-%COMP%] {\n  padding: 1.25rem;\n}\n.card-creator[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  font-family: "JetBrains Mono";\n  color: var(--muted);\n  margin-bottom: 0.4rem;\n}\n.card-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 1.3rem;\n  font-weight: 700;\n  margin-bottom: 0.35rem;\n  line-height: 1.2;\n}\n.card-price[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 0.72rem;\n  color: var(--accent);\n  letter-spacing: 0.5px;\n  margin-bottom: 0.5rem;\n  font-weight: 600;\n}\n.card-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--muted);\n  margin-bottom: 1rem;\n  line-height: 1.5;\n}\n.card-footer[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding-top: 0.75rem;\n  border-top: 1px solid var(--border);\n}\n.cta-banner[_ngcontent-%COMP%] {\n  background: var(--ink);\n  color: #fff;\n  padding: 6rem 4rem;\n  text-align: center;\n  position: relative;\n  overflow: hidden;\n}\n.cta-banner[_ngcontent-%COMP%]::before {\n  content: "// DOSAR DESCHIS";\n  font-family: "JetBrains Mono";\n  font-size: 0.65rem;\n  color: var(--accent);\n  letter-spacing: 2px;\n  display: block;\n  margin-bottom: 1.5rem;\n}\n.cta-banner[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: clamp(2rem, 5vw, 3.5rem);\n  margin-bottom: 1rem;\n}\n.cta-banner[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.65);\n  max-width: 500px;\n  margin: 0 auto 2.5rem;\n}\n.cta-btns[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 1.5rem;\n  justify-content: center;\n  flex-wrap: wrap;\n}\n.about-section[_ngcontent-%COMP%] {\n  padding: 7rem 4rem;\n  max-width: 1200px;\n  margin: 0 auto;\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 5rem;\n  align-items: center;\n}\n.about-img[_ngcontent-%COMP%] {\n  width: 100%;\n  aspect-ratio: 4/3;\n  background: #e8e4df;\n  border: 1px solid var(--border);\n  box-shadow: 10px 10px 0 var(--border);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 5rem;\n}\n.about-text[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 2.4rem;\n  margin-bottom: 1.5rem;\n  font-weight: 700;\n}\n.about-text[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--muted);\n  margin-bottom: 1.2rem;\n  font-size: 0.95rem;\n}\n.about-text[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: var(--ink);\n}\n.about-meta[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  padding: 1.5rem;\n  border: 1px solid var(--border);\n  background: #fff;\n}\n.about-meta[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  font-family: "JetBrains Mono";\n  color: var(--muted);\n  margin: 0;\n}\n.about-meta[_ngcontent-%COMP%]   p[_ngcontent-%COMP%]    + p[_ngcontent-%COMP%] {\n  margin-top: 0.4rem;\n}\nfooter[_ngcontent-%COMP%] {\n  background: #f0ede9;\n  padding: 4rem;\n  border-top: 1px solid var(--border);\n}\n.footer-inner[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  display: grid;\n  grid-template-columns: 2fr 1fr 1fr 1fr;\n  gap: 3rem;\n}\nfooter[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 1.1rem;\n  margin-bottom: 1rem;\n}\nfooter[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%] {\n  list-style: none;\n}\nfooter[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  margin-bottom: 0.5rem;\n}\nfooter[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  color: var(--muted);\n  text-decoration: none;\n  font-size: 0.88rem;\n  transition: color 0.2s;\n}\nfooter[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  color: var(--ink);\n}\n.footer-bottom[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 3rem auto 0;\n  padding-top: 2rem;\n  border-top: 1px solid var(--border);\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 1rem;\n}\n.footer-bottom[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-family: "JetBrains Mono";\n  color: var(--muted);\n}\n[_nghost-%COMP%] {\n  overflow-x: hidden;\n  display: block;\n}\n*[_ngcontent-%COMP%] {\n  max-width: 100%;\n}\n@media (max-width: 900px) {\n  nav[_ngcontent-%COMP%] {\n    padding: 1.2rem 1.5rem;\n  }\n  .nav-links[_ngcontent-%COMP%] {\n    gap: 1.2rem;\n  }\n  .nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n    font-size: 0.82rem;\n  }\n  .btn-primary[_ngcontent-%COMP%] {\n    padding: 0.65rem 1.2rem;\n    font-size: 0.85rem;\n  }\n  .hero[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    padding: 3.5rem 1.5rem;\n    gap: 2.5rem;\n  }\n  .board[_ngcontent-%COMP%] {\n    transform: none;\n  }\n  .stats-bar[_ngcontent-%COMP%] {\n    gap: 2rem;\n    padding: 2.5rem 1.5rem;\n  }\n  .section[_ngcontent-%COMP%], \n   .marketplace-section[_ngcontent-%COMP%], \n   .cta-banner[_ngcontent-%COMP%], \n   .about-section[_ngcontent-%COMP%] {\n    padding: 4rem 1.5rem;\n  }\n  .steps[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .about-section[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 2.5rem;\n  }\n  .about-img[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .footer-inner[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr 1fr;\n    gap: 2rem;\n  }\n  .footer-bottom[_ngcontent-%COMP%] {\n    flex-direction: column;\n    text-align: center;\n  }\n  footer[_ngcontent-%COMP%] {\n    padding: 3rem 1.5rem;\n  }\n}\n@media (max-width: 600px) {\n  nav[_ngcontent-%COMP%] {\n    padding: 0.9rem 1rem;\n    flex-wrap: wrap;\n    gap: 0.6rem;\n  }\n  nav[_ngcontent-%COMP%]    > a[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n    height: 36px;\n  }\n  nav[_ngcontent-%COMP%]    > a[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n    font-size: 1rem;\n  }\n  .nav-links[_ngcontent-%COMP%] {\n    width: 100%;\n    flex-direction: column;\n    align-items: stretch;\n    gap: 0.5rem;\n    order: 3;\n    border-top: 1px solid var(--border);\n    padding-top: 0.75rem;\n  }\n  .nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n    font-size: 0.88rem;\n    padding: 0.4rem 0;\n  }\n  .nav-links[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n    text-align: center;\n    padding: 0.75rem;\n    font-size: 0.88rem;\n  }\n  .hero[_ngcontent-%COMP%] {\n    padding: 2.5rem 1rem;\n    gap: 2rem;\n  }\n  .hero[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n    font-size: clamp(2rem, 8vw, 2.8rem);\n  }\n  .hero[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n    font-size: 1rem;\n  }\n  .hero-cta[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n    gap: 1rem;\n  }\n  .badge-physical[_ngcontent-%COMP%] {\n    font-size: 0.7rem;\n  }\n  .board[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .stats-bar[_ngcontent-%COMP%] {\n    padding: 2rem 1rem;\n    gap: 1.5rem;\n  }\n  .stat-num[_ngcontent-%COMP%] {\n    font-size: 1.7rem;\n  }\n  .stat-label[_ngcontent-%COMP%] {\n    font-size: 0.65rem;\n  }\n  .section[_ngcontent-%COMP%] {\n    padding: 3rem 1rem;\n  }\n  .steps[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    border: none;\n    gap: 0;\n  }\n  .step[_ngcontent-%COMP%] {\n    border: none;\n    border-bottom: 1px solid var(--ink);\n    padding: 1.8rem 1rem;\n  }\n  .step[_ngcontent-%COMP%]:last-child {\n    border-bottom: none;\n  }\n  .marketplace-section[_ngcontent-%COMP%] {\n    padding: 3rem 1rem;\n  }\n  .games-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 1rem;\n  }\n  .card-img[_ngcontent-%COMP%] {\n    height: 160px;\n  }\n  .cta-banner[_ngcontent-%COMP%] {\n    padding: 4rem 1rem;\n  }\n  .cta-btns[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: center;\n  }\n  .about-section[_ngcontent-%COMP%] {\n    padding: 3rem 1rem;\n    grid-template-columns: 1fr;\n  }\n  .about-img[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .about-text[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n    font-size: 1.8rem;\n  }\n  .about-meta[_ngcontent-%COMP%] {\n    padding: 1rem;\n  }\n  footer[_ngcontent-%COMP%] {\n    padding: 2.5rem 1rem;\n  }\n  .footer-inner[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 1.5rem;\n  }\n  .footer-bottom[_ngcontent-%COMP%] {\n    flex-direction: column;\n    text-align: center;\n    gap: 0.5rem;\n    margin-top: 1.5rem;\n  }\n  .footer-bottom[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n    font-size: 0.68rem;\n  }\n}\n/*# sourceMappingURL=landing.component.css.map */'] });
+  }, dependencies: [CommonModule, NgForOf, NgIf, RouterModule, RouterLink], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n  --paper: #fcfaf7;\n  --ink: #1a1a1a;\n  --accent: #d43f33;\n  --muted: #66625f;\n  --border: #e2deda;\n  --gold: #c8922a;\n  background: var(--paper);\n  color: var(--ink);\n  font-family: "Public Sans", sans-serif;\n  line-height: 1.6;\n}\n*[_ngcontent-%COMP%] {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n.fixed-logo-wrap[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  pointer-events: none;\n  z-index: 500;\n  mix-blend-mode: screen;\n}\n.fixed-logo-img[_ngcontent-%COMP%] {\n  width: min(95vw, 95vh);\n  height: min(95vw, 95vh);\n  object-fit: contain;\n  filter: invert(1);\n  opacity: 0.13;\n  animation: _ngcontent-%COMP%_logoBreath 8s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_logoBreath {\n  0%, 100% {\n    opacity: 0.11;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.16;\n    transform: scale(1.015);\n  }\n}\nnav[_ngcontent-%COMP%] {\n  padding: 1.8rem 4rem;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border-bottom: 1px solid var(--border);\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 2rem;\n  align-items: center;\n}\n.nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: var(--muted);\n  font-size: 0.9rem;\n  transition: color 0.2s;\n}\n.nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  color: var(--ink);\n}\n.btn-primary[_ngcontent-%COMP%] {\n  background: var(--ink);\n  color: #fff;\n  padding: 0.8rem 1.8rem;\n  text-decoration: none;\n  font-weight: 600;\n  border: 2px solid var(--ink);\n  transition: all 0.25s;\n  cursor: pointer;\n  font-family: "Public Sans";\n  font-size: 0.95rem;\n  display: inline-block;\n}\n.btn-primary[_ngcontent-%COMP%]:hover {\n  background: var(--accent);\n  border-color: var(--accent);\n}\n.btn-accent[_ngcontent-%COMP%] {\n  background: var(--accent);\n  color: #fff;\n  padding: 0.8rem 1.8rem;\n  text-decoration: none;\n  font-weight: 600;\n  border: 2px solid var(--accent);\n  transition: all 0.25s;\n  display: inline-block;\n}\n.btn-accent[_ngcontent-%COMP%]:hover {\n  background: var(--ink);\n  border-color: var(--ink);\n}\n.btn-ghost[_ngcontent-%COMP%] {\n  color: var(--ink);\n  font-weight: 600;\n  padding: 0.8rem 0;\n  text-decoration: none;\n  border-bottom: 2px solid transparent;\n  transition: border-color 0.2s;\n}\n.btn-ghost[_ngcontent-%COMP%]:hover {\n  border-color: var(--accent);\n}\n.btn-card[_ngcontent-%COMP%] {\n  background: var(--ink);\n  color: #fff;\n  border: none;\n  padding: 0.55rem 1.1rem;\n  font-size: 0.8rem;\n  cursor: pointer;\n  font-family: "Public Sans";\n  font-weight: 600;\n  transition: background 0.2s;\n  text-decoration: none;\n}\n.btn-card[_ngcontent-%COMP%]:hover {\n  background: var(--accent);\n}\n.hero[_ngcontent-%COMP%] {\n  padding: 7rem 4rem;\n  max-width: 1200px;\n  margin: 0 auto;\n  display: grid;\n  grid-template-columns: 1.2fr 0.8fr;\n  gap: 4rem;\n  align-items: center;\n}\n.hero-tag[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono";\n  color: var(--accent);\n  font-size: 0.75rem;\n  margin-bottom: 1rem;\n  display: block;\n}\n.hero[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: clamp(2.8rem, 5.5vw, 4.2rem);\n  line-height: 1.05;\n  margin-bottom: 1.5rem;\n  font-weight: 700;\n}\n.hero[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%]   em[_ngcontent-%COMP%] {\n  font-style: italic;\n  text-decoration: underline;\n  text-decoration-color: var(--accent);\n  text-underline-offset: 8px;\n}\n.hero[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 1.15rem;\n  color: var(--muted);\n  max-width: 480px;\n  margin-bottom: 2rem;\n}\n.hero-cta[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 1.5rem;\n  align-items: center;\n  flex-wrap: wrap;\n}\n.badge-physical[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  background: #fff;\n  border: 1px solid var(--border);\n  padding: 0.5rem 1rem;\n  font-size: 0.78rem;\n  font-family: "JetBrains Mono";\n  margin-top: 1.5rem;\n}\n.badge-physical[_ngcontent-%COMP%]::before {\n  content: "\\1f5c2";\n  font-size: 1rem;\n}\n.board[_ngcontent-%COMP%] {\n  position: relative;\n  background-color: #c9a76b;\n  background-image:\n    radial-gradient(\n      ellipse at 18% 25%,\n      rgba(140, 95, 30, 0.35) 0%,\n      transparent 55%),\n    radial-gradient(\n      ellipse at 82% 68%,\n      rgba(160, 110, 40, 0.3) 0%,\n      transparent 50%),\n    repeating-radial-gradient(\n      circle at 25% 40%,\n      rgba(110, 75, 20, 0.12) 0px,\n      rgba(110, 75, 20, 0.12) 1px,\n      transparent 1px,\n      transparent 9px);\n  border: 6px solid #7a5921;\n  box-shadow:\n    inset 0 0 50px rgba(0, 0, 0, 0.22),\n    10px 10px 0 rgba(0, 0, 0, 0.18),\n    18px 18px 0 rgba(0, 0, 0, 0.07);\n  transform: rotate(1deg);\n  padding: 0;\n  overflow: hidden;\n  border-radius: 3px;\n}\n.board-topbar[_ngcontent-%COMP%] {\n  background: rgba(248, 244, 235, 0.96);\n  padding: 9px 14px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border-bottom: 2px solid rgba(0, 0, 0, 0.13);\n}\n.board-mono[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono";\n  font-size: 0.62rem;\n  color: var(--muted);\n  letter-spacing: 0.5px;\n}\n.board-tag[_ngcontent-%COMP%] {\n  background: var(--accent);\n  color: #fff;\n  padding: 3px 10px;\n  font-size: 0.6rem;\n  font-family: "JetBrains Mono";\n  letter-spacing: 1.5px;\n  font-weight: 700;\n}\n.cork-area[_ngcontent-%COMP%] {\n  position: relative;\n  height: 276px;\n  overflow: hidden;\n}\n.cork-string[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  pointer-events: none;\n}\n.cork-deco[_ngcontent-%COMP%] {\n  position: absolute;\n  z-index: 1;\n  -webkit-user-select: none;\n  user-select: none;\n}\n.deco-fp[_ngcontent-%COMP%] {\n  top: 6px;\n  left: 68%;\n  font-size: 2rem;\n  opacity: 0.18;\n  filter: grayscale(1);\n}\n.deco-key[_ngcontent-%COMP%] {\n  bottom: 12px;\n  right: 4px;\n  font-size: 1.4rem;\n  opacity: 0.22;\n  transform: rotate(-22deg);\n}\n.deco-ev[_ngcontent-%COMP%] {\n  bottom: 6px;\n  left: 4px;\n  background: rgba(254, 240, 138, 0.9);\n  font-family: "JetBrains Mono";\n  font-size: 0.5rem;\n  padding: 5px 7px;\n  color: #555;\n  transform: rotate(3deg);\n  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);\n  border: 1px solid rgba(0, 0, 0, 0.06);\n}\n.cork-news[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 8px;\n  right: 8px;\n  z-index: 3;\n  background: #f7f4ee;\n  width: 90px;\n  padding: 6px 7px;\n  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);\n  transform: rotate(1.5deg);\n  border: 1px solid rgba(0, 0, 0, 0.07);\n}\n.news-head[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 0.95rem;\n  font-weight: 700;\n  border-bottom: 2px solid var(--ink);\n  margin-bottom: 3px;\n  padding-bottom: 1px;\n}\n.news-body[_ngcontent-%COMP%] {\n  font-size: 0.5rem;\n  line-height: 1.5;\n  color: var(--muted);\n  font-family: "JetBrains Mono";\n}\n.cork-fp[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 6px;\n  left: 6px;\n  z-index: 3;\n  width: 48px;\n  height: 48px;\n  background: rgba(240, 235, 225, 0.9);\n  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);\n  transform: rotate(-4deg);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.8rem;\n}\n.cn[_ngcontent-%COMP%] {\n  position: absolute;\n  z-index: 3;\n}\n.cn-creator[_ngcontent-%COMP%] {\n  top: 30px;\n  left: 26px;\n}\n.cn-joc[_ngcontent-%COMP%] {\n  top: 100px;\n  left: 37%;\n}\n.cn-jucator[_ngcontent-%COMP%] {\n  top: 158px;\n  left: 58%;\n}\n.node-lbl[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono";\n  font-size: 0.62rem;\n  font-weight: 700;\n  color: var(--ink);\n  margin-bottom: 5px;\n  letter-spacing: 0.5px;\n  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);\n}\n.cork-pin[_ngcontent-%COMP%] {\n  width: 13px;\n  height: 13px;\n  border-radius: 50%;\n  position: absolute;\n  top: -7px;\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 5;\n  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.55), inset 0 1px 2px rgba(255, 255, 255, 0.35);\n}\n.cork-pin[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: -5px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 3px;\n  height: 6px;\n  background: inherit;\n  filter: brightness(0.65);\n  border-radius: 0 0 2px 2px;\n}\n.pin-r[_ngcontent-%COMP%] {\n  background:\n    radial-gradient(\n      circle at 35% 30%,\n      #ff7070,\n      #d43f33);\n}\n.pin-g[_ngcontent-%COMP%] {\n  background:\n    radial-gradient(\n      circle at 35% 30%,\n      #ffd060,\n      #c8922a);\n}\n.pin-d[_ngcontent-%COMP%] {\n  background:\n    radial-gradient(\n      circle at 35% 30%,\n      #666,\n      #1a1a1a);\n}\n.note-white[_ngcontent-%COMP%] {\n  background: #fff;\n  border: 1px solid rgba(0, 0, 0, 0.09);\n  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.22);\n  padding: 8px 10px;\n  font-family: "JetBrains Mono";\n  font-size: 0.55rem;\n  color: var(--ink);\n  line-height: 1.8;\n  min-width: 108px;\n  background-image:\n    repeating-linear-gradient(\n      transparent,\n      transparent 18px,\n      rgba(99, 160, 220, 0.12) 18px,\n      rgba(99, 160, 220, 0.12) 19px);\n}\n.note-yellow[_ngcontent-%COMP%] {\n  background: #fef08a;\n  border: 1px solid rgba(0, 0, 0, 0.07);\n  box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.22);\n  padding: 9px 11px;\n  font-family: "JetBrains Mono";\n  font-size: 0.58rem;\n  color: #333;\n  line-height: 1.7;\n}\n.rot-l[_ngcontent-%COMP%] {\n  transform: rotate(-3deg);\n}\n.rot-r[_ngcontent-%COMP%] {\n  transform: rotate(2.5deg);\n}\n.board-quote[_ngcontent-%COMP%] {\n  background: rgba(248, 244, 235, 0.97);\n  padding: 9px 14px;\n  border-top: 1px solid rgba(0, 0, 0, 0.12);\n  font-size: 0.78rem;\n  font-style: italic;\n  color: var(--muted);\n}\n.stats-bar[_ngcontent-%COMP%] {\n  background: var(--ink);\n  color: #fff;\n  padding: 4rem;\n  display: flex;\n  justify-content: center;\n  gap: 5rem;\n  flex-wrap: wrap;\n  position: relative;\n}\n.stat[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.stat-num[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 2.2rem;\n  font-weight: 700;\n  display: block;\n}\n.stat-label[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-family: "JetBrains Mono";\n  opacity: 0.6;\n  letter-spacing: 1px;\n}\n.section[_ngcontent-%COMP%] {\n  padding: 6rem 4rem;\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.section-label[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono";\n  font-size: 0.72rem;\n  color: var(--accent);\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  display: block;\n  margin-bottom: 1rem;\n}\n.section[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: clamp(2rem, 4vw, 3rem);\n  margin-bottom: 3rem;\n  font-weight: 700;\n}\n.section[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%]   em[_ngcontent-%COMP%] {\n  font-style: italic;\n  text-decoration: underline;\n  text-decoration-color: var(--accent);\n  text-underline-offset: 6px;\n}\n.steps[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0;\n  border: 1px solid var(--ink);\n}\n.step[_ngcontent-%COMP%] {\n  padding: 2.5rem;\n  border: 1px solid var(--ink);\n}\n.step[_ngcontent-%COMP%]:nth-child(even) {\n  background: var(--ink);\n  color: #fff;\n}\n.step-num[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono";\n  font-size: 0.7rem;\n  color: var(--accent);\n  margin-bottom: 1rem;\n  display: block;\n}\n.step[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 1.6rem;\n  margin-bottom: 0.8rem;\n}\n.step[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  opacity: 0.8;\n}\n.marketplace-section[_ngcontent-%COMP%] {\n  padding: 6rem 4rem;\n  background: #f5f2ee;\n  border-top: 1px solid var(--border);\n}\n.marketplace-inner[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.marketplace-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: flex-end;\n  margin-bottom: 3rem;\n  flex-wrap: wrap;\n  gap: 1rem;\n}\n.games-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.5rem;\n}\n.game-card[_ngcontent-%COMP%] {\n  background: #fff;\n  border: 1px solid var(--border);\n  transition: transform 0.25s, box-shadow 0.25s;\n  position: relative;\n  overflow: hidden;\n}\n.game-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: 8px 8px 0 var(--border);\n}\n.card-img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  background:\n    linear-gradient(\n      135deg,\n      #e8e4df,\n      #d4cfc9);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 3rem;\n  position: relative;\n}\n.card-physical-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 10px;\n  left: 10px;\n  background: var(--ink);\n  color: #fff;\n  font-size: 0.65rem;\n  font-family: "JetBrains Mono";\n  padding: 3px 8px;\n  letter-spacing: 0.5px;\n}\n.listing-live-dot[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  background: #3d8b55;\n  box-shadow: 0 0 0 3px rgba(61, 139, 85, 0.4);\n  z-index: 2;\n  animation: _ngcontent-%COMP%_livePulse 2.2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_livePulse {\n  0%, 100% {\n    box-shadow: 0 0 0 3px rgba(61, 139, 85, 0.4);\n    transform: scale(1);\n  }\n  50% {\n    box-shadow: 0 0 0 7px rgba(61, 139, 85, 0.12);\n    transform: scale(1.05);\n  }\n}\n.card-body[_ngcontent-%COMP%] {\n  padding: 1.25rem;\n}\n.card-creator[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  font-family: "JetBrains Mono";\n  color: var(--muted);\n  margin-bottom: 0.4rem;\n}\n.card-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 1.3rem;\n  font-weight: 700;\n  margin-bottom: 0.35rem;\n  line-height: 1.2;\n}\n.card-price[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 0.72rem;\n  color: var(--accent);\n  letter-spacing: 0.5px;\n  margin-bottom: 0.5rem;\n  font-weight: 600;\n}\n.card-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--muted);\n  margin-bottom: 1rem;\n  line-height: 1.5;\n}\n.card-footer[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding-top: 0.75rem;\n  border-top: 1px solid var(--border);\n}\n.cta-banner[_ngcontent-%COMP%] {\n  background: var(--ink);\n  color: #fff;\n  padding: 6rem 4rem;\n  text-align: center;\n  position: relative;\n  overflow: hidden;\n}\n.cta-banner[_ngcontent-%COMP%]::before {\n  content: "// DOSAR DESCHIS";\n  font-family: "JetBrains Mono";\n  font-size: 0.65rem;\n  color: var(--accent);\n  letter-spacing: 2px;\n  display: block;\n  margin-bottom: 1.5rem;\n}\n.cta-banner[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: clamp(2rem, 5vw, 3.5rem);\n  margin-bottom: 1rem;\n}\n.cta-banner[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.65);\n  max-width: 500px;\n  margin: 0 auto 2.5rem;\n}\n.cta-btns[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 1.5rem;\n  justify-content: center;\n  flex-wrap: wrap;\n}\n.about-section[_ngcontent-%COMP%] {\n  padding: 7rem 4rem;\n  max-width: 1200px;\n  margin: 0 auto;\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 5rem;\n  align-items: center;\n}\n.about-img[_ngcontent-%COMP%] {\n  width: 100%;\n  aspect-ratio: 4/3;\n  background: #e8e4df;\n  border: 1px solid var(--border);\n  box-shadow: 10px 10px 0 var(--border);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 5rem;\n}\n.about-text[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 2.4rem;\n  margin-bottom: 1.5rem;\n  font-weight: 700;\n}\n.about-text[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--muted);\n  margin-bottom: 1.2rem;\n  font-size: 0.95rem;\n}\n.about-text[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: var(--ink);\n}\n.about-meta[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  padding: 1.5rem;\n  border: 1px solid var(--border);\n  background: #fff;\n}\n.about-meta[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  font-family: "JetBrains Mono";\n  color: var(--muted);\n  margin: 0;\n}\n.about-meta[_ngcontent-%COMP%]   p[_ngcontent-%COMP%]    + p[_ngcontent-%COMP%] {\n  margin-top: 0.4rem;\n}\nfooter[_ngcontent-%COMP%] {\n  background: #f0ede9;\n  padding: 4rem;\n  border-top: 1px solid var(--border);\n}\n.footer-inner[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  display: grid;\n  grid-template-columns: 2fr 1fr 1fr 1fr;\n  gap: 3rem;\n}\nfooter[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 1.1rem;\n  margin-bottom: 1rem;\n}\nfooter[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%] {\n  list-style: none;\n}\nfooter[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  margin-bottom: 0.5rem;\n}\nfooter[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  color: var(--muted);\n  text-decoration: none;\n  font-size: 0.88rem;\n  transition: color 0.2s;\n}\nfooter[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  color: var(--ink);\n}\n.footer-bottom[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 3rem auto 0;\n  padding-top: 2rem;\n  border-top: 1px solid var(--border);\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 1rem;\n}\n.footer-bottom[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-family: "JetBrains Mono";\n  color: var(--muted);\n}\n[_nghost-%COMP%] {\n  overflow-x: hidden;\n  display: block;\n}\n*[_ngcontent-%COMP%] {\n  max-width: 100%;\n}\n@media (max-width: 900px) {\n  nav[_ngcontent-%COMP%] {\n    padding: 1.2rem 1.5rem;\n  }\n  .nav-links[_ngcontent-%COMP%] {\n    gap: 1.2rem;\n  }\n  .nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n    font-size: 0.82rem;\n  }\n  .btn-primary[_ngcontent-%COMP%] {\n    padding: 0.65rem 1.2rem;\n    font-size: 0.85rem;\n  }\n  .hero[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    padding: 3.5rem 1.5rem;\n    gap: 2.5rem;\n  }\n  .board[_ngcontent-%COMP%] {\n    transform: none;\n  }\n  .stats-bar[_ngcontent-%COMP%] {\n    gap: 2rem;\n    padding: 2.5rem 1.5rem;\n  }\n  .section[_ngcontent-%COMP%], \n   .marketplace-section[_ngcontent-%COMP%], \n   .cta-banner[_ngcontent-%COMP%], \n   .about-section[_ngcontent-%COMP%] {\n    padding: 4rem 1.5rem;\n  }\n  .steps[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .about-section[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 2.5rem;\n  }\n  .about-img[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .footer-inner[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr 1fr;\n    gap: 2rem;\n  }\n  .footer-bottom[_ngcontent-%COMP%] {\n    flex-direction: column;\n    text-align: center;\n  }\n  footer[_ngcontent-%COMP%] {\n    padding: 3rem 1.5rem;\n  }\n}\n@media (max-width: 600px) {\n  nav[_ngcontent-%COMP%] {\n    padding: 0.9rem 1rem;\n    flex-wrap: wrap;\n    gap: 0.6rem;\n  }\n  nav[_ngcontent-%COMP%]    > a[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n    height: 36px;\n  }\n  nav[_ngcontent-%COMP%]    > a[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n    font-size: 1rem;\n  }\n  .nav-links[_ngcontent-%COMP%] {\n    width: 100%;\n    flex-direction: column;\n    align-items: stretch;\n    gap: 0.5rem;\n    order: 3;\n    border-top: 1px solid var(--border);\n    padding-top: 0.75rem;\n  }\n  .nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n    font-size: 0.88rem;\n    padding: 0.4rem 0;\n  }\n  .nav-links[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n    text-align: center;\n    padding: 0.75rem;\n    font-size: 0.88rem;\n  }\n  .hero[_ngcontent-%COMP%] {\n    padding: 2.5rem 1rem;\n    gap: 2rem;\n  }\n  .hero[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n    font-size: clamp(2rem, 8vw, 2.8rem);\n  }\n  .hero[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n    font-size: 1rem;\n  }\n  .hero-cta[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n    gap: 1rem;\n  }\n  .badge-physical[_ngcontent-%COMP%] {\n    font-size: 0.7rem;\n  }\n  .board[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .stats-bar[_ngcontent-%COMP%] {\n    padding: 2rem 1rem;\n    gap: 1.5rem;\n  }\n  .stat-num[_ngcontent-%COMP%] {\n    font-size: 1.7rem;\n  }\n  .stat-label[_ngcontent-%COMP%] {\n    font-size: 0.65rem;\n  }\n  .section[_ngcontent-%COMP%] {\n    padding: 3rem 1rem;\n  }\n  .steps[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    border: none;\n    gap: 0;\n  }\n  .step[_ngcontent-%COMP%] {\n    border: none;\n    border-bottom: 1px solid var(--ink);\n    padding: 1.8rem 1rem;\n  }\n  .step[_ngcontent-%COMP%]:last-child {\n    border-bottom: none;\n  }\n  .marketplace-section[_ngcontent-%COMP%] {\n    padding: 3rem 1rem;\n  }\n  .games-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 1rem;\n  }\n  .card-img[_ngcontent-%COMP%] {\n    height: 160px;\n  }\n  .cta-banner[_ngcontent-%COMP%] {\n    padding: 4rem 1rem;\n  }\n  .cta-btns[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: center;\n  }\n  .about-section[_ngcontent-%COMP%] {\n    padding: 3rem 1rem;\n    grid-template-columns: 1fr;\n  }\n  .about-img[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .about-text[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n    font-size: 1.8rem;\n  }\n  .about-meta[_ngcontent-%COMP%] {\n    padding: 1rem;\n  }\n  footer[_ngcontent-%COMP%] {\n    padding: 2.5rem 1rem;\n  }\n  .footer-inner[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 1.5rem;\n  }\n  .footer-bottom[_ngcontent-%COMP%] {\n    flex-direction: column;\n    text-align: center;\n    gap: 0.5rem;\n    margin-top: 1.5rem;\n  }\n  .footer-bottom[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n    font-size: 0.68rem;\n  }\n}\n.detail-overlay[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 800;\n  background: rgba(26, 22, 16, 0.62);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 20px;\n  animation: _ngcontent-%COMP%_fadeIn 0.18s ease;\n}\n@keyframes _ngcontent-%COMP%_fadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.detail-dialog[_ngcontent-%COMP%] {\n  background: #fff;\n  border: 1px solid #e2deda;\n  border-radius: 4px;\n  max-width: 640px;\n  width: 100%;\n  max-height: 90vh;\n  overflow-y: auto;\n  display: grid;\n  grid-template-columns: 220px 1fr;\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2), 0 4px 16px rgba(0, 0, 0, 0.1);\n  position: relative;\n  animation: _ngcontent-%COMP%_slideUp 0.22s ease;\n}\n@keyframes _ngcontent-%COMP%_slideUp {\n  from {\n    opacity: 0;\n    transform: translateY(16px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-close[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  z-index: 5;\n  width: 28px;\n  height: 28px;\n  border-radius: 50%;\n  background: rgba(0, 0, 0, 0.55);\n  border: none;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: #fff;\n  transition: background 0.15s;\n}\n.detail-close[_ngcontent-%COMP%]:hover {\n  background: #d43f33;\n}\n.detail-cover[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  background: #f5f0ea;\n  min-height: 260px;\n  border-right: 1px solid #e2deda;\n}\n.detail-cover-img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  display: block;\n}\n.detail-cover-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 10px;\n  left: 10px;\n  background: #1a1a1a;\n  color: #fff;\n  font-size: 0.6rem;\n  font-family: "JetBrains Mono";\n  padding: 3px 8px;\n  letter-spacing: 0.5px;\n}\n.detail-body[_ngcontent-%COMP%] {\n  padding: 22px 22px 20px;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n}\n.detail-eyebrow[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono";\n  font-size: 0.58rem;\n  letter-spacing: 2.5px;\n  color: #d43f33;\n  font-weight: 700;\n}\n.detail-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 1.45rem;\n  font-weight: 700;\n  line-height: 1.2;\n  color: #1a1a1a;\n}\n.detail-creator[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  font-size: 0.72rem;\n  font-family: "JetBrains Mono";\n  color: #66625f;\n}\n.detail-creator[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n}\n.detail-price[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono";\n  font-size: 0.85rem;\n  font-weight: 700;\n  color: #d43f33;\n  letter-spacing: 0.5px;\n}\n.detail-stats[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 12px;\n  background: #f5f2ee;\n  border: 1px solid #e2deda;\n  border-radius: 3px;\n}\n.detail-stat[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  font-family: "JetBrains Mono";\n  font-size: 0.65rem;\n  color: #66625f;\n}\n.detail-stat[_ngcontent-%COMP%]   em[_ngcontent-%COMP%] {\n  font-style: normal;\n  color: #1a1a1a;\n  font-weight: 600;\n}\n.detail-stat[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  color: #1a1a1a;\n  flex-shrink: 0;\n}\n.detail-stat-sep[_ngcontent-%COMP%] {\n  width: 1px;\n  height: 16px;\n  background: #e2deda;\n  flex-shrink: 0;\n}\n.detail-section[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 6px;\n}\n.detail-section-label[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono";\n  font-size: 0.58rem;\n  letter-spacing: 2px;\n  color: #d43f33;\n  font-weight: 700;\n}\n.detail-story[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  color: #44403c;\n  line-height: 1.65;\n  font-style: italic;\n  border-left: 2px solid #d43f33;\n  padding-left: 10px;\n  margin-left: 2px;\n}\n.detail-devices[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 6px;\n}\n.detail-device-chip[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  padding: 4px 10px;\n  border: 1px solid #e2deda;\n  border-radius: 20px;\n  font-family: "JetBrains Mono";\n  font-size: 0.62rem;\n  color: #1a1a1a;\n  background: #f5f2ee;\n}\n.detail-device-chip[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  color: #66625f;\n  flex-shrink: 0;\n}\n.chip-laptop[_ngcontent-%COMP%] {\n  border-color: #1a1a1a;\n  background: #1a1a1a;\n  color: #fff;\n}\n.chip-laptop[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.7);\n}\n.detail-cta[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 8px;\n  align-items: center;\n  padding-top: 6px;\n  margin-top: auto;\n  border-top: 1px solid #e2deda;\n}\n.btn-detail-primary[_ngcontent-%COMP%] {\n  background: #1a1a1a;\n  color: #fff;\n  border: 2px solid #1a1a1a;\n  padding: 0.55rem 1.2rem;\n  font-size: 0.82rem;\n  font-weight: 700;\n  font-family: "Public Sans";\n  cursor: pointer;\n  text-decoration: none;\n  transition: background 0.2s, border-color 0.2s;\n  display: inline-flex;\n  align-items: center;\n}\n.btn-detail-primary[_ngcontent-%COMP%]:hover {\n  background: #d43f33;\n  border-color: #d43f33;\n}\n.btn-detail-ghost[_ngcontent-%COMP%] {\n  background: transparent;\n  border: 2px solid #e2deda;\n  color: #66625f;\n  padding: 0.55rem 1rem;\n  font-size: 0.82rem;\n  font-weight: 600;\n  font-family: "Public Sans";\n  cursor: pointer;\n  transition: border-color 0.2s, color 0.2s;\n}\n.btn-detail-ghost[_ngcontent-%COMP%]:hover {\n  border-color: #1a1a1a;\n  color: #1a1a1a;\n}\n@media (max-width: 600px) {\n  .detail-dialog[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    max-height: 95vh;\n  }\n  .detail-cover[_ngcontent-%COMP%] {\n    min-height: 160px;\n    border-right: none;\n    border-bottom: 1px solid #e2deda;\n  }\n  .detail-body[_ngcontent-%COMP%] {\n    padding: 16px;\n  }\n}\n/*# sourceMappingURL=landing.component.css.map */'] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(LandingComponent, { className: "LandingComponent", filePath: "src\\app\\components\\landing\\landing.component.ts", lineNumber: 14 });
@@ -2807,23 +3031,23 @@ function RegisterComponent_ul_50_Template(rf, ctx) {
     \u0275\u0275advance();
     \u0275\u0275classProp("ok", !ctx_r1.pwErrors["minLength"]);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(!ctx_r1.pwErrors["minLength"] ? "a\u0153\u201C" : "a\u2014\u2039");
+    \u0275\u0275textInterpolate(!ctx_r1.pwErrors["minLength"] ? "\u25AA\uFE0F" : "");
     \u0275\u0275advance(2);
     \u0275\u0275classProp("ok", !ctx_r1.pwErrors["uppercase"]);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(!ctx_r1.pwErrors["uppercase"] ? "a\u0153\u201C" : "a\u2014\u2039");
+    \u0275\u0275textInterpolate(!ctx_r1.pwErrors["uppercase"] ? "\u25AA\uFE0F" : "");
     \u0275\u0275advance(2);
     \u0275\u0275classProp("ok", !ctx_r1.pwErrors["lowercase"]);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(!ctx_r1.pwErrors["lowercase"] ? "a\u0153\u201C" : "a\u2014\u2039");
+    \u0275\u0275textInterpolate(!ctx_r1.pwErrors["lowercase"] ? "\u25AA\uFE0F" : "");
     \u0275\u0275advance(2);
     \u0275\u0275classProp("ok", !ctx_r1.pwErrors["digit"]);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(!ctx_r1.pwErrors["digit"] ? "a\u0153\u201C" : "a\u2014\u2039");
+    \u0275\u0275textInterpolate(!ctx_r1.pwErrors["digit"] ? "\u25AA\uFE0F" : "");
     \u0275\u0275advance(2);
     \u0275\u0275classProp("ok", !ctx_r1.pwErrors["special"]);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(!ctx_r1.pwErrors["special"] ? "a\u0153\u201C" : "a\u2014\u2039");
+    \u0275\u0275textInterpolate(!ctx_r1.pwErrors["special"] ? "\u25AA\uFE0F" : "");
   }
 }
 function RegisterComponent__svg_svg_61_Template(rf, ctx) {
@@ -3295,7 +3519,7 @@ var RegisterComponent = class _RegisterComponent {
       \u0275\u0275advance();
       \u0275\u0275property("ngIf", ctx.loading);
     }
-  }, dependencies: [CommonModule, NgForOf, NgIf, ReactiveFormsModule, \u0275NgNoValidate, DefaultValueAccessor, NgControlStatus, NgControlStatusGroup, FormGroupDirective, FormControlName, RouterModule, RouterLink], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n*[_ngcontent-%COMP%] {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n.page[_ngcontent-%COMP%] {\n  --bg:#fcfaf7;\n  --surface:#fff;\n  --border:rgba(0,0,0,0.07);\n  --border-md:rgba(0,0,0,0.11);\n  --amber:#d43f33;\n  --navy:#1a1a1a;\n  --ink:#1a1a1a;\n  --ink2:rgba(26,22,16,0.45);\n  --ink3:rgba(26,22,16,0.22);\n  --red:#9b2020;\n  min-height: 100vh;\n  background: var(--bg);\n  position: relative;\n  font-family: "Public Sans", sans-serif;\n}\n.bg-canvas[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 0;\n  pointer-events: none;\n}\n.scene[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 1;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 32px 20px;\n}\n.card[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  max-width: 480px;\n  background: var(--surface);\n  border: 1px solid var(--border-md);\n  border-radius: 14px;\n  padding: 36px 36px 32px;\n  overflow: hidden;\n  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);\n  animation: _ngcontent-%COMP%_fadeUp 0.55s ease both;\n}\n@keyframes _ngcontent-%COMP%_fadeUp {\n  from {\n    opacity: 0;\n    transform: translateY(18px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.card-top-line[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(184, 114, 8, 0.55),\n      transparent);\n}\n.brand[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-bottom: 18px;\n}\n.logo-img[_ngcontent-%COMP%] {\n  width: 130px;\n  height: 130px;\n  object-fit: contain;\n  display: block;\n  margin: 0 auto;\n}\n.card-divider[_ngcontent-%COMP%] {\n  position: relative;\n  height: 1px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      var(--border-md),\n      transparent);\n  margin-bottom: 24px;\n}\n.divider-lbl[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  background: var(--surface);\n  padding: 0 10px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9px;\n  letter-spacing: 2.5px;\n  text-transform: uppercase;\n  color: var(--amber);\n  white-space: nowrap;\n}\n.card-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 26px;\n  font-weight: 400;\n  color: var(--ink);\n  margin-bottom: 6px;\n  text-align: center;\n}\n.card-sub[_ngcontent-%COMP%] {\n  font-size: 13px;\n  color: var(--ink2);\n  font-style: italic;\n  margin-bottom: 26px;\n  line-height: 1.5;\n  text-align: center;\n}\n.form[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 14px;\n}\n.form-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 12px;\n}\n.field[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 5px;\n}\n.lbl[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  letter-spacing: 1px;\n  text-transform: uppercase;\n  color: var(--amber);\n}\n.inp[_ngcontent-%COMP%] {\n  padding: 11px 13px;\n  border: 1px solid var(--border-md);\n  border-radius: 8px;\n  background: var(--bg);\n  color: var(--ink);\n  font-size: 14px;\n  font-family: "Public Sans", sans-serif;\n  outline: none;\n  transition: border-color 0.2s, box-shadow 0.2s;\n}\n.inp[_ngcontent-%COMP%]::placeholder {\n  color: var(--ink3);\n  font-style: italic;\n}\n.inp[_ngcontent-%COMP%]:focus {\n  border-color: rgba(184, 114, 8, 0.5);\n  box-shadow: 0 0 0 3px rgba(212, 63, 51, 0.07);\n}\n.field-err[_ngcontent-%COMP%]   .inp[_ngcontent-%COMP%] {\n  border-color: rgba(155, 32, 32, 0.4);\n}\n.err-msg[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  color: var(--red);\n}\n.error-banner[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 13px;\n  border: 1px solid rgba(155, 32, 32, 0.2);\n  background: rgba(155, 32, 32, 0.05);\n  border-radius: 7px;\n  font-size: 13px;\n  color: var(--red);\n}\n.btn-submit[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 42px;\n  border: none;\n  border-radius: 8px;\n  background: var(--navy);\n  color: #fff;\n  font-size: 13.5px;\n  font-family: "Public Sans", sans-serif;\n  font-weight: 500;\n  cursor: pointer;\n  transition: opacity 0.2s, transform 0.2s;\n  margin-top: 4px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.btn-submit[_ngcontent-%COMP%]:hover:not(:disabled) {\n  opacity: 0.88;\n  transform: translateY(-1px);\n}\n.btn-submit[_ngcontent-%COMP%]:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.spin-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.spin[_ngcontent-%COMP%] {\n  width: 14px;\n  height: 14px;\n  border: 2px solid rgba(255, 255, 255, 0.3);\n  border-top-color: #fff;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 0.7s linear infinite;\n  display: inline-block;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n.footer-link[_ngcontent-%COMP%] {\n  margin-top: 20px;\n  text-align: center;\n  font-size: 13px;\n  color: var(--ink2);\n}\n.footer-link[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  color: var(--amber);\n  text-decoration: none;\n  font-weight: 500;\n  margin-left: 4px;\n  border-bottom: 1px solid rgba(184, 114, 8, 0.3);\n  padding-bottom: 1px;\n  transition: border-color 0.15s;\n}\n.footer-link[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  border-color: var(--amber);\n}\n.stamp[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 14px;\n  right: 16px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 8px;\n  font-weight: 500;\n  letter-spacing: 3px;\n  text-transform: uppercase;\n  color: rgba(28, 43, 74, 0.2);\n  border: 1px solid rgba(28, 43, 74, 0.15);\n  padding: 2px 7px;\n  border-radius: 2px;\n  transform: rotate(7deg);\n}\n.inp-wrap[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  align-items: center;\n}\n.inp-wrap[_ngcontent-%COMP%]   .inp[_ngcontent-%COMP%] {\n  flex: 1;\n  padding-right: 34px;\n}\n.inp-status[_ngcontent-%COMP%] {\n  position: absolute;\n  right: 11px;\n  font-size: 14px;\n  line-height: 1;\n}\n.status-spin[_ngcontent-%COMP%] {\n  display: inline-block;\n  width: 13px;\n  height: 13px;\n  border: 2px solid rgba(0, 0, 0, 0.1);\n  border-top-color: var(--amber);\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 0.6s linear infinite;\n}\n.status-ok[_ngcontent-%COMP%] {\n  color: #2d7a3a;\n  font-size: 15px;\n}\n.status-err[_ngcontent-%COMP%] {\n  color: var(--red);\n  font-size: 15px;\n}\n.err-msg[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  color: var(--amber);\n  text-decoration: none;\n  border-bottom: 1px solid rgba(184, 114, 8, 0.4);\n}\n.eye-btn[_ngcontent-%COMP%] {\n  position: absolute;\n  right: 10px;\n  top: 50%;\n  transform: translateY(-50%);\n  background: transparent;\n  border: none;\n  cursor: pointer;\n  color: var(--ink3);\n  padding: 4px;\n  display: flex;\n  align-items: center;\n  transition: color 0.15s;\n}\n.eye-btn[_ngcontent-%COMP%]:hover {\n  color: var(--ink2);\n}\n.strength-wrap[_ngcontent-%COMP%] {\n  margin-top: 6px;\n  display: flex;\n  flex-direction: column;\n  gap: 4px;\n}\n.strength-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.strength-segs[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 3px;\n  flex: 1;\n}\n.seg[_ngcontent-%COMP%] {\n  height: 4px;\n  flex: 1;\n  border-radius: 99px;\n  background: rgba(0, 0, 0, 0.08);\n  transition: background 0.35s;\n}\n.strength-lbl[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9px;\n  letter-spacing: 1.2px;\n  text-transform: uppercase;\n  white-space: nowrap;\n  transition: color 0.3s;\n  min-width: 80px;\n  text-align: right;\n}\n.pw-warning[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  font-size: 11.5px;\n  color: #c06010;\n  font-style: italic;\n}\n.pw-suggestions[_ngcontent-%COMP%] {\n  list-style: none;\n  padding-left: 4px;\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n}\n.pw-suggestions[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: ">";\n  position: absolute;\n  left: 0;\n  color: var(--ink3);\n}\n.pw-suggestions[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "a\\2020\\2019";\n  position: absolute;\n  left: 0;\n  color: var(--ink3);\n}\n.pw-rules[_ngcontent-%COMP%] {\n  list-style: none;\n  display: flex;\n  flex-direction: column;\n  gap: 3px;\n  padding: 8px 0 2px;\n  border-top: 1px solid var(--border);\n  margin-top: 4px;\n}\n.pw-rules[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 11.5px;\n  color: var(--ink3);\n  transition: color 0.2s;\n}\n.pw-rules[_ngcontent-%COMP%]   li.ok[_ngcontent-%COMP%] {\n  color: #2d7a3a;\n}\n.ri[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 11px;\n  width: 14px;\n  text-align: center;\n}\n/*# sourceMappingURL=register.component.css.map */'] });
+  }, dependencies: [CommonModule, NgForOf, NgIf, ReactiveFormsModule, \u0275NgNoValidate, DefaultValueAccessor, NgControlStatus, NgControlStatusGroup, FormGroupDirective, FormControlName, RouterModule, RouterLink], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n*[_ngcontent-%COMP%] {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n.page[_ngcontent-%COMP%] {\n  --bg:#fcfaf7;\n  --surface:#fff;\n  --border:rgba(0,0,0,0.07);\n  --border-md:rgba(0,0,0,0.11);\n  --amber:#d43f33;\n  --navy:#1a1a1a;\n  --ink:#1a1a1a;\n  --ink2:rgba(26,22,16,0.45);\n  --ink3:rgba(26,22,16,0.22);\n  --red:#9b2020;\n  min-height: 100vh;\n  background: var(--bg);\n  position: relative;\n  font-family: "Public Sans", sans-serif;\n}\n.bg-canvas[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 0;\n  pointer-events: none;\n}\n.scene[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 1;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 32px 20px;\n}\n.card[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  max-width: 480px;\n  background: var(--surface);\n  border: 1px solid var(--border-md);\n  border-radius: 14px;\n  padding: 36px 36px 32px;\n  overflow: hidden;\n  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);\n  animation: _ngcontent-%COMP%_fadeUp 0.55s ease both;\n}\n@keyframes _ngcontent-%COMP%_fadeUp {\n  from {\n    opacity: 0;\n    transform: translateY(18px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.card-top-line[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(184, 114, 8, 0.55),\n      transparent);\n}\n.brand[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-bottom: 18px;\n}\n.logo-img[_ngcontent-%COMP%] {\n  width: 130px;\n  height: 130px;\n  object-fit: contain;\n  display: block;\n  margin: 0 auto;\n}\n.card-divider[_ngcontent-%COMP%] {\n  position: relative;\n  height: 1px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      var(--border-md),\n      transparent);\n  margin-bottom: 24px;\n}\n.divider-lbl[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  background: var(--surface);\n  padding: 0 10px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9px;\n  letter-spacing: 2.5px;\n  text-transform: uppercase;\n  color: var(--amber);\n  white-space: nowrap;\n}\n.card-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 26px;\n  font-weight: 400;\n  color: var(--ink);\n  margin-bottom: 6px;\n  text-align: center;\n}\n.card-sub[_ngcontent-%COMP%] {\n  font-size: 13px;\n  color: var(--ink2);\n  font-style: italic;\n  margin-bottom: 26px;\n  line-height: 1.5;\n  text-align: center;\n}\n.form[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 14px;\n}\n.form-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 12px;\n}\n.field[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 5px;\n}\n.lbl[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  letter-spacing: 1px;\n  text-transform: uppercase;\n  color: var(--amber);\n}\n.inp[_ngcontent-%COMP%] {\n  padding: 11px 13px;\n  border: 1px solid var(--border-md);\n  border-radius: 8px;\n  background: var(--bg);\n  color: var(--ink);\n  font-size: 14px;\n  font-family: "Public Sans", sans-serif;\n  outline: none;\n  transition: border-color 0.2s, box-shadow 0.2s;\n}\n.inp[_ngcontent-%COMP%]::placeholder {\n  color: var(--ink3);\n  font-style: italic;\n}\n.inp[_ngcontent-%COMP%]:focus {\n  border-color: rgba(184, 114, 8, 0.5);\n  box-shadow: 0 0 0 3px rgba(212, 63, 51, 0.07);\n}\n.field-err[_ngcontent-%COMP%]   .inp[_ngcontent-%COMP%] {\n  border-color: rgba(155, 32, 32, 0.4);\n}\n.err-msg[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  color: var(--red);\n}\n.error-banner[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 13px;\n  border: 1px solid rgba(155, 32, 32, 0.2);\n  background: rgba(155, 32, 32, 0.05);\n  border-radius: 7px;\n  font-size: 13px;\n  color: var(--red);\n}\n.btn-submit[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 42px;\n  border: none;\n  border-radius: 8px;\n  background: var(--navy);\n  color: #fff;\n  font-size: 13.5px;\n  font-family: "Public Sans", sans-serif;\n  font-weight: 500;\n  cursor: pointer;\n  transition: opacity 0.2s, transform 0.2s;\n  margin-top: 4px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.btn-submit[_ngcontent-%COMP%]:hover:not(:disabled) {\n  opacity: 0.88;\n  transform: translateY(-1px);\n}\n.btn-submit[_ngcontent-%COMP%]:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.spin-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.spin[_ngcontent-%COMP%] {\n  width: 14px;\n  height: 14px;\n  border: 2px solid rgba(255, 255, 255, 0.3);\n  border-top-color: #fff;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 0.7s linear infinite;\n  display: inline-block;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n.footer-link[_ngcontent-%COMP%] {\n  margin-top: 20px;\n  text-align: center;\n  font-size: 13px;\n  color: var(--ink2);\n}\n.footer-link[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  color: var(--amber);\n  text-decoration: none;\n  font-weight: 500;\n  margin-left: 4px;\n  border-bottom: 1px solid rgba(184, 114, 8, 0.3);\n  padding-bottom: 1px;\n  transition: border-color 0.15s;\n}\n.footer-link[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  border-color: var(--amber);\n}\n.stamp[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 14px;\n  right: 16px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 8px;\n  font-weight: 500;\n  letter-spacing: 3px;\n  text-transform: uppercase;\n  color: rgba(28, 43, 74, 0.2);\n  border: 1px solid rgba(28, 43, 74, 0.15);\n  padding: 2px 7px;\n  border-radius: 2px;\n  transform: rotate(7deg);\n}\n.inp-wrap[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  align-items: center;\n}\n.inp-wrap[_ngcontent-%COMP%]   .inp[_ngcontent-%COMP%] {\n  flex: 1;\n  padding-right: 34px;\n}\n.inp-status[_ngcontent-%COMP%] {\n  position: absolute;\n  right: 11px;\n  font-size: 14px;\n  line-height: 1;\n}\n.status-spin[_ngcontent-%COMP%] {\n  display: inline-block;\n  width: 13px;\n  height: 13px;\n  border: 2px solid rgba(0, 0, 0, 0.1);\n  border-top-color: var(--amber);\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 0.6s linear infinite;\n}\n.status-ok[_ngcontent-%COMP%] {\n  color: #2d7a3a;\n  font-size: 15px;\n}\n.status-err[_ngcontent-%COMP%] {\n  color: var(--red);\n  font-size: 15px;\n}\n.err-msg[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  color: var(--amber);\n  text-decoration: none;\n  border-bottom: 1px solid rgba(184, 114, 8, 0.4);\n}\n.eye-btn[_ngcontent-%COMP%] {\n  position: absolute;\n  right: 10px;\n  top: 50%;\n  transform: translateY(-50%);\n  background: transparent;\n  border: none;\n  cursor: pointer;\n  color: var(--ink3);\n  padding: 4px;\n  display: flex;\n  align-items: center;\n  transition: color 0.15s;\n}\n.eye-btn[_ngcontent-%COMP%]:hover {\n  color: var(--ink2);\n}\n.strength-wrap[_ngcontent-%COMP%] {\n  margin-top: 6px;\n  display: flex;\n  flex-direction: column;\n  gap: 4px;\n}\n.strength-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.strength-segs[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 3px;\n  flex: 1;\n}\n.seg[_ngcontent-%COMP%] {\n  height: 4px;\n  flex: 1;\n  border-radius: 99px;\n  background: rgba(0, 0, 0, 0.08);\n  transition: background 0.35s;\n}\n.strength-lbl[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9px;\n  letter-spacing: 1.2px;\n  text-transform: uppercase;\n  white-space: nowrap;\n  transition: color 0.3s;\n  min-width: 80px;\n  text-align: right;\n}\n.pw-warning[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  font-size: 11.5px;\n  color: #c06010;\n  font-style: italic;\n}\n.pw-suggestions[_ngcontent-%COMP%] {\n  list-style: none;\n  padding-left: 4px;\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n}\n.pw-suggestions[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: ">";\n  position: absolute;\n  left: 0;\n  color: var(--ink3);\n}\n.pw-suggestions[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  left: 0;\n  color: var(--ink3);\n}\n.pw-rules[_ngcontent-%COMP%] {\n  list-style: none;\n  display: flex;\n  flex-direction: column;\n  gap: 3px;\n  padding: 8px 0 2px;\n  border-top: 1px solid var(--border);\n  margin-top: 4px;\n}\n.pw-rules[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 11.5px;\n  color: var(--ink3);\n  transition: color 0.2s;\n}\n.pw-rules[_ngcontent-%COMP%]   li.ok[_ngcontent-%COMP%] {\n  color: #2d7a3a;\n}\n.ri[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 11px;\n  width: 14px;\n  text-align: center;\n}\n/*# sourceMappingURL=register.component.css.map */'] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(RegisterComponent, { className: "RegisterComponent", filePath: "src\\app\\components\\auth\\register.component.ts", lineNumber: 270 });
@@ -3955,6 +4179,9 @@ var GameService = class _GameService {
   publishGame(id, body) {
     return this.http.post(`${this.apiUrl}/${id}/publish`, body);
   }
+  unpublishGame(id) {
+    return this.http.post(`${this.apiUrl}/${id}/unpublish`, {});
+  }
   /** Generate full game from story using AI (Gemini). Free API key: https://aistudio.google.com/apikey */
   createGameFromStory(story) {
     return this.http.post(`${this.apiUrl}/from-story`, { story });
@@ -3967,52 +4194,53 @@ var GameService = class _GameService {
 
 // src/app/components/dashboard/dashboard.component.ts
 var _c03 = ["bgCvs"];
+var _c1 = ["coverInput"];
 function DashboardComponent_div_42_Template(rf, ctx) {
   if (rf & 1) {
     const _r2 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 34)(1, "div", 35)(2, "div", 36);
+    \u0275\u0275elementStart(0, "div", 35)(1, "div", 36)(2, "div", 37);
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "div", 37);
+    \u0275\u0275elementStart(4, "div", 38);
     \u0275\u0275text(5);
     \u0275\u0275elementEnd()();
-    \u0275\u0275element(6, "div", 38);
-    \u0275\u0275elementStart(7, "button", 39);
+    \u0275\u0275element(6, "div", 39);
+    \u0275\u0275elementStart(7, "button", 40);
     \u0275\u0275listener("click", function DashboardComponent_div_42_Template_button_click_7_listener() {
       \u0275\u0275restoreView(_r2);
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.goToProfile());
     });
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(8, "svg", 40);
-    \u0275\u0275element(9, "circle", 41)(10, "path", 42);
+    \u0275\u0275elementStart(8, "svg", 41);
+    \u0275\u0275element(9, "circle", 42)(10, "path", 43);
     \u0275\u0275elementEnd();
     \u0275\u0275text(11, " Profilul meu ");
     \u0275\u0275elementEnd();
     \u0275\u0275namespaceHTML();
-    \u0275\u0275elementStart(12, "button", 39);
+    \u0275\u0275elementStart(12, "button", 40);
     \u0275\u0275listener("click", function DashboardComponent_div_42_Template_button_click_12_listener() {
       \u0275\u0275restoreView(_r2);
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.goToProfile());
     });
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(13, "svg", 40);
-    \u0275\u0275element(14, "rect", 43)(15, "path", 44);
+    \u0275\u0275elementStart(13, "svg", 41);
+    \u0275\u0275element(14, "rect", 44)(15, "path", 45);
     \u0275\u0275elementEnd();
     \u0275\u0275text(16, " Schimba parola ");
     \u0275\u0275elementEnd();
     \u0275\u0275namespaceHTML();
-    \u0275\u0275element(17, "div", 38);
-    \u0275\u0275elementStart(18, "button", 45);
+    \u0275\u0275element(17, "div", 39);
+    \u0275\u0275elementStart(18, "button", 46);
     \u0275\u0275listener("click", function DashboardComponent_div_42_Template_button_click_18_listener() {
       \u0275\u0275restoreView(_r2);
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.logout());
     });
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(19, "svg", 40);
-    \u0275\u0275element(20, "path", 46);
+    \u0275\u0275elementStart(19, "svg", 41);
+    \u0275\u0275element(20, "path", 47);
     \u0275\u0275elementEnd();
     \u0275\u0275text(21, " Deconectare ");
     \u0275\u0275elementEnd()();
@@ -4027,14 +4255,14 @@ function DashboardComponent_div_42_Template(rf, ctx) {
 }
 function DashboardComponent_div_44_div_13_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 59)(1, "div", 60)(2, "span");
+    \u0275\u0275elementStart(0, "div", 60)(1, "div", 61)(2, "span");
     \u0275\u0275text(3, "Se analizeaza povestea si se extrag dispozitivele...");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "span", 61);
+    \u0275\u0275elementStart(4, "span", 62);
     \u0275\u0275text(5);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(6, "div", 62);
-    \u0275\u0275element(7, "div", 63);
+    \u0275\u0275elementStart(6, "div", 63);
+    \u0275\u0275element(7, "div", 64);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
@@ -4048,7 +4276,7 @@ function DashboardComponent_div_44_div_13_Template(rf, ctx) {
 function DashboardComponent_div_44_div_14_Template(rf, ctx) {
   if (rf & 1) {
     const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 64)(1, "button", 65);
+    \u0275\u0275elementStart(0, "div", 65)(1, "button", 66);
     \u0275\u0275listener("click", function DashboardComponent_div_44_div_14_Template_button_click_1_listener() {
       \u0275\u0275restoreView(_r5);
       const ctx_r2 = \u0275\u0275nextContext(2);
@@ -4056,7 +4284,7 @@ function DashboardComponent_div_44_div_14_Template(rf, ctx) {
     });
     \u0275\u0275text(2, "Anuleaza");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "button", 66);
+    \u0275\u0275elementStart(3, "button", 67);
     \u0275\u0275listener("click", function DashboardComponent_div_44_div_14_Template_button_click_3_listener() {
       \u0275\u0275restoreView(_r5);
       const ctx_r2 = \u0275\u0275nextContext(2);
@@ -4074,7 +4302,7 @@ function DashboardComponent_div_44_div_14_Template(rf, ctx) {
 }
 function DashboardComponent_div_44_p_15_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "p", 67);
+    \u0275\u0275elementStart(0, "p", 68);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
@@ -4087,27 +4315,27 @@ function DashboardComponent_div_44_p_15_Template(rf, ctx) {
 function DashboardComponent_div_44_Template(rf, ctx) {
   if (rf & 1) {
     const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 47)(1, "div", 48)(2, "div")(3, "div", 49);
+    \u0275\u0275elementStart(0, "div", 48)(1, "div", 49)(2, "div")(3, "div", 50);
     \u0275\u0275text(4, "ASISTENT IA");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "h3", 50);
-    \u0275\u0275text(6, "Construieste dosar din naraTiune");
+    \u0275\u0275elementStart(5, "h3", 51);
+    \u0275\u0275text(6, "Construieste dosar din naratiune");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "button", 51);
+    \u0275\u0275elementStart(7, "button", 52);
     \u0275\u0275listener("click", function DashboardComponent_div_44_Template_button_click_7_listener() {
       \u0275\u0275restoreView(_r4);
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.showStoryPanel = false);
     });
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(8, "svg", 52);
-    \u0275\u0275element(9, "path", 53);
+    \u0275\u0275elementStart(8, "svg", 53);
+    \u0275\u0275element(9, "path", 54);
     \u0275\u0275elementEnd()()();
     \u0275\u0275namespaceHTML();
-    \u0275\u0275elementStart(10, "p", 54);
+    \u0275\u0275elementStart(10, "p", 55);
     \u0275\u0275text(11, "Introdu relatarea cazului a\u20AC\u201D AI-ul extrage automat personaje, dispozitive, conversaTii si emailuri.");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "textarea", 55);
+    \u0275\u0275elementStart(12, "textarea", 56);
     \u0275\u0275twoWayListener("ngModelChange", function DashboardComponent_div_44_Template_textarea_ngModelChange_12_listener($event) {
       \u0275\u0275restoreView(_r4);
       const ctx_r2 = \u0275\u0275nextContext();
@@ -4115,7 +4343,7 @@ function DashboardComponent_div_44_Template(rf, ctx) {
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275template(13, DashboardComponent_div_44_div_13_Template, 8, 3, "div", 56)(14, DashboardComponent_div_44_div_14_Template, 6, 1, "div", 57)(15, DashboardComponent_div_44_p_15_Template, 2, 1, "p", 58);
+    \u0275\u0275template(13, DashboardComponent_div_44_div_13_Template, 8, 3, "div", 57)(14, DashboardComponent_div_44_div_14_Template, 6, 1, "div", 58)(15, DashboardComponent_div_44_p_15_Template, 2, 1, "p", 59);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
@@ -4130,9 +4358,49 @@ function DashboardComponent_div_44_Template(rf, ctx) {
     \u0275\u0275property("ngIf", ctx_r2.storyError);
   }
 }
-function DashboardComponent_div_45_p_15_Template(rf, ctx) {
+function DashboardComponent_div_45_img_14_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "p", 80);
+    \u0275\u0275element(0, "img", 86);
+  }
+  if (rf & 2) {
+    const ctx_r2 = \u0275\u0275nextContext(2);
+    \u0275\u0275property("src", ctx_r2.publishCoverPreview, \u0275\u0275sanitizeUrl);
+  }
+}
+function DashboardComponent_div_45_div_15_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 87);
+    \u0275\u0275namespaceSVG();
+    \u0275\u0275elementStart(1, "svg", 88);
+    \u0275\u0275element(2, "rect", 89)(3, "circle", 90)(4, "path", 91);
+    \u0275\u0275elementEnd();
+    \u0275\u0275namespaceHTML();
+    \u0275\u0275elementStart(5, "span");
+    \u0275\u0275text(6, "Click pentru a incarca o imagine");
+    \u0275\u0275element(7, "br");
+    \u0275\u0275elementStart(8, "small");
+    \u0275\u0275text(9, "Implicit: coperta standard");
+    \u0275\u0275elementEnd()()();
+  }
+}
+function DashboardComponent_div_45_button_16_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r7 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 92);
+    \u0275\u0275listener("click", function DashboardComponent_div_45_button_16_Template_button_click_0_listener($event) {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r2 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r2.removeCover($event));
+    });
+    \u0275\u0275namespaceSVG();
+    \u0275\u0275elementStart(1, "svg", 93);
+    \u0275\u0275element(2, "path", 54);
+    \u0275\u0275elementEnd()();
+  }
+}
+function DashboardComponent_div_45_p_23_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "p", 94);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
@@ -4145,69 +4413,95 @@ function DashboardComponent_div_45_p_15_Template(rf, ctx) {
 function DashboardComponent_div_45_Template(rf, ctx) {
   if (rf & 1) {
     const _r6 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 68);
+    \u0275\u0275elementStart(0, "div", 69);
     \u0275\u0275listener("click", function DashboardComponent_div_45_Template_div_click_0_listener() {
       \u0275\u0275restoreView(_r6);
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.publishModalOpen = false);
     });
-    \u0275\u0275elementStart(1, "div", 69);
+    \u0275\u0275elementStart(1, "div", 70);
     \u0275\u0275listener("click", function DashboardComponent_div_45_Template_div_click_1_listener($event) {
       \u0275\u0275restoreView(_r6);
       return \u0275\u0275resetView($event.stopPropagation());
     });
-    \u0275\u0275elementStart(2, "div", 70)(3, "div", 49);
+    \u0275\u0275elementStart(2, "div", 71)(3, "div", 50);
     \u0275\u0275text(4, "MARKETPLACE");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "h3", 71);
+    \u0275\u0275elementStart(5, "h3", 72);
     \u0275\u0275text(6, "Publica dosarul");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "p", 72);
-    \u0275\u0275text(8, "Jocul va aparea pe pagina principala, cu numele si pretul setate mai jos.");
+    \u0275\u0275elementStart(7, "p", 73);
+    \u0275\u0275text(8, "Dosarul va aparea pe pagina principala cu imaginea, numele si pretul de mai jos.");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "label", 73);
-    \u0275\u0275text(10, "Nume joc");
+    \u0275\u0275elementStart(9, "label", 74);
+    \u0275\u0275text(10, "Imagine coperta");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "input", 74);
-    \u0275\u0275twoWayListener("ngModelChange", function DashboardComponent_div_45_Template_input_ngModelChange_11_listener($event) {
+    \u0275\u0275elementStart(11, "div", 75);
+    \u0275\u0275listener("click", function DashboardComponent_div_45_Template_div_click_11_listener() {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.triggerCoverInput());
+    });
+    \u0275\u0275elementStart(12, "input", 76, 1);
+    \u0275\u0275listener("change", function DashboardComponent_div_45_Template_input_change_12_listener($event) {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.onCoverFileChange($event));
+    });
+    \u0275\u0275elementEnd();
+    \u0275\u0275template(14, DashboardComponent_div_45_img_14_Template, 1, 1, "img", 77)(15, DashboardComponent_div_45_div_15_Template, 10, 0, "div", 78)(16, DashboardComponent_div_45_button_16_Template, 3, 0, "button", 79);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(17, "label", 74);
+    \u0275\u0275text(18, "Nume joc");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(19, "input", 80);
+    \u0275\u0275twoWayListener("ngModelChange", function DashboardComponent_div_45_Template_input_ngModelChange_19_listener($event) {
       \u0275\u0275restoreView(_r6);
       const ctx_r2 = \u0275\u0275nextContext();
       \u0275\u0275twoWayBindingSet(ctx_r2.publishDraftTitle, $event) || (ctx_r2.publishDraftTitle = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "label", 73);
-    \u0275\u0275text(13, "Pret (RON)");
+    \u0275\u0275elementStart(20, "label", 74);
+    \u0275\u0275text(21, "Pret (RON)");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(14, "input", 75);
-    \u0275\u0275twoWayListener("ngModelChange", function DashboardComponent_div_45_Template_input_ngModelChange_14_listener($event) {
+    \u0275\u0275elementStart(22, "input", 81);
+    \u0275\u0275twoWayListener("ngModelChange", function DashboardComponent_div_45_Template_input_ngModelChange_22_listener($event) {
       \u0275\u0275restoreView(_r6);
       const ctx_r2 = \u0275\u0275nextContext();
       \u0275\u0275twoWayBindingSet(ctx_r2.publishDraftPrice, $event) || (ctx_r2.publishDraftPrice = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275template(15, DashboardComponent_div_45_p_15_Template, 2, 1, "p", 76);
-    \u0275\u0275elementStart(16, "div", 77)(17, "button", 78);
-    \u0275\u0275listener("click", function DashboardComponent_div_45_Template_button_click_17_listener() {
+    \u0275\u0275template(23, DashboardComponent_div_45_p_23_Template, 2, 1, "p", 82);
+    \u0275\u0275elementStart(24, "div", 83)(25, "button", 84);
+    \u0275\u0275listener("click", function DashboardComponent_div_45_Template_button_click_25_listener() {
       \u0275\u0275restoreView(_r6);
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.publishModalOpen = false);
     });
-    \u0275\u0275text(18, "Anuleaza");
+    \u0275\u0275text(26, "Anuleaza");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(19, "button", 79);
-    \u0275\u0275listener("click", function DashboardComponent_div_45_Template_button_click_19_listener() {
+    \u0275\u0275elementStart(27, "button", 85);
+    \u0275\u0275listener("click", function DashboardComponent_div_45_Template_button_click_27_listener() {
       \u0275\u0275restoreView(_r6);
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.submitPublish());
     });
-    \u0275\u0275text(20);
+    \u0275\u0275text(28);
     \u0275\u0275elementEnd()()()();
   }
   if (rf & 2) {
     const ctx_r2 = \u0275\u0275nextContext();
     \u0275\u0275advance(11);
+    \u0275\u0275classProp("has-cover", ctx_r2.publishCoverPreview);
+    \u0275\u0275advance(3);
+    \u0275\u0275property("ngIf", ctx_r2.publishCoverPreview);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !ctx_r2.publishCoverPreview);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r2.publishCoverPreview);
+    \u0275\u0275advance(3);
     \u0275\u0275twoWayProperty("ngModel", ctx_r2.publishDraftTitle);
     \u0275\u0275advance(3);
     \u0275\u0275twoWayProperty("ngModel", ctx_r2.publishDraftPrice);
@@ -4223,39 +4517,39 @@ function DashboardComponent_div_45_Template(rf, ctx) {
 }
 function DashboardComponent_div_46_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 81);
-    \u0275\u0275element(1, "div", 82);
-    \u0275\u0275elementStart(2, "p", 83);
+    \u0275\u0275elementStart(0, "div", 95);
+    \u0275\u0275element(1, "div", 96);
+    \u0275\u0275elementStart(2, "p", 97);
     \u0275\u0275text(3, "SE INCARCA DOSARELE...");
     \u0275\u0275elementEnd()();
   }
 }
 function DashboardComponent_div_47_Template(rf, ctx) {
   if (rf & 1) {
-    const _r7 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 84)(1, "div", 85);
+    const _r8 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 98)(1, "div", 99);
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(2, "svg", 86);
-    \u0275\u0275element(3, "rect", 87)(4, "path", 88)(5, "rect", 89)(6, "path", 90);
+    \u0275\u0275elementStart(2, "svg", 100);
+    \u0275\u0275element(3, "rect", 101)(4, "path", 102)(5, "rect", 103)(6, "path", 104);
     \u0275\u0275elementEnd()();
     \u0275\u0275namespaceHTML();
-    \u0275\u0275elementStart(7, "h2", 91);
+    \u0275\u0275elementStart(7, "h2", 105);
     \u0275\u0275text(8, "Niciun dosar deschis");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "p", 92);
-    \u0275\u0275text(10, "Creeaza primul caz sau importa o naraTiune prin AI.");
+    \u0275\u0275elementStart(9, "p", 106);
+    \u0275\u0275text(10, "Creeaza primul t\u0103u scenariu si las\u0103 AI-ul s\u0103=l transforme");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "div", 93)(12, "button", 94);
+    \u0275\u0275elementStart(11, "div", 107)(12, "button", 108);
     \u0275\u0275listener("click", function DashboardComponent_div_47_Template_button_click_12_listener() {
-      \u0275\u0275restoreView(_r7);
+      \u0275\u0275restoreView(_r8);
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.createGame());
     });
     \u0275\u0275text(13, "Dosar nou");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(14, "button", 17);
+    \u0275\u0275elementStart(14, "button", 18);
     \u0275\u0275listener("click", function DashboardComponent_div_47_Template_button_click_14_listener() {
-      \u0275\u0275restoreView(_r7);
+      \u0275\u0275restoreView(_r8);
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.showStoryPanel = true);
     });
@@ -4265,144 +4559,160 @@ function DashboardComponent_div_47_Template(rf, ctx) {
 }
 function DashboardComponent_div_48_div_10_div_14_Template(rf, ctx) {
   if (rf & 1) {
-    const _r10 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 130)(1, "button", 131);
+    const _r11 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 143)(1, "button", 144);
     \u0275\u0275listener("click", function DashboardComponent_div_48_div_10_div_14_Template_button_click_1_listener($event) {
-      \u0275\u0275restoreView(_r10);
-      const game_r9 = \u0275\u0275nextContext().$implicit;
+      \u0275\u0275restoreView(_r11);
+      const game_r10 = \u0275\u0275nextContext().$implicit;
       const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.openPublishModal(game_r9, $event));
+      return \u0275\u0275resetView(ctx_r2.openPublishModal(game_r10, $event));
     });
     \u0275\u0275text(2, "Publica");
     \u0275\u0275elementEnd()();
   }
 }
+function DashboardComponent_div_48_div_10_div_15_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r12 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 143)(1, "button", 145);
+    \u0275\u0275listener("click", function DashboardComponent_div_48_div_10_div_15_Template_button_click_1_listener($event) {
+      \u0275\u0275restoreView(_r12);
+      const game_r10 = \u0275\u0275nextContext().$implicit;
+      const ctx_r2 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r2.unpublishGame(game_r10, $event));
+    });
+    \u0275\u0275text(2, "Retrage din piata");
+    \u0275\u0275elementEnd()();
+  }
+}
 function DashboardComponent_div_48_div_10_Template(rf, ctx) {
   if (rf & 1) {
-    const _r8 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 101);
+    const _r9 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 115);
     \u0275\u0275listener("click", function DashboardComponent_div_48_div_10_Template_div_click_0_listener() {
-      const game_r9 = \u0275\u0275restoreView(_r8).$implicit;
+      const game_r10 = \u0275\u0275restoreView(_r9).$implicit;
       const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.editGame(game_r9.gameId));
+      return \u0275\u0275resetView(ctx_r2.editGame(game_r10.gameId));
     });
-    \u0275\u0275element(1, "div", 102)(2, "div", 103);
-    \u0275\u0275elementStart(3, "div", 104);
+    \u0275\u0275element(1, "div", 116)(2, "div", 117);
+    \u0275\u0275elementStart(3, "div", 118);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "div", 105);
+    \u0275\u0275elementStart(5, "div", 119);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "div", 106);
-    \u0275\u0275element(8, "span", 107);
+    \u0275\u0275elementStart(7, "div", 120);
+    \u0275\u0275element(8, "span", 121);
     \u0275\u0275text(9);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "h3", 108);
+    \u0275\u0275elementStart(10, "h3", 122);
     \u0275\u0275text(11);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "p", 109);
+    \u0275\u0275elementStart(12, "p", 123);
     \u0275\u0275text(13);
     \u0275\u0275elementEnd();
-    \u0275\u0275template(14, DashboardComponent_div_48_div_10_div_14_Template, 3, 0, "div", 110);
-    \u0275\u0275element(15, "div", 111);
-    \u0275\u0275elementStart(16, "div", 112)(17, "div", 113);
+    \u0275\u0275template(14, DashboardComponent_div_48_div_10_div_14_Template, 3, 0, "div", 124)(15, DashboardComponent_div_48_div_10_div_15_Template, 3, 0, "div", 124);
+    \u0275\u0275element(16, "div", 125);
+    \u0275\u0275elementStart(17, "div", 126)(18, "div", 127);
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(18, "svg", 114);
-    \u0275\u0275element(19, "circle", 115)(20, "path", 116);
+    \u0275\u0275elementStart(19, "svg", 128);
+    \u0275\u0275element(20, "circle", 129)(21, "path", 130);
     \u0275\u0275elementEnd();
-    \u0275\u0275text(21);
+    \u0275\u0275text(22);
     \u0275\u0275namespaceHTML();
-    \u0275\u0275elementStart(22, "span", 117);
-    \u0275\u0275text(23, "SUSP.");
+    \u0275\u0275elementStart(23, "span", 131);
+    \u0275\u0275text(24, "SUSP.");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(24, "div", 113);
+    \u0275\u0275elementStart(25, "div", 127);
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(25, "svg", 114);
-    \u0275\u0275element(26, "rect", 118)(27, "path", 119);
+    \u0275\u0275elementStart(26, "svg", 128);
+    \u0275\u0275element(27, "rect", 132)(28, "path", 133);
     \u0275\u0275elementEnd();
-    \u0275\u0275text(28);
+    \u0275\u0275text(29);
     \u0275\u0275namespaceHTML();
-    \u0275\u0275elementStart(29, "span", 117);
-    \u0275\u0275text(30, "DOV.");
+    \u0275\u0275elementStart(30, "span", 131);
+    \u0275\u0275text(31, "DOV.");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(31, "div", 113);
+    \u0275\u0275elementStart(32, "div", 127);
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(32, "svg", 114);
-    \u0275\u0275element(33, "rect", 120)(34, "circle", 121);
+    \u0275\u0275elementStart(33, "svg", 128);
+    \u0275\u0275element(34, "rect", 134)(35, "circle", 135);
     \u0275\u0275elementEnd();
-    \u0275\u0275text(35);
+    \u0275\u0275text(36);
     \u0275\u0275namespaceHTML();
-    \u0275\u0275elementStart(36, "span", 117);
-    \u0275\u0275text(37, "DIS\xD0\u0178.");
+    \u0275\u0275elementStart(37, "span", 131);
+    \u0275\u0275text(38, "DISPOZITIVE.");
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(38, "div", 122)(39, "span", 123);
-    \u0275\u0275text(40);
+    \u0275\u0275elementStart(39, "div", 136)(40, "span", 137);
+    \u0275\u0275text(41);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(41, "div", 124)(42, "button", 125);
-    \u0275\u0275listener("click", function DashboardComponent_div_48_div_10_Template_button_click_42_listener($event) {
-      const game_r9 = \u0275\u0275restoreView(_r8).$implicit;
+    \u0275\u0275elementStart(42, "div", 138)(43, "button", 139);
+    \u0275\u0275listener("click", function DashboardComponent_div_48_div_10_Template_button_click_43_listener($event) {
+      const game_r10 = \u0275\u0275restoreView(_r9).$implicit;
       const ctx_r2 = \u0275\u0275nextContext(2);
-      ctx_r2.editGame(game_r9.gameId);
+      ctx_r2.editGame(game_r10.gameId);
       return \u0275\u0275resetView($event.stopPropagation());
     });
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(43, "svg", 126);
-    \u0275\u0275element(44, "path", 127);
+    \u0275\u0275elementStart(44, "svg", 93);
+    \u0275\u0275element(45, "path", 140);
     \u0275\u0275elementEnd()();
     \u0275\u0275namespaceHTML();
-    \u0275\u0275elementStart(45, "button", 128);
-    \u0275\u0275listener("click", function DashboardComponent_div_48_div_10_Template_button_click_45_listener($event) {
-      const game_r9 = \u0275\u0275restoreView(_r8).$implicit;
+    \u0275\u0275elementStart(46, "button", 141);
+    \u0275\u0275listener("click", function DashboardComponent_div_48_div_10_Template_button_click_46_listener($event) {
+      const game_r10 = \u0275\u0275restoreView(_r9).$implicit;
       const ctx_r2 = \u0275\u0275nextContext(2);
-      ctx_r2.deleteGame(game_r9.gameId);
+      ctx_r2.deleteGame(game_r10.gameId);
       return \u0275\u0275resetView($event.stopPropagation());
     });
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(46, "svg", 126);
-    \u0275\u0275element(47, "path", 129);
+    \u0275\u0275elementStart(47, "svg", 93);
+    \u0275\u0275element(48, "path", 142);
     \u0275\u0275elementEnd()()()()();
   }
   if (rf & 2) {
-    const game_r9 = ctx.$implicit;
-    const i_r11 = ctx.index;
+    const game_r10 = ctx.$implicit;
+    const i_r13 = ctx.index;
     const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275styleProp("animation-delay", 0.06 + i_r11 * 0.05 + "s");
+    \u0275\u0275styleProp("animation-delay", 0.06 + i_r13 * 0.05 + "s");
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate((i_r11 + 1).toString().padStart(4, "0"));
+    \u0275\u0275textInterpolate((i_r13 + 1).toString().padStart(4, "0"));
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("DOSAR #", (i_r11 + 1).toString().padStart(4, "0"), "");
+    \u0275\u0275textInterpolate1("DOSAR #", (i_r13 + 1).toString().padStart(4, "0"), "");
     \u0275\u0275advance(2);
-    \u0275\u0275classProp("pip-green", game_r9.isPublished)("pip-amber", !game_r9.isPublished);
+    \u0275\u0275classProp("pip-green", game_r10.isPublished)("pip-amber", !game_r10.isPublished);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", game_r9.isPublished ? "PUBLICAT" : "ACTIV", " ");
+    \u0275\u0275textInterpolate1(" ", game_r10.isPublished ? "PUBLICAT" : "ACTIV", " ");
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(game_r9.title);
+    \u0275\u0275textInterpolate(game_r10.title);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(game_r9.description || "Nicio descriere disponibila.");
+    \u0275\u0275textInterpolate(game_r10.description || "Nicio descriere disponibila.");
     \u0275\u0275advance();
-    \u0275\u0275property("ngIf", !game_r9.isPublished);
+    \u0275\u0275property("ngIf", !game_r10.isPublished);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", game_r10.isPublished);
     \u0275\u0275advance(7);
-    \u0275\u0275textInterpolate1(" ", game_r9.characterCount, "");
+    \u0275\u0275textInterpolate1(" ", game_r10.characterCount, "");
     \u0275\u0275advance(7);
-    \u0275\u0275textInterpolate1(" ", game_r9.evidenceCount, "");
+    \u0275\u0275textInterpolate1(" ", game_r10.evidenceCount, "");
     \u0275\u0275advance(7);
-    \u0275\u0275textInterpolate1(" ", game_r9.deviceCount, "");
+    \u0275\u0275textInterpolate1(" ", game_r10.deviceCount, "");
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r2.formatDate(game_r9.updatedAt));
+    \u0275\u0275textInterpolate(ctx_r2.formatDate(game_r10.updatedAt));
   }
 }
 function DashboardComponent_div_48_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div")(1, "div", 95)(2, "div", 96)(3, "div", 49);
+    \u0275\u0275elementStart(0, "div")(1, "div", 109)(2, "div", 110)(3, "div", 50);
     \u0275\u0275text(4, "DOSARE ACTIVE");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "h1", 97);
+    \u0275\u0275elementStart(5, "h1", 111);
     \u0275\u0275text(6, "Cazurile tale ");
-    \u0275\u0275elementStart(7, "span", 98);
+    \u0275\u0275elementStart(7, "span", 112);
     \u0275\u0275text(8);
     \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(9, "div", 99);
-    \u0275\u0275template(10, DashboardComponent_div_48_div_10_Template, 48, 16, "div", 100);
+    \u0275\u0275elementStart(9, "div", 113);
+    \u0275\u0275template(10, DashboardComponent_div_48_div_10_Template, 49, 17, "div", 114);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
@@ -4418,6 +4728,7 @@ var DashboardComponent = class _DashboardComponent {
   authService;
   router;
   canvasRef;
+  coverInputRef;
   games = [];
   loading = true;
   userEmail = "";
@@ -4434,6 +4745,8 @@ var DashboardComponent = class _DashboardComponent {
   publishGameId = null;
   publishDraftTitle = "";
   publishDraftPrice = "";
+  publishCoverFile = null;
+  publishCoverPreview = null;
   publishSaving = false;
   publishError = "";
   cleanup;
@@ -4525,6 +4838,8 @@ var DashboardComponent = class _DashboardComponent {
     this.publishDraftPrice = p != null && p !== void 0 ? String(p) : "";
     this.publishError = "";
     this.publishSaving = false;
+    this.publishCoverFile = null;
+    this.publishCoverPreview = null;
     this.publishModalOpen = true;
   }
   submitPublish() {
@@ -4571,6 +4886,45 @@ var DashboardComponent = class _DashboardComponent {
   goToProfile() {
     this.menuOpen = false;
     this.router.navigate(["/profile"]);
+  }
+  goToLanding() {
+    this.router.navigate(["/"]);
+  }
+  triggerCoverInput() {
+    this.coverInputRef?.nativeElement.click();
+  }
+  onCoverFileChange(event) {
+    const input = event.target;
+    const file = input.files?.[0];
+    if (!file)
+      return;
+    this.publishCoverFile = file;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.publishCoverPreview = e.target?.result;
+    };
+    reader.readAsDataURL(file);
+  }
+  removeCover(ev) {
+    ev.stopPropagation();
+    this.publishCoverFile = null;
+    this.publishCoverPreview = null;
+    if (this.coverInputRef)
+      this.coverInputRef.nativeElement.value = "";
+  }
+  unpublishGame(game, ev) {
+    ev.stopPropagation();
+    if (!confirm(`Retragi "${game.title}" din piata? Dosarul ramane salvat.`))
+      return;
+    this.gameService.unpublishGame(game.gameId).subscribe({
+      next: (g) => {
+        const ix = this.games.findIndex((x) => x.gameId === g.gameId);
+        if (ix >= 0)
+          this.games[ix] = __spreadProps(__spreadValues({}, this.games[ix]), { isPublished: false, updatedAt: g.updatedAt });
+        this.games = [...this.games];
+      },
+      error: () => alert("Retragerea a esuat.")
+    });
   }
   deleteGame(gameId) {
     if (confirm("Confirmi inchiderea dosarului? AcTiunea este ireversibila.")) {
@@ -4717,10 +5071,12 @@ var DashboardComponent = class _DashboardComponent {
   static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _DashboardComponent, selectors: [["app-dashboard"]], viewQuery: function DashboardComponent_Query(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275viewQuery(_c03, 5);
+      \u0275\u0275viewQuery(_c1, 5);
     }
     if (rf & 2) {
       let _t;
       \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.canvasRef = _t.first);
+      \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.coverInputRef = _t.first);
     }
   }, hostBindings: function DashboardComponent_HostBindings(rf, ctx) {
     if (rf & 1) {
@@ -4728,83 +5084,83 @@ var DashboardComponent = class _DashboardComponent {
         return ctx.onDocClick($event);
       }, false, \u0275\u0275resolveDocument);
     }
-  }, standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 49, vars: 11, consts: [["bgCvs", ""], [1, "page"], [1, "bg-canvas"], [1, "fixed-logo-wrap"], ["src", "assets/logo_final.svg", "alt", "", 1, "fixed-logo-img"], [1, "navbar"], [1, "nav-inner"], [1, "nav-logo"], ["src", "assets/logo_final.svg", "alt", "The Investigation", "title", "The Investigation", 1, "logo-img"], [1, "nav-stats"], [1, "ns-item"], [1, "ns-label"], [1, "ns-val"], [1, "ns-div"], [1, "ns-val", "ns-live"], [1, "status-dot"], [1, "nav-right"], [1, "btn-outline-amber", 3, "click"], ["width", "11", "height", "11", "viewBox", "0 0 16 16", "fill", "none"], ["cx", "8", "cy", "8", "r", "6.5", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M5.5 8h5M8 5.5v5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], [1, "btn-primary-nav", 3, "click"], [1, "user-menu", 3, "clickOutside"], ["id", "user-menu-btn", 1, "user-avatar", 3, "click"], [1, "avatar-initials"], ["width", "9", "height", "9", "viewBox", "0 0 10 10", "fill", "none", 1, "avatar-caret"], ["d", "M2 3.5l3 3 3-3", "stroke", "currentColor", "stroke-width", "1.4", "stroke-linecap", "round", "stroke-linejoin", "round"], ["class", "user-dropdown", 4, "ngIf"], [1, "main-wrap", 3, "scroll"], ["class", "story-panel", 4, "ngIf"], ["class", "publish-overlay", 3, "click", 4, "ngIf"], ["class", "center-state", 4, "ngIf"], ["class", "empty-state", 4, "ngIf"], [4, "ngIf"], [1, "user-dropdown"], [1, "dropdown-header"], [1, "dh-name"], [1, "dh-email"], [1, "dropdown-sep"], [1, "dropdown-item", 3, "click"], ["width", "13", "height", "13", "viewBox", "0 0 16 16", "fill", "none"], ["cx", "8", "cy", "5.5", "r", "3", "stroke", "currentColor", "stroke-width", "1.2"], ["d", "M2 15c0-2.7 2.7-4.5 6-4.5s6 1.8 6 4.5", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round"], ["x", "2", "y", "6", "width", "12", "height", "9", "rx", "1.5", "stroke", "currentColor", "stroke-width", "1.2"], ["d", "M5 6V4.5a3 3 0 1 1 6 0V6", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round"], [1, "dropdown-item", "item-danger", 3, "click"], ["d", "M10 2h3v12h-3M7 11l3-3-3-3M2 8h8", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "story-panel"], [1, "panel-head"], [1, "eyebrow"], [1, "panel-title"], [1, "panel-close", 3, "click"], ["width", "14", "height", "14", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M12 4L4 12M4 4l8 8", "stroke", "currentColor", "stroke-width", "1.5", "stroke-linecap", "round"], [1, "panel-hint"], ["placeholder", "Ex: Titlu: Crima din vila. Personaje: Maria (soTia, motiv mostenire), Ion (majordomul). Dispozitive: Maria are un iPhone cu emailuri, note si conversaTii cu Dr. Ionescu...", "rows", "8", 1, "story-area", 3, "ngModelChange", "ngModel"], ["class", "progress-wrap", 4, "ngIf"], ["class", "panel-foot", 4, "ngIf"], ["class", "story-err", 4, "ngIf"], [1, "progress-wrap"], [1, "progress-header"], [1, "progress-pct"], [1, "progress-bar"], [1, "progress-fill"], [1, "panel-foot"], [1, "btn-ghost", 3, "click"], [1, "btn-primary", 3, "click", "disabled"], [1, "story-err"], [1, "publish-overlay", 3, "click"], [1, "publish-dialog", 3, "click"], [1, "publish-head"], [1, "publish-title"], [1, "publish-hint"], [1, "publish-lbl"], ["type", "text", "maxlength", "200", 1, "publish-input", 3, "ngModelChange", "ngModel"], ["type", "text", "inputmode", "decimal", "placeholder", "ex: 25 sau 19.99", 1, "publish-input", 3, "ngModelChange", "ngModel"], ["class", "publish-err", 4, "ngIf"], [1, "publish-foot"], ["type", "button", 1, "btn-ghost", 3, "click", "disabled"], ["type", "button", 1, "btn-primary", 3, "click", "disabled"], [1, "publish-err"], [1, "center-state"], [1, "loader"], [1, "meta-lbl"], [1, "empty-state"], [1, "empty-icon"], ["viewBox", "0 0 80 80", "fill", "none"], ["x", "10", "y", "10", "width", "60", "height", "68", "rx", "4", "stroke", "#d43f33", "stroke-width", "1.5", "fill", "rgba(184,114,8,0.04)"], ["d", "M10 20 H70", "stroke", "#d43f33", "stroke-width", "1", "opacity", "0.4"], ["x", "10", "y", "10", "width", "24", "height", "12", "rx", "3", "fill", "rgba(184,114,8,0.1)", "stroke", "#d43f33", "stroke-width", "1", "opacity", "0.6"], ["d", "M20 36 h40 M20 46 h40 M20 56 h26", "stroke", "#d43f33", "stroke-width", "1", "stroke-linecap", "round", "opacity", "0.3"], [1, "empty-title"], [1, "empty-sub"], [1, "empty-acts"], [1, "btn-primary", 3, "click"], [1, "page-header"], [1, "ph-left"], [1, "display-title"], [1, "count-badge"], [1, "games-grid"], ["class", "case-card", 3, "animation-delay", "click", 4, "ngFor", "ngForOf"], [1, "case-card", 3, "click"], [1, "card-top-line"], [1, "card-pin"], [1, "watermark"], [1, "case-id"], [1, "card-status"], [1, "status-pip"], [1, "card-title"], [1, "card-desc"], ["class", "card-publish", 4, "ngIf"], [1, "sep"], [1, "card-stats"], [1, "stat"], ["width", "10", "height", "10", "viewBox", "0 0 16 16", "fill", "none"], ["cx", "8", "cy", "5.5", "r", "3", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M2 15c0-2.7 2.7-4.5 6-4.5s6 1.8 6 4.5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], [1, "stat-lbl"], ["x", "2", "y", "2", "width", "12", "height", "12", "rx", "1.5", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M5 6h6M5 9h4", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["x", "3", "y", "1", "width", "10", "height", "14", "rx", "2", "stroke", "currentColor", "stroke-width", "1.3"], ["cx", "8", "cy", "11", "r", "1", "fill", "currentColor"], [1, "card-footer"], [1, "card-date"], [1, "card-acts"], ["title", "Editeaza", 1, "act-btn", 3, "click"], ["width", "12", "height", "12", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M11 2l3 3-9 9H2v-3L11 2z", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linejoin", "round"], ["title", "Sterge", 1, "act-btn", "act-del", 3, "click"], ["d", "M2 4h12M5 4V3h6v1M3 4l1 9h8l1-9", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], [1, "card-publish"], ["type", "button", 1, "btn-publish", 3, "click"]], template: function DashboardComponent_Template(rf, ctx) {
+  }, standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 49, vars: 11, consts: [["bgCvs", ""], ["coverInput", ""], [1, "page"], [1, "bg-canvas"], [1, "fixed-logo-wrap"], ["src", "assets/logo_final.svg", "alt", "", 1, "fixed-logo-img"], [1, "navbar"], [1, "nav-inner"], [1, "nav-logo"], ["src", "assets/logo_final.svg", "alt", "The Investigation", "title", "The Investigation", 1, "logo-img"], [1, "nav-stats"], [1, "ns-item"], [1, "ns-label"], [1, "ns-val"], [1, "ns-div"], [1, "ns-val", "ns-live"], [1, "status-dot"], [1, "nav-right"], [1, "btn-outline-amber", 3, "click"], ["width", "11", "height", "11", "viewBox", "0 0 16 16", "fill", "none"], ["cx", "8", "cy", "8", "r", "6.5", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M5.5 8h5M8 5.5v5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], [1, "btn-primary-nav", 3, "click"], [1, "user-menu", 3, "clickOutside"], ["id", "user-menu-btn", 1, "user-avatar", 3, "click"], [1, "avatar-initials"], ["width", "9", "height", "9", "viewBox", "0 0 10 10", "fill", "none", 1, "avatar-caret"], ["d", "M2 3.5l3 3 3-3", "stroke", "currentColor", "stroke-width", "1.4", "stroke-linecap", "round", "stroke-linejoin", "round"], ["class", "user-dropdown", 4, "ngIf"], [1, "main-wrap", 3, "scroll"], ["class", "story-panel", 4, "ngIf"], ["class", "publish-overlay", 3, "click", 4, "ngIf"], ["class", "center-state", 4, "ngIf"], ["class", "empty-state", 4, "ngIf"], [4, "ngIf"], [1, "user-dropdown"], [1, "dropdown-header"], [1, "dh-name"], [1, "dh-email"], [1, "dropdown-sep"], [1, "dropdown-item", 3, "click"], ["width", "13", "height", "13", "viewBox", "0 0 16 16", "fill", "none"], ["cx", "8", "cy", "5.5", "r", "3", "stroke", "currentColor", "stroke-width", "1.2"], ["d", "M2 15c0-2.7 2.7-4.5 6-4.5s6 1.8 6 4.5", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round"], ["x", "2", "y", "6", "width", "12", "height", "9", "rx", "1.5", "stroke", "currentColor", "stroke-width", "1.2"], ["d", "M5 6V4.5a3 3 0 1 1 6 0V6", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round"], [1, "dropdown-item", "item-danger", 3, "click"], ["d", "M10 2h3v12h-3M7 11l3-3-3-3M2 8h8", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "story-panel"], [1, "panel-head"], [1, "eyebrow"], [1, "panel-title"], [1, "panel-close", 3, "click"], ["width", "14", "height", "14", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M12 4L4 12M4 4l8 8", "stroke", "currentColor", "stroke-width", "1.5", "stroke-linecap", "round"], [1, "panel-hint"], ["placeholder", "Ex: Titlu: Crima din vila. Personaje: Maria (soTia, motiv mostenire), Ion (majordomul). Dispozitive: Maria are un iPhone cu emailuri, note si conversaTii cu Dr. Ionescu...", "rows", "8", 1, "story-area", 3, "ngModelChange", "ngModel"], ["class", "progress-wrap", 4, "ngIf"], ["class", "panel-foot", 4, "ngIf"], ["class", "story-err", 4, "ngIf"], [1, "progress-wrap"], [1, "progress-header"], [1, "progress-pct"], [1, "progress-bar"], [1, "progress-fill"], [1, "panel-foot"], [1, "btn-ghost", 3, "click"], [1, "btn-primary", 3, "click", "disabled"], [1, "story-err"], [1, "publish-overlay", 3, "click"], [1, "publish-dialog", 3, "click"], [1, "publish-head"], [1, "publish-title"], [1, "publish-hint"], [1, "publish-lbl"], [1, "cover-upload-area", 3, "click"], ["type", "file", "accept", "image/*", 2, "display", "none", 3, "change"], ["class", "cover-preview-img", "alt", "Coperta dosar", 3, "src", 4, "ngIf"], ["class", "cover-placeholder", 4, "ngIf"], ["type", "button", "class", "cover-remove", 3, "click", 4, "ngIf"], ["type", "text", "maxlength", "200", 1, "publish-input", 3, "ngModelChange", "ngModel"], ["type", "text", "inputmode", "decimal", "placeholder", "ex: 25 sau 19.99", 1, "publish-input", 3, "ngModelChange", "ngModel"], ["class", "publish-err", 4, "ngIf"], [1, "publish-foot"], ["type", "button", 1, "btn-ghost", 3, "click", "disabled"], ["type", "button", 1, "btn-primary", 3, "click", "disabled"], ["alt", "Coperta dosar", 1, "cover-preview-img", 3, "src"], [1, "cover-placeholder"], ["width", "28", "height", "28", "viewBox", "0 0 24 24", "fill", "none"], ["x", "3", "y", "3", "width", "18", "height", "18", "rx", "3", "stroke", "currentColor", "stroke-width", "1.3"], ["cx", "8.5", "cy", "8.5", "r", "1.5", "fill", "currentColor", "opacity", ".5"], ["d", "M3 16l5-5 4 4 3-3 6 6", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round", "stroke-linejoin", "round"], ["type", "button", 1, "cover-remove", 3, "click"], ["width", "12", "height", "12", "viewBox", "0 0 16 16", "fill", "none"], [1, "publish-err"], [1, "center-state"], [1, "loader"], [1, "meta-lbl"], [1, "empty-state"], [1, "empty-icon"], ["viewBox", "0 0 80 80", "fill", "none"], ["x", "10", "y", "10", "width", "60", "height", "68", "rx", "4", "stroke", "#d43f33", "stroke-width", "1.5", "fill", "rgba(184,114,8,0.04)"], ["d", "M10 20 H70", "stroke", "#d43f33", "stroke-width", "1", "opacity", "0.4"], ["x", "10", "y", "10", "width", "24", "height", "12", "rx", "3", "fill", "rgba(184,114,8,0.1)", "stroke", "#d43f33", "stroke-width", "1", "opacity", "0.6"], ["d", "M20 36 h40 M20 46 h40 M20 56 h26", "stroke", "#d43f33", "stroke-width", "1", "stroke-linecap", "round", "opacity", "0.3"], [1, "empty-title"], [1, "empty-sub"], [1, "empty-acts"], [1, "btn-primary", 3, "click"], [1, "page-header"], [1, "ph-left"], [1, "display-title"], [1, "count-badge"], [1, "games-grid"], ["class", "case-card", 3, "animation-delay", "click", 4, "ngFor", "ngForOf"], [1, "case-card", 3, "click"], [1, "card-top-line"], [1, "card-pin"], [1, "watermark"], [1, "case-id"], [1, "card-status"], [1, "status-pip"], [1, "card-title"], [1, "card-desc"], ["class", "card-publish", 4, "ngIf"], [1, "sep"], [1, "card-stats"], [1, "stat"], ["width", "10", "height", "10", "viewBox", "0 0 16 16", "fill", "none"], ["cx", "8", "cy", "5.5", "r", "3", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M2 15c0-2.7 2.7-4.5 6-4.5s6 1.8 6 4.5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], [1, "stat-lbl"], ["x", "2", "y", "2", "width", "12", "height", "12", "rx", "1.5", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M5 6h6M5 9h4", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["x", "3", "y", "1", "width", "10", "height", "14", "rx", "2", "stroke", "currentColor", "stroke-width", "1.3"], ["cx", "8", "cy", "11", "r", "1", "fill", "currentColor"], [1, "card-footer"], [1, "card-date"], [1, "card-acts"], ["title", "Editeaza", 1, "act-btn", 3, "click"], ["d", "M11 2l3 3-9 9H2v-3L11 2z", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linejoin", "round"], ["title", "Sterge", 1, "act-btn", "act-del", 3, "click"], ["d", "M2 4h12M5 4V3h6v1M3 4l1 9h8l1-9", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], [1, "card-publish"], ["type", "button", 1, "btn-publish", 3, "click"], ["type", "button", 1, "btn-unpublish", 3, "click"]], template: function DashboardComponent_Template(rf, ctx) {
     if (rf & 1) {
       const _r1 = \u0275\u0275getCurrentView();
-      \u0275\u0275elementStart(0, "div", 1);
-      \u0275\u0275element(1, "canvas", 2, 0);
-      \u0275\u0275elementStart(3, "div", 3);
-      \u0275\u0275element(4, "img", 4);
+      \u0275\u0275elementStart(0, "div", 2);
+      \u0275\u0275element(1, "canvas", 3, 0);
+      \u0275\u0275elementStart(3, "div", 4);
+      \u0275\u0275element(4, "img", 5);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(5, "nav", 5)(6, "div", 6)(7, "div", 7);
-      \u0275\u0275element(8, "img", 8);
+      \u0275\u0275elementStart(5, "nav", 6)(6, "div", 7)(7, "div", 8);
+      \u0275\u0275element(8, "img", 9);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(9, "div", 9)(10, "div", 10)(11, "span", 11);
+      \u0275\u0275elementStart(9, "div", 10)(10, "div", 11)(11, "span", 12);
       \u0275\u0275text(12, "// CREATOR");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(13, "span", 12);
+      \u0275\u0275elementStart(13, "span", 13);
       \u0275\u0275text(14);
       \u0275\u0275elementEnd()();
-      \u0275\u0275element(15, "div", 13);
-      \u0275\u0275elementStart(16, "div", 10)(17, "span", 11);
+      \u0275\u0275element(15, "div", 14);
+      \u0275\u0275elementStart(16, "div", 11)(17, "span", 12);
       \u0275\u0275text(18, "DOSARE");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(19, "span", 12);
+      \u0275\u0275elementStart(19, "span", 13);
       \u0275\u0275text(20);
       \u0275\u0275elementEnd()();
-      \u0275\u0275element(21, "div", 13);
-      \u0275\u0275elementStart(22, "div", 10)(23, "span", 11);
+      \u0275\u0275element(21, "div", 14);
+      \u0275\u0275elementStart(22, "div", 11)(23, "span", 12);
       \u0275\u0275text(24, "STATUS");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(25, "span", 14);
-      \u0275\u0275element(26, "span", 15);
+      \u0275\u0275elementStart(25, "span", 15);
+      \u0275\u0275element(26, "span", 16);
       \u0275\u0275text(27, "LIVE ");
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(28, "div", 16)(29, "button", 17);
+      \u0275\u0275elementStart(28, "div", 17)(29, "button", 18);
       \u0275\u0275listener("click", function DashboardComponent_Template_button_click_29_listener() {
         \u0275\u0275restoreView(_r1);
         return \u0275\u0275resetView(ctx.showStoryPanel = !ctx.showStoryPanel);
       });
       \u0275\u0275namespaceSVG();
-      \u0275\u0275elementStart(30, "svg", 18);
-      \u0275\u0275element(31, "circle", 19)(32, "path", 20);
+      \u0275\u0275elementStart(30, "svg", 19);
+      \u0275\u0275element(31, "circle", 20)(32, "path", 21);
       \u0275\u0275elementEnd();
       \u0275\u0275text(33, " AI Story ");
       \u0275\u0275elementEnd();
       \u0275\u0275namespaceHTML();
-      \u0275\u0275elementStart(34, "button", 21);
+      \u0275\u0275elementStart(34, "button", 22);
       \u0275\u0275listener("click", function DashboardComponent_Template_button_click_34_listener() {
         \u0275\u0275restoreView(_r1);
         return \u0275\u0275resetView(ctx.createGame());
       });
       \u0275\u0275text(35, "+ Dosar nou");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(36, "div", 22);
+      \u0275\u0275elementStart(36, "div", 23);
       \u0275\u0275listener("clickOutside", function DashboardComponent_Template_div_clickOutside_36_listener() {
         \u0275\u0275restoreView(_r1);
         return \u0275\u0275resetView(ctx.menuOpen = false);
       });
-      \u0275\u0275elementStart(37, "button", 23);
+      \u0275\u0275elementStart(37, "button", 24);
       \u0275\u0275listener("click", function DashboardComponent_Template_button_click_37_listener() {
         \u0275\u0275restoreView(_r1);
         return \u0275\u0275resetView(ctx.menuOpen = !ctx.menuOpen);
       });
-      \u0275\u0275elementStart(38, "span", 24);
+      \u0275\u0275elementStart(38, "span", 25);
       \u0275\u0275text(39);
       \u0275\u0275elementEnd();
       \u0275\u0275namespaceSVG();
-      \u0275\u0275elementStart(40, "svg", 25);
-      \u0275\u0275element(41, "path", 26);
+      \u0275\u0275elementStart(40, "svg", 26);
+      \u0275\u0275element(41, "path", 27);
       \u0275\u0275elementEnd()();
-      \u0275\u0275template(42, DashboardComponent_div_42_Template, 22, 2, "div", 27);
+      \u0275\u0275template(42, DashboardComponent_div_42_Template, 22, 2, "div", 28);
       \u0275\u0275elementEnd()()()();
       \u0275\u0275namespaceHTML();
-      \u0275\u0275elementStart(43, "main", 28);
+      \u0275\u0275elementStart(43, "main", 29);
       \u0275\u0275listener("scroll", function DashboardComponent_Template_main_scroll_43_listener() {
         \u0275\u0275restoreView(_r1);
         return \u0275\u0275resetView(ctx.onScroll());
       });
-      \u0275\u0275template(44, DashboardComponent_div_44_Template, 16, 4, "div", 29)(45, DashboardComponent_div_45_Template, 21, 6, "div", 30)(46, DashboardComponent_div_46_Template, 4, 0, "div", 31)(47, DashboardComponent_div_47_Template, 16, 0, "div", 32)(48, DashboardComponent_div_48_Template, 11, 2, "div", 33);
+      \u0275\u0275template(44, DashboardComponent_div_44_Template, 16, 4, "div", 30)(45, DashboardComponent_div_45_Template, 29, 11, "div", 31)(46, DashboardComponent_div_46_Template, 4, 0, "div", 32)(47, DashboardComponent_div_47_Template, 16, 0, "div", 33)(48, DashboardComponent_div_48_Template, 11, 2, "div", 34);
       \u0275\u0275elementEnd()();
     }
     if (rf & 2) {
@@ -4829,10 +5185,10 @@ var DashboardComponent = class _DashboardComponent {
       \u0275\u0275advance();
       \u0275\u0275property("ngIf", !ctx.loading && ctx.games.length > 0);
     }
-  }, dependencies: [CommonModule, NgForOf, NgIf, RouterModule, FormsModule, DefaultValueAccessor, NgControlStatus, MaxLengthValidator, NgModel], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n*[_ngcontent-%COMP%] {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n.page[_ngcontent-%COMP%] {\n  --bg:#fcfaf7;\n  --surface:#fff;\n  --border:rgba(0,0,0,0.07);\n  --border-md:rgba(0,0,0,0.11);\n  --amber:#d43f33;\n  --amber-l:rgba(212,63,51,0.07);\n  --gold:#c9962a;\n  --navy:#1a1a1a;\n  --navy-l:rgba(26,26,26,0.06);\n  --ink:#1a1a1a;\n  --ink2:rgba(26,22,16,0.62);\n  --ink3:rgba(26,22,16,0.40);\n  --green:#4a7a56;\n  --red:#9b2020;\n  min-height: 100vh;\n  background: var(--bg);\n  position: relative;\n  font-family: "Public Sans", sans-serif;\n  color: var(--ink);\n}\n.bg-canvas[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 0;\n  pointer-events: none;\n}\n.fixed-logo-wrap[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  pointer-events: none;\n  z-index: 500;\n  mix-blend-mode: screen;\n}\n.fixed-logo-img[_ngcontent-%COMP%] {\n  width: min(85vw, 85vh);\n  height: min(85vw, 85vh);\n  object-fit: contain;\n  filter: invert(1);\n  opacity: 0.12;\n  animation: _ngcontent-%COMP%_logoBreath 8s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_logoBreath {\n  0%, 100% {\n    opacity: 0.1;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.16;\n    transform: scale(1.015);\n  }\n}\n.stats-band[_ngcontent-%COMP%] {\n  background: var(--ink);\n  color: #fff;\n  padding: 2.2rem 24px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 3.5rem;\n  flex-wrap: wrap;\n  position: relative;\n  z-index: 10;\n}\n.sband-item[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.sband-label[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 0.6rem;\n  letter-spacing: 2px;\n  opacity: 0.5;\n  display: block;\n  margin-bottom: 0.3rem;\n}\n.sband-val[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 1.9rem;\n  font-weight: 700;\n  display: block;\n  line-height: 1;\n}\n.sband-live[_ngcontent-%COMP%] {\n  color: #d43f33;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 0.85rem;\n  letter-spacing: 2px;\n  animation: _ngcontent-%COMP%_blink 3s ease-in-out infinite;\n}\n.sband-divider[_ngcontent-%COMP%] {\n  width: 1px;\n  height: 36px;\n  background: rgba(255, 255, 255, 0.12);\n}\n.sband-cta[_ngcontent-%COMP%] {\n  background: transparent;\n  border: 1px solid rgba(255, 255, 255, 0.25);\n  color: #fff;\n  padding: 0.5rem 1.2rem;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 0.72rem;\n  letter-spacing: 1px;\n  cursor: pointer;\n  transition: border-color 0.2s;\n}\n.sband-cta[_ngcontent-%COMP%]:hover {\n  border-color: #d43f33;\n  color: #d43f33;\n}\n.navbar[_ngcontent-%COMP%] {\n  position: sticky;\n  top: 0;\n  z-index: 100;\n  height: 72px;\n  background: var(--ink);\n  border-bottom: 2px solid rgba(255, 255, 255, 0.06);\n}\n.nav-inner[_ngcontent-%COMP%] {\n  max-width: 1400px;\n  margin: 0 auto;\n  padding: 0 28px;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  gap: 24px;\n  position: relative;\n  z-index: 1;\n}\n.nav-logo[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  flex-shrink: 0;\n}\n.logo-img[_ngcontent-%COMP%] {\n  height: 52px;\n  width: 52px;\n  object-fit: contain;\n  display: block;\n  filter: invert(1);\n  opacity: 0.92;\n}\n.nav-stats[_ngcontent-%COMP%] {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 2.5rem;\n}\n.ns-item[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.ns-label[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 0.55rem;\n  letter-spacing: 2px;\n  color: rgba(255, 255, 255, 0.4);\n  display: block;\n  margin-bottom: 0.15rem;\n}\n.ns-val[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 1.4rem;\n  font-weight: 700;\n  color: #fff;\n  display: block;\n  line-height: 1.1;\n}\n.ns-live[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  font-size: 0.8rem;\n  font-family: "JetBrains Mono", monospace;\n  color: #d43f33;\n  letter-spacing: 1px;\n}\n.ns-div[_ngcontent-%COMP%] {\n  width: 1px;\n  height: 28px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.status-dot[_ngcontent-%COMP%] {\n  width: 5px;\n  height: 5px;\n  border-radius: 50%;\n  background: #d43f33;\n  box-shadow: 0 0 6px #d43f33;\n  animation: _ngcontent-%COMP%_blink 3s ease-in-out infinite;\n  flex-shrink: 0;\n}\n@keyframes _ngcontent-%COMP%_blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0.35;\n  }\n}\n.status-lbl[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9.5px;\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  color: rgba(255, 255, 255, 0.4);\n}\n.nav-right[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.user-menu[_ngcontent-%COMP%] {\n  position: relative;\n}\n.user-avatar[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  height: 34px;\n  padding: 0 10px 0 6px;\n  border: 1px solid rgba(255, 255, 255, 0.15);\n  border-radius: 20px;\n  background: rgba(255, 255, 255, 0.05);\n  cursor: pointer;\n  transition: border-color 0.2s, background 0.2s;\n}\n.user-avatar[_ngcontent-%COMP%]:hover, \n.avatar-open[_ngcontent-%COMP%] {\n  background: rgba(28, 43, 74, 0.05);\n  border-color: rgba(28, 43, 74, 0.2);\n}\n.avatar-initials[_ngcontent-%COMP%] {\n  width: 24px;\n  height: 24px;\n  border-radius: 50%;\n  background: #d43f33;\n  color: #fff;\n  font-size: 0.6rem;\n  font-family: "JetBrains Mono", monospace;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 700;\n}\n.avatar-caret[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.4);\n  transition: transform 0.2s;\n}\n.avatar-open[_ngcontent-%COMP%]   .avatar-caret[_ngcontent-%COMP%] {\n  transform: rotate(180deg);\n}\n.user-dropdown[_ngcontent-%COMP%] {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  width: 220px;\n  background: #fff;\n  border: 1px solid var(--border-md);\n  border-radius: 10px;\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);\n  z-index: 500;\n  overflow: hidden;\n  animation: _ngcontent-%COMP%_ddIn 0.15s ease both;\n}\n@keyframes _ngcontent-%COMP%_ddIn {\n  from {\n    opacity: 0;\n    transform: translateY(-6px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.dropdown-header[_ngcontent-%COMP%] {\n  padding: 12px 14px 10px;\n}\n.dh-name[_ngcontent-%COMP%] {\n  font-size: 13px;\n  font-weight: 600;\n  color: var(--ink);\n  margin-bottom: 2px;\n}\n.dh-email[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  color: var(--ink3);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.dropdown-sep[_ngcontent-%COMP%] {\n  height: 1px;\n  background: var(--border);\n  margin: 2px 0;\n}\n.dropdown-item[_ngcontent-%COMP%] {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 9px;\n  padding: 9px 14px;\n  background: transparent;\n  border: none;\n  text-align: left;\n  font-size: 13px;\n  font-family: "Public Sans", sans-serif;\n  color: var(--ink);\n  cursor: pointer;\n  transition: background 0.15s;\n}\n.dropdown-item[_ngcontent-%COMP%]:hover {\n  background: rgba(0, 0, 0, 0.04);\n}\n.dropdown-item[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  color: var(--ink3);\n  flex-shrink: 0;\n}\n.item-danger[_ngcontent-%COMP%] {\n  color: var(--red);\n}\n.item-danger[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  color: var(--red);\n}\n.item-danger[_ngcontent-%COMP%]:hover {\n  background: rgba(155, 32, 32, 0.05);\n}\n.btn-ghost[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 32px;\n  padding: 0 12px;\n  border: 1px solid var(--border-md);\n  border-radius: 7px;\n  background: transparent;\n  color: var(--ink);\n  font-size: 12.5px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition: border-color 0.2s, color 0.2s;\n}\n.btn-ghost[_ngcontent-%COMP%]:hover {\n  border-color: rgba(0, 0, 0, 0.25);\n  color: var(--ink);\n}\n.btn-ghost[_ngcontent-%COMP%]:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.btn-ghost[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n}\n.btn-outline-amber[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 32px;\n  padding: 0 12px;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: 3px;\n  background: transparent;\n  color: rgba(255, 255, 255, 0.75);\n  font-size: 11px;\n  font-weight: 600;\n  font-family: "JetBrains Mono", monospace;\n  letter-spacing: 0.5px;\n  cursor: pointer;\n  transition: border-color 0.2s, color 0.2s;\n}\n.btn-outline-amber[_ngcontent-%COMP%]:hover {\n  border-color: #d43f33;\n  color: #d43f33;\n}\n.btn-outline-amber[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n}\n.btn-primary[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 32px;\n  padding: 0 14px;\n  border: none;\n  border-radius: 3px;\n  background: #d43f33;\n  color: #fff;\n  font-size: 11px;\n  font-weight: 700;\n  font-family: "JetBrains Mono", monospace;\n  letter-spacing: 0.5px;\n  cursor: pointer;\n  transition: background 0.2s;\n}\n.btn-primary-nav[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  height: 32px;\n  padding: 0 14px;\n  border: none;\n  border-radius: 3px;\n  background: #d43f33;\n  color: #fff;\n  font-size: 11px;\n  font-weight: 700;\n  font-family: "JetBrains Mono", monospace;\n  letter-spacing: 0.5px;\n  cursor: pointer;\n  transition: background 0.2s;\n}\n.btn-primary[_ngcontent-%COMP%]:hover:not(:disabled) {\n  opacity: 0.88;\n  transform: translateY(-1px);\n}\n.btn-primary[_ngcontent-%COMP%]:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.main-wrap[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 36px 24px;\n  position: relative;\n  z-index: 1;\n}\n.story-panel[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border: 1px solid var(--border-md);\n  border-radius: 12px;\n  padding: 28px;\n  margin-bottom: 36px;\n  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);\n}\n.panel-head[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: flex-start;\n  margin-bottom: 12px;\n}\n.panel-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 20px;\n  font-weight: 600;\n  color: var(--ink);\n}\n.panel-close[_ngcontent-%COMP%] {\n  width: 28px;\n  height: 28px;\n  border: 1px solid var(--border-md);\n  border-radius: 6px;\n  background: transparent;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--ink2);\n  transition: background 0.15s;\n}\n.panel-close[_ngcontent-%COMP%]:hover {\n  background: rgba(0, 0, 0, 0.04);\n}\n.panel-hint[_ngcontent-%COMP%] {\n  font-size: 13px;\n  color: var(--ink2);\n  margin-bottom: 16px;\n  font-style: italic;\n  line-height: 1.6;\n}\n.story-area[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: 12px 14px;\n  border: 1px solid var(--border-md);\n  border-radius: 8px;\n  font-size: 13.5px;\n  font-family: "Public Sans", sans-serif;\n  color: var(--ink);\n  background: var(--bg);\n  resize: vertical;\n  outline: none;\n  line-height: 1.65;\n  margin-bottom: 16px;\n  transition: border-color 0.2s;\n}\n.story-area[_ngcontent-%COMP%]::placeholder {\n  color: var(--ink3);\n  font-style: italic;\n}\n.story-area[_ngcontent-%COMP%]:focus {\n  border-color: rgba(184, 114, 8, 0.45);\n}\n.panel-foot[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 10px;\n  align-items: center;\n}\n.story-err[_ngcontent-%COMP%] {\n  margin-top: 12px;\n  font-size: 12.5px;\n  color: var(--red);\n  font-family: "JetBrains Mono", monospace;\n}\n.progress-wrap[_ngcontent-%COMP%] {\n  margin-bottom: 16px;\n}\n.progress-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  font-size: 12.5px;\n  color: var(--ink2);\n  margin-bottom: 8px;\n  font-weight: 600;\n  font-family: "Public Sans", sans-serif;\n}\n.progress-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 6px;\n  background: var(--border-md);\n  border-radius: 3px;\n  overflow: hidden;\n}\n.progress-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  background: var(--amber);\n  border-radius: 3px;\n  transition: width 0.4s ease-out;\n}\n.center-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 80px 20px;\n  gap: 14px;\n}\n.loader[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n  border: 2px solid rgba(184, 114, 8, 0.15);\n  border-top-color: var(--amber);\n  border-radius: 50%;\n  animation: spin 0.8s linear infinite;\n}\n.meta-lbl[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  color: var(--ink3);\n}\n.empty-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 80px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-icon[_ngcontent-%COMP%] {\n  margin-bottom: 8px;\n}\n.empty-icon[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  width: 72px;\n  height: 72px;\n}\n.empty-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 26px;\n  font-weight: 400;\n  color: var(--ink);\n}\n.empty-sub[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: var(--ink2);\n  font-style: italic;\n}\n.empty-acts[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 10px;\n  flex-wrap: wrap;\n  justify-content: center;\n  margin-top: 8px;\n}\n.page-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-end;\n  justify-content: space-between;\n  margin-bottom: 28px;\n  animation: _ngcontent-%COMP%_fadeUp 0.5s ease both;\n}\n@keyframes _ngcontent-%COMP%_fadeUp {\n  from {\n    opacity: 0;\n    transform: translateY(14px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.eyebrow[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  letter-spacing: 3px;\n  text-transform: uppercase;\n  color: var(--amber);\n  margin-bottom: 6px;\n  font-weight: 600;\n}\n.display-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 32px;\n  font-weight: 700;\n  color: var(--ink);\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.count-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 22px;\n  height: 22px;\n  border: 1px solid rgba(184, 114, 8, 0.4);\n  border-radius: 50%;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 11px;\n  font-weight: 600;\n  color: var(--amber);\n}\n.games-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 14px;\n}\n.case-card[_ngcontent-%COMP%] {\n  position: relative;\n  background: var(--surface);\n  border: 1px solid var(--border);\n  border-radius: 12px;\n  padding: 22px 20px 18px;\n  overflow: hidden;\n  cursor: pointer;\n  transition:\n    box-shadow 0.25s ease,\n    border-color 0.25s ease,\n    transform 0.25s ease;\n  animation: _ngcontent-%COMP%_fadeUp 0.5s ease both;\n}\n.case-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow:\n    0 2px 8px rgba(0, 0, 0, 0.05),\n    0 10px 32px rgba(0, 0, 0, 0.08),\n    0 0 0 1px rgba(155, 32, 32, 0.08);\n  border-color: rgba(155, 32, 32, 0.2);\n}\n.card-top-line[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(155, 32, 32, 0.5),\n      transparent);\n  opacity: 0;\n  transition: opacity 0.25s;\n}\n.case-card[_ngcontent-%COMP%]:hover   .card-top-line[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.card-pin[_ngcontent-%COMP%] {\n  position: absolute;\n  top: -1px;\n  left: 22px;\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  background: var(--red);\n  box-shadow: 0 0 6px rgba(155, 32, 32, 0.5);\n  opacity: 0;\n  transform: scale(0);\n  transition: opacity 0.25s, transform 0.25s;\n}\n.case-card[_ngcontent-%COMP%]:hover   .card-pin[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: scale(1);\n}\n.watermark[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 12px;\n  right: 16px;\n  font-family: "Crimson Pro", serif;\n  font-style: italic;\n  font-size: 52px;\n  font-weight: 400;\n  color: rgba(28, 43, 74, 0.028);\n  line-height: 1;\n  pointer-events: none;\n  transition: color 0.25s;\n}\n.case-card[_ngcontent-%COMP%]:hover   .watermark[_ngcontent-%COMP%] {\n  color: rgba(28, 43, 74, 0.055);\n}\n.case-id[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  color: var(--ink3);\n  letter-spacing: 1.5px;\n  text-transform: uppercase;\n  margin-bottom: 6px;\n  font-weight: 500;\n}\n.card-status[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9px;\n  font-weight: 600;\n  text-transform: uppercase;\n  color: var(--green);\n  margin-bottom: 12px;\n}\n.status-pip[_ngcontent-%COMP%] {\n  width: 4px;\n  height: 4px;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_blink 2.5s ease-in-out infinite;\n}\n.pip-green[_ngcontent-%COMP%] {\n  background: var(--green);\n}\n.pip-amber[_ngcontent-%COMP%] {\n  background: var(--amber);\n  animation: _ngcontent-%COMP%_blink 2.5s ease-in-out infinite;\n}\n.card-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 16px;\n  font-weight: 700;\n  color: var(--ink);\n  margin-bottom: 7px;\n  transition: color 0.2s;\n  line-height: 1.3;\n}\n.case-card[_ngcontent-%COMP%]:hover   .card-title[_ngcontent-%COMP%] {\n  color: var(--navy);\n}\n.card-desc[_ngcontent-%COMP%] {\n  font-family: "Public Sans", sans-serif;\n  font-size: 12.5px;\n  font-style: italic;\n  color: var(--ink2);\n  line-height: 1.6;\n  margin-bottom: 14px;\n  overflow: hidden;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n}\n.sep[_ngcontent-%COMP%] {\n  height: 1px;\n  background: var(--border);\n  margin-bottom: 12px;\n}\n.card-stats[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 14px;\n  margin-bottom: 12px;\n}\n.stat[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10.5px;\n  font-weight: 500;\n  color: var(--ink2);\n}\n.stat[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  color: var(--ink3);\n}\n.stat-lbl[_ngcontent-%COMP%] {\n  color: var(--ink3);\n  margin-left: 2px;\n  font-weight: 600;\n  letter-spacing: 0.5px;\n}\n.card-footer[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding-top: 10px;\n  border-top: 1px solid var(--border);\n}\n.card-date[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  font-weight: 500;\n  color: var(--ink3);\n}\n.card-acts[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 5px;\n}\n.act-btn[_ngcontent-%COMP%] {\n  width: 26px;\n  height: 26px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border: 1px solid var(--ink3);\n  border-radius: 6px;\n  background: transparent;\n  cursor: pointer;\n  color: var(--ink2);\n  opacity: 0;\n  transform: translateX(4px);\n  transition:\n    opacity 0.2s,\n    transform 0.2s,\n    background 0.15s,\n    border-color 0.15s,\n    color 0.15s;\n}\n.case-card[_ngcontent-%COMP%]:hover   .act-btn[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: translateX(0);\n}\n.act-btn[_ngcontent-%COMP%]:hover {\n  background: var(--navy-l);\n  border-color: var(--navy);\n  color: var(--navy);\n}\n.act-del[_ngcontent-%COMP%]:hover {\n  background: rgba(155, 32, 32, 0.06);\n  border-color: var(--red);\n  color: var(--red);\n}\n.card-publish[_ngcontent-%COMP%] {\n  margin-top: 10px;\n  margin-bottom: 2px;\n}\n.btn-publish[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: 0.5rem 0.75rem;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  letter-spacing: 1px;\n  text-transform: uppercase;\n  border: 1px solid var(--amber);\n  background: var(--amber-l);\n  color: var(--amber);\n  border-radius: 6px;\n  cursor: pointer;\n  font-weight: 600;\n  transition:\n    background 0.15s,\n    color 0.15s,\n    border-color 0.15s;\n}\n.btn-publish[_ngcontent-%COMP%]:hover {\n  background: var(--amber);\n  color: #fff;\n  border-color: var(--amber);\n}\n.publish-overlay[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 220;\n  background: rgba(26, 22, 16, 0.55);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 20px;\n}\n.publish-dialog[_ngcontent-%COMP%] {\n  background: #fff;\n  border: 1px solid var(--border);\n  border-radius: 12px;\n  max-width: 420px;\n  width: 100%;\n  padding: 22px 24px;\n  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.14);\n}\n.publish-head[_ngcontent-%COMP%]   .eyebrow[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 0.58rem;\n  letter-spacing: 2px;\n  color: var(--amber);\n  margin-bottom: 6px;\n}\n.publish-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 1.35rem;\n  font-weight: 700;\n  color: var(--navy);\n  margin: 0;\n}\n.publish-hint[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--ink2);\n  margin: 12px 0 16px;\n  line-height: 1.45;\n}\n.publish-lbl[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 0.68rem;\n  font-family: "JetBrains Mono", monospace;\n  letter-spacing: 1px;\n  color: var(--ink3);\n  margin-bottom: 6px;\n}\n.publish-input[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: 10px 12px;\n  border: 1px solid var(--border-md);\n  border-radius: 8px;\n  font-size: 0.95rem;\n  margin-bottom: 14px;\n  font-family: inherit;\n  box-sizing: border-box;\n}\n.publish-input[_ngcontent-%COMP%]:focus {\n  outline: none;\n  border-color: var(--amber);\n}\n.publish-err[_ngcontent-%COMP%] {\n  color: var(--red);\n  font-size: 0.82rem;\n  margin: -6px 0 12px;\n}\n.publish-foot[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: flex-end;\n  gap: 10px;\n  margin-top: 10px;\n  padding-top: 16px;\n  border-top: 1px solid var(--border);\n}\n@media (max-width: 900px) {\n  .games-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .main-wrap[_ngcontent-%COMP%] {\n    padding: 24px 16px;\n  }\n}\n@media (max-width: 640px) {\n  .navbar[_ngcontent-%COMP%] {\n    height: auto;\n    min-height: 56px;\n  }\n  .nav-inner[_ngcontent-%COMP%] {\n    flex-wrap: wrap;\n    padding: 10px 14px;\n    gap: 8px;\n  }\n  .nav-logo[_ngcontent-%COMP%]   .logo-img[_ngcontent-%COMP%] {\n    height: 36px;\n    width: 36px;\n  }\n  .nav-stats[_ngcontent-%COMP%] {\n    flex: none;\n    width: 100%;\n    order: 3;\n    justify-content: flex-start;\n    gap: 1.2rem;\n    padding: 6px 0 2px;\n    border-top: 1px solid rgba(255, 255, 255, 0.06);\n  }\n  .ns-label[_ngcontent-%COMP%] {\n    font-size: 0.48rem;\n    letter-spacing: 1.5px;\n  }\n  .ns-val[_ngcontent-%COMP%] {\n    font-size: 1.1rem;\n  }\n  .ns-div[_ngcontent-%COMP%] {\n    height: 20px;\n  }\n  .nav-right[_ngcontent-%COMP%] {\n    gap: 6px;\n  }\n  .btn-outline-amber[_ngcontent-%COMP%] {\n    padding: 0 10px;\n    font-size: 10px;\n    height: 30px;\n  }\n  .btn-primary-nav[_ngcontent-%COMP%] {\n    padding: 0 10px;\n    font-size: 10px;\n    height: 30px;\n  }\n  .user-avatar[_ngcontent-%COMP%] {\n    height: 30px;\n    padding: 0 8px 0 5px;\n  }\n  .avatar-initials[_ngcontent-%COMP%] {\n    width: 20px;\n    height: 20px;\n    font-size: 0.55rem;\n  }\n  .main-wrap[_ngcontent-%COMP%] {\n    padding: 16px 12px;\n  }\n  .games-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 10px;\n  }\n  .case-card[_ngcontent-%COMP%] {\n    padding: 16px 14px 14px;\n  }\n  .watermark[_ngcontent-%COMP%] {\n    font-size: 38px;\n    bottom: 8px;\n    right: 10px;\n  }\n  .act-btn[_ngcontent-%COMP%] {\n    opacity: 1;\n    transform: translateX(0);\n  }\n  .page-header[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n    gap: 8px;\n    margin-bottom: 18px;\n  }\n  .display-title[_ngcontent-%COMP%] {\n    font-size: 24px;\n  }\n  .story-panel[_ngcontent-%COMP%] {\n    padding: 18px 14px;\n  }\n  .panel-foot[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .panel-foot[_ngcontent-%COMP%]   .btn-ghost[_ngcontent-%COMP%], \n   .panel-foot[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n    width: 100%;\n    justify-content: center;\n    height: 40px;\n  }\n  .publish-overlay[_ngcontent-%COMP%] {\n    align-items: flex-end;\n    padding: 0;\n  }\n  .publish-dialog[_ngcontent-%COMP%] {\n    border-radius: 16px 16px 0 0;\n    max-width: 100%;\n    padding: 22px 18px 32px;\n  }\n  .publish-foot[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .publish-foot[_ngcontent-%COMP%]   .btn-ghost[_ngcontent-%COMP%], \n   .publish-foot[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n    width: 100%;\n    justify-content: center;\n    height: 42px;\n    font-size: 0.85rem;\n  }\n  .user-dropdown[_ngcontent-%COMP%] {\n    right: 0;\n    left: auto;\n    width: 200px;\n  }\n}\n@media (max-width: 380px) {\n  .nav-stats[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .nav-inner[_ngcontent-%COMP%] {\n    padding: 8px 10px;\n  }\n}\n/*# sourceMappingURL=dashboard.component.css.map */'] });
+  }, dependencies: [CommonModule, NgForOf, NgIf, RouterModule, FormsModule, DefaultValueAccessor, NgControlStatus, MaxLengthValidator, NgModel], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n*[_ngcontent-%COMP%] {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n.page[_ngcontent-%COMP%] {\n  --bg:#fcfaf7;\n  --surface:#fff;\n  --border:rgba(0,0,0,0.07);\n  --border-md:rgba(0,0,0,0.11);\n  --amber:#d43f33;\n  --amber-l:rgba(212,63,51,0.07);\n  --gold:#c9962a;\n  --navy:#1a1a1a;\n  --navy-l:rgba(26,26,26,0.06);\n  --ink:#1a1a1a;\n  --ink2:rgba(26,22,16,0.62);\n  --ink3:rgba(26,22,16,0.40);\n  --green:#4a7a56;\n  --red:#9b2020;\n  min-height: 100vh;\n  background: var(--bg);\n  position: relative;\n  font-family: "Public Sans", sans-serif;\n  color: var(--ink);\n}\n.bg-canvas[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 0;\n  pointer-events: none;\n}\n.fixed-logo-wrap[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  pointer-events: none;\n  z-index: 500;\n  mix-blend-mode: screen;\n}\n.fixed-logo-img[_ngcontent-%COMP%] {\n  width: min(85vw, 85vh);\n  height: min(85vw, 85vh);\n  object-fit: contain;\n  filter: invert(1);\n  opacity: 0.12;\n  animation: _ngcontent-%COMP%_logoBreath 8s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_logoBreath {\n  0%, 100% {\n    opacity: 0.1;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.16;\n    transform: scale(1.015);\n  }\n}\n.stats-band[_ngcontent-%COMP%] {\n  background: var(--ink);\n  color: #fff;\n  padding: 2.2rem 24px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 3.5rem;\n  flex-wrap: wrap;\n  position: relative;\n  z-index: 10;\n}\n.sband-item[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.sband-label[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 0.6rem;\n  letter-spacing: 2px;\n  opacity: 0.5;\n  display: block;\n  margin-bottom: 0.3rem;\n}\n.sband-val[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 1.9rem;\n  font-weight: 700;\n  display: block;\n  line-height: 1;\n}\n.sband-live[_ngcontent-%COMP%] {\n  color: #d43f33;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 0.85rem;\n  letter-spacing: 2px;\n  animation: _ngcontent-%COMP%_blink 3s ease-in-out infinite;\n}\n.sband-divider[_ngcontent-%COMP%] {\n  width: 1px;\n  height: 36px;\n  background: rgba(255, 255, 255, 0.12);\n}\n.sband-cta[_ngcontent-%COMP%] {\n  background: transparent;\n  border: 1px solid rgba(255, 255, 255, 0.25);\n  color: #fff;\n  padding: 0.5rem 1.2rem;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 0.72rem;\n  letter-spacing: 1px;\n  cursor: pointer;\n  transition: border-color 0.2s;\n}\n.sband-cta[_ngcontent-%COMP%]:hover {\n  border-color: #d43f33;\n  color: #d43f33;\n}\n.navbar[_ngcontent-%COMP%] {\n  position: sticky;\n  top: 0;\n  z-index: 100;\n  height: 72px;\n  background: var(--ink);\n  border-bottom: 2px solid rgba(255, 255, 255, 0.06);\n}\n.nav-inner[_ngcontent-%COMP%] {\n  max-width: 1400px;\n  margin: 0 auto;\n  padding: 0 28px;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  gap: 24px;\n  position: relative;\n  z-index: 1;\n}\n.nav-logo[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  flex-shrink: 0;\n}\n.logo-img[_ngcontent-%COMP%] {\n  height: 52px;\n  width: 52px;\n  object-fit: contain;\n  display: block;\n  filter: invert(1);\n  opacity: 0.92;\n}\n.nav-stats[_ngcontent-%COMP%] {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 2.5rem;\n}\n.ns-item[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.ns-label[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 0.55rem;\n  letter-spacing: 2px;\n  color: rgba(255, 255, 255, 0.4);\n  display: block;\n  margin-bottom: 0.15rem;\n}\n.ns-val[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 1.4rem;\n  font-weight: 700;\n  color: #fff;\n  display: block;\n  line-height: 1.1;\n}\n.ns-live[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  font-size: 0.8rem;\n  font-family: "JetBrains Mono", monospace;\n  color: #d43f33;\n  letter-spacing: 1px;\n}\n.ns-div[_ngcontent-%COMP%] {\n  width: 1px;\n  height: 28px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.status-dot[_ngcontent-%COMP%] {\n  width: 5px;\n  height: 5px;\n  border-radius: 50%;\n  background: #d43f33;\n  box-shadow: 0 0 6px #d43f33;\n  animation: _ngcontent-%COMP%_blink 3s ease-in-out infinite;\n  flex-shrink: 0;\n}\n@keyframes _ngcontent-%COMP%_blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0.35;\n  }\n}\n.status-lbl[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9.5px;\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  color: rgba(255, 255, 255, 0.4);\n}\n.nav-right[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.user-menu[_ngcontent-%COMP%] {\n  position: relative;\n}\n.user-avatar[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  height: 34px;\n  padding: 0 10px 0 6px;\n  border: 1px solid rgba(255, 255, 255, 0.15);\n  border-radius: 20px;\n  background: rgba(255, 255, 255, 0.05);\n  cursor: pointer;\n  transition: border-color 0.2s, background 0.2s;\n}\n.user-avatar[_ngcontent-%COMP%]:hover, \n.avatar-open[_ngcontent-%COMP%] {\n  background: rgba(28, 43, 74, 0.05);\n  border-color: rgba(28, 43, 74, 0.2);\n}\n.avatar-initials[_ngcontent-%COMP%] {\n  width: 24px;\n  height: 24px;\n  border-radius: 50%;\n  background: #d43f33;\n  color: #fff;\n  font-size: 0.6rem;\n  font-family: "JetBrains Mono", monospace;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 700;\n}\n.avatar-caret[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.4);\n  transition: transform 0.2s;\n}\n.avatar-open[_ngcontent-%COMP%]   .avatar-caret[_ngcontent-%COMP%] {\n  transform: rotate(180deg);\n}\n.user-dropdown[_ngcontent-%COMP%] {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  width: 220px;\n  background: #fff;\n  border: 1px solid var(--border-md);\n  border-radius: 10px;\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);\n  z-index: 500;\n  overflow: hidden;\n  animation: _ngcontent-%COMP%_ddIn 0.15s ease both;\n}\n@keyframes _ngcontent-%COMP%_ddIn {\n  from {\n    opacity: 0;\n    transform: translateY(-6px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.dropdown-header[_ngcontent-%COMP%] {\n  padding: 12px 14px 10px;\n}\n.dh-name[_ngcontent-%COMP%] {\n  font-size: 13px;\n  font-weight: 600;\n  color: var(--ink);\n  margin-bottom: 2px;\n}\n.dh-email[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  color: var(--ink3);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.dropdown-sep[_ngcontent-%COMP%] {\n  height: 1px;\n  background: var(--border);\n  margin: 2px 0;\n}\n.dropdown-item[_ngcontent-%COMP%] {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 9px;\n  padding: 9px 14px;\n  background: transparent;\n  border: none;\n  text-align: left;\n  font-size: 13px;\n  font-family: "Public Sans", sans-serif;\n  color: var(--ink);\n  cursor: pointer;\n  transition: background 0.15s;\n}\n.dropdown-item[_ngcontent-%COMP%]:hover {\n  background: rgba(0, 0, 0, 0.04);\n}\n.dropdown-item[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  color: var(--ink3);\n  flex-shrink: 0;\n}\n.item-danger[_ngcontent-%COMP%] {\n  color: var(--red);\n}\n.item-danger[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  color: var(--red);\n}\n.item-danger[_ngcontent-%COMP%]:hover {\n  background: rgba(155, 32, 32, 0.05);\n}\n.btn-ghost[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 32px;\n  padding: 0 12px;\n  border: 1px solid var(--border-md);\n  border-radius: 7px;\n  background: transparent;\n  color: var(--ink);\n  font-size: 12.5px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition: border-color 0.2s, color 0.2s;\n}\n.btn-ghost[_ngcontent-%COMP%]:hover {\n  border-color: rgba(0, 0, 0, 0.25);\n  color: var(--ink);\n}\n.btn-ghost[_ngcontent-%COMP%]:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.btn-ghost[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n}\n.btn-outline-amber[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 32px;\n  padding: 0 12px;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: 3px;\n  background: transparent;\n  color: rgba(255, 255, 255, 0.75);\n  font-size: 11px;\n  font-weight: 600;\n  font-family: "JetBrains Mono", monospace;\n  letter-spacing: 0.5px;\n  cursor: pointer;\n  transition: border-color 0.2s, color 0.2s;\n}\n.btn-outline-amber[_ngcontent-%COMP%]:hover {\n  border-color: #d43f33;\n  color: #d43f33;\n}\n.btn-outline-amber[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n}\n.btn-primary[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 32px;\n  padding: 0 14px;\n  border: none;\n  border-radius: 3px;\n  background: #d43f33;\n  color: #fff;\n  font-size: 11px;\n  font-weight: 700;\n  font-family: "JetBrains Mono", monospace;\n  letter-spacing: 0.5px;\n  cursor: pointer;\n  transition: background 0.2s;\n}\n.btn-primary-nav[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  height: 32px;\n  padding: 0 14px;\n  border: none;\n  border-radius: 3px;\n  background: #d43f33;\n  color: #fff;\n  font-size: 11px;\n  font-weight: 700;\n  font-family: "JetBrains Mono", monospace;\n  letter-spacing: 0.5px;\n  cursor: pointer;\n  transition: background 0.2s;\n}\n.btn-primary[_ngcontent-%COMP%]:hover:not(:disabled) {\n  opacity: 0.88;\n  transform: translateY(-1px);\n}\n.btn-primary[_ngcontent-%COMP%]:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.main-wrap[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 36px 24px;\n  position: relative;\n  z-index: 1;\n}\n.story-panel[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border: 1px solid var(--border-md);\n  border-radius: 12px;\n  padding: 28px;\n  margin-bottom: 36px;\n  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);\n}\n.panel-head[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: flex-start;\n  margin-bottom: 12px;\n}\n.panel-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 20px;\n  font-weight: 600;\n  color: var(--ink);\n}\n.panel-close[_ngcontent-%COMP%] {\n  width: 28px;\n  height: 28px;\n  border: 1px solid var(--border-md);\n  border-radius: 6px;\n  background: transparent;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--ink2);\n  transition: background 0.15s;\n}\n.panel-close[_ngcontent-%COMP%]:hover {\n  background: rgba(0, 0, 0, 0.04);\n}\n.panel-hint[_ngcontent-%COMP%] {\n  font-size: 13px;\n  color: var(--ink2);\n  margin-bottom: 16px;\n  font-style: italic;\n  line-height: 1.6;\n}\n.story-area[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: 12px 14px;\n  border: 1px solid var(--border-md);\n  border-radius: 8px;\n  font-size: 13.5px;\n  font-family: "Public Sans", sans-serif;\n  color: var(--ink);\n  background: var(--bg);\n  resize: vertical;\n  outline: none;\n  line-height: 1.65;\n  margin-bottom: 16px;\n  transition: border-color 0.2s;\n}\n.story-area[_ngcontent-%COMP%]::placeholder {\n  color: var(--ink3);\n  font-style: italic;\n}\n.story-area[_ngcontent-%COMP%]:focus {\n  border-color: rgba(184, 114, 8, 0.45);\n}\n.panel-foot[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 10px;\n  align-items: center;\n}\n.story-err[_ngcontent-%COMP%] {\n  margin-top: 12px;\n  font-size: 12.5px;\n  color: var(--red);\n  font-family: "JetBrains Mono", monospace;\n}\n.progress-wrap[_ngcontent-%COMP%] {\n  margin-bottom: 16px;\n}\n.progress-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  font-size: 12.5px;\n  color: var(--ink2);\n  margin-bottom: 8px;\n  font-weight: 600;\n  font-family: "Public Sans", sans-serif;\n}\n.progress-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 6px;\n  background: var(--border-md);\n  border-radius: 3px;\n  overflow: hidden;\n}\n.progress-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  background: var(--amber);\n  border-radius: 3px;\n  transition: width 0.4s ease-out;\n}\n.center-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 80px 20px;\n  gap: 14px;\n}\n.loader[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n  border: 2px solid rgba(184, 114, 8, 0.15);\n  border-top-color: var(--amber);\n  border-radius: 50%;\n  animation: spin 0.8s linear infinite;\n}\n.meta-lbl[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  color: var(--ink3);\n}\n.empty-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 80px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-icon[_ngcontent-%COMP%] {\n  margin-bottom: 8px;\n}\n.empty-icon[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  width: 72px;\n  height: 72px;\n}\n.empty-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 26px;\n  font-weight: 400;\n  color: var(--ink);\n}\n.empty-sub[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: var(--ink2);\n  font-style: italic;\n}\n.empty-acts[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 10px;\n  flex-wrap: wrap;\n  justify-content: center;\n  margin-top: 8px;\n}\n.page-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-end;\n  justify-content: space-between;\n  margin-bottom: 28px;\n  animation: _ngcontent-%COMP%_fadeUp 0.5s ease both;\n}\n@keyframes _ngcontent-%COMP%_fadeUp {\n  from {\n    opacity: 0;\n    transform: translateY(14px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.eyebrow[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  letter-spacing: 3px;\n  text-transform: uppercase;\n  color: var(--amber);\n  margin-bottom: 6px;\n  font-weight: 600;\n}\n.display-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 32px;\n  font-weight: 700;\n  color: var(--ink);\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.count-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 22px;\n  height: 22px;\n  border: 1px solid rgba(184, 114, 8, 0.4);\n  border-radius: 50%;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 11px;\n  font-weight: 600;\n  color: var(--amber);\n}\n.games-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 14px;\n}\n.case-card[_ngcontent-%COMP%] {\n  position: relative;\n  background: var(--surface);\n  border: 1px solid var(--border);\n  border-radius: 12px;\n  padding: 22px 20px 18px;\n  overflow: hidden;\n  cursor: pointer;\n  transition:\n    box-shadow 0.25s ease,\n    border-color 0.25s ease,\n    transform 0.25s ease;\n  animation: _ngcontent-%COMP%_fadeUp 0.5s ease both;\n}\n.case-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow:\n    0 2px 8px rgba(0, 0, 0, 0.05),\n    0 10px 32px rgba(0, 0, 0, 0.08),\n    0 0 0 1px rgba(155, 32, 32, 0.08);\n  border-color: rgba(155, 32, 32, 0.2);\n}\n.card-top-line[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(155, 32, 32, 0.5),\n      transparent);\n  opacity: 0;\n  transition: opacity 0.25s;\n}\n.case-card[_ngcontent-%COMP%]:hover   .card-top-line[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.card-pin[_ngcontent-%COMP%] {\n  position: absolute;\n  top: -1px;\n  left: 22px;\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  background: var(--red);\n  box-shadow: 0 0 6px rgba(155, 32, 32, 0.5);\n  opacity: 0;\n  transform: scale(0);\n  transition: opacity 0.25s, transform 0.25s;\n}\n.case-card[_ngcontent-%COMP%]:hover   .card-pin[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: scale(1);\n}\n.watermark[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 12px;\n  right: 16px;\n  font-family: "Crimson Pro", serif;\n  font-style: italic;\n  font-size: 52px;\n  font-weight: 400;\n  color: rgba(28, 43, 74, 0.028);\n  line-height: 1;\n  pointer-events: none;\n  transition: color 0.25s;\n}\n.case-card[_ngcontent-%COMP%]:hover   .watermark[_ngcontent-%COMP%] {\n  color: rgba(28, 43, 74, 0.055);\n}\n.case-id[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  color: var(--ink3);\n  letter-spacing: 1.5px;\n  text-transform: uppercase;\n  margin-bottom: 6px;\n  font-weight: 500;\n}\n.card-status[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9px;\n  font-weight: 600;\n  text-transform: uppercase;\n  color: var(--green);\n  margin-bottom: 12px;\n}\n.status-pip[_ngcontent-%COMP%] {\n  width: 4px;\n  height: 4px;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_blink 2.5s ease-in-out infinite;\n}\n.pip-green[_ngcontent-%COMP%] {\n  background: var(--green);\n}\n.pip-amber[_ngcontent-%COMP%] {\n  background: var(--amber);\n  animation: _ngcontent-%COMP%_blink 2.5s ease-in-out infinite;\n}\n.card-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 16px;\n  font-weight: 700;\n  color: var(--ink);\n  margin-bottom: 7px;\n  transition: color 0.2s;\n  line-height: 1.3;\n}\n.case-card[_ngcontent-%COMP%]:hover   .card-title[_ngcontent-%COMP%] {\n  color: var(--navy);\n}\n.card-desc[_ngcontent-%COMP%] {\n  font-family: "Public Sans", sans-serif;\n  font-size: 12.5px;\n  font-style: italic;\n  color: var(--ink2);\n  line-height: 1.6;\n  margin-bottom: 14px;\n  overflow: hidden;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n}\n.sep[_ngcontent-%COMP%] {\n  height: 1px;\n  background: var(--border);\n  margin-bottom: 12px;\n}\n.card-stats[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 14px;\n  margin-bottom: 12px;\n}\n.stat[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10.5px;\n  font-weight: 500;\n  color: var(--ink2);\n}\n.stat[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  color: var(--ink3);\n}\n.stat-lbl[_ngcontent-%COMP%] {\n  color: var(--ink3);\n  margin-left: 2px;\n  font-weight: 600;\n  letter-spacing: 0.5px;\n}\n.card-footer[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding-top: 10px;\n  border-top: 1px solid var(--border);\n}\n.card-date[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  font-weight: 500;\n  color: var(--ink3);\n}\n.card-acts[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 5px;\n}\n.act-btn[_ngcontent-%COMP%] {\n  width: 26px;\n  height: 26px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border: 1px solid var(--ink3);\n  border-radius: 6px;\n  background: transparent;\n  cursor: pointer;\n  color: var(--ink2);\n  opacity: 0;\n  transform: translateX(4px);\n  transition:\n    opacity 0.2s,\n    transform 0.2s,\n    background 0.15s,\n    border-color 0.15s,\n    color 0.15s;\n}\n.case-card[_ngcontent-%COMP%]:hover   .act-btn[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: translateX(0);\n}\n.act-btn[_ngcontent-%COMP%]:hover {\n  background: var(--navy-l);\n  border-color: var(--navy);\n  color: var(--navy);\n}\n.act-del[_ngcontent-%COMP%]:hover {\n  background: rgba(155, 32, 32, 0.06);\n  border-color: var(--red);\n  color: var(--red);\n}\n.card-publish[_ngcontent-%COMP%] {\n  margin-top: 10px;\n  margin-bottom: 2px;\n}\n.btn-publish[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: 0.5rem 0.75rem;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  letter-spacing: 1px;\n  text-transform: uppercase;\n  border: 1px solid var(--amber);\n  background: var(--amber-l);\n  color: var(--amber);\n  border-radius: 6px;\n  cursor: pointer;\n  font-weight: 600;\n  transition:\n    background 0.15s,\n    color 0.15s,\n    border-color 0.15s;\n}\n.btn-publish[_ngcontent-%COMP%]:hover {\n  background: var(--amber);\n  color: #fff;\n  border-color: var(--amber);\n}\n.publish-overlay[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 220;\n  background: rgba(26, 22, 16, 0.55);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 20px;\n}\n.publish-dialog[_ngcontent-%COMP%] {\n  background: #fff;\n  border: 1px solid var(--border);\n  border-radius: 12px;\n  max-width: 420px;\n  width: 100%;\n  padding: 22px 24px;\n  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.14);\n}\n.publish-head[_ngcontent-%COMP%]   .eyebrow[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 0.58rem;\n  letter-spacing: 2px;\n  color: var(--amber);\n  margin-bottom: 6px;\n}\n.publish-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 1.35rem;\n  font-weight: 700;\n  color: var(--navy);\n  margin: 0;\n}\n.publish-hint[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--ink2);\n  margin: 12px 0 16px;\n  line-height: 1.45;\n}\n.publish-lbl[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 0.68rem;\n  font-family: "JetBrains Mono", monospace;\n  letter-spacing: 1px;\n  color: var(--ink3);\n  margin-bottom: 6px;\n}\n.publish-input[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: 10px 12px;\n  border: 1px solid var(--border-md);\n  border-radius: 8px;\n  font-size: 0.95rem;\n  margin-bottom: 14px;\n  font-family: inherit;\n  box-sizing: border-box;\n}\n.publish-input[_ngcontent-%COMP%]:focus {\n  outline: none;\n  border-color: var(--amber);\n}\n.publish-err[_ngcontent-%COMP%] {\n  color: var(--red);\n  font-size: 0.82rem;\n  margin: -6px 0 12px;\n}\n.publish-foot[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: flex-end;\n  gap: 10px;\n  margin-top: 10px;\n  padding-top: 16px;\n  border-top: 1px solid var(--border);\n}\n.btn-unpublish[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: 0.5rem 0.75rem;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  letter-spacing: 1px;\n  text-transform: uppercase;\n  border: 1px solid var(--green);\n  background: rgba(74, 122, 86, 0.08);\n  color: var(--green);\n  border-radius: 6px;\n  cursor: pointer;\n  font-weight: 600;\n  transition: background 0.15s, color 0.15s;\n}\n.btn-unpublish[_ngcontent-%COMP%]:hover {\n  background: rgba(74, 122, 86, 0.18);\n}\n.cover-upload-area[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 120px;\n  border: 1.5px dashed var(--border-md);\n  border-radius: 8px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  transition: border-color 0.2s, background 0.2s;\n  overflow: hidden;\n  position: relative;\n  margin-bottom: 14px;\n  background: var(--bg);\n}\n.cover-upload-area[_ngcontent-%COMP%]:hover {\n  border-color: var(--amber);\n  background: var(--amber-l);\n}\n.cover-upload-area.has-cover[_ngcontent-%COMP%] {\n  border-style: solid;\n  border-color: var(--border-md);\n}\n.cover-placeholder[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 8px;\n  color: var(--ink3);\n  font-size: 12px;\n  text-align: center;\n  line-height: 1.5;\n}\n.cover-placeholder[_ngcontent-%COMP%]   small[_ngcontent-%COMP%] {\n  font-size: 10px;\n  opacity: 0.7;\n}\n.cover-placeholder[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  color: var(--ink3);\n}\n.cover-preview-img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  display: block;\n}\n.cover-remove[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 6px;\n  right: 6px;\n  width: 22px;\n  height: 22px;\n  border-radius: 50%;\n  background: rgba(0, 0, 0, 0.55);\n  border: none;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  color: #fff;\n}\n.cover-remove[_ngcontent-%COMP%]:hover {\n  background: rgba(155, 32, 32, 0.8);\n}\n@media (max-width: 900px) {\n  .games-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .main-wrap[_ngcontent-%COMP%] {\n    padding: 24px 16px;\n  }\n}\n@media (max-width: 640px) {\n  .navbar[_ngcontent-%COMP%] {\n    height: auto;\n    min-height: 56px;\n  }\n  .nav-inner[_ngcontent-%COMP%] {\n    flex-wrap: wrap;\n    padding: 10px 14px;\n    gap: 8px;\n  }\n  .nav-logo[_ngcontent-%COMP%]   .logo-img[_ngcontent-%COMP%] {\n    height: 36px;\n    width: 36px;\n  }\n  .nav-stats[_ngcontent-%COMP%] {\n    flex: none;\n    width: 100%;\n    order: 3;\n    justify-content: flex-start;\n    gap: 1.2rem;\n    padding: 6px 0 2px;\n    border-top: 1px solid rgba(255, 255, 255, 0.06);\n  }\n  .ns-label[_ngcontent-%COMP%] {\n    font-size: 0.48rem;\n    letter-spacing: 1.5px;\n  }\n  .ns-val[_ngcontent-%COMP%] {\n    font-size: 1.1rem;\n  }\n  .ns-div[_ngcontent-%COMP%] {\n    height: 20px;\n  }\n  .nav-right[_ngcontent-%COMP%] {\n    gap: 6px;\n  }\n  .btn-outline-amber[_ngcontent-%COMP%] {\n    padding: 0 10px;\n    font-size: 10px;\n    height: 30px;\n  }\n  .btn-primary-nav[_ngcontent-%COMP%] {\n    padding: 0 10px;\n    font-size: 10px;\n    height: 30px;\n  }\n  .user-avatar[_ngcontent-%COMP%] {\n    height: 30px;\n    padding: 0 8px 0 5px;\n  }\n  .avatar-initials[_ngcontent-%COMP%] {\n    width: 20px;\n    height: 20px;\n    font-size: 0.55rem;\n  }\n  .main-wrap[_ngcontent-%COMP%] {\n    padding: 16px 12px;\n  }\n  .games-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 10px;\n  }\n  .case-card[_ngcontent-%COMP%] {\n    padding: 16px 14px 14px;\n  }\n  .watermark[_ngcontent-%COMP%] {\n    font-size: 38px;\n    bottom: 8px;\n    right: 10px;\n  }\n  .act-btn[_ngcontent-%COMP%] {\n    opacity: 1;\n    transform: translateX(0);\n  }\n  .page-header[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n    gap: 8px;\n    margin-bottom: 18px;\n  }\n  .display-title[_ngcontent-%COMP%] {\n    font-size: 24px;\n  }\n  .story-panel[_ngcontent-%COMP%] {\n    padding: 18px 14px;\n  }\n  .panel-foot[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .panel-foot[_ngcontent-%COMP%]   .btn-ghost[_ngcontent-%COMP%], \n   .panel-foot[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n    width: 100%;\n    justify-content: center;\n    height: 40px;\n  }\n  .publish-overlay[_ngcontent-%COMP%] {\n    align-items: flex-end;\n    padding: 0;\n  }\n  .publish-dialog[_ngcontent-%COMP%] {\n    border-radius: 16px 16px 0 0;\n    max-width: 100%;\n    padding: 22px 18px 32px;\n  }\n  .publish-foot[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .publish-foot[_ngcontent-%COMP%]   .btn-ghost[_ngcontent-%COMP%], \n   .publish-foot[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n    width: 100%;\n    justify-content: center;\n    height: 42px;\n    font-size: 0.85rem;\n  }\n  .user-dropdown[_ngcontent-%COMP%] {\n    right: 0;\n    left: auto;\n    width: 200px;\n  }\n}\n@media (max-width: 380px) {\n  .nav-stats[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .nav-inner[_ngcontent-%COMP%] {\n    padding: 8px 10px;\n  }\n}\n/*# sourceMappingURL=dashboard.component.css.map */'] });
 };
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(DashboardComponent, { className: "DashboardComponent", filePath: "src\\app\\components\\dashboard\\dashboard.component.ts", lineNumber: 494 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(DashboardComponent, { className: "DashboardComponent", filePath: "src\\app\\components\\dashboard\\dashboard.component.ts", lineNumber: 535 });
 })();
 
 // src/app/components/game-builder/game-builder.component.ts
@@ -5278,7 +5634,7 @@ var CharacterService = class _CharacterService {
 
 // src/app/components/game-details/game-details.component.ts
 var _c05 = ["bgCvs"];
-var _c1 = (a0) => ["/games", a0, "edit"];
+var _c12 = (a0) => ["/games", a0, "edit"];
 var _c2 = (a0, a1) => ["/games", a0, "devices", a1, "simulator"];
 function GameDetailsComponent_div_50_Template(rf, ctx) {
   if (rf & 1) {
@@ -5336,32 +5692,32 @@ function GameDetailsComponent_div_51_div_8_Template(rf, ctx) {
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "form", 54)(4, "div", 55)(5, "div", 56)(6, "label");
-    \u0275\u0275text(7, "Name *");
+    \u0275\u0275text(7, "Nume*");
     \u0275\u0275elementEnd();
     \u0275\u0275element(8, "input", 57);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(9, "div", 56)(10, "label");
-    \u0275\u0275text(11, "Role *");
+    \u0275\u0275text(11, "Rol*");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(12, "select", 58)(13, "option", 59);
-    \u0275\u0275text(14, "Victim");
+    \u0275\u0275text(14, "Victima");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(15, "option", 60);
     \u0275\u0275text(16, "Suspect");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(17, "option", 61);
-    \u0275\u0275text(18, "Witness");
+    \u0275\u0275text(18, "Martor");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(19, "option", 62);
-    \u0275\u0275text(20, "Investigator");
+    \u0275\u0275text(20, "Anchetator");
     \u0275\u0275elementEnd()()()();
     \u0275\u0275elementStart(21, "div", 56)(22, "label");
-    \u0275\u0275text(23, "Description");
+    \u0275\u0275text(23, "Descriere");
     \u0275\u0275elementEnd();
     \u0275\u0275element(24, "textarea", 63);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(25, "div", 56)(26, "label");
-    \u0275\u0275text(27, "Backstory");
+    \u0275\u0275text(27, "Background");
     \u0275\u0275elementEnd();
     \u0275\u0275element(28, "textarea", 64);
     \u0275\u0275elementEnd();
@@ -5395,13 +5751,13 @@ function GameDetailsComponent_div_51_div_8_Template(rf, ctx) {
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.editingCharacter ? "Edit Character" : "New Character");
+    \u0275\u0275textInterpolate(ctx_r1.editingCharacter ? "Actualizeaza Personajul" : "Personaj Nou");
     \u0275\u0275advance();
     \u0275\u0275property("formGroup", ctx_r1.characterForm);
     \u0275\u0275advance(38);
     \u0275\u0275property("disabled", ctx_r1.characterForm.invalid);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r1.editingCharacter ? "Update" : "Add", " Character ");
+    \u0275\u0275textInterpolate1(" ", ctx_r1.editingCharacter ? "Actualizeaza" : "Adaug\u0103", " Personaj ");
   }
 }
 function GameDetailsComponent_div_51_div_10_div_9_Template(rf, ctx) {
@@ -7887,7 +8243,7 @@ Deschide \u201EAdministreaza apeluri & audio" si ataseaza manual.`);
       let _t;
       \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.canvasRef = _t.first);
     }
-  }, standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 56, vars: 26, consts: [["bgCvs", ""], [1, "details-container"], [1, "bg-canvas"], [1, "fixed-logo-wrap"], ["src", "assets/logo_final.svg", "alt", "", 1, "fixed-logo-img"], [1, "nb"], [1, "nb-inner"], ["routerLink", "/dashboard", 1, "btn-back"], ["width", "13", "height", "13", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M10 12L6 8l4-4", "stroke", "currentColor", "stroke-width", "1.4", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "nb-title-wrap"], [1, "nb-case"], [1, "nb-badge"], [1, "btn-edit", 3, "routerLink"], ["width", "12", "height", "12", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M11 2l3 3-9 9H2v-3L11 2z", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linejoin", "round"], [1, "tabs-bar"], [1, "tabs-inner"], [1, "tab-pill", 3, "click"], ["width", "11", "height", "11", "viewBox", "0 0 16 16", "fill", "none"], ["x", "2", "y", "2", "width", "12", "height", "12", "rx", "2", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M5 6h6M5 9h4", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["cx", "8", "cy", "5.5", "r", "3", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M2 15c0-2.7 2.7-4.5 6-4.5s6 1.8 6 4.5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], [1, "tab-count"], ["x", "3", "y", "1", "width", "10", "height", "14", "rx", "2", "stroke", "currentColor", "stroke-width", "1.3"], ["cx", "8", "cy", "11", "r", "1", "fill", "currentColor"], [1, "tab-pill", "tab-pill-special", 3, "click"], ["cx", "8", "cy", "6", "r", "3", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M3 14c0-2.8 2.2-5 5-5s5 2.2 5 5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["d", "M12 2l1.5 1.5L11 6", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "tab-count", "tab-count-inv"], [1, "details-content"], ["class", "tab-content", 4, "ngIf"], ["class", "modal-backdrop", 3, "click", 4, "ngIf"], ["class", "modal-backdrop modal-backdrop-wide", 3, "click", 4, "ngIf"], [1, "tab-content"], [1, "ov-card"], [1, "ov-card-top"], [1, "ov-label"], [1, "ov-title"], [1, "ov-body"], [1, "ov-card", "ov-solution"], [1, "solution-badge-sm"], [1, "sec-head"], [1, "eyebrow"], [1, "sec-title"], ["class", "btn-primary", 3, "click", 4, "ngIf"], ["class", "character-form", 4, "ngIf"], [1, "characters-grid"], ["class", "character-card", 4, "ngFor", "ngForOf"], ["class", "empty-state", 4, "ngIf"], [1, "btn-primary", 3, "click"], [1, "character-form"], [3, "formGroup"], [1, "form-row"], [1, "form-group"], ["type", "text", "formControlName", "name", "placeholder", "James Morrison"], ["formControlName", "role"], ["value", "Victim"], ["value", "Suspect"], ["value", "Witness"], ["value", "Investigator"], ["formControlName", "description", "rows", "2", "placeholder", "Physical appearance and personality..."], ["formControlName", "backstory", "rows", "3", "placeholder", "Their history and relationship to the victim..."], ["formControlName", "motive", "rows", "2", "placeholder", "Why they might have done it..."], ["formControlName", "alibi", "rows", "2", "placeholder", "Where they claim to have been..."], [1, "form-actions"], ["type", "button", 1, "btn-secondary", 3, "click"], ["type", "button", 1, "btn-primary", 3, "click", "disabled"], [1, "character-card"], [1, "character-header"], [1, "character-role"], [1, "character-description"], [1, "character-details"], ["class", "detail", 4, "ngIf"], [1, "character-actions"], [1, "btn-icon", 3, "click"], [1, "btn-action-outline", "btn-character-photo", 3, "click"], [1, "btn-action-outline", "btn-character-pdf", 3, "click", "disabled"], ["class", "character-photo-warning", 4, "ngIf"], ["class", "character-photo-ready", 4, "ngIf"], ["type", "file", "accept", ".jpg,.jpeg,.png,.webp", 2, "display", "none", 3, "change", "id"], [1, "detail"], [1, "character-photo-warning"], [1, "character-photo-ready"], [1, "empty-state"], [1, "empty-icon"], ["d", "M8 3v10M3 8h10", "stroke", "currentColor", "stroke-width", "1.6", "stroke-linecap", "round"], [1, "inv-devices-grid"], ["class", "sus-device-card", 4, "ngFor", "ngForOf"], [1, "sus-device-card"], [1, "sus-card-top-line"], [1, "sus-owner-badge"], [1, "inv-device-icon"], [1, "inv-device-type"], [1, "inv-device-desc"], [1, "sus-card-meta"], [1, "sus-meta-pill"], ["width", "10", "height", "10", "viewBox", "0 0 16 16", "fill", "none"], ["x", "2", "y", "3", "width", "12", "height", "11", "rx", "2", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M5 3V2a3 3 0 0 1 6 0v1", "stroke", "currentColor", "stroke-width", "1.3"], ["class", "sus-upload-notice", 4, "ngIf"], ["type", "file", "style", "display:none", 3, "id", "accept", "change", 4, "ngIf"], [1, "sus-card-actions"], [1, "btn-primary", 2, "width", "100%", 3, "routerLink"], ["d", "M8 2l6 4v4l-6 4-6-4V6l6-4z", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linejoin", "round"], [1, "btn-secondary", 2, "margin-top", "6px", "width", "100%", 3, "click"], ["x", "2", "y", "2", "width", "5", "height", "5", "rx", "1", "stroke", "currentColor", "stroke-width", "1.2"], ["x", "9", "y", "2", "width", "5", "height", "5", "rx", "1", "stroke", "currentColor", "stroke-width", "1.2"], ["x", "2", "y", "9", "width", "5", "height", "5", "rx", "1", "stroke", "currentColor", "stroke-width", "1.2"], ["x", "10", "y", "10", "width", "1.5", "height", "1.5", "fill", "currentColor"], ["x", "12.5", "y", "10", "width", "1.5", "height", "1.5", "fill", "currentColor"], ["x", "10", "y", "12.5", "width", "1.5", "height", "1.5", "fill", "currentColor"], ["x", "12.5", "y", "12.5", "width", "1.5", "height", "1.5", "fill", "currentColor"], [1, "btn-action-outline", 2, "margin-top", "6px", "width", "100%", 3, "click"], ["cx", "8", "cy", "8", "r", "2.5", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.54 11.54l1.41 1.41M3.05 12.95l1.42-1.42M11.54 4.46l1.41-1.41", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round"], [1, "btn-action-danger", 2, "margin-top", "6px", "width", "100%", 3, "click"], ["d", "M3 5h10M6 5V3h4v2M6 8v5M10 8v5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["class", "btn-action-outline", "style", "margin-top:6px;width:100%", 3, "click", 4, "ngIf"], ["style", "margin-top:6px;", 4, "ngIf"], [1, "sus-upload-notice"], ["d", "M8 3v7M5 6l3-3 3 3", "stroke", "currentColor", "stroke-width", "1.4", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M3 12h10", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["type", "file", 2, "display", "none", 3, "change", "id", "accept"], [2, "margin-top", "6px"], ["title", "Ncarca MP3 \u2014 se atribuie automat apelului corespunzator", 1, "btn-action-audio", 2, "width", "100%", "cursor", "pointer"], ["d", "M6 2h4v9a2 2 0 1 1-4 0V2z", "stroke", "currentColor", "stroke-width", "1.2"], ["d", "M3 7h2M11 7h2", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round"], ["type", "file", "accept", ".mp3,.m4a,.ogg,.wav", 2, "display", "none", 3, "change"], [1, "btn-action-outline", 2, "margin-top", "4px", "width", "100%", "font-size", "11.5px", 3, "click"], [1, "modal-backdrop", 3, "click"], [1, "modal-panel", 3, "click"], [1, "modal-top-bar"], [1, "modal-header"], [1, "modal-eyebrow"], [1, "modal-title"], [1, "modal-close", 3, "click"], ["width", "14", "height", "14", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M3 3l10 10M13 3L3 13", "stroke", "currentColor", "stroke-width", "1.6", "stroke-linecap", "round"], ["formControlName", "deviceType"], ["value", "iPhone"], ["value", "Android"], ["value", "Laptop"], ["type", "text", "formControlName", "ownerName", "placeholder", "Ex: Elodiei Ghinescu"], [1, "info-box"], [1, "modal-actions"], ["d", "M3 8l4 4 6-6", "stroke", "currentColor", "stroke-width", "1.6", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "modal-backdrop", "modal-backdrop-wide", 3, "click"], [1, "modal-panel", "modal-panel-wide", 3, "click"], [1, "app-tabs"], [1, "app-tab-btn", 3, "click"], [1, "modal-scrollable"], ["class", "app-config-content", 4, "ngIf"], ["type", "button", 1, "btn-primary", 3, "click"], [1, "app-config-content"], ["class", "conversation-item", 4, "ngFor", "ngForOf"], [1, "conversation-item"], [1, "conv-header"], ["placeholder", "John Doe", 3, "ngModelChange", "ngModel"], ["placeholder", "\u{1F464}", 2, "width", "60px", 3, "ngModelChange", "ngModel"], [1, "messages-list"], ["class", "message-item", 4, "ngFor", "ngForOf"], [1, "btn-secondary", "btn-sm", 3, "click"], [1, "message-item"], [1, "msg-row"], ["placeholder", "Sender", 3, "ngModelChange", "ngModel"], ["placeholder", "Message content", 3, "ngModelChange", "ngModel"], ["placeholder", "10:30 AM", 3, "ngModelChange", "ngModel"], ["type", "checkbox", 3, "ngModelChange", "ngModel"], ["class", "photo-item", 4, "ngFor", "ngForOf"], [1, "photo-item"], [1, "form-group", 2, "flex", "2"], ["placeholder", "https://example.com/photo.jpg", 3, "ngModelChange", "ngModel"], [1, "form-group", 2, "flex", "1"], ["placeholder", "Crime scene", 3, "ngModelChange", "ngModel"], [1, "btn-icon", 2, "margin-top", "28px", 3, "click"], ["class", "email-item", 4, "ngFor", "ngForOf"], [1, "email-item"], ["placeholder", "detective@police.com", 3, "ngModelChange", "ngModel"], ["placeholder", "Urgent Investigation", 3, "ngModelChange", "ngModel"], ["rows", "2", "placeholder", "Email content preview...", 3, "ngModelChange", "ngModel"], ["class", "note-item", 4, "ngFor", "ngForOf"], [1, "note-item"], ["placeholder", "Important Note", 3, "ngModelChange", "ngModel"], ["rows", "3", "placeholder", "Note content...", 3, "ngModelChange", "ngModel"], ["placeholder", "Oct 20", 3, "ngModelChange", "ngModel"], ["placeholder", "Raport_autopsie.docx", 3, "ngModelChange", "ngModel"], [3, "ngModelChange", "ngModel"], ["value", "Document"], ["value", "Encrypted"], ["value", "Folder"], ["value", "Image"], ["value", "Screenshot"], ["value", ""], ["value", "docx"], ["value", "pdf"], ["value", "xlsx"], ["value", "txt"], ["value", "csv"], ["placeholder", "128 KB", 3, "ngModelChange", "ngModel"], ["placeholder", "18.04.2026 09:42", 3, "ngModelChange", "ngModel"], ["placeholder", "Scurt context pentru fisier", 3, "ngModelChange", "ngModel"], ["rows", "3", "placeholder", "Continut preview pentru document...", 3, "ngModelChange", "ngModel"], ["rows", "3", "placeholder", '[{"ColoanaA":"Valoare","Suma":120}]', 3, "ngModelChange", "ngModel"], [1, "btn-icon", 2, "margin-top", "4px", 3, "click"], [1, "calls-info-box"], ["cx", "8", "cy", "8", "r", "6", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M8 5v3.5M8 11h.01", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["class", "call-item", 4, "ngFor", "ngForOf"], [1, "call-item"], [1, "call-item-header"], [1, "call-item-num"], ["value", "Primit"], ["value", "Efectuat"], ["value", "Pierdut"], ["placeholder", "Sorina Cioaca sau 0756-***-***", 3, "ngModelChange", "ngModel"], ["placeholder", "21.10.2007", 3, "ngModelChange", "ngModel"], ["placeholder", "17:02", 3, "ngModelChange", "ngModel"], ["placeholder", "4 min 51 sec sau \u2014", 3, "ngModelChange", "ngModel"], [1, "call-audio-row"], [1, "call-audio-label"], ["class", "call-audio-upload", 4, "ngIf"], ["class", "call-audio-ready", 4, "ngIf"], [1, "call-audio-upload"], ["class", "call-audio-filename", 4, "ngIf"], ["class", "call-audio-filename call-audio-empty", 4, "ngIf"], [1, "btn-audio-pick"], [1, "call-audio-filename"], [1, "call-audio-filename", "call-audio-empty"], [1, "call-audio-ready"], ["d", "M3 8l4 4 6-6", "stroke", "currentColor", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["title", "Sterge audio", 1, "call-audio-remove", 3, "click"], [1, "eyebrow", 2, "color", "#8b1a1a"], [2, "font-size", "13.5px", "color", "var(--ink2)", "font-style", "italic", "margin-bottom", "24px", "line-height", "1.7"], ["class", "inv-device-card", 4, "ngFor", "ngForOf"], [1, "inv-device-card"], [1, "inv-card-top-line"], [1, "inv-badge"], [4, "ngIf"], [1, "inv-device-actions"], ["title", "Incarca MP3 \u2014 se atribuie automat apelului corespunzator", 1, "btn-action-audio", 2, "width", "100%", "cursor", "pointer"]], template: function GameDetailsComponent_Template(rf, ctx) {
+  }, standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 56, vars: 26, consts: [["bgCvs", ""], [1, "details-container"], [1, "bg-canvas"], [1, "fixed-logo-wrap"], ["src", "assets/logo_final.svg", "alt", "", 1, "fixed-logo-img"], [1, "nb"], [1, "nb-inner"], ["routerLink", "/dashboard", 1, "btn-back"], ["width", "13", "height", "13", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M10 12L6 8l4-4", "stroke", "currentColor", "stroke-width", "1.4", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "nb-title-wrap"], [1, "nb-case"], [1, "nb-badge"], [1, "btn-edit", 3, "routerLink"], ["width", "12", "height", "12", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M11 2l3 3-9 9H2v-3L11 2z", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linejoin", "round"], [1, "tabs-bar"], [1, "tabs-inner"], [1, "tab-pill", 3, "click"], ["width", "11", "height", "11", "viewBox", "0 0 16 16", "fill", "none"], ["x", "2", "y", "2", "width", "12", "height", "12", "rx", "2", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M5 6h6M5 9h4", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["cx", "8", "cy", "5.5", "r", "3", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M2 15c0-2.7 2.7-4.5 6-4.5s6 1.8 6 4.5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], [1, "tab-count"], ["x", "3", "y", "1", "width", "10", "height", "14", "rx", "2", "stroke", "currentColor", "stroke-width", "1.3"], ["cx", "8", "cy", "11", "r", "1", "fill", "currentColor"], [1, "tab-pill", "tab-pill-special", 3, "click"], ["cx", "8", "cy", "6", "r", "3", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M3 14c0-2.8 2.2-5 5-5s5 2.2 5 5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["d", "M12 2l1.5 1.5L11 6", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "tab-count", "tab-count-inv"], [1, "details-content"], ["class", "tab-content", 4, "ngIf"], ["class", "modal-backdrop", 3, "click", 4, "ngIf"], ["class", "modal-backdrop modal-backdrop-wide", 3, "click", 4, "ngIf"], [1, "tab-content"], [1, "ov-card"], [1, "ov-card-top"], [1, "ov-label"], [1, "ov-title"], [1, "ov-body"], [1, "ov-card", "ov-solution"], [1, "solution-badge-sm"], [1, "sec-head"], [1, "eyebrow"], [1, "sec-title"], ["class", "btn-primary", 3, "click", 4, "ngIf"], ["class", "character-form", 4, "ngIf"], [1, "characters-grid"], ["class", "character-card", 4, "ngFor", "ngForOf"], ["class", "empty-state", 4, "ngIf"], [1, "btn-primary", 3, "click"], [1, "character-form"], [3, "formGroup"], [1, "form-row"], [1, "form-group"], ["type", "text", "formControlName", "name", "placeholder", "James Morrison"], ["formControlName", "role"], ["value", "victima"], ["value", "suspect"], ["value", "martor"], ["value", "anchetator"], ["formControlName", "description", "rows", "2", "placeholder", "Descriere fizica si personalitatea..."], ["formControlName", "backstory", "rows", "3", "placeholder", "Istoria sa si relatia cu victima..."], ["formControlName", "motive", "rows", "2", "placeholder", "De ce ar fi putut face asta..."], ["formControlName", "alibi", "rows", "2", "placeholder", "Unde spun ei ca au fost..."], [1, "form-actions"], ["type", "button", 1, "btn-secondary", 3, "click"], ["type", "button", 1, "btn-primary", 3, "click", "disabled"], [1, "character-card"], [1, "character-header"], [1, "character-role"], [1, "character-description"], [1, "character-details"], ["class", "detail", 4, "ngIf"], [1, "character-actions"], [1, "btn-icon", 3, "click"], [1, "btn-action-outline", "btn-character-photo", 3, "click"], [1, "btn-action-outline", "btn-character-pdf", 3, "click", "disabled"], ["class", "character-photo-warning", 4, "ngIf"], ["class", "character-photo-ready", 4, "ngIf"], ["type", "file", "accept", ".jpg,.jpeg,.png,.webp", 2, "display", "none", 3, "change", "id"], [1, "detail"], [1, "character-photo-warning"], [1, "character-photo-ready"], [1, "empty-state"], [1, "empty-icon"], ["d", "M8 3v10M3 8h10", "stroke", "currentColor", "stroke-width", "1.6", "stroke-linecap", "round"], [1, "inv-devices-grid"], ["class", "sus-device-card", 4, "ngFor", "ngForOf"], [1, "sus-device-card"], [1, "sus-card-top-line"], [1, "sus-owner-badge"], [1, "inv-device-icon"], [1, "inv-device-type"], [1, "inv-device-desc"], [1, "sus-card-meta"], [1, "sus-meta-pill"], ["width", "10", "height", "10", "viewBox", "0 0 16 16", "fill", "none"], ["x", "2", "y", "3", "width", "12", "height", "11", "rx", "2", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M5 3V2a3 3 0 0 1 6 0v1", "stroke", "currentColor", "stroke-width", "1.3"], ["class", "sus-upload-notice", 4, "ngIf"], ["type", "file", "style", "display:none", 3, "id", "accept", "change", 4, "ngIf"], [1, "sus-card-actions"], [1, "btn-primary", 2, "width", "100%", 3, "routerLink"], ["d", "M8 2l6 4v4l-6 4-6-4V6l6-4z", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linejoin", "round"], [1, "btn-secondary", 2, "margin-top", "6px", "width", "100%", 3, "click"], ["x", "2", "y", "2", "width", "5", "height", "5", "rx", "1", "stroke", "currentColor", "stroke-width", "1.2"], ["x", "9", "y", "2", "width", "5", "height", "5", "rx", "1", "stroke", "currentColor", "stroke-width", "1.2"], ["x", "2", "y", "9", "width", "5", "height", "5", "rx", "1", "stroke", "currentColor", "stroke-width", "1.2"], ["x", "10", "y", "10", "width", "1.5", "height", "1.5", "fill", "currentColor"], ["x", "12.5", "y", "10", "width", "1.5", "height", "1.5", "fill", "currentColor"], ["x", "10", "y", "12.5", "width", "1.5", "height", "1.5", "fill", "currentColor"], ["x", "12.5", "y", "12.5", "width", "1.5", "height", "1.5", "fill", "currentColor"], [1, "btn-action-outline", 2, "margin-top", "6px", "width", "100%", 3, "click"], ["cx", "8", "cy", "8", "r", "2.5", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.54 11.54l1.41 1.41M3.05 12.95l1.42-1.42M11.54 4.46l1.41-1.41", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round"], [1, "btn-action-danger", 2, "margin-top", "6px", "width", "100%", 3, "click"], ["d", "M3 5h10M6 5V3h4v2M6 8v5M10 8v5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["class", "btn-action-outline", "style", "margin-top:6px;width:100%", 3, "click", 4, "ngIf"], ["style", "margin-top:6px;", 4, "ngIf"], [1, "sus-upload-notice"], ["d", "M8 3v7M5 6l3-3 3 3", "stroke", "currentColor", "stroke-width", "1.4", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M3 12h10", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["type", "file", 2, "display", "none", 3, "change", "id", "accept"], [2, "margin-top", "6px"], ["title", "Ncarca MP3 \u2014 se atribuie automat apelului corespunzator", 1, "btn-action-audio", 2, "width", "100%", "cursor", "pointer"], ["d", "M6 2h4v9a2 2 0 1 1-4 0V2z", "stroke", "currentColor", "stroke-width", "1.2"], ["d", "M3 7h2M11 7h2", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round"], ["type", "file", "accept", ".mp3,.m4a,.ogg,.wav", 2, "display", "none", 3, "change"], [1, "btn-action-outline", 2, "margin-top", "4px", "width", "100%", "font-size", "11.5px", 3, "click"], [1, "modal-backdrop", 3, "click"], [1, "modal-panel", 3, "click"], [1, "modal-top-bar"], [1, "modal-header"], [1, "modal-eyebrow"], [1, "modal-title"], [1, "modal-close", 3, "click"], ["width", "14", "height", "14", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M3 3l10 10M13 3L3 13", "stroke", "currentColor", "stroke-width", "1.6", "stroke-linecap", "round"], ["formControlName", "deviceType"], ["value", "iPhone"], ["value", "Android"], ["value", "Laptop"], ["type", "text", "formControlName", "ownerName", "placeholder", "Ex: Elodiei Ghinescu"], [1, "info-box"], [1, "modal-actions"], ["d", "M3 8l4 4 6-6", "stroke", "currentColor", "stroke-width", "1.6", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "modal-backdrop", "modal-backdrop-wide", 3, "click"], [1, "modal-panel", "modal-panel-wide", 3, "click"], [1, "app-tabs"], [1, "app-tab-btn", 3, "click"], [1, "modal-scrollable"], ["class", "app-config-content", 4, "ngIf"], ["type", "button", 1, "btn-primary", 3, "click"], [1, "app-config-content"], ["class", "conversation-item", 4, "ngFor", "ngForOf"], [1, "conversation-item"], [1, "conv-header"], ["placeholder", "John Doe", 3, "ngModelChange", "ngModel"], ["placeholder", "\u{1F464}", 2, "width", "60px", 3, "ngModelChange", "ngModel"], [1, "messages-list"], ["class", "message-item", 4, "ngFor", "ngForOf"], [1, "btn-secondary", "btn-sm", 3, "click"], [1, "message-item"], [1, "msg-row"], ["placeholder", "Sender", 3, "ngModelChange", "ngModel"], ["placeholder", "Message content", 3, "ngModelChange", "ngModel"], ["placeholder", "10:30 AM", 3, "ngModelChange", "ngModel"], ["type", "checkbox", 3, "ngModelChange", "ngModel"], ["class", "photo-item", 4, "ngFor", "ngForOf"], [1, "photo-item"], [1, "form-group", 2, "flex", "2"], ["placeholder", "https://example.com/photo.jpg", 3, "ngModelChange", "ngModel"], [1, "form-group", 2, "flex", "1"], ["placeholder", "Crime scene", 3, "ngModelChange", "ngModel"], [1, "btn-icon", 2, "margin-top", "28px", 3, "click"], ["class", "email-item", 4, "ngFor", "ngForOf"], [1, "email-item"], ["placeholder", "detective@police.com", 3, "ngModelChange", "ngModel"], ["placeholder", "Urgent Investigation", 3, "ngModelChange", "ngModel"], ["rows", "2", "placeholder", "Email content preview...", 3, "ngModelChange", "ngModel"], ["class", "note-item", 4, "ngFor", "ngForOf"], [1, "note-item"], ["placeholder", "Important Note", 3, "ngModelChange", "ngModel"], ["rows", "3", "placeholder", "Note content...", 3, "ngModelChange", "ngModel"], ["placeholder", "Oct 20", 3, "ngModelChange", "ngModel"], ["placeholder", "Raport_autopsie.docx", 3, "ngModelChange", "ngModel"], [3, "ngModelChange", "ngModel"], ["value", "Document"], ["value", "Encrypted"], ["value", "Folder"], ["value", "Image"], ["value", "Screenshot"], ["value", ""], ["value", "docx"], ["value", "pdf"], ["value", "xlsx"], ["value", "txt"], ["value", "csv"], ["placeholder", "128 KB", 3, "ngModelChange", "ngModel"], ["placeholder", "18.04.2026 09:42", 3, "ngModelChange", "ngModel"], ["placeholder", "Scurt context pentru fisier", 3, "ngModelChange", "ngModel"], ["rows", "3", "placeholder", "Continut preview pentru document...", 3, "ngModelChange", "ngModel"], ["rows", "3", "placeholder", '[{"ColoanaA":"Valoare","Suma":120}]', 3, "ngModelChange", "ngModel"], [1, "btn-icon", 2, "margin-top", "4px", 3, "click"], [1, "calls-info-box"], ["cx", "8", "cy", "8", "r", "6", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M8 5v3.5M8 11h.01", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["class", "call-item", 4, "ngFor", "ngForOf"], [1, "call-item"], [1, "call-item-header"], [1, "call-item-num"], ["value", "Primit"], ["value", "Efectuat"], ["value", "Pierdut"], ["placeholder", "Sorina Cioaca sau 0756-***-***", 3, "ngModelChange", "ngModel"], ["placeholder", "21.10.2007", 3, "ngModelChange", "ngModel"], ["placeholder", "17:02", 3, "ngModelChange", "ngModel"], ["placeholder", "4 min 51 sec sau \u2014", 3, "ngModelChange", "ngModel"], [1, "call-audio-row"], [1, "call-audio-label"], ["class", "call-audio-upload", 4, "ngIf"], ["class", "call-audio-ready", 4, "ngIf"], [1, "call-audio-upload"], ["class", "call-audio-filename", 4, "ngIf"], ["class", "call-audio-filename call-audio-empty", 4, "ngIf"], [1, "btn-audio-pick"], [1, "call-audio-filename"], [1, "call-audio-filename", "call-audio-empty"], [1, "call-audio-ready"], ["d", "M3 8l4 4 6-6", "stroke", "currentColor", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["title", "Sterge audio", 1, "call-audio-remove", 3, "click"], [1, "eyebrow", 2, "color", "#8b1a1a"], [2, "font-size", "13.5px", "color", "var(--ink2)", "font-style", "italic", "margin-bottom", "24px", "line-height", "1.7"], ["class", "inv-device-card", 4, "ngFor", "ngForOf"], [1, "inv-device-card"], [1, "inv-card-top-line"], [1, "inv-badge"], [4, "ngIf"], [1, "inv-device-actions"], ["title", "Incarca MP3 \u2014 se atribuie automat apelului corespunzator", 1, "btn-action-audio", 2, "width", "100%", "cursor", "pointer"]], template: function GameDetailsComponent_Template(rf, ctx) {
     if (rf & 1) {
       const _r1 = \u0275\u0275getCurrentView();
       \u0275\u0275elementStart(0, "div", 1);
@@ -7983,7 +8339,7 @@ Deschide \u201EAdministreaza apeluri & audio" si ataseaza manual.`);
       \u0275\u0275advance();
       \u0275\u0275textInterpolate1(" ", (ctx.game == null ? null : ctx.game.isPublished) ? "PUBLICAT" : "DRAFT", " ");
       \u0275\u0275advance();
-      \u0275\u0275property("routerLink", \u0275\u0275pureFunction1(24, _c1, ctx.gameId));
+      \u0275\u0275property("routerLink", \u0275\u0275pureFunction1(24, _c12, ctx.gameId));
       \u0275\u0275advance(6);
       \u0275\u0275classProp("tab-active", ctx.activeTab === "overview");
       \u0275\u0275advance(5);

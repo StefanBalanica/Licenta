@@ -17,6 +17,7 @@ export class LandingComponent implements OnInit, OnDestroy {
   games: any[] = [];
   gamesLoading = true;
   gamesError = false;
+  selectedGame: any = null;
 
   private statsInterval: any;
 
@@ -55,6 +56,23 @@ export class LandingComponent implements OnInit, OnDestroy {
     } finally {
       this.gamesLoading = false;
     }
+  }
+
+  openDetails(game: any) {
+    this.selectedGame = game;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeDetails() {
+    this.selectedGame = null;
+    document.body.style.overflow = '';
+  }
+
+  /** Returns an array of device chip labels (phones only, excluding the investigator's built-in devices).
+   *  deviceCount already includes the 2 investigator devices, so suspect phones = deviceCount - 2, min 0. */
+  getDeviceChips(deviceCount: number): string[] {
+    const suspectPhones = Math.max(0, (deviceCount ?? 0) - 2);
+    return Array.from({ length: suspectPhones }, (_, i) => `Telefon suspect ${i + 1}`);
   }
 
   truncate(text: string, max = 100): string {

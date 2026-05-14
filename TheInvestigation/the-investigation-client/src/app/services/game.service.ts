@@ -36,6 +36,10 @@ export class GameService {
         return this.http.post<Game>(`${this.apiUrl}/${id}/publish`, body);
     }
 
+    unpublishGame(id: number): Observable<Game> {
+        return this.http.post<Game>(`${this.apiUrl}/${id}/unpublish`, {});
+    }
+
     /** Generate full game from story using AI (Gemini). Free API key: https://aistudio.google.com/apikey */
     createGameFromStory(story: string): Observable<Game> {
         return this.http.post<Game>(`${this.apiUrl}/from-story`, { story });

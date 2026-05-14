@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -23,7 +23,7 @@ import { GameSummary } from '../../models/models';
       <nav class="navbar">
         <div class="nav-inner">
           <!-- Logo -->
-          <div class="nav-logo" style="cursor: pointer;" (click)="goToLanding()">
+          <div class="nav-logo">
             <img src="assets/logo_final.svg" class="logo-img" alt="The Investigation" title="The Investigation"/>
           </div>
 
@@ -125,7 +125,22 @@ import { GameSummary } from '../../models/models';
               <div class="eyebrow">MARKETPLACE</div>
               <h3 class="publish-title">Publica dosarul</h3>
             </div>
-            <p class="publish-hint">Jocul va aparea pe pagina principala, cu numele si pretul setate mai jos.</p>
+            <p class="publish-hint">Dosarul va aparea pe pagina principala cu imaginea, numele si pretul de mai jos.</p>
+
+            <!-- Cover image -->
+            <label class="publish-lbl">Imagine coperta</label>
+            <div class="cover-upload-area" (click)="triggerCoverInput()" [class.has-cover]="publishCoverPreview">
+              <input #coverInput type="file" accept="image/*" style="display:none" (change)="onCoverFileChange($event)">
+              <img *ngIf="publishCoverPreview" [src]="publishCoverPreview" class="cover-preview-img" alt="Coperta dosar">
+              <div *ngIf="!publishCoverPreview" class="cover-placeholder">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.3"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" opacity=".5"/><path d="M3 16l5-5 4 4 3-3 6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Click pentru a incarca o imagine<br><small>Implicit: coperta standard</small></span>
+              </div>
+              <button *ngIf="publishCoverPreview" type="button" class="cover-remove" (click)="removeCover($event)">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+
             <label class="publish-lbl">Nume joc</label>
             <input type="text" class="publish-input" [(ngModel)]="publishDraftTitle" maxlength="200" />
             <label class="publish-lbl">Pret (RON)</label>
@@ -190,6 +205,9 @@ import { GameSummary } from '../../models/models';
 
               <div *ngIf="!game.isPublished" class="card-publish">
                 <button type="button" class="btn-publish" (click)="openPublishModal(game, $event)">Publica</button>
+              </div>
+              <div *ngIf="game.isPublished" class="card-publish">
+                <button type="button" class="btn-unpublish" (click)="unpublishGame(game, $event)">Retrage din piata</button>
               </div>
 
               <div class="sep"></div>
@@ -434,6 +452,29 @@ import { GameSummary } from '../../models/models';
     .publish-err{color:var(--red);font-size:.82rem;margin:-6px 0 12px;}
     .publish-foot{display:flex;justify-content:flex-end;gap:10px;margin-top:10px;padding-top:16px;border-top:1px solid var(--border);}
 
+    .btn-unpublish{
+      width:100%;padding:.5rem .75rem;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;
+      border:1px solid var(--green);background:rgba(74,122,86,0.08);color:var(--green);border-radius:6px;cursor:pointer;font-weight:600;
+      transition:background .15s,color .15s;
+    }
+    .btn-unpublish:hover{background:rgba(74,122,86,0.18);}
+
+    .cover-upload-area{
+      width:100%;height:120px;border:1.5px dashed var(--border-md);border-radius:8px;display:flex;align-items:center;justify-content:center;
+      cursor:pointer;transition:border-color .2s,background .2s;overflow:hidden;position:relative;margin-bottom:14px;background:var(--bg);
+    }
+    .cover-upload-area:hover{border-color:var(--amber);background:var(--amber-l);}
+    .cover-upload-area.has-cover{border-style:solid;border-color:var(--border-md);}
+    .cover-placeholder{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--ink3);font-size:12px;text-align:center;line-height:1.5;}
+    .cover-placeholder small{font-size:10px;opacity:.7;}
+    .cover-placeholder svg{color:var(--ink3);}
+    .cover-preview-img{width:100%;height:100%;object-fit:cover;display:block;}
+    .cover-remove{
+      position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.55);border:none;
+      display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;
+    }
+    .cover-remove:hover{background:rgba(155,32,32,.8);}
+
     /* a”€a”€ Responsive a”€a”€ */
     @media(max-width:900px){
       .games-grid{grid-template-columns:repeat(2,1fr);}
@@ -493,6 +534,7 @@ import { GameSummary } from '../../models/models';
 })
 export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('bgCvs') canvasRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('coverInput') coverInputRef!: ElementRef<HTMLInputElement>;
   games: GameSummary[] = [];
   loading = true;
   userEmail = '';
@@ -510,6 +552,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   publishGameId: number | null = null;
   publishDraftTitle = '';
   publishDraftPrice: string | number = '';
+  publishCoverFile: File | null = null;
+  publishCoverPreview: string | null = null;
   publishSaving = false;
   publishError = '';
 
@@ -602,6 +646,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.publishDraftPrice = p != null && p !== undefined ? String(p) : '';
     this.publishError = '';
     this.publishSaving = false;
+    this.publishCoverFile = null;
+    this.publishCoverPreview = null;
     this.publishModalOpen = true;
   }
 
@@ -649,6 +695,38 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   goToProfile() { this.menuOpen = false; this.router.navigate(['/profile']); }
   goToLanding() { this.router.navigate(['/']); }
+
+  triggerCoverInput() { this.coverInputRef?.nativeElement.click(); }
+
+  onCoverFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+    this.publishCoverFile = file;
+    const reader = new FileReader();
+    reader.onload = (e) => { this.publishCoverPreview = e.target?.result as string; };
+    reader.readAsDataURL(file);
+  }
+
+  removeCover(ev: Event) {
+    ev.stopPropagation();
+    this.publishCoverFile = null;
+    this.publishCoverPreview = null;
+    if (this.coverInputRef) this.coverInputRef.nativeElement.value = '';
+  }
+
+  unpublishGame(game: GameSummary, ev: MouseEvent) {
+    ev.stopPropagation();
+    if (!confirm(`Retragi "${game.title}" din piata? Dosarul ramane salvat.`)) return;
+    this.gameService.unpublishGame(game.gameId).subscribe({
+      next: (g) => {
+        const ix = this.games.findIndex(x => x.gameId === g.gameId);
+        if (ix >= 0) this.games[ix] = { ...this.games[ix], isPublished: false, updatedAt: g.updatedAt };
+        this.games = [...this.games];
+      },
+      error: () => alert('Retragerea a esuat.')
+    });
+  }
 
   deleteGame(gameId: number) {
     if (confirm('Confirmi inchiderea dosarului? AcTiunea este ireversibila.')) {

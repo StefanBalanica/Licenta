@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TheInvestigation.Api.DTOs;
@@ -210,6 +210,33 @@ public class GamesController : ControllerBase
         {
             _logger.LogError(ex, "Error publishing game {GameId}", id);
             return StatusCode(500, new { message = "An error occurred while publishing the game" });
+        }
+    }
+
+    /// <summary>
+    /// Unpublish a game (remove from marketplace, keep all data intact).
+    /// </summary>
+    [HttpPost("{id}/unpublish")]
+    public async Task<ActionResult<GameDto>> UnpublishGame(int id)
+    {
+        try
+        {
+            var userId = GetUserId();
+            var game = await _gameService.UnpublishGameAsync(id, userId);
+            return Ok(game);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { message = ex.Message });
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Forbid();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error unpublishing game {GameId}", id);
+            return StatusCode(500, new { message = "An error occurred while unpublishing the game" });
         }
     }
 }
