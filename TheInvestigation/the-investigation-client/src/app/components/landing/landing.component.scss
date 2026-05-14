@@ -73,7 +73,8 @@ nav {
 .hero-tag { font-family: 'JetBrains Mono'; color: var(--accent); font-size: .75rem; margin-bottom: 1rem; display: block; }
 .hero h1 { font-family: 'Crimson Pro', serif; font-size: clamp(2.8rem,5.5vw,4.2rem); line-height: 1.05; margin-bottom: 1.5rem; font-weight: 700; }
 .hero h1 em { font-style: italic; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 8px; }
-.hero p { font-size: 1.15rem; color: var(--muted); max-width: 480px; margin-bottom: 2rem; }
+.hero p { font-size: 1.15rem; color: var(--muted); max-width: 480px; margin-bottom: .75rem; }
+.hero-sub-em { font-family: 'Crimson Pro', serif; font-size: 1.5rem; font-weight: 700; font-style: italic; color: var(--ink); margin-bottom: 1.5rem; }
 .hero-cta { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
 .badge-physical {
   display: inline-flex; align-items: center; gap: .5rem;
