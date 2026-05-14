@@ -236,7 +236,7 @@
       <!-- Story summary -->
       <div class="detail-section" *ngIf="selectedGame.story">
         <div class="detail-section-label">// REZUMAT</div>
-        <p class="detail-story">{{ truncate(selectedGame.story, 400) }}</p>
+        <p class="detail-story">{{ selectedGame.story }}</p>
       </div>
       <div class="detail-section" *ngIf="!selectedGame.story && selectedGame.description">
         <div class="detail-section-label">// DESCRIERE</div>

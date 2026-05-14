@@ -397,7 +397,15 @@ footer ul a:hover { color:var(--ink); }
   font-size: .92rem; color: #44403c; line-height: 1.72;
   font-style: italic; border-left: 3px solid #d43f33;
   padding-left: 14px; margin-left: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d43f33 #f5f2ee;
+  padding-right: 6px;
 }
+.detail-story::-webkit-scrollbar { width: 4px; }
+.detail-story::-webkit-scrollbar-track { background: #f5f2ee; border-radius: 2px; }
+.detail-story::-webkit-scrollbar-thumb { background: #d43f33; border-radius: 2px; }
 
 .detail-devices { display: flex; flex-wrap: wrap; gap: 8px; }
 .detail-device-chip {
