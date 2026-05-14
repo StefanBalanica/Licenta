@@ -83,49 +83,51 @@ nav {
 }
 .badge-physical::before { content: "🗂"; font-size: 1rem; }
 
-/* CORK BOARD */
-.board {
-  position: relative; background-color: #c9a76b;
-  background-image:
-    radial-gradient(ellipse at 18% 25%, rgba(140,95,30,0.35) 0%, transparent 55%),
-    radial-gradient(ellipse at 82% 68%, rgba(160,110,40,0.3) 0%, transparent 50%),
-    repeating-radial-gradient(circle at 25% 40%, rgba(110,75,20,0.12) 0px, rgba(110,75,20,0.12) 1px, transparent 1px, transparent 9px);
-  border: 6px solid #7a5921;
-  box-shadow: inset 0 0 50px rgba(0,0,0,.22), 10px 10px 0 rgba(0,0,0,.18), 18px 18px 0 rgba(0,0,0,.07);
-  transform: rotate(1deg); padding: 0; overflow: hidden; border-radius: 3px;
+/* HERO IMAGE */
+.hero-img-wrap {
+  position: relative; overflow: hidden;
+  border: 6px solid var(--ink);
+  box-shadow: 10px 10px 0 rgba(0,0,0,.15), 18px 18px 0 rgba(0,0,0,.06);
+  border-radius: 2px;
+  transform: rotate(.6deg);
+  transition: transform .3s ease;
 }
-.board-topbar {
-  background: rgba(248,244,235,.96); padding: 9px 14px;
+.hero-img-wrap:hover { transform: rotate(0deg) scale(1.01); }
+.hero-img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  min-height: 380px; max-height: 480px;
+}
+.hero-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0) 40%,
+    rgba(26,22,16,0.72) 100%
+  );
+  pointer-events: none;
+}
+.hero-img-badges {
+  position: absolute; top: 12px; left: 12px; right: 12px;
   display: flex; justify-content: space-between; align-items: center;
-  border-bottom: 2px solid rgba(0,0,0,.13);
+  z-index: 2;
 }
-.board-mono { font-family:'JetBrains Mono'; font-size:.62rem; color:var(--muted); letter-spacing:.5px; }
-.board-tag { background:var(--accent); color:#fff; padding:3px 10px; font-size:.6rem; font-family:'JetBrains Mono'; letter-spacing:1.5px; font-weight:700; }
-.cork-area { position:relative; height:276px; overflow:hidden; }
-.cork-string { position:absolute; inset:0; width:100%; height:100%; z-index:2; pointer-events:none; }
-.cork-deco { position:absolute; z-index:1; user-select:none; }
-.deco-fp  { top:6px; left:68%; font-size:2rem; opacity:.18; filter:grayscale(1); }
-.deco-key { bottom:12px; right:4px; font-size:1.4rem; opacity:.22; transform:rotate(-22deg); }
-.deco-ev  { bottom:6px; left:4px; background:rgba(254,240,138,.9); font-family:'JetBrains Mono'; font-size:.5rem; padding:5px 7px; color:#555; transform:rotate(3deg); box-shadow:1px 1px 4px rgba(0,0,0,.2); border:1px solid rgba(0,0,0,.06); }
-.cork-news { position:absolute; top:8px; right:8px; z-index:3; background:#f7f4ee; width:90px; padding:6px 7px; box-shadow:2px 2px 6px rgba(0,0,0,.25); transform:rotate(1.5deg); border:1px solid rgba(0,0,0,.07); }
-.news-head { font-family:'Crimson Pro',serif; font-size:.95rem; font-weight:700; border-bottom:2px solid var(--ink); margin-bottom:3px; padding-bottom:1px; }
-.news-body { font-size:.5rem; line-height:1.5; color:var(--muted); font-family:'JetBrains Mono'; }
-.cork-fp { position:absolute; top:6px; left:6px; z-index:3; width:48px; height:48px; background:rgba(240,235,225,.9); box-shadow:1px 1px 5px rgba(0,0,0,.3); transform:rotate(-4deg); display:flex; align-items:center; justify-content:center; font-size:1.8rem; }
-.cn { position:absolute; z-index:3; }
-.cn-creator { top:30px; left:26px; }
-.cn-joc { top:100px; left:37%; }
-.cn-jucator { top:158px; left:58%; }
-.node-lbl { font-family:'JetBrains Mono'; font-size:.62rem; font-weight:700; color:var(--ink); margin-bottom:5px; letter-spacing:.5px; text-shadow:0 1px 2px rgba(255,255,255,.7); }
-.cork-pin { width:13px; height:13px; border-radius:50%; position:absolute; top:-7px; left:50%; transform:translateX(-50%); z-index:5; box-shadow:0 2px 5px rgba(0,0,0,.55),inset 0 1px 2px rgba(255,255,255,.35); }
-.cork-pin::after { content:''; position:absolute; bottom:-5px; left:50%; transform:translateX(-50%); width:3px; height:6px; background:inherit; filter:brightness(.65); border-radius:0 0 2px 2px; }
-.pin-r { background:radial-gradient(circle at 35% 30%,#ff7070,#d43f33); }
-.pin-g { background:radial-gradient(circle at 35% 30%,#ffd060,#c8922a); }
-.pin-d { background:radial-gradient(circle at 35% 30%,#666,#1a1a1a); }
-.note-white { background:#fff; border:1px solid rgba(0,0,0,.09); box-shadow:2px 3px 8px rgba(0,0,0,.22); padding:8px 10px; font-family:'JetBrains Mono'; font-size:.55rem; color:var(--ink); line-height:1.8; min-width:108px; background-image:repeating-linear-gradient(transparent,transparent 18px,rgba(99,160,220,.12) 18px,rgba(99,160,220,.12) 19px); }
-.note-yellow { background:#fef08a; border:1px solid rgba(0,0,0,.07); box-shadow:2px 3px 7px rgba(0,0,0,.22); padding:9px 11px; font-family:'JetBrains Mono'; font-size:.58rem; color:#333; line-height:1.7; }
-.rot-l { transform:rotate(-3deg); }
-.rot-r { transform:rotate(2.5deg); }
-.board-quote { background:rgba(248,244,235,.97); padding:9px 14px; border-top:1px solid rgba(0,0,0,.12); font-size:.78rem; font-style:italic; color:var(--muted); }
+.hero-badge-mono {
+  font-family: 'JetBrains Mono'; font-size: .58rem; color: rgba(255,255,255,.75);
+  letter-spacing: .5px; background: rgba(0,0,0,.55);
+  padding: 4px 10px; backdrop-filter: blur(4px);
+}
+.hero-badge-tag {
+  background: var(--accent); color: #fff;
+  padding: 4px 12px; font-size: .6rem;
+  font-family: 'JetBrains Mono'; letter-spacing: 1.5px; font-weight: 700;
+}
+.hero-img-quote {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+  padding: 14px 16px;
+  font-size: .8rem; font-style: italic; color: rgba(255,255,255,.82);
+  font-family: 'Crimson Pro', serif; font-size: 1rem; line-height: 1.4;
+}
 
 /* STATS BAR */
 .stats-bar { background:var(--ink); color:#fff; padding:4rem; display:flex; justify-content:center; gap:5rem; flex-wrap:wrap; position:relative; }
@@ -256,7 +258,8 @@ footer ul a:hover { color:var(--ink); }
   .hero p { font-size:1rem; }
   .hero-cta { flex-direction:column; align-items:flex-start; gap:1rem; }
   .badge-physical { font-size:.7rem; }
-  .board { display:none; }
+  .hero-img-wrap { transform: none; box-shadow: 4px 4px 0 rgba(0,0,0,.15); }
+  .hero-img { min-height: 240px; max-height: 300px; }
 
   /* Stats */
   .stats-bar { padding:2rem 1rem; gap:1.5rem; }
