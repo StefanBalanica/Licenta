@@ -45,9 +45,6 @@ public class StatsController : ControllerBase
     {
         var games = await _context.Games
             .Where(g => g.IsPublished)
-            .Include(g => g.User)
-            .Include(g => g.Characters)
-            .Include(g => g.DigitalDevices)
             .OrderByDescending(g => g.UpdatedAt)
             .Select(g => new
             {
@@ -58,8 +55,8 @@ public class StatsController : ControllerBase
                 g.PriceRon,
                 CreatorName = g.User.FirstName + " " + g.User.LastName,
                 CreatedAt = g.CreatedAt.ToString("yyyy-MM-dd"),
-                CharacterCount = g.Characters.Count,
-                DeviceCount = g.DigitalDevices.Count
+                CharacterCount = _context.Characters.Count(c => c.GameId == g.GameId),
+                DeviceCount = _context.DigitalDevices.Count(d => d.GameId == g.GameId)
             })
             .ToListAsync();
 
