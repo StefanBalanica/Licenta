@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -89,14 +89,14 @@ import { GameSummary } from '../../models/models';
         <div *ngIf="showStoryPanel" class="story-panel">
           <div class="panel-head">
             <div>
-              <div class="eyebrow">ASISTENT IA</div>
+              <div class="eyebrow">ASISTENT AI</div>
               <h3 class="panel-title">Construieste dosar din naratiune</h3>
             </div>
             <button class="panel-close" (click)="showStoryPanel = false">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             </button>
           </div>
-          <p class="panel-hint">Introdu relatarea cazului a€” AI-ul extrage automat personaje, dispozitive, conversaTii si emailuri.</p>
+          <p class="panel-hint">Introdu relatarea cazului iar AI-ul extrage automat personaje, dispozitive, conversatii si emailuri.</p>
           <textarea [(ngModel)]="storyText" class="story-area"
             placeholder="Ex: Titlu: Crima din vila. Personaje: Maria (soTia, motiv mostenire), Ion (majordomul). Dispozitive: Maria are un iPhone cu emailuri, note si conversaTii cu Dr. Ionescu..."
             rows="8"></textarea>
