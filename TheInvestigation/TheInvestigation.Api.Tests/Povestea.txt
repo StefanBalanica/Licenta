@@ -1,224 +1,196 @@
-Povestea
-CAZUL ELODIA GHINESCU — DOSAR DE ANCHETĂ
 
-⚠️ BRIEFING CONFIDENȚIAL — NUMAI PENTRU ANCHETATOR
+CAZUL RECTORULUI STĂNESCU — DOSAR DE ANCHETĂ BRIEFING CONFIDENȚIAL — NUMAI PENTRU ANCHETATOR SITUAȚIA
 
-SITUAȚIA
-Data dispariției: 22 octombrie 2007 (luni)
-Ultima vedere confirmată: ora 23:14, în apropierea blocului său din București
-Status actual: Persoană dispărută, prezumată decedată
-Dosar deschis: Omor cu premeditare — suspect principal: soțul, Cristian Cioacă
+Data furtului: 11.04.2026
 
-PERSOANE IMPLICATE
+Ultima vedere confirmată: ora 21:30, în biroul rectorului, clădirea Rectorat, Universitatea „Mihai Eminescu", Iași
 
-Elodiei Ghinescu
-Relație: Victima
-Ocupație: Avocat
-Notițe: A disparut in data de 22 octombrie 2007.
+Status actual: Securitate spartă — victimă a unui jaf cibernetic masiv, prin extragerea cheilor private de pe un portofel hardware de criptomonede, identificat lipsă de pe biroul victimei
 
+Dosar deschis: Furt de cripto active — clădirea era închisă publicului, accesul necesita card de proximitate. Maximum 6 persoane aveau card activ în acea seară.
 
-CRISTIAN CIOACĂ
-Relație: Soț
-Ocupație: Polițist — inspector
-Număr telefon: 0722-441-887
-Notițe: A semnalat dispariția a doua zi. Povestea lui s-a schimbat de mai multe ori.
+Notă criminalistică: Atacul a survenit între orele 21:30 și 22:15. Alarma clădirii nu a fost declanșată. Ușa biroului nu a fost forțată. Victima a deschis singură ușa — cunoștea vizitatorul. PERSOANE IMPLICATE GHEORGHE STĂNESCU (Victimă)
 
-GABRIEL IONESCU
-Relație: Fost iubit al Elodiei, avocat partener în același cabinet
-Ocupație: Avocat
-Număr telefon: 0744-219-003
-Notițe: Relație terminată cu 8 luni înainte de dispariție. Sau așa susține el.
+Relație: Victima — Rector al universității, al doilea mandat
 
-MIRELA DĂNILĂ
-Relație: Colega și prietena apropiată a Elodiei
-Ocupație: Avocat
-Număr telefon: 0721-558-234
-Notițe: Ultima persoană care a vorbit cu Elodia la telefon, în seara de 22 octombrie.
+Ocupație: Prof. dr. în Drept Constituțional, Rector
 
-VICTOR PANĂ
-Relație: Client al Elodiei — dosar civil în curs
-Ocupație: Om de afaceri, sector construcții
-Număr telefon: 0740-887-661
-Notițe: Dosar cu miză foarte mare. Elodia urma să depună mărturie împotriva unui asociat de-al lui.
+Notițe: Stănescu era pe punctul de a semna luni dimineața un acord de fuziune cu Universitatea Tehnică din Iași — acord care ar fi desființat 3 facultăți și concediat 40 de cadre didactice. Era și în mijlocul unui scandal privind contractele de renovare a campusului, atribuite unei firme deținute de un cumnat al său. Divorțat recent, fără relații apropiate cunoscute în facultate. Seara furtului lucra singur — secretara plecase la 17:00. LAVINIA DRĂGHICI (Suspect principal)
 
-SORINA CIOACĂ
-Relație: Sora lui Cristian Cioacă
-Ocupație: Asistentă medicală
-Număr telefon: 0733-112-445
-Notițe: A fost văzută intrând în apartamentul cuplului în ziua de 21 octombrie. Nu a menționat asta în declarație.
+Relație: Prorectoare — numărul 2 în universitate, candidată la rectorat în alegerile din mai
 
+Ocupație: Prof. dr. Litere, Prorectoare
+
+Număr telefon: 0741-330-774
+
+Notițe: Lavinia pierdea cel mai mult în urma fuziunii — Facultatea de Litere pe care o conducea anterior urma să fie absorbită și redusă la un departament minor. A avut o ceartă publică cu Stănescu cu două zile înainte, în fața secretariatului. Mai mulți martori au auzit-o spunând: „O să regreți asta, Gheorghe." Are card de acces activ. Era programată a doua zi dimineața pentru o ședință cu Stănescu — ședință pe care el o anulase printr-un email trimis la 21:05, cu 25 de minute înainte de spargerea estimată.
+
+Povestea despre victimă: „Eram colegi de 18 ani. Aveam dezacorduri profesionale, nu personale. Asta e universitate, nu telenovelă."
+
+Povestea alibiului: Susține că era acasă, a comandat mâncare online — livrarea confirmată la 20:50. Dar de la 21:10 până la 23:00 nu are nicio activitate verificabilă pe telefon sau card bancar. TUDOR MOGA (Suspect)
+
+Relație: Administrator financiar al universității — subordonat direct al Rectorului
+
+Ocupație: Director Financiar
+
+Număr telefon: 0766-218-445
+
+Notițe: Tudor gestionează contractele de renovare — inclusiv cele atribuite firmei cumnatului lui Stănescu. O anchetă internă declanșată de Ministerul Educației cu o săptămână înainte urmărea exact aceste contracte. Stănescu îi promisese că „rezolvă situația", dar un email de pe laptopul victimei arată că Stănescu pregătea de fapt o declarație prin care îl desemna pe Tudor drept singurul responsabil. Tudor are card de acces. A fost văzut în parcare la 21:15 de un student care ieșea din bibliotecă.
+
+Povestea despre victimă: „Radu era un om corect. Orice problemă cu acele contracte e o neînțelegere contabilă, nu fraudă."
+
+Povestea alibiului: Spune că era în mașină în parcare, la telefon cu soția. Soția confirmă — dar apelul a durat doar 4 minute, între 21:10 și 21:14. Ce a făcut după — nu știe nimeni. SIMONA PAȘCA (Martor cheie)
+
+Relație: Doctorandă în Drept, asistentă de cercetare voluntară a Rectorului
+
+Ocupație: Doctorandă, Facultatea de Drept
+
+Număr telefon: 0733-109-882
+
+Notițe: Simona lucra adesea seara târziu în sala de lectură a Rectoratului — una dintre puținele persoane cu acces după program. În seara furtului a semnat registrul de intrare la 19:45 și ieșire la 22:30. Susține că nu a auzit și nu a văzut nimic. Dar telefonul ei a efectuat un apel de 2 minute la 21:42 — către un număr neînregistrat în agenda ei. Nu a putut explica acest apel. Există și o altă ciudățenie: Simona figura pe lista scurtă pentru o bursă de cercetare în valoare de 24.000 EUR — bursă semnată de Rector. Acordul de fuziune ar fi anulat toate bursele active.
+
+Povestea despre victimă: „Era generos cu studenții care munceau serios. Nu am niciun motiv să îi vreau răul."
+
+Povestea alibiului: Prezentă în clădire — confirmat prin registru. Susține că era în sala de lectură, etajul 1, tot timpul. Sala de lectură nu are camere CCTV. ANDREI STĂNESCU (Persoană de interes)
+
+Relație: Fiul victimei — student în anul III, Facultatea de Drept, aceeași universitate
+
+Ocupație: Student
+
+Număr telefon: 0788-441-230
+
+Notițe: Andrei și tatăl său aveau o relație tensionată — mai mulți colegi știau că Andrei îl acuza public pe Rector că i-a blocat o cerere de transfer la o altă universitate „ca să nu fugă de acasă." Card de acces activ — primit ca facilitate pentru studenții cu activitate în consiliile studențești. A trimis un mesaj tatălui său la 21:00: „Trebuie să vorbim azi seară. Sunt în drum." Nu există confirmare că a intrat în clădire — dar cardul lui a fost folosit la intrarea secundară la 21:22. El susține că a uitat cardul acasă și că nu a fost acolo.
+
+Povestea despre victimă: „Îl iubeam. Eram certați, dar îl iubeam."
+
+Povestea alibiului: Spune că a trimis mesajul dar s-a răzgândit și a mers la un prieten. Prietenul confirmă sosirea — dar la 22:45, nu la 21:30 cum ar fi fost logic.
 DISPOZITIVE RIDICATE
 
-DISPOZITIV 1 — iPhone (al Elodiei Ghinescu)
-PIN: 112233
-APELURI
-# | Tip | Număr / Nume | Data | Ora | Durată
-1 | Efectuat | Mirela Dănilă | 22.10.2007 | 22:47 | 3 min 12 sec
-2 | Primit | 0740-887-661 (Victor Pană) | 22.10.2007 | 21:33 | 58 sec
-3 | Pierdut | Cristian Cioacă | 22.10.2007 | 23:02 | —
-4 | Efectuat | Cristian Cioacă | 22.10.2007 | 23:05 | 1 min 44 sec
-5 | Primit | 0744-219-003 (Gabriel Ionescu) | 21.10.2007 | 19:11 | 7 min 03 sec
-6 | Efectuat | Număr necunoscut: 0756-***-*** | 22.10.2007 | 23:09 | 22 sec
-
-NOTA CRIMINALISTICA: Ultimul apel efectuat (23:09) este către un număr neînregistrat în agenda telefonică. Numărul nu a putut fi identificat — cartelă prepay, înregistrată pe un nume fictiv.
-
-MESAJE
-Conversație cu: Mirela Dănilă
-
-[22.10.2007 — 20:15] PRIMIT de la Mirela:
-"Elo, ești bine? Cristian a sunat-o pe mama mea azi. Ciudat tare. Ce se întâmplă între voi?"
-
-[22.10.2007 — 20:31] TRIMIS către Mirela:
-"Nu e nimic. Vorbim mâine. Nu vreau să discut pe mesaje."
-
-[22.10.2007 — 22:51] PRIMIT de la Mirela:
-"Elo, nu mă speria. Spune-mi unde ești."
-
-[22.10.2007 — 22:53] TRIMIS către Mirela:
-"Sunt lângă bloc. Am vorbit cu el. Cred că am rezolvat. Te sun mâine dimineață promis."
-
-Conversație cu: Gabriel Ionescu
-
-[21.10.2007 — 18:44] PRIMIT de la Gabriel:
-"Trebuie să ne vedem. Am aflat ceva despre Pană. Ceva ce te privește direct. Nu la birou."
-
-[21.10.2007 — 18:59] TRIMIS către Gabriel:
-"Când și unde?"
-
-[21.10.2007 — 19:03] PRIMIT de la Gabriel:
-"Mâine dimineață. Cafeneaua de pe Dacia. Ora 8. Vino singură."
-
-[22.10.2007 — 08:02] TRIMIS către Gabriel:
-"Nu am putut veni. Cristian a văzut mesajele. A fost o scenă. Povestim altă dată."
-
-Conversație cu: Victor Pană
-
-[20.10.2007 — 14:22] PRIMIT de la Victor Pană:
-"Doamnă avocat, v-aș ruga să reconsiderați poziția față de dosar. Există soluții mai... convenabile pentru toată lumea."
-
-[20.10.2007 — 15:45] TRIMIS către Victor Pană:
-"Domnule Pană, sunt avocatul clientului meu, nu al dumneavoastră. Vă rog să nu mă mai contactați pe acest număr."
-
-EMAIL-URI
-De la: gabriel.ionescu.av@gmail.com
-Către: elodia.ghinescu@cabinetghinescu.ro
-Data: 19.10.2007, ora 23:41
-Subiect: Urgent — trebuie să știi
-
-"Elodia, am petrecut ultima săptămână verificând câteva lucruri despre Pană. Am găsit o legătură între el și un inspector din Poliție — București Sector 3. Nu știu cum să îți spun altfel: numele care apare în documentele pe care le-am obținut este Cristian Cioacă. Poate fi o coincidență. Dar nu cred. Trebuie să vorbim față în față."
-
-POZE (stocate pe telefon)
-IMG_0441.jpg — Data: 21.10.2007, ora 16:33
-Fotografie făcută din interiorul unui autoturism. Se vede intrarea unui bloc, strada parțial vizibilă. Pe trotuar, două persoane: un bărbat în uniformă (fața nu se vede clar) și o femeie — Sorina Cioacă, identificată după geacă portocalie distinctivă.
-
-IMG_0442.jpg — Data: 21.10.2007, ora 16:34
-Același cadru, zoom. Bărbatul ține un plic mare, maro. Sorina îl introduce în geantă.
-
-DISPOZITIV 2 — Iphone (al lui Cristian Cioacă)
-
-PIN: 159357
+DISPOZITIV 1 — iPhone (al Laviniei Drăghici)
+PIN: 181806
 
 APELURI
 # | Tip | Număr / Nume | Data | Ora | Durată
-1 | Primit | Sorina Cioacă | 21.10.2007 | 17:02 | 4 min 51 sec | fisier : Sorina.MP3
-2 | Efectuat | 0756-***-*** (necunoscut) | 21.10.2007 | 22:15 | 8 min 39 sec
-3 | Pierdut | Elodia | 22.10.2007 | 23:02 | —
-4 | Primit | Elodia | 22.10.2007 | 23:05 | 1 min 44 sec
-5 | Efectuat | 0756-***-*** (necunoscut) | 22.10.2007 | 23:19 | 3 min 02 sec
-6 | Efectuat | Sorina Cioacă | 23.10.2007 | 00:44 | 11 min 17 sec
-
-NOTA: Același număr necunoscut (0756-***-***) apare atât pe telefonul Elodiei cât și pe telefonul lui Cioacă. Ultima convorbire a Elodiei (23:09, 22 sec) și primul apel al lui Cioacă către același număr (23:19) sunt la distanță de doar 10 minute.
+1 | Efectuat | Stănescu Gheorghe | 09.04.2026 | 11:30 | 0 min 22 sec
+2 | Primit | Stănescu Gheorghe | 09.04.2026 | 11:35 | 6 min 14 sec
+3 | Efectuat | Avocat personal — Raluca Ionescu | 10.04.2026 | 14:00 | 18 min 05 sec
+4 | Primit | Număr necunoscut: 0799-114-330 | 11.04.2026 | 20:55 | 1 min 42 sec | fisier : Apel_necunoscut_Lavinia.mp3
+5 | Pierdut | Tudor Moga | 12.04.2026 | 07:30 | —
+6 | Efectuat | Tudor Moga | 12.04.2026 | 07:45 | 3 min 10 sec
 
 MESAJE
-Conversație cu: Sorina Cioacă
+Conversație cu: Stănescu Gheorghe
 
-[21.10.2007 — 16:48] TRIMIS către Sorina:
-"Ai luat pachetul?"
+[09.04.2026 — 17:00] TRIMIS: „Gheorghe, trebuie să amânăm ședința de luni. Sunt detalii despre fuziune pe care nu le-am discutat public și care ne pun pe toți într-o poziție imposibilă."
+[09.04.2026 — 17:42] PRIMIT: „Lavinia, decizia e luată. Luni semnăm. Poți veni sau nu — oricum merge înainte."
+[09.04.2026 — 17:45] TRIMIS: „Înțeleg. Dar să știi că nu voi tăcea."
+[11.04.2026 — 21:07] PRIMIT: „Ședința de mâine se anulează. Nu mai e necesară."
+[11.04.2026 — 21:09] TRIMIS: „Ce înseamnă asta?"
+[11.04.2026 — 21:11] PRIMIT: „Înseamnă că am luat o decizie. Noapte bună."
 
-[21.10.2007 — 16:55] PRIMIT de la Sorina:
-"Da. E sigur?"
+Conversație cu: Tudor Moga
 
-[21.10.2007 — 16:57] TRIMIS către Sorina:
-"Da. Ține-l până îți zic eu."
-
-Conversație cu: număr necunoscut 0756-***-***
-
-[22.10.2007 — 23:21] TRIMIS:
-"S-a rezolvat. Conform planului."
-
-[22.10.2007 — 23:24] PRIMIT:
-"Bine. Dispar și eu. Nu mă mai contacta pe ăsta."
-
-POZE
-foto_0089.jpg — Data: 15.10.2007, ora 11:22
-Captură de ecran după o conversație pe o platformă de mesagerie (aplicație ștearsă ulterior). Se vede parțial textul: "...dacă nu semnează actele, va trebui să găsim o altă soluție... Pană e de acord..."
-
-DISPOZITIV 3 — Laptop (al lui Gabriel Ionescu)
+[10.04.2026 — 22:15] PRIMIT: „Lavinia, știi că dacă fuziunea pică, și ancheta Ministerului pică odată cu ea? Stănescu a promis că blochează raportul."
+[10.04.2026 — 22:20] TRIMIS: „Tudor, nu mă implica în problemele tale."
+[10.04.2026 — 22:22] PRIMIT: „Suntem deja implicați amândoi. Dacă el cade, cădem toți."
+[10.04.2026 — 22:25] TRIMIS: „Lasă-mă să dorm."
 
 EMAIL-URI
-De la: v.pana.investments@yahoo.com
-Către: gabriel.ionescu.av@gmail.com
-Data: 17.10.2007, ora 10:05
-Subiect: Propunere colaborare
+De la: lavinia.draghici@unieminescu.ro
+Către: consiliu.senat@unieminescu.ro
+Data: 10.04.2026, ora 09:00
+Subiect: Convocare urgentă — Punct pe ordinea de zi: Acordul de fuziune
 
-"Stimate domnule Ionescu, știu că aveți acces la dosarul în care sunt implicat. Știu și că relația dvs. cu colega Ghinescu este... complicată. Poate că există o modalitate prin care amândoi am putea beneficia de pe urma unei soluții amiabile. Vă propun o întâlnire discretă. Suma pe care o ofer acoperă orice inconvenient."
+„Stimați colegi senatori, solicit convocarea de urgență a unei ședințe extraordinare de senat pentru luni, 13 aprilie, ora 10:00, cu un singur punct pe ordinea de zi: analiza legalității procedurii prin care rectorul Stănescu a inițiat acordul de fuziune fără vot de senat. Anexez referatul juridic întocmit de consilierul nostru extern. Drăghici."
 
-De la: gabriel.ionescu.av@gmail.com
-Către: v.pana.investments@yahoo.com
-Data: 17.10.2007, ora 22:30
-Subiect: RE: Propunere colaborare
+De la: stănescu.g@unieminescu.ro
+Către: lavinia.draghici@unieminescu.ro
+Data: 10.04.2026, ora 11:15
+Subiect: Re: Convocare urgentă
 
-"Nu mă interesează. Și dacă mai trimiteți un astfel de mesaj, îl depun la Barou."
+„Lavinia, convocarea ta nu are temei — rectorul are drept de inițiativă executivă în acorduri interinstituționale conform art. 22 din Carta universitară. Recomand să te consulți din nou cu juriștii tăi. Stănescu."
 
-FISIERE
-Fișier: PANA_dosar_intern.docx
-Ultima modificare: 21.10.2007, ora 20:14
-Document de 14 pagini. Conține o investigație personală a lui Gabriel Ionescu despre Victor Pană: tranzacții imobiliare suspecte, conturi offshore, și — pe ultima pagină, subliniată — o notă manuscrisă scanată:a	
-"Cioacă C. — legătură confirmată cu firma Pană prin interpuși. A primit bani? Sau altceva?"
+NOTIȚE
+Ce fac dacă pierd — Data: 08.04.2026, ora 23:00
+„Dacă fuziunea trece luni, Literele dispar în 18 luni. 22 de colegi rămân fără post. Eu rămân prorectoare a unei universități care nu mai există în forma în care am construit-o. Există o singură cale legală rămasă: senatul. Dacă și asta eșuează — nu știu."
 
-MESAJE (aplicație desktop)
-Conversație cu: Mirela Dănilă
+DISPOZITIV 2 — iPhone  (al lui Tudor Moga)
+PIN: 2209
 
-[22.10.2007 — 23:45] TRIMIS de Gabriel:
-"Mirela, Elodia nu mi-a răspuns. Ai vorbit cu ea?"
+APELURI
+# | Tip | Număr / Nume | Data | Ora | Durată
+1 | Primit | Stănescu Gheorghe | 07.04.2026 | 16:00 | 11 min 30 sec
+2 | Efectuat | Număr necunoscut: 0744-228-001 | 09.04.2026 | 20:00 | 22 min 18 sec
+3 | Primit | Stănescu Gheorghe | 11.04.2026 | 09:30 | 4 min 05 sec | fisier : Apel_Stanescu_Tudor_11apr.mp3
+4 | Efectuat | Soție — Mirela | 11.04.2026 | 21:10 | 4 min 00 sec
+5 | Pierdut | Lavinia Drăghici | 12.04.2026 | 07:30 | —
+6 | Primit | Lavinia Drăghici | 12.04.2026 | 07:45 | 3 min 10 sec
 
-[22.10.2007 — 23:48] PRIMIT de la Mirela:
-"Da, în jur de 11. Zicea că e lângă bloc și că a rezolvat ceva cu Cristian. De atunci nimic."
+MESAJE
+Conversație cu: Stănescu Gheorghe
 
-[22.10.2007 — 23:51] TRIMIS de Gabriel:
-"Rezolvat cum? Mă duc acolo."
-
-[22.10.2007 — 23:53] PRIMIT de la Mirela:
-"Gabriel nu. Dacă Cristian e acolo o să fie și mai rău. Așteptăm până dimineață."
-
-DISPOZITIV 4 — Laptop (al lui Victor Pană)
+[07.04.2026 — 16:45] PRIMIT: „Tudor, ancheta Ministerului a ajuns la mine azi. Știi la ce se uită, nu?"
+[07.04.2026 — 16:50] TRIMIS: „Știu. Dar toate contractele au fost aprobate de tine personal. Ai semnat fiecare aviz."
+[07.04.2026 — 16:55] PRIMIT: „Eu am semnat în baza referatelor tale. Diferența e importantă juridic."
+[07.04.2026 — 16:58] TRIMIS: „Gheorghe. Să ne înțelegem bine."
+[11.04.2026 — 09:35] PRIMIT: „Tudor, vino luni dimineață la 8:00. Avem ceva de clarificat înainte de semnare."
+[11.04.2026 — 21:35] TRIMIS: „Gheorghe ești la birou? Trebuie să vorbim azi."
+[11.04.2026 — 21:35] — mesaj nelivrat —
 
 EMAIL-URI
-De la: sorina.c.private@yahoo.com
-Către: v.pana.investments@yahoo.com
-Data: 18.10.2007, ora 09:17
-Subiect: (fără subiect)
+De la: tudor.moga@unieminescu.ro
+Către: stănescu.g@unieminescu.ro
+Data: 08.04.2026, ora 10:30
+Subiect: Situația contractelor — propunere
 
-"Am vorbit cu fratele meu. El nu știe că îți scriu. Dar dacă Ghinescu depune mărturie, și tu cazi, și el cade odată cu tine. El nu vrea asta. Eu nu vreau asta. Trebuie găsită o soluție înainte de 25."
+„Gheorghe, am analizat situația cu juristul firmei. Există o soluție tehnică prin care toate contractele de renovare pot fi reclasificate ca achiziții directe sub pragul de licitație — retroactiv. Asta închide ancheta. Am nevoie de semnătura ta pe două documente până joi. Detalii la întâlnire."
 
-NOTA: "25" este data la care Elodia urma să depună mărturie în dosarul civil Pană.
+De la: stănescu.g@unieminescu.ro
+Către: tudor.moga@unieminescu.ro
+Data: 08.04.2026, ora 14:55
+Subiect: Re: Situația contractelor
+
+„Tudor, nu semnez nimic retroactiv. Asta e falsificare de documente. Dacă ancheta ajunge unde crezi tu că ajunge, fiecare răspunde pentru ce a semnat. Eu am semnat în baza referatelor tale — și asta e ceea ce voi declara."
+
+NOTIȚE
+Suma — Data: 09.04.2026, ora 23:30
+„Total contracte în litigiu: 1.340.000 lei. Dacă ancheta găsește ce știu că poate găsi, dosarul penal e inevitabil. Stănescu se pregătește să mă sacrifice. Am dovada — emailul de ieri. Singura mea salvare e dacă fuziunea pică și ancheta se îneacă în reorganizare. Sau dacă Stănescu nu mai e aici să depună declarație."
+
+DISPOZITIV 3 — Laptop  (al lui Gheorghe Stănescu — victima)
+
+EMAIL-URI
+De la: stănescu.g@unieminescu.ro
+Către: minister.edu.ancheta@gov.ro
+Data: 11.04.2026, ora 20:45
+Subiect: Declarație voluntară — Contracte renovare campus 2023-2024
+
+„Stimată comisie, prin prezenta declar că inițiativa și coordonarea executivă a contractelor de renovare nr. 17-24/2023 a aparținut exclusiv directorului financiar Tudor Moga. Semnăturile mele au fost aplicate în baza referatelor tehnice și financiare prezentate de acesta, fără verificare independentă. Pun la dispoziție toate documentele solicitate. Stănescu Gheorghe, Rector."
+
+De la: stănescu.g@unieminescu.ro
+Către: andrei.stanescu@student.unieminescu.ro
+Data: 11.04.2026, ora 20:50
+Subiect: Seara asta
+
+„Andrei, am primit mesajul tău. Vino la 22:00, nu mai devreme — am o întâlnire. Avem lucruri importante de discutat. Despre transfer, despre noi, despre tot. Tată."
+
+De la: stănescu.g@unieminescu.ro
+Către: lavinia.draghici@unieminescu.ro
+Data: 11.04.2026, ora 21:05
+Subiect: Ședința de mâine
+
+„Lavinia, ședința de mâine nu mai are loc. Am luat câteva decizii în cursul serii care schimbă situația. Îți explic luni. Stănescu."
 
 FISIERE
-Fișier: contracte_offshore_oct2007.xlsx
-Ultima modificare: 20.10.2007
-Tabel cu tranzacții. Printre beneficiari apare o firmă — SRL Albastra — al cărei administrator este o persoană cu inițialele C.C.
+Fișier: Declaratie_Minister_DRAFT_v3.docx
+Ultima modificare: 11.04.2026, ora 20:42
+Document Word — 3 pagini. Declarație adresată comisiei de anchetă a Ministerului Educației. Versiunea finală, semnată digital de Rector la 20:44, îl desemnează pe Tudor Moga drept responsabil principal pentru contractele în litigiu. Documentul a fost trimis prin email la 20:45 — cu 45 de minute înainte de moartea estimată.
 
-REZUMAT PISTE ACTIVE
+Fișier: Fuziune_acord_final_semnat.pdf
+Ultima modificare: 11.04.2026, ora 21:20
+PDF semnat digital. Acordul de fuziune cu Universitatea Tehnică — semnat de Rector la 21:20. Semnătura digitală este validă. Fuziunea devenise astfel ireversibilă din punct de vedere juridic cu aproximativ 10-15 minute înainte de moartea estimată.
 
-PISTA 1 — SOTUL: Cristian Cioacă are apeluri suspecte înainte și după dispariție, mesaje codificate cu sora lui, și o legătură financiară cu Victor Pană.
 
-PISTA 2 — OMUL DE AFACERI: Victor Pană avea un motiv clar — Elodia urma să depună mărturie. Sorina Cioacă i-a scris direct. Există documente financiare care leagă un "C.C." de firma lui.
-
-PISTA 3 — SORA: Sorina Cioacă a ridicat un plic misterios, a fost fotografiată de Elodia, și a comunicat cu Pană fără știrea fratelui ei — sau asta susține.
-
-PISTA 4 — NUMĂRUL NECUNOSCUT: Același număr prepay apare pe ambele telefoane. Cine este al treilea om?
-
-PISTA 5 — FOSTUL IUBIT: Gabriel Ionescu știa prea multe. Și voia să se întâlnească cu Elodia singur, seara, cu o zi înainte de dispariție. Refuzul lui Pană e prea curat — sau e autentic?
-
-Ești anchetatorul. Cu ce începi?
-Poți cere audierea unui suspect, analiza suplimentară a unui dispozitiv, verificarea unui număr de telefon, sau solicitarea unui mandat. Dosarul e al tău.
+Fișier: Registru_Audit_Fuziune_v1.xlsx
+Ultima modificare: 11.04.2026, ora 21:20
+Statut: Excel (XLSX) securizat și arhivat
+Detalii: Registrul de audit al procesului de fuziune — salvat de Administrator la 21:20. Toate înregistrările de log sunt integre. Documentul a fost securizat și arhivat automat cu aproximativ 10-15 minute înainte de moartea estimată.

@@ -114,7 +114,7 @@ const tr = (map: Record<string, string>, s: string) => map[s] ?? s;
                 <input class="inp" type="email" formControlName="email" placeholder="investigator&#64;politie.ro"/>
                 <span class="inp-status" *ngIf="registerForm.get('email')?.value">
                   <span *ngIf="registerForm.get('email')?.pending" class="status-spin"></span>
-                  <span *ngIf="!registerForm.get('email')?.pending && registerForm.get('email')?.valid" class="status-ok">aœ“</span>
+                  <span *ngIf="!registerForm.get('email')?.pending && registerForm.get('email')?.valid" class="status-ok"✔“</span>
                   <span *ngIf="!registerForm.get('email')?.pending && registerForm.get('email')?.hasError('emailTaken')" class="status-err">aœ—</span>
                 </span>
               </div>
@@ -286,7 +286,7 @@ export class RegisterComponent implements AfterViewInit, OnDestroy {
     }, { validators: [zxcvbnGroupValidator, passwordMatchValidator] });
   }
 
-  // a”€a”€ Async email validator a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€
+  // Async email validator 
 
   emailAvailabilityValidator(control: AbstractControl) {
     if (!control.value || control.hasError('email')) return of(null);
@@ -301,7 +301,7 @@ export class RegisterComponent implements AfterViewInit, OnDestroy {
     );
   }
 
-  // a”€a”€ Password strength helpers a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€a”€
+  // Password strength helpers 
 
   get pwValue(): string { return this.registerForm.get('password')?.value ?? ''; }
 
