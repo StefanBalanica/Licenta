@@ -1,4 +1,4 @@
-﻿import { Component, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -114,8 +114,8 @@ const tr = (map: Record<string, string>, s: string) => map[s] ?? s;
                 <input class="inp" type="email" formControlName="email" placeholder="investigator&#64;politie.ro"/>
                 <span class="inp-status" *ngIf="registerForm.get('email')?.value">
                   <span *ngIf="registerForm.get('email')?.pending" class="status-spin"></span>
-                  <span *ngIf="!registerForm.get('email')?.pending && registerForm.get('email')?.valid" class="status-ok"✔“</span>
-                  <span *ngIf="!registerForm.get('email')?.pending && registerForm.get('email')?.hasError('emailTaken')" class="status-err">aœ—</span>
+                  <span *ngIf="!registerForm.get('email')?.pending && registerForm.get('email')?.valid" class="status-ok">✔</span>
+                  <span *ngIf="!registerForm.get('email')?.pending && registerForm.get('email')?.hasError('emailTaken')" class="status-err">✗</span>
                 </span>
               </div>
               <span *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched" class="err-msg">Email invalid.</span>
