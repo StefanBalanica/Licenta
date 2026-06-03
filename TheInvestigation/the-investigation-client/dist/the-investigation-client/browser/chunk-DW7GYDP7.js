@@ -12,6 +12,7 @@ import {
   NgModel,
   __spreadProps,
   __spreadValues,
+  createDeviceSlug,
   environment,
   parseDeviceSlug,
   ɵsetClassDebugInfo,
@@ -4417,6 +4418,8 @@ var DeviceRouterComponent = class _DeviceRouterComponent {
         this.deviceId = device.deviceId;
         this.deviceType = device.deviceType || "iPhone";
         this.loading = false;
+        const prettySlug = createDeviceSlug(device.deviceType, device.ownerName);
+        history.replaceState(null, "", `/${prettySlug}`);
       },
       error: (error) => {
         console.error("Error loading public device by uniqueUrl:", error);
@@ -4511,4 +4514,4 @@ var DeviceRouterComponent = class _DeviceRouterComponent {
 export {
   DeviceRouterComponent
 };
-//# sourceMappingURL=chunk-QY3TTW7S.js.map
+//# sourceMappingURL=chunk-DW7GYDP7.js.map

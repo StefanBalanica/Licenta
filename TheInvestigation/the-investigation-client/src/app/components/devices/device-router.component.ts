@@ -6,7 +6,7 @@ import { IPhoneDeviceComponent } from './iphone/iphone-device.component';
 import { AndroidDeviceComponent } from './android/android-device.component';
 import { LaptopDeviceComponent } from './laptop/laptop-device.component';
 import { DeviceType } from '../../models/device.models';
-import { parseDeviceSlug } from '../../utils/slug.util';
+import { parseDeviceSlug, createDeviceSlug } from '../../utils/slug.util';
 import { ChatbotComponent } from '../chatbot/chatbot.component';
 
 @Component({
@@ -150,6 +150,12 @@ export class DeviceRouterComponent implements OnInit, OnDestroy {
                 this.deviceId = device.deviceId;
                 this.deviceType = device.deviceType as DeviceType || 'iPhone';
                 this.loading = false;
+
+                // Rewrite URL to the human-readable slug so the user sees
+                // /iphone-tudor-moga instead of /d/7c2daee8-...
+                // history.replaceState does NOT trigger a new navigation.
+                const prettySlug = createDeviceSlug(device.deviceType, device.ownerName);
+                history.replaceState(null, '', `/${prettySlug}`);
             },
             error: (error) => {
                 console.error('Error loading public device by uniqueUrl:', error);

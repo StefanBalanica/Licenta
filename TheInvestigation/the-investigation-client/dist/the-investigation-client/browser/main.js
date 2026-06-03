@@ -9052,20 +9052,20 @@ var routes = [
   { path: "games/:id", component: GameDetailsComponent, canActivate: [authGuard, deviceIsolationGuard] },
   {
     path: "games/:gameId/devices/:deviceSlug/simulator",
-    loadComponent: () => import("./chunk-QY3TTW7S.js").then((m) => m.DeviceRouterComponent),
+    loadComponent: () => import("./chunk-DW7GYDP7.js").then((m) => m.DeviceRouterComponent),
     canActivate: [authGuard, deviceIsolationGuard]
   },
   // Public device page — accessed via QR code, no auth required.
   // New format: /d/:uniqueUrl (GUID-based, unique per device) — used by new QR codes.
   {
     path: "d/:uniqueUrl",
-    loadComponent: () => import("./chunk-QY3TTW7S.js").then((m) => m.DeviceRouterComponent)
+    loadComponent: () => import("./chunk-DW7GYDP7.js").then((m) => m.DeviceRouterComponent)
   },
   // Legacy public route: /:deviceSlug (name-based, kept for backward compatibility).
   // URL format: /iphone-elodia
   {
     path: ":deviceSlug",
-    loadComponent: () => import("./chunk-QY3TTW7S.js").then((m) => m.DeviceRouterComponent)
+    loadComponent: () => import("./chunk-DW7GYDP7.js").then((m) => m.DeviceRouterComponent)
   },
   { path: "**", redirectTo: "/dashboard" }
 ];
