@@ -901,6 +901,8 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   notesData: any[] = [];
   filesData: any[] = [];
   callsData: any[] = [];
+  /** Stores the existing appId for each appType so saveAppConfig can UPDATE instead of CREATE */
+  existingAppIds: { [appType: string]: number } = {};
   deviceUploadRequirements: { [deviceId: number]: string[] } = {};
   deviceUploadTargets: { [deviceId: number]: UploadTarget[] } = {};
   characterPhotos: { [characterId: number]: File } = {};
@@ -1544,13 +1546,27 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   configureDeviceApps(device: DigitalDevice) {
     this.configuringDevice = device;
     this.activeAppTab = 'messages';
-    this.loadDeviceApps(device.deviceId);
+    // Silently deduplicate before loading to clean up any existing duplicate app records
+    this.deviceService.deduplicateDeviceApps(this.gameId, device.deviceId).subscribe({
+      next: (res: any) => {
+        if (res?.deleted > 0) console.log(`[Dedup] Removed ${res.deleted} duplicate app record(s) for device ${device.deviceId}`);
+        this.loadDeviceApps(device.deviceId);
+      },
+      error: () => this.loadDeviceApps(device.deviceId) // proceed even if dedup fails
+    });
   }
 
   configureDeviceAppsOnTab(device: DigitalDevice, tab: string) {
     this.configuringDevice = device;
     this.activeAppTab = tab;
-    this.loadDeviceApps(device.deviceId);
+    // Silently deduplicate before loading to clean up any existing duplicate app records
+    this.deviceService.deduplicateDeviceApps(this.gameId, device.deviceId).subscribe({
+      next: (res: any) => {
+        if (res?.deleted > 0) console.log(`[Dedup] Removed ${res.deleted} duplicate app record(s) for device ${device.deviceId}`);
+        this.loadDeviceApps(device.deviceId);
+      },
+      error: () => this.loadDeviceApps(device.deviceId)
+    });
   }
 
   loadDeviceApps(deviceId: number) {
@@ -1560,10 +1576,18 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.notesData = [];
     this.filesData = [];
     this.callsData = [];
+    this.existingAppIds = {};
 
     this.deviceService.getDeviceApps(this.gameId, deviceId).subscribe({
       next: (apps) => {
         apps.forEach((app: any) => {
+          // Track existing appId per appType so saveAppConfig can UPDATE instead of CREATE
+          // If there are duplicate apps of the same type, keep the first one (oldest) and
+          // the others will be naturally ignored (they won't have an appId entry).
+          if (!this.existingAppIds[app.appType]) {
+            this.existingAppIds[app.appType] = app.appId;
+          }
+
           if (app.appType === 'Messages') {
             const convs = app.appData?.conversations ?? app.appData?.Conversations ?? [];
             this.messagesData = convs.map((c: any) => ({
@@ -1628,6 +1652,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.notesData = [];
         this.filesData = [];
         this.callsData = [];
+        this.existingAppIds = {};
       }
     });
   }
@@ -1802,6 +1827,29 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.configuringDevice) return;
     const deviceId = this.configuringDevice.deviceId;
 
+    /**
+     * Helper: UPDATE if the app already exists in DB, CREATE if it's new.
+     * This prevents duplicate app records from accumulating on every save,
+     * which was the root cause of data duplication in the simulator.
+     */
+    const saveApp = (appType: string, appData: any) => {
+      const existingId = this.existingAppIds[appType];
+      if (existingId) {
+        this.deviceService.updateDeviceApp(this.gameId, deviceId, existingId, { appData })
+          .subscribe({ next: () => console.log(`${appType} updated`), error: (e) => console.error(e) });
+      } else {
+        this.deviceService.createDeviceApp(this.gameId, deviceId, { appType, appData })
+          .subscribe({
+            next: (created: any) => {
+              // Store the new appId so subsequent saves in the same session also update
+              this.existingAppIds[appType] = created.appId;
+              console.log(`${appType} created`);
+            },
+            error: (e: any) => console.error(e)
+          });
+      }
+    };
+
     if (this.messagesData.length > 0) {
       this.messagesData.forEach(conv => {
         if (conv.messages.length > 0) {
@@ -1810,16 +1858,16 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
           conv.time = lastMsg.timestamp;
         }
       });
-      this.deviceService.createDeviceApp(this.gameId, deviceId, { appType: 'Messages', appData: { conversations: this.messagesData } }).subscribe({ next: () => console.log('Messages saved'), error: (e) => console.error(e) });
+      saveApp('Messages', { conversations: this.messagesData });
     }
     if (this.photosData.length > 0) {
-      this.deviceService.createDeviceApp(this.gameId, deviceId, { appType: 'Photos', appData: { photos: this.photosData } }).subscribe({ next: () => console.log('Photos saved'), error: (e) => console.error(e) });
+      saveApp('Photos', { photos: this.photosData });
     }
     if (this.emailsData.length > 0) {
-      this.deviceService.createDeviceApp(this.gameId, deviceId, { appType: 'Email', appData: { emails: this.emailsData } }).subscribe({ next: () => console.log('Email saved'), error: (e) => console.error(e) });
+      saveApp('Email', { emails: this.emailsData });
     }
     if (this.notesData.length > 0) {
-      this.deviceService.createDeviceApp(this.gameId, deviceId, { appType: 'Notes', appData: { notes: this.notesData } }).subscribe({ next: () => console.log('Notes saved'), error: (e) => console.error(e) });
+      saveApp('Notes', { notes: this.notesData });
     }
     if (this.filesData.length > 0) {
       const items = this.filesData.map(f => {
@@ -1843,10 +1891,10 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
           rows
         };
       });
-      this.deviceService.createDeviceApp(this.gameId, deviceId, { appType: 'Files', appData: { items } }).subscribe({ next: () => console.log('Files saved'), error: (e) => console.error(e) });
+      saveApp('Files', { items });
     }
     if (this.callsData.length > 0) {
-      this.deviceService.createDeviceApp(this.gameId, deviceId, { appType: 'Calls', appData: { calls: this.callsData } }).subscribe({ next: () => console.log('Calls saved'), error: (e) => console.error(e) });
+      saveApp('Calls', { calls: this.callsData });
     }
 
     alert('Configurarea a fost salvata! Deschide dispozitivul pentru a vedea modificarile.');

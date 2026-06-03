@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Authorization;
@@ -177,6 +177,54 @@ public class DeviceAppsController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error deleting device app");
+            return StatusCode(500, new { message = "An error occurred" });
+        }
+    }
+
+    /// <summary>
+    /// Removes duplicate app records for a device, keeping only the first (oldest) record per appType.
+    /// This fixes data created by the old bug where saveAppConfig() always called createDeviceApp()
+    /// instead of updateDeviceApp(), resulting in multiple records of the same type per device.
+    /// Returns the number of duplicate records deleted.
+    /// </summary>
+    [HttpPost("deduplicate")]
+    public async Task<ActionResult<object>> DeduplicateApps(int gameId, int deviceId)
+    {
+        try
+        {
+            var userId = GetUserId();
+            if (!await _gameRepository.UserOwnsGameAsync(gameId, userId))
+                return Forbid();
+
+            var device = await _deviceRepository.GetByIdAsync(deviceId);
+            if (device == null || device.GameId != gameId)
+                return NotFound();
+
+            var allApps = (await _appRepository.FindAsync(a => a.DeviceId == deviceId))
+                          .OrderBy(a => a.AppId) // keep the oldest (lowest AppId) per type
+                          .ToList();
+
+            var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var toDelete = new List<DeviceApp>();
+
+            foreach (var app in allApps)
+            {
+                if (!seen.Add(app.AppType))
+                    toDelete.Add(app); // duplicate — remove it
+            }
+
+            foreach (var dup in toDelete)
+                await _appRepository.DeleteAsync(dup);
+
+            _logger.LogInformation(
+                "Deduplicated device {DeviceId}: removed {Count} duplicate app records.",
+                deviceId, toDelete.Count);
+
+            return Ok(new { deleted = toDelete.Count, message = $"Removed {toDelete.Count} duplicate app record(s)." });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error deduplicating device apps");
             return StatusCode(500, new { message = "An error occurred" });
         }
     }

@@ -92,4 +92,9 @@ export class DeviceService {
             })
         });
     }
+
+    // Deduplicate app records for a device (remove duplicate appType entries, keep oldest)
+    deduplicateDeviceApps(gameId: number, deviceId: number): Observable<any> {
+        return this.http.post<any>(`${this.apiUrl}/${gameId}/devices/${deviceId}/apps/deduplicate`, {});
+    }
 }
