@@ -197,11 +197,13 @@ nav {
   box-shadow:10px 10px 0 var(--border);
   overflow:hidden;
   position:relative;
+  z-index:600;        /* above the fixed watermark logo (z-index 500) */
+  isolation:isolate;  /* new stacking context — prevents mix-blend-mode from bleeding through */
 }
 .about-photo {
   width:100%; height:100%;
   object-fit:cover;
-  object-position:center top;
+  object-position:center center; /* show full face, not just top */
   display:block;
   transition:transform .4s ease;
 }
