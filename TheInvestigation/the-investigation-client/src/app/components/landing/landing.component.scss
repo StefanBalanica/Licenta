@@ -191,7 +191,21 @@ nav {
 
 /* ABOUT */
 .about-section { padding:7rem 4rem; max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
-.about-img { width:100%; aspect-ratio:4/3; background:#e8e4df; border:1px solid var(--border); box-shadow:10px 10px 0 var(--border); display:flex; align-items:center; justify-content:center; font-size:5rem; }
+.about-img {
+  width:100%; aspect-ratio:4/3;
+  border:1px solid var(--border);
+  box-shadow:10px 10px 0 var(--border);
+  overflow:hidden;
+  position:relative;
+}
+.about-photo {
+  width:100%; height:100%;
+  object-fit:cover;
+  object-position:center top;
+  display:block;
+  transition:transform .4s ease;
+}
+.about-img:hover .about-photo { transform:scale(1.03); }
 .about-text h2 { font-family:'Crimson Pro',serif; font-size:2.4rem; margin-bottom:1.5rem; font-weight:700; }
 .about-text p { color:var(--muted); margin-bottom:1.2rem; font-size:.95rem; }
 .about-text strong { color:var(--ink); }
