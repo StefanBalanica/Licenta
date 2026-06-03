@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { BaseDeviceComponent } from '../base-device.component';
+import { DeviceService } from '../../../services/device.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
     selector: 'app-android-device',
@@ -10,5 +13,12 @@ import { BaseDeviceComponent } from '../base-device.component';
     styleUrls: ['./android-device.component.scss']
 })
 export class AndroidDeviceComponent extends BaseDeviceComponent {
-    // Android-specific logic can be added here if needed
+    constructor(
+        protected override route: ActivatedRoute,
+        protected override deviceService: DeviceService,
+        protected override location: Location,
+        protected override authService: AuthService
+    ) {
+        super(route, deviceService, location, authService);
+    }
 }

@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DeviceService } from '../../services/device.service';
+import { AuthService } from '../../services/auth.service';
 import { Conversation, Photo, Email, Note, FileItem, CallLog, DeviceType } from '../../models/device.models';
 import { parseDeviceSlug } from '../../utils/slug.util';
 
@@ -61,7 +62,8 @@ export abstract class BaseDeviceComponent implements OnInit, OnDestroy {
     constructor(
         protected route: ActivatedRoute,
         protected deviceService: DeviceService,
-        protected location: Location
+        protected location: Location,
+        protected authService?: AuthService
     ) { }
 
     ngOnInit() {
@@ -71,25 +73,106 @@ export abstract class BaseDeviceComponent implements OnInit, OnDestroy {
             const deviceSlugParam = params.get('deviceSlug');
 
             if (gameIdParam && deviceSlugParam) {
-                // ── Internal route: games/:gameId/devices/:deviceSlug/simulator ──
+                // Route: games/:gameId/devices/:deviceSlug/simulator
                 const newGameId = parseInt(gameIdParam);
                 const newDeviceSlug = deviceSlugParam;
 
-                if (this.gameId !== newGameId || this.deviceId === 0) {
-                    this.resetDeviceData();
-                    this.gameId = newGameId;
-                    this.loadDeviceBySlug(newDeviceSlug);
-                } else {
-                    if (this.loading) {
+                const isAuth = this.authService?.isAuthenticated() ?? false;
+
+                if (isAuth) {
+                    // ── Creator (authenticated) ──
+                    if (this.gameId !== newGameId || this.deviceId === 0) {
+                        this.resetDeviceData();
+                        this.gameId = newGameId;
                         this.loadDeviceBySlug(newDeviceSlug);
+                    } else {
+                        if (this.loading) {
+                            this.loadDeviceBySlug(newDeviceSlug);
+                        }
+                    }
+                } else {
+                    // ── Player scanning QR (unauthenticated) ──
+                    if (this.gameId !== newGameId || this.deviceId === 0) {
+                        this.resetDeviceData();
+                        this.gameId = newGameId;
+                        this.loadPublicDeviceByGameAndSlug(newGameId, newDeviceSlug);
+                    } else {
+                        if (this.loading) {
+                            this.loadPublicDeviceByGameAndSlug(newGameId, newDeviceSlug);
+                        }
                     }
                 }
             } else if (deviceSlugParam) {
-                // ── Public route: /:deviceSlug (QR code access) ──
+                // Route: /:deviceSlug (legacy public route)
                 if (this.deviceId === 0) {
                     this.resetDeviceData();
                     this.loadPublicDeviceBySlug(deviceSlugParam);
                 }
+            }
+        });
+    }
+
+    /**
+     * Load device via the public (no-auth) API by gameId + slug.
+     * Used when a player scans a QR code pointing to /games/{gameId}/devices/{slug}/simulator.
+     * Unique per game — never ambiguous.
+     */
+    protected loadPublicDeviceByGameAndSlug(gameId: number, slug: string) {
+        if (this.isLoadingDevice) return;
+        this.isLoadingDevice = true;
+        this.loading = true;
+
+        this.deviceService.getDeviceByGameAndSlug(gameId, slug).subscribe({
+            next: (device) => {
+                this.gameId    = device.gameId;
+                this.deviceId  = device.deviceId;
+                this.ownerName = device.ownerName;
+                this.deviceType = (device.deviceType as DeviceType) || 'iPhone';
+                this.passcode  = device.passcode ?? '';
+                this.isLocked  = !!device.passcode;
+                this.pinEntry  = '';
+
+                this.conversations = [];
+                this.photos = [];
+                this.emailsInbox = [];
+                this.emailsSent = [];
+                this.emailsDrafts = [];
+                this.notes = [];
+                this.files = [];
+                this.calls = [];
+
+                (device.apps ?? []).forEach((app: any) => {
+                    const data = app.appData || {};
+                    if (app.appType === 'Messages') {
+                        this.conversations = [...this.conversations, ...this.normalizeConversations(data.conversations ?? data.Conversations ?? [])];
+                    } else if (app.appType === 'Photos') {
+                        this.photosAppId = app.appId ?? this.photosAppId;
+                        this.photos = [...this.photos, ...this.normalizePhotos(data.photos ?? data.Photos ?? [])];
+                    } else if (app.appType === 'Email') {
+                        const inbox  = this.normalizeEmails(Array.isArray(data.inbox  ?? data.Inbox)  ? (data.inbox  ?? data.Inbox)  : []);
+                        const sent   = this.normalizeEmails(Array.isArray(data.sent   ?? data.Sent)   ? (data.sent   ?? data.Sent)   : []);
+                        const drafts = this.normalizeEmails(Array.isArray(data.drafts ?? data.Drafts) ? (data.drafts ?? data.Drafts) : []);
+                        this.emailsInbox  = [...this.emailsInbox,  ...inbox];
+                        this.emailsSent   = [...this.emailsSent,   ...sent];
+                        this.emailsDrafts = [...this.emailsDrafts, ...drafts];
+                        this.emails = this.emailsInbox;
+                    } else if (app.appType === 'Notes') {
+                        this.notes = [...this.notes, ...this.normalizeNotes(data.notes ?? data.Notes ?? [])];
+                    } else if (app.appType === 'Files') {
+                        this.files = [...this.files, ...this.normalizeFiles(data.items ?? data.Items ?? [])];
+                    } else if (app.appType === 'Phone' || app.appType === 'Calls') {
+                        this.calls = [...this.calls, ...this.normalizeCalls(data.calls ?? data.Calls ?? [])];
+                    }
+                });
+
+                this.loading = false;
+                this.isLoadingDevice = false;
+            },
+            error: (error) => {
+                console.error('Error loading public device by game+slug:', error);
+                this.loading = false;
+                this.isLoadingDevice = false;
+                this.loadDemoData();
             }
         });
     }

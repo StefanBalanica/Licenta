@@ -85,7 +85,7 @@ import {
   ɵɵtwoWayListener,
   ɵɵtwoWayProperty,
   ɵɵviewQuery
-} from "./chunk-3WZX55C3.js";
+} from "./chunk-UMAD5YHU.js";
 
 // node_modules/zxcvbn/lib/frequency_lists.js
 var require_frequency_lists = __commonJS({
@@ -8997,7 +8997,7 @@ var routes = [
   { path: "games/:id", component: GameDetailsComponent, canActivate: [authGuard, deviceIsolationGuard] },
   {
     path: "games/:gameId/devices/:deviceSlug/simulator",
-    loadComponent: () => import("./chunk-NGRJRQKC.js").then((m) => m.DeviceRouterComponent)
+    loadComponent: () => import("./chunk-P2EGT6X5.js").then((m) => m.DeviceRouterComponent)
     // No authGuard here — players scan QR codes without being logged in.
     // deviceIsolationGuard is not needed either (it blocks device sessions from
     // navigating away, but the simulator IS the destination).
@@ -9006,13 +9006,13 @@ var routes = [
   // New format: /d/:uniqueUrl (GUID-based, unique per device) — used by new QR codes.
   {
     path: "d/:uniqueUrl",
-    loadComponent: () => import("./chunk-NGRJRQKC.js").then((m) => m.DeviceRouterComponent)
+    loadComponent: () => import("./chunk-P2EGT6X5.js").then((m) => m.DeviceRouterComponent)
   },
   // Legacy public route: /:deviceSlug (name-based, kept for backward compatibility).
   // URL format: /iphone-elodia
   {
     path: ":deviceSlug",
-    loadComponent: () => import("./chunk-NGRJRQKC.js").then((m) => m.DeviceRouterComponent)
+    loadComponent: () => import("./chunk-P2EGT6X5.js").then((m) => m.DeviceRouterComponent)
   },
   { path: "**", redirectTo: "/dashboard" }
 ];
