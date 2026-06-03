@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
-const API_BASE = 'https://murdermystery-api.onrender.com/api';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-landing',
@@ -33,7 +32,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   async fetchStats() {
     try {
-      const res = await fetch(`${API_BASE}/stats`);
+      const res = await fetch(`${environment.apiUrl}/api/stats`);
       if (!res.ok) return;
       const data = await res.json();
       this.userCount = data.userCount ?? '—';
@@ -47,7 +46,7 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.gamesLoading = true;
     this.gamesError = false;
     try {
-      const res = await fetch(`${API_BASE}/stats/public-games`);
+      const res = await fetch(`${environment.apiUrl}/api/stats/public-games`);
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
       this.games = data || [];

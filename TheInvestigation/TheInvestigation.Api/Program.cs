@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -115,7 +115,6 @@ builder.Services.AddCors(options =>
         policy.WithOrigins(
                 "http://localhost:4200",
                 "http://localhost:4201",
-                "https://murdermystery-client.onrender.com",
                 "https://the-investigation.onrender.com",
                 frontendUrl
               )

@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
@@ -330,7 +330,7 @@ public class DigitalDevicesController : ControllerBase
                 return NotFound();
 
             // Get frontend base URL from configuration
-            var frontendBaseUrl = _configuration["AppSettings:FrontendUrl"] ?? "http://localhost:4200";
+            var frontendBaseUrl = _configuration["AppSettings:FrontendUrl"] ?? "https://the-investigation.onrender.com";
 
             // Build clean public URL: /{deviceSlug}  e.g. /iphone-elodia
             var deviceSlug = CreateDeviceSlug(device.DeviceType, device.OwnerName);
