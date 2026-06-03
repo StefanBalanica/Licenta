@@ -411,16 +411,29 @@ interface UploadTarget {
               <div *ngIf="activeAppTab === 'photos'" class="app-config-content">
                 <h4>Photos App</h4>
                 <div *ngFor="let photo of photosData; let i = index" class="photo-item">
-                  <div class="form-row">
+                  <div class="form-row" style="align-items:flex-end;gap:8px">
                     <div class="form-group" style="flex:2">
                       <label>Photo URL</label>
-                      <input [(ngModel)]="photo.url" placeholder="https://example.com/photo.jpg">
+                      <input [(ngModel)]="photo.url" placeholder="https://... sau lasa gol daca incarci fisier">
                     </div>
                     <div class="form-group" style="flex:1">
                       <label>Caption</label>
                       <input [(ngModel)]="photo.caption" placeholder="Crime scene">
                     </div>
-                    <button class="btn-icon" (click)="removePhoto(i)" style="margin-top:28px">🗑️</button>
+                    <!-- Upload file button for this photo -->
+                    <div class="form-group" style="flex:0 0 auto">
+                      <label style="font-size:11px;color:var(--ink2)">Fisier</label>
+                      <label class="btn-photo-upload-inline" title="Incarca imagine (jpg/png)">
+                        📷 Upload
+                        <input type="file" accept=".jpg,.jpeg,.png,.webp" style="display:none" (change)="onModalPhotoUpload(i, $event)">
+                      </label>
+                    </div>
+                    <button class="btn-icon" (click)="removePhoto(i)" style="margin-bottom:4px">🗑️</button>
+                  </div>
+                  <!-- Preview daca URL-ul este un data URL -->
+                  <div *ngIf="photo.url && photo.url.startsWith('data:')" style="margin-bottom:8px">
+                    <img [src]="photo.url" style="max-height:80px;border-radius:6px;border:1px solid #ddd;" [alt]="photo.caption">
+                    <span style="font-size:11px;color:var(--ink2);margin-left:8px;">✓ Poza incarcata</span>
                   </div>
                 </div>
                 <button class="btn-primary" (click)="addPhoto()">+ Add Photo</button>
@@ -780,6 +793,9 @@ interface UploadTarget {
     /* Audio apeluri button */
     .btn-action-audio{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:34px;padding:0 14px;border:1px solid rgba(74,122,86,0.35);border-radius:7px;background:transparent;color:var(--green);font-size:12.5px;font-weight:500;font-family:'Public Sans',sans-serif;cursor:pointer;transition:border-color .2s,background .2s;}
     .btn-action-audio:hover{border-color:rgba(74,122,86,0.6);background:rgba(74,122,86,0.07);}
+    /* Photo upload inline button in modal */
+    .btn-photo-upload-inline{display:inline-flex;align-items:center;gap:5px;height:34px;padding:0 12px;border:1px solid rgba(99,102,241,0.4);border-radius:7px;background:rgba(99,102,241,0.07);color:#4f46e5;font-size:12px;font-weight:600;font-family:'Public Sans',sans-serif;cursor:pointer;transition:background .15s;white-space:nowrap;}
+    .btn-photo-upload-inline:hover{background:rgba(99,102,241,0.14);}
     .details-content{max-width:1200px;margin:0 auto;padding:32px 24px 60px;position:relative;z-index:1;}
     .tab-content{animation:fadeUp .35s ease both;}
     @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -1173,17 +1189,9 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
    * General-purpose media upload for phones — triggered by the always-visible
    * "Incarca fisier (foto/media)" button.
    *
-   * Strategy:
-   *  1. If the file matches a known upload-required:// target → delegate to the
-   *     existing targeted handler (onDeviceUploadSelected).
-   *  2. For image files (jpg/jpeg/png):
-   *     a. Try to find a photo in the Photos app whose URL contains the filename
-   *        (either as upload-required:// placeholder or empty string).
-   *     b. If found → replace the URL with the data URL.
-   *     c. If not found → add a new photo entry with the data URL.
-   *  3. For audio files (mp3/wav/m4a/ogg) → delegate to the call audio upload
-   *     flow (onCardCallAudioUpload via a synthetic event is complex; instead we
-   *     directly try to match a call with upload-required:// audio).
+   * Handles directly WITHOUT delegating to onDeviceUploadSelected:
+   *  - Images (jpg/jpeg/png): finds or creates the photo entry in the Photos app
+   *  - Audio  (mp3/wav/m4a/ogg): matches call by filename and sets audioUrl
    */
   onDeviceMediaUpload(deviceId: number, event: Event) {
     const input = event.target as HTMLInputElement;
@@ -1191,23 +1199,15 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!file) return;
 
     const ext = (file.name.split('.').pop() ?? '').toLowerCase();
-    const isImage = ['jpg', 'jpeg', 'png'].includes(ext);
+    const isImage = ['jpg', 'jpeg', 'png', 'webp'].includes(ext);
     const isAudio = ['mp3', 'wav', 'm4a', 'ogg'].includes(ext);
 
-    // 1. Try targeted upload first (upload-required:// placeholder match)
-    const targets = this.deviceUploadTargets[deviceId] ?? [];
-    const normalizedSelectedName = this.normalizeFileNameForCompare(file.name);
-    const matchedTarget = targets.find(t =>
-      this.normalizeFileNameForCompare(t.fileName) === normalizedSelectedName
-    );
-
-    if (matchedTarget) {
-      // Reuse existing targeted handler
-      this.onDeviceUploadSelected(deviceId, event);
+    if (!isImage && !isAudio) {
+      alert(`Format nesuportat: .${ext}\nFormate permise: jpg, jpeg, png, mp3, wav, m4a, ogg.`);
+      input.value = '';
       return;
     }
 
-    // 2. General fallback: read file as data URL then decide what to do
     const reader = new FileReader();
     reader.onload = () => {
       const dataUrl = String(reader.result || '');
@@ -1216,40 +1216,48 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.deviceService.getDeviceApps(this.gameId, deviceId).subscribe({
         next: (apps: any[]) => {
           if (isImage) {
-            // Find or create Photos app
             const photosApp = apps.find((a: any) => a.appType === 'Photos');
             if (!photosApp) {
-              alert('Aplicatia Photos nu exista pe acest dispozitiv. Adaug-o mai intai din "Configurare aplicatii".');
+              alert('Aplicatia Photos nu exista pe acest dispozitiv.\nDeschide "Configurare aplicatii" → tab Photos si adauga un rand, apoi salveaza.');
               input.value = '';
               return;
             }
             const photos: any[] = [...(photosApp.appData?.photos ?? photosApp.appData?.Photos ?? [])];
-            const normalizedUploadedName = this.normalizeFileNameForCompare(file.name);
+            const normName = this.normalizeFileNameForCompare(file.name);
 
-            // Try to find a placeholder with the same filename
-            const idx = photos.findIndex((p: any) => {
+            // 1. Match by upload-required:// placeholder filename
+            let idx = photos.findIndex((p: any) => {
               const url = String(p.url ?? p.Url ?? '');
-              return this.normalizeFileNameForCompare(url.replace('upload-required://', '').split('?')[0]) === normalizedUploadedName
-                || this.normalizeFileNameForCompare(p.caption ?? p.Caption ?? '') === normalizedUploadedName;
+              if (!url.startsWith('upload-required://')) return false;
+              const placeholder = url.replace('upload-required://', '').split('?')[0];
+              return this.normalizeFileNameForCompare(placeholder) === normName;
             });
 
+            // 2. Match by caption (fallback)
+            if (idx < 0) {
+              idx = photos.findIndex((p: any) =>
+                this.normalizeFileNameForCompare(p.caption ?? p.Caption ?? '') === normName
+              );
+            }
+
             if (idx >= 0) {
+              // Update existing placeholder / entry
               photos[idx] = { ...photos[idx], url: dataUrl };
             } else {
-              // Add a new photo entry
+              // Add as a new photo
               photos.push({ url: dataUrl, caption: file.name });
             }
 
             this.deviceService.updateDeviceApp(this.gameId, deviceId, photosApp.appId, { appData: { photos } }).subscribe({
               next: () => {
-                alert(`Poza "${file.name}" a fost incarcata cu succes.`);
+                alert(`Poza "${file.name}" a fost incarcata cu succes in Photos app.`);
                 this.loadUploadRequirementsForDevices();
                 input.value = '';
               },
               error: () => alert('Nu am putut salva poza.')
             });
-          } else if (isAudio) {
-            // Try to find a call whose audioUrl starts with upload-required://
+
+          } else { // isAudio
             const callsApp = apps.find((a: any) => a.appType === 'Calls' || a.appType === 'Phone');
             if (!callsApp) {
               alert('Aplicatia Apeluri nu exista pe acest dispozitiv.');
@@ -1257,12 +1265,15 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
               return;
             }
             const calls: any[] = [...(callsApp.appData?.calls ?? callsApp.appData?.Calls ?? [])];
-            const normalizedAudioName = this.normalizeFileNameForCompare(file.name);
+            const normAudio = this.normalizeFileNameForCompare(file.name);
 
+            // Match by audioUrl placeholder or audioFileName
             const audioIdx = calls.findIndex((c: any) => {
               const au = String(c.audioUrl ?? c.AudioUrl ?? '');
-              return this.normalizeFileNameForCompare(au.replace('upload-required://', '').split('?')[0]) === normalizedAudioName
-                || this.normalizeFileNameForCompare(c.audioFileName ?? c.AudioFileName ?? '') === normalizedAudioName;
+              const af = String(c.audioFileName ?? c.AudioFileName ?? '');
+              const auNorm = this.normalizeFileNameForCompare(au.replace('upload-required://', '').split('?')[0]);
+              const afNorm = this.normalizeFileNameForCompare(af);
+              return auNorm === normAudio || afNorm === normAudio;
             });
 
             if (audioIdx >= 0) {
@@ -1276,16 +1287,33 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
                 error: () => alert('Nu am putut salva fisierul audio.')
               });
             } else {
-              alert(`Nu am gasit un apel cu fisierul "${file.name}" in lista de apeluri. Verifica numele fisierului sau adauga/editeaza apelul din "Gestioneaza apeluri".`);
+              alert(`Nu am gasit apelul cu fisierul "${file.name}".\nVerifica ca numele fisierului coincide exact cu cel din brief, sau editeaza apelul din "Gestioneaza apeluri".`);
               input.value = '';
             }
-          } else {
-            alert(`Format nesuportat: .${ext}. Suportat: jpg, jpeg, png, mp3, wav, m4a, ogg.`);
-            input.value = '';
           }
         },
-        error: () => alert('Nu am putut incarca datele aplicatiilor dispozitivului.')
+        error: () => alert('Eroare la incarcarea datelor aplicatiilor.')
       });
+    };
+    reader.readAsDataURL(file);
+  }
+
+  /** Upload direct de poza din modalul Configurare aplicatii → Photos tab */
+  onModalPhotoUpload(index: number, event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = String(reader.result || '');
+      if (!dataUrl) return;
+      this.photosData[index] = {
+        ...this.photosData[index],
+        url: dataUrl,
+        caption: this.photosData[index].caption || file.name
+      };
+      input.value = '';
     };
     reader.readAsDataURL(file);
   }

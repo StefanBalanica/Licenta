@@ -6320,37 +6320,65 @@ function GameDetailsComponent_div_54_div_26_Template(rf, ctx) {
     \u0275\u0275property("ngForOf", ctx_r1.messagesData);
   }
 }
+function GameDetailsComponent_div_54_div_27_div_3_div_18_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 187);
+    \u0275\u0275element(1, "img", 188);
+    \u0275\u0275elementStart(2, "span", 189);
+    \u0275\u0275text(3, "\u2713 Poza incarcata");
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const photo_r24 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275property("src", photo_r24.url, \u0275\u0275sanitizeUrl)("alt", photo_r24.caption);
+  }
+}
 function GameDetailsComponent_div_54_div_27_div_3_Template(rf, ctx) {
   if (rf & 1) {
     const _r23 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 175)(1, "div", 55)(2, "div", 176)(3, "label");
+    \u0275\u0275elementStart(0, "div", 175)(1, "div", 176)(2, "div", 177)(3, "label");
     \u0275\u0275text(4, "Photo URL");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "input", 177);
+    \u0275\u0275elementStart(5, "input", 178);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_27_div_3_Template_input_ngModelChange_5_listener($event) {
       const photo_r24 = \u0275\u0275restoreView(_r23).$implicit;
       \u0275\u0275twoWayBindingSet(photo_r24.url, $event) || (photo_r24.url = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(6, "div", 178)(7, "label");
+    \u0275\u0275elementStart(6, "div", 179)(7, "label");
     \u0275\u0275text(8, "Caption");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "input", 179);
+    \u0275\u0275elementStart(9, "input", 180);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_27_div_3_Template_input_ngModelChange_9_listener($event) {
       const photo_r24 = \u0275\u0275restoreView(_r23).$implicit;
       \u0275\u0275twoWayBindingSet(photo_r24.caption, $event) || (photo_r24.caption = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(10, "button", 180);
-    \u0275\u0275listener("click", function GameDetailsComponent_div_54_div_27_div_3_Template_button_click_10_listener() {
+    \u0275\u0275elementStart(10, "div", 181)(11, "label", 182);
+    \u0275\u0275text(12, "Fisier");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(13, "label", 183);
+    \u0275\u0275text(14, " \u{1F4F7} Upload ");
+    \u0275\u0275elementStart(15, "input", 184);
+    \u0275\u0275listener("change", function GameDetailsComponent_div_54_div_27_div_3_Template_input_change_15_listener($event) {
+      const i_r25 = \u0275\u0275restoreView(_r23).index;
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.onModalPhotoUpload(i_r25, $event));
+    });
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(16, "button", 185);
+    \u0275\u0275listener("click", function GameDetailsComponent_div_54_div_27_div_3_Template_button_click_16_listener() {
       const i_r25 = \u0275\u0275restoreView(_r23).index;
       const ctx_r1 = \u0275\u0275nextContext(3);
       return \u0275\u0275resetView(ctx_r1.removePhoto(i_r25));
     });
-    \u0275\u0275text(11, "\u{1F5D1}\uFE0F");
-    \u0275\u0275elementEnd()()();
+    \u0275\u0275text(17, "\u{1F5D1}\uFE0F");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275template(18, GameDetailsComponent_div_54_div_27_div_3_div_18_Template, 4, 2, "div", 186);
+    \u0275\u0275elementEnd();
   }
   if (rf & 2) {
     const photo_r24 = ctx.$implicit;
@@ -6358,6 +6386,8 @@ function GameDetailsComponent_div_54_div_27_div_3_Template(rf, ctx) {
     \u0275\u0275twoWayProperty("ngModel", photo_r24.url);
     \u0275\u0275advance(4);
     \u0275\u0275twoWayProperty("ngModel", photo_r24.caption);
+    \u0275\u0275advance(9);
+    \u0275\u0275property("ngIf", photo_r24.url && photo_r24.url.startsWith("data:"));
   }
 }
 function GameDetailsComponent_div_54_div_27_Template(rf, ctx) {
@@ -6366,7 +6396,7 @@ function GameDetailsComponent_div_54_div_27_Template(rf, ctx) {
     \u0275\u0275elementStart(0, "div", 159)(1, "h4");
     \u0275\u0275text(2, "Photos App");
     \u0275\u0275elementEnd();
-    \u0275\u0275template(3, GameDetailsComponent_div_54_div_27_div_3_Template, 12, 2, "div", 174);
+    \u0275\u0275template(3, GameDetailsComponent_div_54_div_27_div_3_Template, 19, 3, "div", 174);
     \u0275\u0275elementStart(4, "button", 52);
     \u0275\u0275listener("click", function GameDetailsComponent_div_54_div_27_Template_button_click_4_listener() {
       \u0275\u0275restoreView(_r22);
@@ -6385,10 +6415,10 @@ function GameDetailsComponent_div_54_div_27_Template(rf, ctx) {
 function GameDetailsComponent_div_54_div_28_div_3_Template(rf, ctx) {
   if (rf & 1) {
     const _r27 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 182)(1, "div", 56)(2, "label");
+    \u0275\u0275elementStart(0, "div", 191)(1, "div", 56)(2, "label");
     \u0275\u0275text(3, "From");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "input", 183);
+    \u0275\u0275elementStart(4, "input", 192);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_28_div_3_Template_input_ngModelChange_4_listener($event) {
       const email_r28 = \u0275\u0275restoreView(_r27).$implicit;
       \u0275\u0275twoWayBindingSet(email_r28.from, $event) || (email_r28.from = $event);
@@ -6398,7 +6428,7 @@ function GameDetailsComponent_div_54_div_28_div_3_Template(rf, ctx) {
     \u0275\u0275elementStart(5, "div", 56)(6, "label");
     \u0275\u0275text(7, "Subject");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "input", 184);
+    \u0275\u0275elementStart(8, "input", 193);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_28_div_3_Template_input_ngModelChange_8_listener($event) {
       const email_r28 = \u0275\u0275restoreView(_r27).$implicit;
       \u0275\u0275twoWayBindingSet(email_r28.subject, $event) || (email_r28.subject = $event);
@@ -6408,7 +6438,7 @@ function GameDetailsComponent_div_54_div_28_div_3_Template(rf, ctx) {
     \u0275\u0275elementStart(9, "div", 56)(10, "label");
     \u0275\u0275text(11, "Preview");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "textarea", 185);
+    \u0275\u0275elementStart(12, "textarea", 194);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_28_div_3_Template_textarea_ngModelChange_12_listener($event) {
       const email_r28 = \u0275\u0275restoreView(_r27).$implicit;
       \u0275\u0275twoWayBindingSet(email_r28.preview, $event) || (email_r28.preview = $event);
@@ -6425,7 +6455,7 @@ function GameDetailsComponent_div_54_div_28_div_3_Template(rf, ctx) {
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(18, "button", 180);
+    \u0275\u0275elementStart(18, "button", 195);
     \u0275\u0275listener("click", function GameDetailsComponent_div_54_div_28_div_3_Template_button_click_18_listener() {
       const i_r29 = \u0275\u0275restoreView(_r27).index;
       const ctx_r1 = \u0275\u0275nextContext(3);
@@ -6454,7 +6484,7 @@ function GameDetailsComponent_div_54_div_28_Template(rf, ctx) {
     \u0275\u0275elementStart(0, "div", 159)(1, "h4");
     \u0275\u0275text(2, "Email App");
     \u0275\u0275elementEnd();
-    \u0275\u0275template(3, GameDetailsComponent_div_54_div_28_div_3_Template, 21, 4, "div", 181);
+    \u0275\u0275template(3, GameDetailsComponent_div_54_div_28_div_3_Template, 21, 4, "div", 190);
     \u0275\u0275elementStart(4, "button", 52);
     \u0275\u0275listener("click", function GameDetailsComponent_div_54_div_28_Template_button_click_4_listener() {
       \u0275\u0275restoreView(_r26);
@@ -6473,10 +6503,10 @@ function GameDetailsComponent_div_54_div_28_Template(rf, ctx) {
 function GameDetailsComponent_div_54_div_29_div_3_Template(rf, ctx) {
   if (rf & 1) {
     const _r31 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 187)(1, "div", 56)(2, "label");
+    \u0275\u0275elementStart(0, "div", 197)(1, "div", 56)(2, "label");
     \u0275\u0275text(3, "Title");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "input", 188);
+    \u0275\u0275elementStart(4, "input", 198);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_29_div_3_Template_input_ngModelChange_4_listener($event) {
       const note_r32 = \u0275\u0275restoreView(_r31).$implicit;
       \u0275\u0275twoWayBindingSet(note_r32.title, $event) || (note_r32.title = $event);
@@ -6486,7 +6516,7 @@ function GameDetailsComponent_div_54_div_29_div_3_Template(rf, ctx) {
     \u0275\u0275elementStart(5, "div", 56)(6, "label");
     \u0275\u0275text(7, "Content");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "textarea", 189);
+    \u0275\u0275elementStart(8, "textarea", 199);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_29_div_3_Template_textarea_ngModelChange_8_listener($event) {
       const note_r32 = \u0275\u0275restoreView(_r31).$implicit;
       \u0275\u0275twoWayBindingSet(note_r32.content, $event) || (note_r32.content = $event);
@@ -6496,14 +6526,14 @@ function GameDetailsComponent_div_54_div_29_div_3_Template(rf, ctx) {
     \u0275\u0275elementStart(9, "div", 55)(10, "div", 56)(11, "label");
     \u0275\u0275text(12, "Time");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(13, "input", 190);
+    \u0275\u0275elementStart(13, "input", 200);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_29_div_3_Template_input_ngModelChange_13_listener($event) {
       const note_r32 = \u0275\u0275restoreView(_r31).$implicit;
       \u0275\u0275twoWayBindingSet(note_r32.time, $event) || (note_r32.time = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(14, "button", 180);
+    \u0275\u0275elementStart(14, "button", 195);
     \u0275\u0275listener("click", function GameDetailsComponent_div_54_div_29_div_3_Template_button_click_14_listener() {
       const i_r33 = \u0275\u0275restoreView(_r31).index;
       const ctx_r1 = \u0275\u0275nextContext(3);
@@ -6530,7 +6560,7 @@ function GameDetailsComponent_div_54_div_29_Template(rf, ctx) {
     \u0275\u0275elementStart(0, "div", 159)(1, "h4");
     \u0275\u0275text(2, "Notes App");
     \u0275\u0275elementEnd();
-    \u0275\u0275template(3, GameDetailsComponent_div_54_div_29_div_3_Template, 17, 3, "div", 186);
+    \u0275\u0275template(3, GameDetailsComponent_div_54_div_29_div_3_Template, 17, 3, "div", 196);
     \u0275\u0275elementStart(4, "button", 52);
     \u0275\u0275listener("click", function GameDetailsComponent_div_54_div_29_Template_button_click_4_listener() {
       \u0275\u0275restoreView(_r30);
@@ -6549,10 +6579,10 @@ function GameDetailsComponent_div_54_div_29_Template(rf, ctx) {
 function GameDetailsComponent_div_54_div_30_div_3_Template(rf, ctx) {
   if (rf & 1) {
     const _r35 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 187)(1, "div", 55)(2, "div", 56)(3, "label");
+    \u0275\u0275elementStart(0, "div", 197)(1, "div", 55)(2, "div", 56)(3, "label");
     \u0275\u0275text(4, "File Name");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "input", 191);
+    \u0275\u0275elementStart(5, "input", 201);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_30_div_3_Template_input_ngModelChange_5_listener($event) {
       const file_r36 = \u0275\u0275restoreView(_r35).$implicit;
       \u0275\u0275twoWayBindingSet(file_r36.name, $event) || (file_r36.name = $event);
@@ -6562,58 +6592,58 @@ function GameDetailsComponent_div_54_div_30_div_3_Template(rf, ctx) {
     \u0275\u0275elementStart(6, "div", 56)(7, "label");
     \u0275\u0275text(8, "Type");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "select", 192);
+    \u0275\u0275elementStart(9, "select", 202);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_30_div_3_Template_select_ngModelChange_9_listener($event) {
       const file_r36 = \u0275\u0275restoreView(_r35).$implicit;
       \u0275\u0275twoWayBindingSet(file_r36.type, $event) || (file_r36.type = $event);
       return \u0275\u0275resetView($event);
     });
-    \u0275\u0275elementStart(10, "option", 193);
+    \u0275\u0275elementStart(10, "option", 203);
     \u0275\u0275text(11, "Document");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "option", 194);
+    \u0275\u0275elementStart(12, "option", 204);
     \u0275\u0275text(13, "Encrypted");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(14, "option", 195);
+    \u0275\u0275elementStart(14, "option", 205);
     \u0275\u0275text(15, "Folder");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(16, "option", 196);
+    \u0275\u0275elementStart(16, "option", 206);
     \u0275\u0275text(17, "Image");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(18, "option", 197);
+    \u0275\u0275elementStart(18, "option", 207);
     \u0275\u0275text(19, "Screenshot");
     \u0275\u0275elementEnd()()()();
     \u0275\u0275elementStart(20, "div", 55)(21, "div", 56)(22, "label");
     \u0275\u0275text(23, "Format");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(24, "select", 192);
+    \u0275\u0275elementStart(24, "select", 202);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_30_div_3_Template_select_ngModelChange_24_listener($event) {
       const file_r36 = \u0275\u0275restoreView(_r35).$implicit;
       \u0275\u0275twoWayBindingSet(file_r36.fileFormat, $event) || (file_r36.fileFormat = $event);
       return \u0275\u0275resetView($event);
     });
-    \u0275\u0275elementStart(25, "option", 198);
+    \u0275\u0275elementStart(25, "option", 208);
     \u0275\u0275text(26, "Auto");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(27, "option", 199);
+    \u0275\u0275elementStart(27, "option", 209);
     \u0275\u0275text(28, "DOCX");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(29, "option", 200);
+    \u0275\u0275elementStart(29, "option", 210);
     \u0275\u0275text(30, "PDF");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(31, "option", 201);
+    \u0275\u0275elementStart(31, "option", 211);
     \u0275\u0275text(32, "XLSX");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(33, "option", 202);
+    \u0275\u0275elementStart(33, "option", 212);
     \u0275\u0275text(34, "TXT");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(35, "option", 203);
+    \u0275\u0275elementStart(35, "option", 213);
     \u0275\u0275text(36, "CSV");
     \u0275\u0275elementEnd()()();
     \u0275\u0275elementStart(37, "div", 56)(38, "label");
     \u0275\u0275text(39, "Size");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(40, "input", 204);
+    \u0275\u0275elementStart(40, "input", 214);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_30_div_3_Template_input_ngModelChange_40_listener($event) {
       const file_r36 = \u0275\u0275restoreView(_r35).$implicit;
       \u0275\u0275twoWayBindingSet(file_r36.size, $event) || (file_r36.size = $event);
@@ -6623,7 +6653,7 @@ function GameDetailsComponent_div_54_div_30_div_3_Template(rf, ctx) {
     \u0275\u0275elementStart(41, "div", 55)(42, "div", 56)(43, "label");
     \u0275\u0275text(44, "Modified At");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(45, "input", 205);
+    \u0275\u0275elementStart(45, "input", 215);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_30_div_3_Template_input_ngModelChange_45_listener($event) {
       const file_r36 = \u0275\u0275restoreView(_r35).$implicit;
       \u0275\u0275twoWayBindingSet(file_r36.modifiedAt, $event) || (file_r36.modifiedAt = $event);
@@ -6633,7 +6663,7 @@ function GameDetailsComponent_div_54_div_30_div_3_Template(rf, ctx) {
     \u0275\u0275elementStart(46, "div", 56)(47, "label");
     \u0275\u0275text(48, "Description");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(49, "input", 206);
+    \u0275\u0275elementStart(49, "input", 216);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_30_div_3_Template_input_ngModelChange_49_listener($event) {
       const file_r36 = \u0275\u0275restoreView(_r35).$implicit;
       \u0275\u0275twoWayBindingSet(file_r36.description, $event) || (file_r36.description = $event);
@@ -6643,7 +6673,7 @@ function GameDetailsComponent_div_54_div_30_div_3_Template(rf, ctx) {
     \u0275\u0275elementStart(50, "div", 56)(51, "label");
     \u0275\u0275text(52, "Content (DOCX/PDF/TXT)");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(53, "textarea", 207);
+    \u0275\u0275elementStart(53, "textarea", 217);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_30_div_3_Template_textarea_ngModelChange_53_listener($event) {
       const file_r36 = \u0275\u0275restoreView(_r35).$implicit;
       \u0275\u0275twoWayBindingSet(file_r36.content, $event) || (file_r36.content = $event);
@@ -6653,14 +6683,14 @@ function GameDetailsComponent_div_54_div_30_div_3_Template(rf, ctx) {
     \u0275\u0275elementStart(54, "div", 56)(55, "label");
     \u0275\u0275text(56, "Spreadsheet Rows (JSON pentru XLSX/CSV)");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(57, "textarea", 208);
+    \u0275\u0275elementStart(57, "textarea", 218);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_30_div_3_Template_textarea_ngModelChange_57_listener($event) {
       const file_r36 = \u0275\u0275restoreView(_r35).$implicit;
       \u0275\u0275twoWayBindingSet(file_r36.rowsJson, $event) || (file_r36.rowsJson = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(58, "div", 55)(59, "button", 209);
+    \u0275\u0275elementStart(58, "div", 55)(59, "button", 219);
     \u0275\u0275listener("click", function GameDetailsComponent_div_54_div_30_div_3_Template_button_click_59_listener() {
       const i_r37 = \u0275\u0275restoreView(_r35).index;
       const ctx_r1 = \u0275\u0275nextContext(3);
@@ -6697,7 +6727,7 @@ function GameDetailsComponent_div_54_div_30_Template(rf, ctx) {
     \u0275\u0275elementStart(0, "div", 159)(1, "h4");
     \u0275\u0275text(2, "Files App");
     \u0275\u0275elementEnd();
-    \u0275\u0275template(3, GameDetailsComponent_div_54_div_30_div_3_Template, 62, 8, "div", 186);
+    \u0275\u0275template(3, GameDetailsComponent_div_54_div_30_div_3_Template, 62, 8, "div", 196);
     \u0275\u0275elementStart(4, "button", 52);
     \u0275\u0275listener("click", function GameDetailsComponent_div_54_div_30_Template_button_click_4_listener() {
       \u0275\u0275restoreView(_r34);
@@ -6715,7 +6745,7 @@ function GameDetailsComponent_div_54_div_30_Template(rf, ctx) {
 }
 function GameDetailsComponent_div_54_div_31_div_11_div_40_span_1_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 232);
+    \u0275\u0275elementStart(0, "span", 242);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
@@ -6727,7 +6757,7 @@ function GameDetailsComponent_div_54_div_31_div_11_div_40_span_1_Template(rf, ct
 }
 function GameDetailsComponent_div_54_div_31_div_11_div_40_span_2_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 233);
+    \u0275\u0275elementStart(0, "span", 243);
     \u0275\u0275text(1, "Niciun fisier selectat");
     \u0275\u0275elementEnd();
   }
@@ -6735,9 +6765,9 @@ function GameDetailsComponent_div_54_div_31_div_11_div_40_span_2_Template(rf, ct
 function GameDetailsComponent_div_54_div_31_div_11_div_40_Template(rf, ctx) {
   if (rf & 1) {
     const _r42 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 228);
-    \u0275\u0275template(1, GameDetailsComponent_div_54_div_31_div_11_div_40_span_1_Template, 2, 1, "span", 229)(2, GameDetailsComponent_div_54_div_31_div_11_div_40_span_2_Template, 2, 0, "span", 230);
-    \u0275\u0275elementStart(3, "label", 231);
+    \u0275\u0275elementStart(0, "div", 238);
+    \u0275\u0275template(1, GameDetailsComponent_div_54_div_31_div_11_div_40_span_1_Template, 2, 1, "span", 239)(2, GameDetailsComponent_div_54_div_31_div_11_div_40_span_2_Template, 2, 0, "span", 240);
+    \u0275\u0275elementStart(3, "label", 241);
     \u0275\u0275namespaceSVG();
     \u0275\u0275elementStart(4, "svg", 19);
     \u0275\u0275element(5, "path", 124)(6, "path", 125);
@@ -6764,14 +6794,14 @@ function GameDetailsComponent_div_54_div_31_div_11_div_40_Template(rf, ctx) {
 function GameDetailsComponent_div_54_div_31_div_11_div_41_Template(rf, ctx) {
   if (rf & 1) {
     const _r43 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 234);
+    \u0275\u0275elementStart(0, "div", 244);
     \u0275\u0275namespaceSVG();
     \u0275\u0275elementStart(1, "svg", 8);
-    \u0275\u0275element(2, "path", 235);
+    \u0275\u0275element(2, "path", 245);
     \u0275\u0275elementEnd();
     \u0275\u0275text(3);
     \u0275\u0275namespaceHTML();
-    \u0275\u0275elementStart(4, "button", 236);
+    \u0275\u0275elementStart(4, "button", 246);
     \u0275\u0275listener("click", function GameDetailsComponent_div_54_div_31_div_11_div_41_Template_button_click_4_listener() {
       \u0275\u0275restoreView(_r43);
       const call_r41 = \u0275\u0275nextContext().$implicit;
@@ -6790,7 +6820,7 @@ function GameDetailsComponent_div_54_div_31_div_11_div_41_Template(rf, ctx) {
 function GameDetailsComponent_div_54_div_31_div_11_Template(rf, ctx) {
   if (rf & 1) {
     const _r39 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 214)(1, "div", 215)(2, "span", 216);
+    \u0275\u0275elementStart(0, "div", 224)(1, "div", 225)(2, "span", 226);
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(4, "button", 77);
@@ -6804,25 +6834,25 @@ function GameDetailsComponent_div_54_div_31_div_11_Template(rf, ctx) {
     \u0275\u0275elementStart(6, "div", 55)(7, "div", 56)(8, "label");
     \u0275\u0275text(9, "Tip apel");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "select", 192);
+    \u0275\u0275elementStart(10, "select", 202);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_31_div_11_Template_select_ngModelChange_10_listener($event) {
       const call_r41 = \u0275\u0275restoreView(_r39).$implicit;
       \u0275\u0275twoWayBindingSet(call_r41.type, $event) || (call_r41.type = $event);
       return \u0275\u0275resetView($event);
     });
-    \u0275\u0275elementStart(11, "option", 217);
+    \u0275\u0275elementStart(11, "option", 227);
     \u0275\u0275text(12, "\u{1F4E5} Primit");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(13, "option", 218);
+    \u0275\u0275elementStart(13, "option", 228);
     \u0275\u0275text(14, "\u{1F4E4} Efectuat");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(15, "option", 219);
+    \u0275\u0275elementStart(15, "option", 229);
     \u0275\u0275text(16, "\u{1F4F5} Pierdut");
     \u0275\u0275elementEnd()()();
     \u0275\u0275elementStart(17, "div", 56)(18, "label");
     \u0275\u0275text(19, "Numar / Nume");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(20, "input", 220);
+    \u0275\u0275elementStart(20, "input", 230);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_31_div_11_Template_input_ngModelChange_20_listener($event) {
       const call_r41 = \u0275\u0275restoreView(_r39).$implicit;
       \u0275\u0275twoWayBindingSet(call_r41.contact, $event) || (call_r41.contact = $event);
@@ -6832,7 +6862,7 @@ function GameDetailsComponent_div_54_div_31_div_11_Template(rf, ctx) {
     \u0275\u0275elementStart(21, "div", 55)(22, "div", 56)(23, "label");
     \u0275\u0275text(24, "Data");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(25, "input", 221);
+    \u0275\u0275elementStart(25, "input", 231);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_31_div_11_Template_input_ngModelChange_25_listener($event) {
       const call_r41 = \u0275\u0275restoreView(_r39).$implicit;
       \u0275\u0275twoWayBindingSet(call_r41.date, $event) || (call_r41.date = $event);
@@ -6842,7 +6872,7 @@ function GameDetailsComponent_div_54_div_31_div_11_Template(rf, ctx) {
     \u0275\u0275elementStart(26, "div", 56)(27, "label");
     \u0275\u0275text(28, "Ora");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(29, "input", 222);
+    \u0275\u0275elementStart(29, "input", 232);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_31_div_11_Template_input_ngModelChange_29_listener($event) {
       const call_r41 = \u0275\u0275restoreView(_r39).$implicit;
       \u0275\u0275twoWayBindingSet(call_r41.time, $event) || (call_r41.time = $event);
@@ -6852,21 +6882,21 @@ function GameDetailsComponent_div_54_div_31_div_11_Template(rf, ctx) {
     \u0275\u0275elementStart(30, "div", 56)(31, "label");
     \u0275\u0275text(32, "Durata");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(33, "input", 223);
+    \u0275\u0275elementStart(33, "input", 233);
     \u0275\u0275twoWayListener("ngModelChange", function GameDetailsComponent_div_54_div_31_div_11_Template_input_ngModelChange_33_listener($event) {
       const call_r41 = \u0275\u0275restoreView(_r39).$implicit;
       \u0275\u0275twoWayBindingSet(call_r41.duration, $event) || (call_r41.duration = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(34, "div", 224)(35, "div", 225);
+    \u0275\u0275elementStart(34, "div", 234)(35, "div", 235);
     \u0275\u0275namespaceSVG();
     \u0275\u0275elementStart(36, "svg", 8);
     \u0275\u0275element(37, "path", 131)(38, "path", 132);
     \u0275\u0275elementEnd();
     \u0275\u0275text(39, " Inregistrare audio (optional) ");
     \u0275\u0275elementEnd();
-    \u0275\u0275template(40, GameDetailsComponent_div_54_div_31_div_11_div_40_Template, 9, 2, "div", 226)(41, GameDetailsComponent_div_54_div_31_div_11_div_41_Template, 6, 1, "div", 227);
+    \u0275\u0275template(40, GameDetailsComponent_div_54_div_31_div_11_div_40_Template, 9, 2, "div", 236)(41, GameDetailsComponent_div_54_div_31_div_11_div_41_Template, 6, 1, "div", 237);
     \u0275\u0275elementEnd();
     \u0275\u0275namespaceHTML();
     \u0275\u0275element(42, "hr");
@@ -6899,10 +6929,10 @@ function GameDetailsComponent_div_54_div_31_Template(rf, ctx) {
     \u0275\u0275elementStart(0, "div", 159)(1, "h4");
     \u0275\u0275text(2, "Apeluri telefonice");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 210);
+    \u0275\u0275elementStart(3, "div", 220);
     \u0275\u0275namespaceSVG();
     \u0275\u0275elementStart(4, "svg", 8);
-    \u0275\u0275element(5, "circle", 211)(6, "path", 212);
+    \u0275\u0275element(5, "circle", 221)(6, "path", 222);
     \u0275\u0275elementEnd();
     \u0275\u0275text(7, " Poti atasa un fisier audio ");
     \u0275\u0275namespaceHTML();
@@ -6911,7 +6941,7 @@ function GameDetailsComponent_div_54_div_31_Template(rf, ctx) {
     \u0275\u0275elementEnd();
     \u0275\u0275text(10, " per apel. Fisierul va aparea in simulatorul de telefon la apasarea apelului. ");
     \u0275\u0275elementEnd();
-    \u0275\u0275template(11, GameDetailsComponent_div_54_div_31_div_11_Template, 43, 8, "div", 213);
+    \u0275\u0275template(11, GameDetailsComponent_div_54_div_31_div_11_Template, 43, 8, "div", 223);
     \u0275\u0275elementStart(12, "button", 52);
     \u0275\u0275listener("click", function GameDetailsComponent_div_54_div_31_Template_button_click_12_listener() {
       \u0275\u0275restoreView(_r38);
@@ -7191,9 +7221,9 @@ function GameDetailsComponent_div_55_div_11_div_35_Template(rf, ctx) {
 function GameDetailsComponent_div_55_div_11_Template(rf, ctx) {
   if (rf & 1) {
     const _r44 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 240);
-    \u0275\u0275element(1, "div", 241);
-    \u0275\u0275elementStart(2, "div", 242);
+    \u0275\u0275elementStart(0, "div", 250);
+    \u0275\u0275element(1, "div", 251);
+    \u0275\u0275elementStart(2, "div", 252);
     \u0275\u0275text(3, "ANCHETATOR");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(4, "div", 94);
@@ -7203,10 +7233,10 @@ function GameDetailsComponent_div_55_div_11_Template(rf, ctx) {
     \u0275\u0275text(7);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(8, "div", 96);
-    \u0275\u0275template(9, GameDetailsComponent_div_55_div_11_span_9_Template, 2, 0, "span", 243)(10, GameDetailsComponent_div_55_div_11_span_10_Template, 2, 0, "span", 243);
+    \u0275\u0275template(9, GameDetailsComponent_div_55_div_11_span_9_Template, 2, 0, "span", 253)(10, GameDetailsComponent_div_55_div_11_span_10_Template, 2, 0, "span", 253);
     \u0275\u0275elementEnd();
     \u0275\u0275template(11, GameDetailsComponent_div_55_div_11_div_11_Template, 5, 1, "div", 102)(12, GameDetailsComponent_div_55_div_11_input_12_Template, 1, 2, "input", 103)(13, GameDetailsComponent_div_55_div_11_input_13_Template, 1, 1, "input", 104);
-    \u0275\u0275elementStart(14, "div", 244)(15, "button", 106);
+    \u0275\u0275elementStart(14, "div", 254)(15, "button", 106);
     \u0275\u0275namespaceSVG();
     \u0275\u0275elementStart(16, "svg", 14);
     \u0275\u0275element(17, "path", 107);
@@ -7271,18 +7301,18 @@ function GameDetailsComponent_div_55_div_11_Template(rf, ctx) {
 }
 function GameDetailsComponent_div_55_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 36)(1, "div", 44)(2, "div")(3, "div", 237);
+    \u0275\u0275elementStart(0, "div", 36)(1, "div", 44)(2, "div")(3, "div", 247);
     \u0275\u0275text(4, "DISPOZITIVE SPECIALE");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(5, "h2", 46);
     \u0275\u0275text(6, "Dispozitivele Anchetatorului");
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(7, "p", 238);
+    \u0275\u0275elementStart(7, "p", 248);
     \u0275\u0275text(8, " Aceste dispozitive apartin anchetatorului si au fost generate automat pe baza dosarului. Laptopul contine baze de date clasificate, interogatorii si harti. iPhone-ul contine apeluri inregistrate cu entitatile cazului. ");
     \u0275\u0275elementEnd();
     \u0275\u0275template(9, GameDetailsComponent_div_55_div_9_Template, 7, 0, "div", 51);
     \u0275\u0275elementStart(10, "div", 89);
-    \u0275\u0275template(11, GameDetailsComponent_div_55_div_11_Template, 36, 14, "div", 239);
+    \u0275\u0275template(11, GameDetailsComponent_div_55_div_11_Template, 36, 14, "div", 249);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
@@ -7662,17 +7692,9 @@ var GameDetailsComponent = class _GameDetailsComponent {
    * General-purpose media upload for phones — triggered by the always-visible
    * "Incarca fisier (foto/media)" button.
    *
-   * Strategy:
-   *  1. If the file matches a known upload-required:// target → delegate to the
-   *     existing targeted handler (onDeviceUploadSelected).
-   *  2. For image files (jpg/jpeg/png):
-   *     a. Try to find a photo in the Photos app whose URL contains the filename
-   *        (either as upload-required:// placeholder or empty string).
-   *     b. If found → replace the URL with the data URL.
-   *     c. If not found → add a new photo entry with the data URL.
-   *  3. For audio files (mp3/wav/m4a/ogg) → delegate to the call audio upload
-   *     flow (onCardCallAudioUpload via a synthetic event is complex; instead we
-   *     directly try to match a call with upload-required:// audio).
+   * Handles directly WITHOUT delegating to onDeviceUploadSelected:
+   *  - Images (jpg/jpeg/png): finds or creates the photo entry in the Photos app
+   *  - Audio  (mp3/wav/m4a/ogg): matches call by filename and sets audioUrl
    */
   onDeviceMediaUpload(deviceId, event) {
     const input = event.target;
@@ -7680,13 +7702,12 @@ var GameDetailsComponent = class _GameDetailsComponent {
     if (!file)
       return;
     const ext = (file.name.split(".").pop() ?? "").toLowerCase();
-    const isImage = ["jpg", "jpeg", "png"].includes(ext);
+    const isImage = ["jpg", "jpeg", "png", "webp"].includes(ext);
     const isAudio = ["mp3", "wav", "m4a", "ogg"].includes(ext);
-    const targets = this.deviceUploadTargets[deviceId] ?? [];
-    const normalizedSelectedName = this.normalizeFileNameForCompare(file.name);
-    const matchedTarget = targets.find((t) => this.normalizeFileNameForCompare(t.fileName) === normalizedSelectedName);
-    if (matchedTarget) {
-      this.onDeviceUploadSelected(deviceId, event);
+    if (!isImage && !isAudio) {
+      alert(`Format nesuportat: .${ext}
+Formate permise: jpg, jpeg, png, mp3, wav, m4a, ogg.`);
+      input.value = "";
       return;
     }
     const reader = new FileReader();
@@ -7699,16 +7720,22 @@ var GameDetailsComponent = class _GameDetailsComponent {
           if (isImage) {
             const photosApp = apps.find((a) => a.appType === "Photos");
             if (!photosApp) {
-              alert('Aplicatia Photos nu exista pe acest dispozitiv. Adaug-o mai intai din "Configurare aplicatii".');
+              alert('Aplicatia Photos nu exista pe acest dispozitiv.\nDeschide "Configurare aplicatii" \u2192 tab Photos si adauga un rand, apoi salveaza.');
               input.value = "";
               return;
             }
             const photos = [...photosApp.appData?.photos ?? photosApp.appData?.Photos ?? []];
-            const normalizedUploadedName = this.normalizeFileNameForCompare(file.name);
-            const idx = photos.findIndex((p) => {
+            const normName = this.normalizeFileNameForCompare(file.name);
+            let idx = photos.findIndex((p) => {
               const url = String(p.url ?? p.Url ?? "");
-              return this.normalizeFileNameForCompare(url.replace("upload-required://", "").split("?")[0]) === normalizedUploadedName || this.normalizeFileNameForCompare(p.caption ?? p.Caption ?? "") === normalizedUploadedName;
+              if (!url.startsWith("upload-required://"))
+                return false;
+              const placeholder = url.replace("upload-required://", "").split("?")[0];
+              return this.normalizeFileNameForCompare(placeholder) === normName;
             });
+            if (idx < 0) {
+              idx = photos.findIndex((p) => this.normalizeFileNameForCompare(p.caption ?? p.Caption ?? "") === normName);
+            }
             if (idx >= 0) {
               photos[idx] = __spreadProps(__spreadValues({}, photos[idx]), { url: dataUrl });
             } else {
@@ -7716,13 +7743,13 @@ var GameDetailsComponent = class _GameDetailsComponent {
             }
             this.deviceService.updateDeviceApp(this.gameId, deviceId, photosApp.appId, { appData: { photos } }).subscribe({
               next: () => {
-                alert(`Poza "${file.name}" a fost incarcata cu succes.`);
+                alert(`Poza "${file.name}" a fost incarcata cu succes in Photos app.`);
                 this.loadUploadRequirementsForDevices();
                 input.value = "";
               },
               error: () => alert("Nu am putut salva poza.")
             });
-          } else if (isAudio) {
+          } else {
             const callsApp = apps.find((a) => a.appType === "Calls" || a.appType === "Phone");
             if (!callsApp) {
               alert("Aplicatia Apeluri nu exista pe acest dispozitiv.");
@@ -7730,10 +7757,13 @@ var GameDetailsComponent = class _GameDetailsComponent {
               return;
             }
             const calls = [...callsApp.appData?.calls ?? callsApp.appData?.Calls ?? []];
-            const normalizedAudioName = this.normalizeFileNameForCompare(file.name);
+            const normAudio = this.normalizeFileNameForCompare(file.name);
             const audioIdx = calls.findIndex((c) => {
               const au = String(c.audioUrl ?? c.AudioUrl ?? "");
-              return this.normalizeFileNameForCompare(au.replace("upload-required://", "").split("?")[0]) === normalizedAudioName || this.normalizeFileNameForCompare(c.audioFileName ?? c.AudioFileName ?? "") === normalizedAudioName;
+              const af = String(c.audioFileName ?? c.AudioFileName ?? "");
+              const auNorm = this.normalizeFileNameForCompare(au.replace("upload-required://", "").split("?")[0]);
+              const afNorm = this.normalizeFileNameForCompare(af);
+              return auNorm === normAudio || afNorm === normAudio;
             });
             if (audioIdx >= 0) {
               calls[audioIdx] = __spreadProps(__spreadValues({}, calls[audioIdx]), { audioUrl: dataUrl, audioFileName: file.name });
@@ -7746,16 +7776,33 @@ var GameDetailsComponent = class _GameDetailsComponent {
                 error: () => alert("Nu am putut salva fisierul audio.")
               });
             } else {
-              alert(`Nu am gasit un apel cu fisierul "${file.name}" in lista de apeluri. Verifica numele fisierului sau adauga/editeaza apelul din "Gestioneaza apeluri".`);
+              alert(`Nu am gasit apelul cu fisierul "${file.name}".
+Verifica ca numele fisierului coincide exact cu cel din brief, sau editeaza apelul din "Gestioneaza apeluri".`);
               input.value = "";
             }
-          } else {
-            alert(`Format nesuportat: .${ext}. Suportat: jpg, jpeg, png, mp3, wav, m4a, ogg.`);
-            input.value = "";
           }
         },
-        error: () => alert("Nu am putut incarca datele aplicatiilor dispozitivului.")
+        error: () => alert("Eroare la incarcarea datelor aplicatiilor.")
       });
+    };
+    reader.readAsDataURL(file);
+  }
+  /** Upload direct de poza din modalul Configurare aplicatii → Photos tab */
+  onModalPhotoUpload(index, event) {
+    const input = event.target;
+    const file = input.files?.[0];
+    if (!file)
+      return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = String(reader.result || "");
+      if (!dataUrl)
+        return;
+      this.photosData[index] = __spreadProps(__spreadValues({}, this.photosData[index]), {
+        url: dataUrl,
+        caption: this.photosData[index].caption || file.name
+      });
+      input.value = "";
     };
     reader.readAsDataURL(file);
   }
@@ -8249,7 +8296,7 @@ Deschide \u201EAdministreaza apeluri & audio" si ataseaza manual.`);
       let _t;
       \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.canvasRef = _t.first);
     }
-  }, standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 56, vars: 26, consts: [["bgCvs", ""], [1, "details-container"], [1, "bg-canvas"], [1, "fixed-logo-wrap"], ["src", "assets/logo_final.svg", "alt", "", 1, "fixed-logo-img"], [1, "nb"], [1, "nb-inner"], ["routerLink", "/dashboard", 1, "btn-back"], ["width", "13", "height", "13", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M10 12L6 8l4-4", "stroke", "currentColor", "stroke-width", "1.4", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "nb-title-wrap"], [1, "nb-case"], [1, "nb-badge"], [1, "btn-edit", 3, "routerLink"], ["width", "12", "height", "12", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M11 2l3 3-9 9H2v-3L11 2z", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linejoin", "round"], [1, "tabs-bar"], [1, "tabs-inner"], [1, "tab-pill", 3, "click"], ["width", "11", "height", "11", "viewBox", "0 0 16 16", "fill", "none"], ["x", "2", "y", "2", "width", "12", "height", "12", "rx", "2", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M5 6h6M5 9h4", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["cx", "8", "cy", "5.5", "r", "3", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M2 15c0-2.7 2.7-4.5 6-4.5s6 1.8 6 4.5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], [1, "tab-count"], ["x", "3", "y", "1", "width", "10", "height", "14", "rx", "2", "stroke", "currentColor", "stroke-width", "1.3"], ["cx", "8", "cy", "11", "r", "1", "fill", "currentColor"], [1, "tab-pill", "tab-pill-special", 3, "click"], ["cx", "8", "cy", "6", "r", "3", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M3 14c0-2.8 2.2-5 5-5s5 2.2 5 5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["d", "M12 2l1.5 1.5L11 6", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "tab-count", "tab-count-inv"], [1, "details-content"], ["class", "tab-content", 4, "ngIf"], ["class", "modal-backdrop", 3, "click", 4, "ngIf"], ["class", "modal-backdrop modal-backdrop-wide", 3, "click", 4, "ngIf"], [1, "tab-content"], [1, "ov-card"], [1, "ov-card-top"], [1, "ov-label"], [1, "ov-title"], [1, "ov-body"], [1, "ov-card", "ov-solution"], [1, "solution-badge-sm"], [1, "sec-head"], [1, "eyebrow"], [1, "sec-title"], ["class", "btn-primary", 3, "click", 4, "ngIf"], ["class", "character-form", 4, "ngIf"], [1, "characters-grid"], ["class", "character-card", 4, "ngFor", "ngForOf"], ["class", "empty-state", 4, "ngIf"], [1, "btn-primary", 3, "click"], [1, "character-form"], [3, "formGroup"], [1, "form-row"], [1, "form-group"], ["type", "text", "formControlName", "name", "placeholder", "James Morrison"], ["formControlName", "role"], ["value", "victima"], ["value", "suspect"], ["value", "martor"], ["value", "anchetator"], ["formControlName", "description", "rows", "2", "placeholder", "Descriere fizica si personalitatea..."], ["formControlName", "backstory", "rows", "3", "placeholder", "Istoria sa si relatia cu victima..."], ["formControlName", "motive", "rows", "2", "placeholder", "De ce ar fi putut face asta..."], ["formControlName", "alibi", "rows", "2", "placeholder", "Unde spun ei ca au fost..."], [1, "form-actions"], ["type", "button", 1, "btn-secondary", 3, "click"], ["type", "button", 1, "btn-primary", 3, "click", "disabled"], [1, "character-card"], [1, "character-header"], [1, "character-role"], [1, "character-description"], [1, "character-details"], ["class", "detail", 4, "ngIf"], [1, "character-actions"], [1, "btn-icon", 3, "click"], [1, "btn-action-outline", "btn-character-photo", 3, "click"], [1, "btn-action-outline", "btn-character-pdf", 3, "click", "disabled"], ["class", "character-photo-warning", 4, "ngIf"], ["class", "character-photo-ready", 4, "ngIf"], ["type", "file", "accept", ".jpg,.jpeg,.png,.webp", 2, "display", "none", 3, "change", "id"], [1, "detail"], [1, "character-photo-warning"], [1, "character-photo-ready"], [1, "empty-state"], [1, "empty-icon"], ["d", "M8 3v10M3 8h10", "stroke", "currentColor", "stroke-width", "1.6", "stroke-linecap", "round"], [1, "inv-devices-grid"], ["class", "sus-device-card", 4, "ngFor", "ngForOf"], [1, "sus-device-card"], [1, "sus-card-top-line"], [1, "sus-owner-badge"], [1, "inv-device-icon"], [1, "inv-device-type"], [1, "inv-device-desc"], [1, "sus-card-meta"], [1, "sus-meta-pill"], ["width", "10", "height", "10", "viewBox", "0 0 16 16", "fill", "none"], ["x", "2", "y", "3", "width", "12", "height", "11", "rx", "2", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M5 3V2a3 3 0 0 1 6 0v1", "stroke", "currentColor", "stroke-width", "1.3"], ["class", "sus-upload-notice", 4, "ngIf"], ["type", "file", "style", "display:none", 3, "id", "accept", "change", 4, "ngIf"], ["type", "file", "style", "display:none", "accept", ".jpg,.jpeg,.png,.mp3,.mp4,.wav,.m4a,.ogg,.webm", 3, "id", "change", 4, "ngIf"], [1, "sus-card-actions"], [1, "btn-primary", 2, "width", "100%", 3, "routerLink"], ["d", "M8 2l6 4v4l-6 4-6-4V6l6-4z", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linejoin", "round"], [1, "btn-secondary", 2, "margin-top", "6px", "width", "100%", 3, "click"], ["x", "2", "y", "2", "width", "5", "height", "5", "rx", "1", "stroke", "currentColor", "stroke-width", "1.2"], ["x", "9", "y", "2", "width", "5", "height", "5", "rx", "1", "stroke", "currentColor", "stroke-width", "1.2"], ["x", "2", "y", "9", "width", "5", "height", "5", "rx", "1", "stroke", "currentColor", "stroke-width", "1.2"], ["x", "10", "y", "10", "width", "1.5", "height", "1.5", "fill", "currentColor"], ["x", "12.5", "y", "10", "width", "1.5", "height", "1.5", "fill", "currentColor"], ["x", "10", "y", "12.5", "width", "1.5", "height", "1.5", "fill", "currentColor"], ["x", "12.5", "y", "12.5", "width", "1.5", "height", "1.5", "fill", "currentColor"], [1, "btn-action-outline", 2, "margin-top", "6px", "width", "100%", 3, "click"], ["cx", "8", "cy", "8", "r", "2.5", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.54 11.54l1.41 1.41M3.05 12.95l1.42-1.42M11.54 4.46l1.41-1.41", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round"], [1, "btn-action-danger", 2, "margin-top", "6px", "width", "100%", 3, "click"], ["d", "M3 5h10M6 5V3h4v2M6 8v5M10 8v5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["class", "btn-action-outline", "style", "margin-top:6px;width:100%;cursor:pointer;display:flex;align-items:center;gap:6px;justify-content:center;", "title", "Incarca orice fisier media (jpg, png, mp3, mp4 etc.) mentionat in brief", 3, "for", 4, "ngIf"], ["style", "margin-top:6px;", 4, "ngIf"], [1, "sus-upload-notice"], ["d", "M8 3v7M5 6l3-3 3 3", "stroke", "currentColor", "stroke-width", "1.4", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M3 12h10", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["type", "file", 2, "display", "none", 3, "change", "id", "accept"], ["type", "file", "accept", ".jpg,.jpeg,.png,.mp3,.mp4,.wav,.m4a,.ogg,.webm", 2, "display", "none", 3, "change", "id"], ["title", "Incarca orice fisier media (jpg, png, mp3, mp4 etc.) mentionat in brief", 1, "btn-action-outline", 2, "margin-top", "6px", "width", "100%", "cursor", "pointer", "display", "flex", "align-items", "center", "gap", "6px", "justify-content", "center", 3, "for"], [2, "margin-top", "6px"], ["title", "Incarca MP3 \u2014 se atribuie automat apelului corespunzator", 1, "btn-action-audio", 2, "width", "100%", "cursor", "pointer"], ["d", "M6 2h4v9a2 2 0 1 1-4 0V2z", "stroke", "currentColor", "stroke-width", "1.2"], ["d", "M3 7h2M11 7h2", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round"], ["type", "file", "accept", ".mp3,.m4a,.ogg,.wav", 2, "display", "none", 3, "change"], [1, "btn-action-outline", 2, "margin-top", "4px", "width", "100%", "font-size", "11.5px", 3, "click"], [1, "modal-backdrop", 3, "click"], [1, "modal-panel", 3, "click"], [1, "modal-top-bar"], [1, "modal-header"], [1, "modal-eyebrow"], [1, "modal-title"], [1, "modal-close", 3, "click"], ["width", "14", "height", "14", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M3 3l10 10M13 3L3 13", "stroke", "currentColor", "stroke-width", "1.6", "stroke-linecap", "round"], ["formControlName", "deviceType"], ["value", "iPhone"], ["value", "Android"], ["value", "Laptop"], ["type", "text", "formControlName", "ownerName", "placeholder", "Ex: Elodiei Ghinescu"], [1, "info-box"], [1, "modal-actions"], ["d", "M3 8l4 4 6-6", "stroke", "currentColor", "stroke-width", "1.6", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "modal-backdrop", "modal-backdrop-wide", 3, "click"], [1, "modal-panel", "modal-panel-wide", 3, "click"], [1, "app-tabs"], [1, "app-tab-btn", 3, "click"], [1, "modal-scrollable"], ["class", "app-config-content", 4, "ngIf"], ["type", "button", 1, "btn-primary", 3, "click"], [1, "app-config-content"], ["class", "conversation-item", 4, "ngFor", "ngForOf"], [1, "conversation-item"], [1, "conv-header"], ["placeholder", "John Doe", 3, "ngModelChange", "ngModel"], ["placeholder", "\u{1F464}", 2, "width", "60px", 3, "ngModelChange", "ngModel"], [1, "messages-list"], ["class", "message-item", 4, "ngFor", "ngForOf"], [1, "btn-secondary", "btn-sm", 3, "click"], [1, "message-item"], [1, "msg-row"], ["placeholder", "Sender", 3, "ngModelChange", "ngModel"], ["placeholder", "Message content", 3, "ngModelChange", "ngModel"], ["placeholder", "10:30 AM", 3, "ngModelChange", "ngModel"], ["type", "checkbox", 3, "ngModelChange", "ngModel"], ["class", "photo-item", 4, "ngFor", "ngForOf"], [1, "photo-item"], [1, "form-group", 2, "flex", "2"], ["placeholder", "https://example.com/photo.jpg", 3, "ngModelChange", "ngModel"], [1, "form-group", 2, "flex", "1"], ["placeholder", "Crime scene", 3, "ngModelChange", "ngModel"], [1, "btn-icon", 2, "margin-top", "28px", 3, "click"], ["class", "email-item", 4, "ngFor", "ngForOf"], [1, "email-item"], ["placeholder", "detective@police.com", 3, "ngModelChange", "ngModel"], ["placeholder", "Urgent Investigation", 3, "ngModelChange", "ngModel"], ["rows", "2", "placeholder", "Email content preview...", 3, "ngModelChange", "ngModel"], ["class", "note-item", 4, "ngFor", "ngForOf"], [1, "note-item"], ["placeholder", "Important Note", 3, "ngModelChange", "ngModel"], ["rows", "3", "placeholder", "Note content...", 3, "ngModelChange", "ngModel"], ["placeholder", "Oct 20", 3, "ngModelChange", "ngModel"], ["placeholder", "Raport_autopsie.docx", 3, "ngModelChange", "ngModel"], [3, "ngModelChange", "ngModel"], ["value", "Document"], ["value", "Encrypted"], ["value", "Folder"], ["value", "Image"], ["value", "Screenshot"], ["value", ""], ["value", "docx"], ["value", "pdf"], ["value", "xlsx"], ["value", "txt"], ["value", "csv"], ["placeholder", "128 KB", 3, "ngModelChange", "ngModel"], ["placeholder", "18.04.2026 09:42", 3, "ngModelChange", "ngModel"], ["placeholder", "Scurt context pentru fisier", 3, "ngModelChange", "ngModel"], ["rows", "3", "placeholder", "Continut preview pentru document...", 3, "ngModelChange", "ngModel"], ["rows", "3", "placeholder", '[{"ColoanaA":"Valoare","Suma":120}]', 3, "ngModelChange", "ngModel"], [1, "btn-icon", 2, "margin-top", "4px", 3, "click"], [1, "calls-info-box"], ["cx", "8", "cy", "8", "r", "6", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M8 5v3.5M8 11h.01", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["class", "call-item", 4, "ngFor", "ngForOf"], [1, "call-item"], [1, "call-item-header"], [1, "call-item-num"], ["value", "Primit"], ["value", "Efectuat"], ["value", "Pierdut"], ["placeholder", "Sorina Cioaca sau 0756-***-***", 3, "ngModelChange", "ngModel"], ["placeholder", "21.10.2007", 3, "ngModelChange", "ngModel"], ["placeholder", "17:02", 3, "ngModelChange", "ngModel"], ["placeholder", "4 min 51 sec sau \u2014", 3, "ngModelChange", "ngModel"], [1, "call-audio-row"], [1, "call-audio-label"], ["class", "call-audio-upload", 4, "ngIf"], ["class", "call-audio-ready", 4, "ngIf"], [1, "call-audio-upload"], ["class", "call-audio-filename", 4, "ngIf"], ["class", "call-audio-filename call-audio-empty", 4, "ngIf"], [1, "btn-audio-pick"], [1, "call-audio-filename"], [1, "call-audio-filename", "call-audio-empty"], [1, "call-audio-ready"], ["d", "M3 8l4 4 6-6", "stroke", "currentColor", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["title", "Sterge audio", 1, "call-audio-remove", 3, "click"], [1, "eyebrow", 2, "color", "#8b1a1a"], [2, "font-size", "13.5px", "color", "var(--ink2)", "font-style", "italic", "margin-bottom", "24px", "line-height", "1.7"], ["class", "inv-device-card", 4, "ngFor", "ngForOf"], [1, "inv-device-card"], [1, "inv-card-top-line"], [1, "inv-badge"], [4, "ngIf"], [1, "inv-device-actions"]], template: function GameDetailsComponent_Template(rf, ctx) {
+  }, standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 56, vars: 26, consts: [["bgCvs", ""], [1, "details-container"], [1, "bg-canvas"], [1, "fixed-logo-wrap"], ["src", "assets/logo_final.svg", "alt", "", 1, "fixed-logo-img"], [1, "nb"], [1, "nb-inner"], ["routerLink", "/dashboard", 1, "btn-back"], ["width", "13", "height", "13", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M10 12L6 8l4-4", "stroke", "currentColor", "stroke-width", "1.4", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "nb-title-wrap"], [1, "nb-case"], [1, "nb-badge"], [1, "btn-edit", 3, "routerLink"], ["width", "12", "height", "12", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M11 2l3 3-9 9H2v-3L11 2z", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linejoin", "round"], [1, "tabs-bar"], [1, "tabs-inner"], [1, "tab-pill", 3, "click"], ["width", "11", "height", "11", "viewBox", "0 0 16 16", "fill", "none"], ["x", "2", "y", "2", "width", "12", "height", "12", "rx", "2", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M5 6h6M5 9h4", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["cx", "8", "cy", "5.5", "r", "3", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M2 15c0-2.7 2.7-4.5 6-4.5s6 1.8 6 4.5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], [1, "tab-count"], ["x", "3", "y", "1", "width", "10", "height", "14", "rx", "2", "stroke", "currentColor", "stroke-width", "1.3"], ["cx", "8", "cy", "11", "r", "1", "fill", "currentColor"], [1, "tab-pill", "tab-pill-special", 3, "click"], ["cx", "8", "cy", "6", "r", "3", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M3 14c0-2.8 2.2-5 5-5s5 2.2 5 5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["d", "M12 2l1.5 1.5L11 6", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "tab-count", "tab-count-inv"], [1, "details-content"], ["class", "tab-content", 4, "ngIf"], ["class", "modal-backdrop", 3, "click", 4, "ngIf"], ["class", "modal-backdrop modal-backdrop-wide", 3, "click", 4, "ngIf"], [1, "tab-content"], [1, "ov-card"], [1, "ov-card-top"], [1, "ov-label"], [1, "ov-title"], [1, "ov-body"], [1, "ov-card", "ov-solution"], [1, "solution-badge-sm"], [1, "sec-head"], [1, "eyebrow"], [1, "sec-title"], ["class", "btn-primary", 3, "click", 4, "ngIf"], ["class", "character-form", 4, "ngIf"], [1, "characters-grid"], ["class", "character-card", 4, "ngFor", "ngForOf"], ["class", "empty-state", 4, "ngIf"], [1, "btn-primary", 3, "click"], [1, "character-form"], [3, "formGroup"], [1, "form-row"], [1, "form-group"], ["type", "text", "formControlName", "name", "placeholder", "James Morrison"], ["formControlName", "role"], ["value", "victima"], ["value", "suspect"], ["value", "martor"], ["value", "anchetator"], ["formControlName", "description", "rows", "2", "placeholder", "Descriere fizica si personalitatea..."], ["formControlName", "backstory", "rows", "3", "placeholder", "Istoria sa si relatia cu victima..."], ["formControlName", "motive", "rows", "2", "placeholder", "De ce ar fi putut face asta..."], ["formControlName", "alibi", "rows", "2", "placeholder", "Unde spun ei ca au fost..."], [1, "form-actions"], ["type", "button", 1, "btn-secondary", 3, "click"], ["type", "button", 1, "btn-primary", 3, "click", "disabled"], [1, "character-card"], [1, "character-header"], [1, "character-role"], [1, "character-description"], [1, "character-details"], ["class", "detail", 4, "ngIf"], [1, "character-actions"], [1, "btn-icon", 3, "click"], [1, "btn-action-outline", "btn-character-photo", 3, "click"], [1, "btn-action-outline", "btn-character-pdf", 3, "click", "disabled"], ["class", "character-photo-warning", 4, "ngIf"], ["class", "character-photo-ready", 4, "ngIf"], ["type", "file", "accept", ".jpg,.jpeg,.png,.webp", 2, "display", "none", 3, "change", "id"], [1, "detail"], [1, "character-photo-warning"], [1, "character-photo-ready"], [1, "empty-state"], [1, "empty-icon"], ["d", "M8 3v10M3 8h10", "stroke", "currentColor", "stroke-width", "1.6", "stroke-linecap", "round"], [1, "inv-devices-grid"], ["class", "sus-device-card", 4, "ngFor", "ngForOf"], [1, "sus-device-card"], [1, "sus-card-top-line"], [1, "sus-owner-badge"], [1, "inv-device-icon"], [1, "inv-device-type"], [1, "inv-device-desc"], [1, "sus-card-meta"], [1, "sus-meta-pill"], ["width", "10", "height", "10", "viewBox", "0 0 16 16", "fill", "none"], ["x", "2", "y", "3", "width", "12", "height", "11", "rx", "2", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M5 3V2a3 3 0 0 1 6 0v1", "stroke", "currentColor", "stroke-width", "1.3"], ["class", "sus-upload-notice", 4, "ngIf"], ["type", "file", "style", "display:none", 3, "id", "accept", "change", 4, "ngIf"], ["type", "file", "style", "display:none", "accept", ".jpg,.jpeg,.png,.mp3,.mp4,.wav,.m4a,.ogg,.webm", 3, "id", "change", 4, "ngIf"], [1, "sus-card-actions"], [1, "btn-primary", 2, "width", "100%", 3, "routerLink"], ["d", "M8 2l6 4v4l-6 4-6-4V6l6-4z", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linejoin", "round"], [1, "btn-secondary", 2, "margin-top", "6px", "width", "100%", 3, "click"], ["x", "2", "y", "2", "width", "5", "height", "5", "rx", "1", "stroke", "currentColor", "stroke-width", "1.2"], ["x", "9", "y", "2", "width", "5", "height", "5", "rx", "1", "stroke", "currentColor", "stroke-width", "1.2"], ["x", "2", "y", "9", "width", "5", "height", "5", "rx", "1", "stroke", "currentColor", "stroke-width", "1.2"], ["x", "10", "y", "10", "width", "1.5", "height", "1.5", "fill", "currentColor"], ["x", "12.5", "y", "10", "width", "1.5", "height", "1.5", "fill", "currentColor"], ["x", "10", "y", "12.5", "width", "1.5", "height", "1.5", "fill", "currentColor"], ["x", "12.5", "y", "12.5", "width", "1.5", "height", "1.5", "fill", "currentColor"], [1, "btn-action-outline", 2, "margin-top", "6px", "width", "100%", 3, "click"], ["cx", "8", "cy", "8", "r", "2.5", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.54 11.54l1.41 1.41M3.05 12.95l1.42-1.42M11.54 4.46l1.41-1.41", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round"], [1, "btn-action-danger", 2, "margin-top", "6px", "width", "100%", 3, "click"], ["d", "M3 5h10M6 5V3h4v2M6 8v5M10 8v5", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["class", "btn-action-outline", "style", "margin-top:6px;width:100%;cursor:pointer;display:flex;align-items:center;gap:6px;justify-content:center;", "title", "Incarca orice fisier media (jpg, png, mp3, mp4 etc.) mentionat in brief", 3, "for", 4, "ngIf"], ["style", "margin-top:6px;", 4, "ngIf"], [1, "sus-upload-notice"], ["d", "M8 3v7M5 6l3-3 3 3", "stroke", "currentColor", "stroke-width", "1.4", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M3 12h10", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["type", "file", 2, "display", "none", 3, "change", "id", "accept"], ["type", "file", "accept", ".jpg,.jpeg,.png,.mp3,.mp4,.wav,.m4a,.ogg,.webm", 2, "display", "none", 3, "change", "id"], ["title", "Incarca orice fisier media (jpg, png, mp3, mp4 etc.) mentionat in brief", 1, "btn-action-outline", 2, "margin-top", "6px", "width", "100%", "cursor", "pointer", "display", "flex", "align-items", "center", "gap", "6px", "justify-content", "center", 3, "for"], [2, "margin-top", "6px"], ["title", "Incarca MP3 \u2014 se atribuie automat apelului corespunzator", 1, "btn-action-audio", 2, "width", "100%", "cursor", "pointer"], ["d", "M6 2h4v9a2 2 0 1 1-4 0V2z", "stroke", "currentColor", "stroke-width", "1.2"], ["d", "M3 7h2M11 7h2", "stroke", "currentColor", "stroke-width", "1.2", "stroke-linecap", "round"], ["type", "file", "accept", ".mp3,.m4a,.ogg,.wav", 2, "display", "none", 3, "change"], [1, "btn-action-outline", 2, "margin-top", "4px", "width", "100%", "font-size", "11.5px", 3, "click"], [1, "modal-backdrop", 3, "click"], [1, "modal-panel", 3, "click"], [1, "modal-top-bar"], [1, "modal-header"], [1, "modal-eyebrow"], [1, "modal-title"], [1, "modal-close", 3, "click"], ["width", "14", "height", "14", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M3 3l10 10M13 3L3 13", "stroke", "currentColor", "stroke-width", "1.6", "stroke-linecap", "round"], ["formControlName", "deviceType"], ["value", "iPhone"], ["value", "Android"], ["value", "Laptop"], ["type", "text", "formControlName", "ownerName", "placeholder", "Ex: Elodiei Ghinescu"], [1, "info-box"], [1, "modal-actions"], ["d", "M3 8l4 4 6-6", "stroke", "currentColor", "stroke-width", "1.6", "stroke-linecap", "round", "stroke-linejoin", "round"], [1, "modal-backdrop", "modal-backdrop-wide", 3, "click"], [1, "modal-panel", "modal-panel-wide", 3, "click"], [1, "app-tabs"], [1, "app-tab-btn", 3, "click"], [1, "modal-scrollable"], ["class", "app-config-content", 4, "ngIf"], ["type", "button", 1, "btn-primary", 3, "click"], [1, "app-config-content"], ["class", "conversation-item", 4, "ngFor", "ngForOf"], [1, "conversation-item"], [1, "conv-header"], ["placeholder", "John Doe", 3, "ngModelChange", "ngModel"], ["placeholder", "\u{1F464}", 2, "width", "60px", 3, "ngModelChange", "ngModel"], [1, "messages-list"], ["class", "message-item", 4, "ngFor", "ngForOf"], [1, "btn-secondary", "btn-sm", 3, "click"], [1, "message-item"], [1, "msg-row"], ["placeholder", "Sender", 3, "ngModelChange", "ngModel"], ["placeholder", "Message content", 3, "ngModelChange", "ngModel"], ["placeholder", "10:30 AM", 3, "ngModelChange", "ngModel"], ["type", "checkbox", 3, "ngModelChange", "ngModel"], ["class", "photo-item", 4, "ngFor", "ngForOf"], [1, "photo-item"], [1, "form-row", 2, "align-items", "flex-end", "gap", "8px"], [1, "form-group", 2, "flex", "2"], ["placeholder", "https://... sau lasa gol daca incarci fisier", 3, "ngModelChange", "ngModel"], [1, "form-group", 2, "flex", "1"], ["placeholder", "Crime scene", 3, "ngModelChange", "ngModel"], [1, "form-group", 2, "flex", "0 0 auto"], [2, "font-size", "11px", "color", "var(--ink2)"], ["title", "Incarca imagine (jpg/png)", 1, "btn-photo-upload-inline"], ["type", "file", "accept", ".jpg,.jpeg,.png,.webp", 2, "display", "none", 3, "change"], [1, "btn-icon", 2, "margin-bottom", "4px", 3, "click"], ["style", "margin-bottom:8px", 4, "ngIf"], [2, "margin-bottom", "8px"], [2, "max-height", "80px", "border-radius", "6px", "border", "1px solid #ddd", 3, "src", "alt"], [2, "font-size", "11px", "color", "var(--ink2)", "margin-left", "8px"], ["class", "email-item", 4, "ngFor", "ngForOf"], [1, "email-item"], ["placeholder", "detective@police.com", 3, "ngModelChange", "ngModel"], ["placeholder", "Urgent Investigation", 3, "ngModelChange", "ngModel"], ["rows", "2", "placeholder", "Email content preview...", 3, "ngModelChange", "ngModel"], [1, "btn-icon", 2, "margin-top", "28px", 3, "click"], ["class", "note-item", 4, "ngFor", "ngForOf"], [1, "note-item"], ["placeholder", "Important Note", 3, "ngModelChange", "ngModel"], ["rows", "3", "placeholder", "Note content...", 3, "ngModelChange", "ngModel"], ["placeholder", "Oct 20", 3, "ngModelChange", "ngModel"], ["placeholder", "Raport_autopsie.docx", 3, "ngModelChange", "ngModel"], [3, "ngModelChange", "ngModel"], ["value", "Document"], ["value", "Encrypted"], ["value", "Folder"], ["value", "Image"], ["value", "Screenshot"], ["value", ""], ["value", "docx"], ["value", "pdf"], ["value", "xlsx"], ["value", "txt"], ["value", "csv"], ["placeholder", "128 KB", 3, "ngModelChange", "ngModel"], ["placeholder", "18.04.2026 09:42", 3, "ngModelChange", "ngModel"], ["placeholder", "Scurt context pentru fisier", 3, "ngModelChange", "ngModel"], ["rows", "3", "placeholder", "Continut preview pentru document...", 3, "ngModelChange", "ngModel"], ["rows", "3", "placeholder", '[{"ColoanaA":"Valoare","Suma":120}]', 3, "ngModelChange", "ngModel"], [1, "btn-icon", 2, "margin-top", "4px", 3, "click"], [1, "calls-info-box"], ["cx", "8", "cy", "8", "r", "6", "stroke", "currentColor", "stroke-width", "1.3"], ["d", "M8 5v3.5M8 11h.01", "stroke", "currentColor", "stroke-width", "1.3", "stroke-linecap", "round"], ["class", "call-item", 4, "ngFor", "ngForOf"], [1, "call-item"], [1, "call-item-header"], [1, "call-item-num"], ["value", "Primit"], ["value", "Efectuat"], ["value", "Pierdut"], ["placeholder", "Sorina Cioaca sau 0756-***-***", 3, "ngModelChange", "ngModel"], ["placeholder", "21.10.2007", 3, "ngModelChange", "ngModel"], ["placeholder", "17:02", 3, "ngModelChange", "ngModel"], ["placeholder", "4 min 51 sec sau \u2014", 3, "ngModelChange", "ngModel"], [1, "call-audio-row"], [1, "call-audio-label"], ["class", "call-audio-upload", 4, "ngIf"], ["class", "call-audio-ready", 4, "ngIf"], [1, "call-audio-upload"], ["class", "call-audio-filename", 4, "ngIf"], ["class", "call-audio-filename call-audio-empty", 4, "ngIf"], [1, "btn-audio-pick"], [1, "call-audio-filename"], [1, "call-audio-filename", "call-audio-empty"], [1, "call-audio-ready"], ["d", "M3 8l4 4 6-6", "stroke", "currentColor", "stroke-width", "1.5", "stroke-linecap", "round", "stroke-linejoin", "round"], ["title", "Sterge audio", 1, "call-audio-remove", 3, "click"], [1, "eyebrow", 2, "color", "#8b1a1a"], [2, "font-size", "13.5px", "color", "var(--ink2)", "font-style", "italic", "margin-bottom", "24px", "line-height", "1.7"], ["class", "inv-device-card", 4, "ngFor", "ngForOf"], [1, "inv-device-card"], [1, "inv-card-top-line"], [1, "inv-badge"], [4, "ngIf"], [1, "inv-device-actions"]], template: function GameDetailsComponent_Template(rf, ctx) {
     if (rf & 1) {
       const _r1 = \u0275\u0275getCurrentView();
       \u0275\u0275elementStart(0, "div", 1);
@@ -8373,10 +8420,10 @@ Deschide \u201EAdministreaza apeluri & audio" si ataseaza manual.`);
       \u0275\u0275advance();
       \u0275\u0275property("ngIf", ctx.activeTab === "investigator");
     }
-  }, dependencies: [CommonModule, NgForOf, NgIf, RouterModule, RouterLink, ReactiveFormsModule, \u0275NgNoValidate, NgSelectOption, \u0275NgSelectMultipleOption, DefaultValueAccessor, CheckboxControlValueAccessor, SelectControlValueAccessor, NgControlStatus, NgControlStatusGroup, FormGroupDirective, FormControlName, FormsModule, NgModel], styles: ['\n\n[_nghost-%COMP%] {\n  display: block;\n}\n*[_ngcontent-%COMP%] {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n.details-container[_ngcontent-%COMP%] {\n  --bg:#fcfaf7;\n  --surface:#fff;\n  --border:rgba(0,0,0,0.07);\n  --border-md:rgba(0,0,0,0.11);\n  --amber:#d43f33;\n  --amber-l:rgba(212,63,51,0.07);\n  --navy:#1a1a1a;\n  --navy-l:rgba(26,26,26,0.06);\n  --ink:#1a1a1a;\n  --ink2:rgba(26,22,16,0.62);\n  --ink3:rgba(26,22,16,0.40);\n  --green:#4a7a56;\n  --red:#9b2020;\n  --crimson:#8b1a1a;\n  --crimson-l:rgba(139,26,26,0.08);\n  min-height: 100vh;\n  background: var(--bg);\n  font-family: "Public Sans", sans-serif;\n  color: var(--ink);\n}\n.bg-canvas[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 0;\n  pointer-events: none;\n}\n.fixed-logo-wrap[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  pointer-events: none;\n  z-index: 500;\n  mix-blend-mode: screen;\n}\n.fixed-logo-img[_ngcontent-%COMP%] {\n  width: min(85vw, 85vh);\n  height: min(85vw, 85vh);\n  object-fit: contain;\n  filter: invert(1);\n  opacity: 0.12;\n  animation: _ngcontent-%COMP%_logoBreath 8s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_logoBreath {\n  0%, 100% {\n    opacity: 0.1;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.16;\n    transform: scale(1.015);\n  }\n}\n.nb[_ngcontent-%COMP%] {\n  position: sticky;\n  top: 0;\n  z-index: 100;\n  height: 54px;\n  background: rgba(252, 250, 247, 0.88);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  border-bottom: 1px solid var(--border-md);\n}\n.nb-inner[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 24px;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  position: relative;\n  z-index: 1;\n}\n.btn-back[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 32px;\n  padding: 0 12px;\n  border: 1px solid var(--border-md);\n  border-radius: 7px;\n  background: transparent;\n  color: var(--ink);\n  font-size: 12.5px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition: border-color 0.2s;\n  flex-shrink: 0;\n}\n.btn-back[_ngcontent-%COMP%]:hover {\n  border-color: rgba(0, 0, 0, 0.25);\n  color: var(--ink);\n}\n.btn-edit[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 32px;\n  padding: 0 12px;\n  border: 1px solid rgba(28, 43, 74, 0.35);\n  border-radius: 7px;\n  background: transparent;\n  color: var(--navy);\n  font-size: 12.5px;\n  font-weight: 600;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition: background 0.2s;\n  margin-left: auto;\n  flex-shrink: 0;\n}\n.btn-edit[_ngcontent-%COMP%]:hover {\n  background: var(--navy-l);\n}\n.nb-title-wrap[_ngcontent-%COMP%] {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  justify-content: center;\n}\n.nb-case[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 15px;\n  font-weight: 700;\n  color: var(--ink);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  max-width: 400px;\n}\n.nb-badge[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 8.5px;\n  letter-spacing: 1.5px;\n  text-transform: uppercase;\n  padding: 2px 8px;\n  border-radius: 4px;\n  flex-shrink: 0;\n  font-weight: 600;\n}\n.badge-pub[_ngcontent-%COMP%] {\n  background: rgba(74, 122, 86, 0.12);\n  color: var(--green);\n  border: 1px solid rgba(74, 122, 86, 0.4);\n}\n.badge-draft[_ngcontent-%COMP%] {\n  background: rgba(184, 114, 8, 0.1);\n  color: var(--amber);\n  border: 1px solid rgba(184, 114, 8, 0.35);\n}\n.tabs-bar[_ngcontent-%COMP%] {\n  background: rgba(245, 242, 236, 0.7);\n  border-bottom: 1px solid var(--border);\n  position: sticky;\n  top: 54px;\n  z-index: 90;\n  backdrop-filter: blur(12px);\n}\n.tabs-inner[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  gap: 4px;\n  height: 46px;\n  align-items: center;\n  position: relative;\n  z-index: 1;\n}\n.tab-pill[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 6px;\n  height: 32px;\n  padding: 0 14px;\n  border-radius: 20px;\n  border: 1px solid transparent;\n  background: transparent;\n  font-size: 12.5px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  color: var(--ink2);\n  cursor: pointer;\n  transition:\n    background 0.2s,\n    border-color 0.2s,\n    color 0.2s;\n}\n.tab-pill[_ngcontent-%COMP%]:hover {\n  background: var(--amber-l);\n  color: var(--amber);\n}\n.tab-active[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border-color: var(--border-md);\n  color: var(--ink);\n  font-weight: 600;\n  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);\n}\n.tab-pill-special[_ngcontent-%COMP%]:hover {\n  background: var(--crimson-l);\n  color: var(--crimson);\n}\n.tab-pill-special.tab-active[_ngcontent-%COMP%] {\n  border-color: rgba(139, 26, 26, 0.3);\n}\n.tab-count[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9.5px;\n  font-weight: 600;\n  color: var(--amber);\n  background: rgba(184, 114, 8, 0.12);\n  border-radius: 10px;\n  padding: 1px 6px;\n}\n.tab-count-inv[_ngcontent-%COMP%] {\n  color: var(--crimson);\n  background: rgba(139, 26, 26, 0.12);\n}\n.inv-devices-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));\n  gap: 20px;\n}\n.inv-device-card[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border: 1px solid rgba(139, 26, 26, 0.18);\n  border-radius: 14px;\n  padding: 28px 24px 20px;\n  position: relative;\n  overflow: hidden;\n  text-align: center;\n  transition: box-shadow 0.25s, transform 0.25s;\n}\n.inv-device-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-3px);\n  box-shadow: 0 8px 32px rgba(139, 26, 26, 0.12);\n}\n.inv-card-top-line[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(139, 26, 26, 0.6),\n      transparent);\n}\n.inv-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 14px;\n  right: 14px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 8px;\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  font-weight: 700;\n  color: rgba(139, 26, 26, 0.75);\n  border: 1px solid rgba(139, 26, 26, 0.35);\n  padding: 2px 8px;\n  border-radius: 4px;\n}\n.inv-device-icon[_ngcontent-%COMP%] {\n  font-size: 48px;\n  margin-bottom: 14px;\n  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.12));\n}\n.inv-device-type[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 20px;\n  font-weight: 700;\n  color: var(--ink);\n  margin-bottom: 8px;\n}\n.inv-device-desc[_ngcontent-%COMP%] {\n  font-size: 12.5px;\n  color: var(--ink2);\n  line-height: 1.6;\n  font-style: italic;\n  margin-bottom: 14px;\n  min-height: 38px;\n}\n.inv-device-actions[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0;\n}\n.sus-device-card[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border: 1px solid var(--border-md);\n  border-radius: 14px;\n  padding: 28px 24px 20px;\n  position: relative;\n  overflow: hidden;\n  text-align: center;\n  transition: box-shadow 0.25s, transform 0.25s;\n}\n.sus-device-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-3px);\n  box-shadow: 0 8px 32px rgba(28, 43, 74, 0.1);\n}\n.sus-card-top-line[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(28, 43, 74, 0.5),\n      transparent);\n}\n.sus-owner-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 14px;\n  right: 14px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 8px;\n  letter-spacing: 1.5px;\n  text-transform: uppercase;\n  font-weight: 700;\n  color: var(--amber);\n  border: 1px solid rgba(184, 114, 8, 0.4);\n  padding: 2px 8px;\n  border-radius: 4px;\n  max-width: 120px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.sus-card-meta[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 6px;\n  justify-content: center;\n  flex-wrap: wrap;\n  margin-bottom: 16px;\n}\n.sus-meta-pill[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 4px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9.5px;\n  color: var(--ink3);\n  background: rgba(0, 0, 0, 0.04);\n  border: 1px solid var(--border);\n  border-radius: 20px;\n  padding: 2px 8px;\n}\n.sus-upload-notice[_ngcontent-%COMP%] {\n  font-size: 11.5px;\n  color: var(--amber);\n  background: var(--amber-l);\n  border: 1px solid rgba(184, 114, 8, 0.2);\n  border-radius: 6px;\n  padding: 6px 10px;\n  display: flex;\n  align-items: flex-start;\n  gap: 5px;\n  margin-bottom: 12px;\n  text-align: left;\n  line-height: 1.5;\n}\n.sus-card-actions[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0;\n}\n.btn-action-outline[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 6px;\n  height: 34px;\n  padding: 0 14px;\n  border: 1px solid var(--border-md);\n  border-radius: 7px;\n  background: transparent;\n  color: var(--ink);\n  font-size: 12.5px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition:\n    border-color 0.2s,\n    background 0.2s,\n    color 0.2s;\n}\n.btn-action-outline[_ngcontent-%COMP%]:hover {\n  border-color: rgba(28, 43, 74, 0.4);\n  background: var(--navy-l);\n  color: var(--navy);\n}\n.btn-action-danger[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 6px;\n  height: 34px;\n  padding: 0 14px;\n  border: 1px solid rgba(155, 32, 32, 0.25);\n  border-radius: 7px;\n  background: transparent;\n  color: var(--red);\n  font-size: 12.5px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition: border-color 0.2s, background 0.2s;\n}\n.btn-action-danger[_ngcontent-%COMP%]:hover {\n  border-color: rgba(155, 32, 32, 0.5);\n  background: rgba(155, 32, 32, 0.06);\n}\n.modal-backdrop[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 400;\n  background: rgba(26, 22, 16, 0.55);\n  backdrop-filter: blur(6px);\n  -webkit-backdrop-filter: blur(6px);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 24px;\n  animation: _ngcontent-%COMP%_fadeBackdrop 0.22s ease both;\n}\n@keyframes _ngcontent-%COMP%_fadeBackdrop {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.modal-panel[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border-radius: 16px;\n  width: 100%;\n  max-width: 560px;\n  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);\n  position: relative;\n  overflow: hidden;\n  animation: _ngcontent-%COMP%_slideUp 0.28s cubic-bezier(0.22, 0.8, 0.36, 1) both;\n}\n.modal-panel-wide[_ngcontent-%COMP%] {\n  max-width: 860px;\n}\n@keyframes _ngcontent-%COMP%_slideUp {\n  from {\n    opacity: 0;\n    transform: translateY(28px) scale(0.97);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0) scale(1);\n  }\n}\n.modal-top-bar[_ngcontent-%COMP%] {\n  height: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(28, 43, 74, 0.55),\n      transparent);\n}\n.modal-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  padding: 22px 26px 18px;\n}\n.modal-eyebrow[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9px;\n  letter-spacing: 2.5px;\n  text-transform: uppercase;\n  color: var(--amber);\n  font-weight: 600;\n  margin-bottom: 4px;\n}\n.modal-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 20px;\n  font-weight: 700;\n  color: var(--ink);\n}\n.modal-close[_ngcontent-%COMP%] {\n  width: 32px;\n  height: 32px;\n  border: 1px solid var(--border-md);\n  border-radius: 8px;\n  background: transparent;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--ink2);\n  transition: background 0.15s, border-color 0.15s;\n  flex-shrink: 0;\n}\n.modal-close[_ngcontent-%COMP%]:hover {\n  background: rgba(0, 0, 0, 0.05);\n  border-color: rgba(0, 0, 0, 0.2);\n}\n.modal-panel[_ngcontent-%COMP%]   form[_ngcontent-%COMP%], \n.modal-panel[_ngcontent-%COMP%]   .app-tabs[_ngcontent-%COMP%], \n.modal-panel[_ngcontent-%COMP%]   .modal-scrollable[_ngcontent-%COMP%] {\n  padding: 0 26px;\n}\n.modal-scrollable[_ngcontent-%COMP%] {\n  max-height: 60vh;\n  overflow-y: auto;\n  padding-right: 18px;\n  scrollbar-width: thin;\n  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;\n}\n.modal-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 10px;\n  justify-content: flex-end;\n  padding: 16px 26px 22px;\n  border-top: 1px solid var(--border);\n  margin-top: 4px;\n}\n.calls-info-box[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: 7px;\n  background: rgba(26, 26, 26, 0.06);\n  border: 1px solid rgba(28, 43, 74, 0.14);\n  border-radius: 8px;\n  padding: 10px 13px;\n  font-size: 12.5px;\n  color: var(--ink2);\n  line-height: 1.55;\n  margin-bottom: 16px;\n}\n.calls-info-box[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: var(--navy);\n}\n.call-item[_ngcontent-%COMP%] {\n  background: rgba(245, 242, 236, 0.5);\n  border: 1px solid var(--border);\n  border-radius: 10px;\n  padding: 14px;\n  margin-bottom: 12px;\n}\n.call-item-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 12px;\n}\n.call-item-num[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9.5px;\n  letter-spacing: 1px;\n  text-transform: uppercase;\n  color: var(--ink3);\n  font-weight: 600;\n}\n.call-audio-row[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border: 1px dashed var(--border-md);\n  border-radius: 8px;\n  padding: 10px 12px;\n  margin-bottom: 12px;\n}\n.call-audio-label[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9.5px;\n  letter-spacing: 0.8px;\n  text-transform: uppercase;\n  color: var(--amber);\n  font-weight: 600;\n  margin-bottom: 8px;\n}\n.call-audio-upload[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.call-audio-filename[_ngcontent-%COMP%] {\n  font-size: 12.5px;\n  color: var(--ink2);\n  flex: 1;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.call-audio-empty[_ngcontent-%COMP%] {\n  font-style: italic;\n  color: var(--ink3);\n}\n.btn-audio-pick[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 28px;\n  padding: 0 12px;\n  border: 1px solid rgba(184, 114, 8, 0.4);\n  border-radius: 6px;\n  background: var(--amber-l);\n  color: var(--amber);\n  font-size: 11.5px;\n  font-weight: 600;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition: background 0.15s;\n  flex-shrink: 0;\n}\n.btn-audio-pick[_ngcontent-%COMP%]:hover {\n  background: rgba(184, 114, 8, 0.15);\n}\n.call-audio-ready[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 12.5px;\n  color: var(--green);\n}\n.call-audio-remove[_ngcontent-%COMP%] {\n  width: 20px;\n  height: 20px;\n  border: none;\n  background: transparent;\n  cursor: pointer;\n  font-size: 14px;\n  color: var(--ink3);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-left: auto;\n}\n.btn-action-audio[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 6px;\n  height: 34px;\n  padding: 0 14px;\n  border: 1px solid rgba(74, 122, 86, 0.35);\n  border-radius: 7px;\n  background: transparent;\n  color: var(--green);\n  font-size: 12.5px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition: border-color 0.2s, background 0.2s;\n}\n.btn-action-audio[_ngcontent-%COMP%]:hover {\n  border-color: rgba(74, 122, 86, 0.6);\n  background: rgba(74, 122, 86, 0.07);\n}\n.details-content[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 32px 24px 60px;\n  position: relative;\n  z-index: 1;\n}\n.tab-content[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeUp 0.35s ease both;\n}\n@keyframes _ngcontent-%COMP%_fadeUp {\n  from {\n    opacity: 0;\n    transform: translateY(10px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.eyebrow[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  letter-spacing: 3px;\n  text-transform: uppercase;\n  color: var(--amber);\n  margin-bottom: 4px;\n  font-weight: 600;\n}\n.ov-card[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border: 1px solid var(--border);\n  border-radius: 12px;\n  padding: 28px;\n  margin-bottom: 16px;\n  position: relative;\n  overflow: hidden;\n}\n.ov-card-top[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(184, 114, 8, 0.45),\n      transparent);\n}\n.ov-solution[_ngcontent-%COMP%]   .ov-card-top[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(155, 32, 32, 0.45),\n      transparent);\n}\n.ov-solution[_ngcontent-%COMP%] {\n  border-color: rgba(155, 32, 32, 0.15);\n}\n.solution-badge-sm[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 14px;\n  right: 16px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 8px;\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  font-weight: 600;\n  color: rgba(155, 32, 32, 0.65);\n  border: 1px solid rgba(155, 32, 32, 0.3);\n  padding: 2px 7px;\n  border-radius: 3px;\n}\n.ov-label[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9px;\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  color: var(--ink3);\n  margin-bottom: 6px;\n  font-weight: 600;\n}\n.ov-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 20px;\n  font-weight: 700;\n  color: var(--ink);\n  margin-bottom: 14px;\n}\n.ov-body[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: var(--ink2);\n  line-height: 1.75;\n  font-family: "Public Sans", sans-serif;\n  font-style: italic;\n  white-space: pre-wrap;\n}\n.sec-head[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-end;\n  justify-content: space-between;\n  margin-bottom: 22px;\n}\n.sec-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 24px;\n  font-weight: 700;\n  color: var(--ink);\n}\n.characters-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 14px;\n}\n.character-card[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border: 1px solid var(--border);\n  border-radius: 12px;\n  padding: 20px;\n  position: relative;\n  overflow: hidden;\n  transition: box-shadow 0.2s, border-color 0.2s;\n}\n.character-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);\n  border-color: rgba(184, 114, 8, 0.3);\n}\n.character-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(184, 114, 8, 0.4),\n      transparent);\n}\n.character-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 8px;\n}\n.character-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 16px;\n  font-weight: 700;\n  color: var(--ink);\n}\n.character-role[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9px;\n  letter-spacing: 1.5px;\n  text-transform: uppercase;\n  font-weight: 700;\n  background: rgba(184, 114, 8, 0.12);\n  color: var(--amber);\n  border: 1px solid rgba(184, 114, 8, 0.3);\n  padding: 2px 8px;\n  border-radius: 4px;\n}\n.character-description[_ngcontent-%COMP%] {\n  font-size: 13.5px;\n  color: var(--ink2);\n  line-height: 1.6;\n  margin-bottom: 12px;\n  font-style: italic;\n}\n.character-details[_ngcontent-%COMP%] {\n  margin-bottom: 12px;\n}\n.detail[_ngcontent-%COMP%] {\n  font-size: 13px;\n  color: var(--ink2);\n  margin-bottom: 5px;\n  line-height: 1.55;\n}\n.detail[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: var(--ink);\n  font-weight: 600;\n}\n.character-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 6px;\n  padding-top: 12px;\n  border-top: 1px solid var(--border);\n}\n.btn-character-photo[_ngcontent-%COMP%], \n.btn-character-pdf[_ngcontent-%COMP%] {\n  height: 28px;\n  font-size: 11.5px;\n  padding: 0 10px;\n}\n.character-photo-warning[_ngcontent-%COMP%] {\n  margin-top: 8px;\n  font-size: 11.5px;\n  color: var(--amber);\n}\n.character-photo-ready[_ngcontent-%COMP%] {\n  margin-top: 8px;\n  font-size: 11.5px;\n  color: var(--green);\n}\n.btn-icon[_ngcontent-%COMP%] {\n  width: 28px;\n  height: 28px;\n  border: 1px solid var(--border-md);\n  border-radius: 6px;\n  background: transparent;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 13px;\n  transition: background 0.15s, border-color 0.15s;\n}\n.btn-icon[_ngcontent-%COMP%]:hover {\n  background: rgba(0, 0, 0, 0.04);\n  border-color: rgba(0, 0, 0, 0.2);\n}\n.character-form[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border: 1px solid var(--border-md);\n  border-radius: 12px;\n  padding: 26px;\n  margin-bottom: 22px;\n  position: relative;\n  overflow: hidden;\n}\n.character-form[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(28, 43, 74, 0.45),\n      transparent);\n}\n.character-form[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 18px;\n  font-weight: 700;\n  color: var(--ink);\n  margin-bottom: 18px;\n}\n.form-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 12px;\n  margin-bottom: 14px;\n}\n.form-group[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 5px;\n  margin-bottom: 14px;\n}\n.form-group[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9.5px;\n  letter-spacing: 1px;\n  text-transform: uppercase;\n  color: var(--amber);\n  font-weight: 600;\n}\n.form-group[_ngcontent-%COMP%]   input[_ngcontent-%COMP%], \n.form-group[_ngcontent-%COMP%]   select[_ngcontent-%COMP%], \n.form-group[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%] {\n  padding: 10px 12px;\n  border: 1px solid var(--border-md);\n  border-radius: 8px;\n  background: var(--bg);\n  color: var(--ink);\n  font-size: 13.5px;\n  font-family: "Public Sans", sans-serif;\n  outline: none;\n  transition: border-color 0.2s;\n  width: 100%;\n}\n.form-group[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]:focus, \n.form-group[_ngcontent-%COMP%]   select[_ngcontent-%COMP%]:focus, \n.form-group[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%]:focus {\n  border-color: rgba(184, 114, 8, 0.5);\n  box-shadow: 0 0 0 3px rgba(212, 63, 51, 0.07);\n}\n.form-group[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%] {\n  resize: vertical;\n  line-height: 1.6;\n}\n.form-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 10px;\n  justify-content: flex-end;\n  padding-top: 16px;\n  border-top: 1px solid var(--border);\n  margin-top: 4px;\n}\n.app-tabs[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 4px;\n  margin-bottom: 20px;\n  padding-bottom: 14px;\n  border-bottom: 1px solid var(--border);\n}\n.app-tab-btn[_ngcontent-%COMP%] {\n  height: 30px;\n  padding: 0 13px;\n  border: 1px solid transparent;\n  border-radius: 20px;\n  background: transparent;\n  font-size: 12px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  color: var(--ink2);\n  cursor: pointer;\n  transition: background 0.15s, border-color 0.15s;\n}\n.app-tab-btn[_ngcontent-%COMP%]:hover {\n  background: var(--amber-l);\n  color: var(--amber);\n}\n.app-tab-btn.active[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border-color: var(--border-md);\n  color: var(--ink);\n  font-weight: 600;\n}\n.app-config-content[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 16px;\n  font-weight: 700;\n  color: var(--ink);\n  margin-bottom: 16px;\n}\n.conversation-item[_ngcontent-%COMP%], \n.email-item[_ngcontent-%COMP%], \n.note-item[_ngcontent-%COMP%], \n.photo-item[_ngcontent-%COMP%] {\n  background: rgba(245, 242, 236, 0.5);\n  border: 1px solid var(--border);\n  border-radius: 8px;\n  padding: 14px;\n  margin-bottom: 12px;\n}\n.conv-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 12px;\n}\n.conv-header[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  letter-spacing: 1px;\n  text-transform: uppercase;\n  color: var(--ink3);\n  font-weight: 600;\n}\n.messages-list[_ngcontent-%COMP%] {\n  margin-top: 10px;\n}\n.message-item[_ngcontent-%COMP%] {\n  margin-bottom: 8px;\n}\n.msg-row[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 8px;\n  align-items: center;\n  flex-wrap: wrap;\n}\n.msg-row[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n  flex: 1;\n  min-width: 80px;\n  padding: 7px 10px;\n  border: 1px solid var(--border-md);\n  border-radius: 6px;\n  background: var(--surface);\n  font-size: 12.5px;\n  font-family: "Public Sans", sans-serif;\n  color: var(--ink);\n  outline: none;\n}\n.msg-row[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]:focus {\n  border-color: rgba(184, 114, 8, 0.5);\n}\n.msg-row[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  font-size: 12px;\n  color: var(--ink2);\n  white-space: nowrap;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n}\n.btn-primary[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 32px;\n  padding: 0 15px;\n  border: none;\n  border-radius: 7px;\n  background: var(--navy);\n  color: #fff;\n  font-size: 12.5px;\n  font-family: "Public Sans", sans-serif;\n  font-weight: 600;\n  cursor: pointer;\n  transition: opacity 0.2s;\n}\n.btn-primary[_ngcontent-%COMP%]:hover:not(:disabled) {\n  opacity: 0.88;\n}\n.btn-primary[_ngcontent-%COMP%]:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.btn-secondary[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  height: 32px;\n  padding: 0 14px;\n  border: 1px solid var(--border-md);\n  border-radius: 7px;\n  background: transparent;\n  color: var(--ink);\n  font-size: 12.5px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition: border-color 0.2s;\n}\n.btn-secondary[_ngcontent-%COMP%]:hover {\n  border-color: rgba(0, 0, 0, 0.25);\n  color: var(--ink);\n}\n.btn-sm[_ngcontent-%COMP%] {\n  height: 26px;\n  padding: 0 11px;\n  font-size: 11.5px;\n}\n.info-box[_ngcontent-%COMP%] {\n  background: var(--amber-l);\n  border: 1px solid rgba(184, 114, 8, 0.25);\n  border-radius: 8px;\n  padding: 12px 14px;\n  font-size: 13px;\n  color: var(--ink2);\n  margin-bottom: 14px;\n  line-height: 1.5;\n}\n.info-box[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: var(--ink);\n  font-weight: 600;\n}\n.empty-state[_ngcontent-%COMP%] {\n  text-align: center;\n  padding: 60px 20px;\n}\n.empty-state[_ngcontent-%COMP%]   .empty-icon[_ngcontent-%COMP%] {\n  font-size: 40px;\n  margin-bottom: 12px;\n  opacity: 0.5;\n}\n.empty-state[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 22px;\n  font-weight: 700;\n  color: var(--ink);\n  margin-bottom: 8px;\n}\n.empty-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 13.5px;\n  color: var(--ink2);\n  font-style: italic;\n}\nhr[_ngcontent-%COMP%] {\n  border: none;\n  border-top: 1px solid var(--border);\n  margin: 14px 0;\n}\n@media (max-width: 900px) {\n  .characters-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .form-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=game-details.component.css.map */'] });
+  }, dependencies: [CommonModule, NgForOf, NgIf, RouterModule, RouterLink, ReactiveFormsModule, \u0275NgNoValidate, NgSelectOption, \u0275NgSelectMultipleOption, DefaultValueAccessor, CheckboxControlValueAccessor, SelectControlValueAccessor, NgControlStatus, NgControlStatusGroup, FormGroupDirective, FormControlName, FormsModule, NgModel], styles: ['\n\n[_nghost-%COMP%] {\n  display: block;\n}\n*[_ngcontent-%COMP%] {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n.details-container[_ngcontent-%COMP%] {\n  --bg:#fcfaf7;\n  --surface:#fff;\n  --border:rgba(0,0,0,0.07);\n  --border-md:rgba(0,0,0,0.11);\n  --amber:#d43f33;\n  --amber-l:rgba(212,63,51,0.07);\n  --navy:#1a1a1a;\n  --navy-l:rgba(26,26,26,0.06);\n  --ink:#1a1a1a;\n  --ink2:rgba(26,22,16,0.62);\n  --ink3:rgba(26,22,16,0.40);\n  --green:#4a7a56;\n  --red:#9b2020;\n  --crimson:#8b1a1a;\n  --crimson-l:rgba(139,26,26,0.08);\n  min-height: 100vh;\n  background: var(--bg);\n  font-family: "Public Sans", sans-serif;\n  color: var(--ink);\n}\n.bg-canvas[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 0;\n  pointer-events: none;\n}\n.fixed-logo-wrap[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  pointer-events: none;\n  z-index: 500;\n  mix-blend-mode: screen;\n}\n.fixed-logo-img[_ngcontent-%COMP%] {\n  width: min(85vw, 85vh);\n  height: min(85vw, 85vh);\n  object-fit: contain;\n  filter: invert(1);\n  opacity: 0.12;\n  animation: _ngcontent-%COMP%_logoBreath 8s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_logoBreath {\n  0%, 100% {\n    opacity: 0.1;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.16;\n    transform: scale(1.015);\n  }\n}\n.nb[_ngcontent-%COMP%] {\n  position: sticky;\n  top: 0;\n  z-index: 100;\n  height: 54px;\n  background: rgba(252, 250, 247, 0.88);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  border-bottom: 1px solid var(--border-md);\n}\n.nb-inner[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 24px;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  position: relative;\n  z-index: 1;\n}\n.btn-back[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 32px;\n  padding: 0 12px;\n  border: 1px solid var(--border-md);\n  border-radius: 7px;\n  background: transparent;\n  color: var(--ink);\n  font-size: 12.5px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition: border-color 0.2s;\n  flex-shrink: 0;\n}\n.btn-back[_ngcontent-%COMP%]:hover {\n  border-color: rgba(0, 0, 0, 0.25);\n  color: var(--ink);\n}\n.btn-edit[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 32px;\n  padding: 0 12px;\n  border: 1px solid rgba(28, 43, 74, 0.35);\n  border-radius: 7px;\n  background: transparent;\n  color: var(--navy);\n  font-size: 12.5px;\n  font-weight: 600;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition: background 0.2s;\n  margin-left: auto;\n  flex-shrink: 0;\n}\n.btn-edit[_ngcontent-%COMP%]:hover {\n  background: var(--navy-l);\n}\n.nb-title-wrap[_ngcontent-%COMP%] {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  justify-content: center;\n}\n.nb-case[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 15px;\n  font-weight: 700;\n  color: var(--ink);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  max-width: 400px;\n}\n.nb-badge[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 8.5px;\n  letter-spacing: 1.5px;\n  text-transform: uppercase;\n  padding: 2px 8px;\n  border-radius: 4px;\n  flex-shrink: 0;\n  font-weight: 600;\n}\n.badge-pub[_ngcontent-%COMP%] {\n  background: rgba(74, 122, 86, 0.12);\n  color: var(--green);\n  border: 1px solid rgba(74, 122, 86, 0.4);\n}\n.badge-draft[_ngcontent-%COMP%] {\n  background: rgba(184, 114, 8, 0.1);\n  color: var(--amber);\n  border: 1px solid rgba(184, 114, 8, 0.35);\n}\n.tabs-bar[_ngcontent-%COMP%] {\n  background: rgba(245, 242, 236, 0.7);\n  border-bottom: 1px solid var(--border);\n  position: sticky;\n  top: 54px;\n  z-index: 90;\n  backdrop-filter: blur(12px);\n}\n.tabs-inner[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  gap: 4px;\n  height: 46px;\n  align-items: center;\n  position: relative;\n  z-index: 1;\n}\n.tab-pill[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 6px;\n  height: 32px;\n  padding: 0 14px;\n  border-radius: 20px;\n  border: 1px solid transparent;\n  background: transparent;\n  font-size: 12.5px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  color: var(--ink2);\n  cursor: pointer;\n  transition:\n    background 0.2s,\n    border-color 0.2s,\n    color 0.2s;\n}\n.tab-pill[_ngcontent-%COMP%]:hover {\n  background: var(--amber-l);\n  color: var(--amber);\n}\n.tab-active[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border-color: var(--border-md);\n  color: var(--ink);\n  font-weight: 600;\n  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);\n}\n.tab-pill-special[_ngcontent-%COMP%]:hover {\n  background: var(--crimson-l);\n  color: var(--crimson);\n}\n.tab-pill-special.tab-active[_ngcontent-%COMP%] {\n  border-color: rgba(139, 26, 26, 0.3);\n}\n.tab-count[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9.5px;\n  font-weight: 600;\n  color: var(--amber);\n  background: rgba(184, 114, 8, 0.12);\n  border-radius: 10px;\n  padding: 1px 6px;\n}\n.tab-count-inv[_ngcontent-%COMP%] {\n  color: var(--crimson);\n  background: rgba(139, 26, 26, 0.12);\n}\n.inv-devices-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));\n  gap: 20px;\n}\n.inv-device-card[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border: 1px solid rgba(139, 26, 26, 0.18);\n  border-radius: 14px;\n  padding: 28px 24px 20px;\n  position: relative;\n  overflow: hidden;\n  text-align: center;\n  transition: box-shadow 0.25s, transform 0.25s;\n}\n.inv-device-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-3px);\n  box-shadow: 0 8px 32px rgba(139, 26, 26, 0.12);\n}\n.inv-card-top-line[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(139, 26, 26, 0.6),\n      transparent);\n}\n.inv-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 14px;\n  right: 14px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 8px;\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  font-weight: 700;\n  color: rgba(139, 26, 26, 0.75);\n  border: 1px solid rgba(139, 26, 26, 0.35);\n  padding: 2px 8px;\n  border-radius: 4px;\n}\n.inv-device-icon[_ngcontent-%COMP%] {\n  font-size: 48px;\n  margin-bottom: 14px;\n  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.12));\n}\n.inv-device-type[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 20px;\n  font-weight: 700;\n  color: var(--ink);\n  margin-bottom: 8px;\n}\n.inv-device-desc[_ngcontent-%COMP%] {\n  font-size: 12.5px;\n  color: var(--ink2);\n  line-height: 1.6;\n  font-style: italic;\n  margin-bottom: 14px;\n  min-height: 38px;\n}\n.inv-device-actions[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0;\n}\n.sus-device-card[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border: 1px solid var(--border-md);\n  border-radius: 14px;\n  padding: 28px 24px 20px;\n  position: relative;\n  overflow: hidden;\n  text-align: center;\n  transition: box-shadow 0.25s, transform 0.25s;\n}\n.sus-device-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-3px);\n  box-shadow: 0 8px 32px rgba(28, 43, 74, 0.1);\n}\n.sus-card-top-line[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(28, 43, 74, 0.5),\n      transparent);\n}\n.sus-owner-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 14px;\n  right: 14px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 8px;\n  letter-spacing: 1.5px;\n  text-transform: uppercase;\n  font-weight: 700;\n  color: var(--amber);\n  border: 1px solid rgba(184, 114, 8, 0.4);\n  padding: 2px 8px;\n  border-radius: 4px;\n  max-width: 120px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.sus-card-meta[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 6px;\n  justify-content: center;\n  flex-wrap: wrap;\n  margin-bottom: 16px;\n}\n.sus-meta-pill[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 4px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9.5px;\n  color: var(--ink3);\n  background: rgba(0, 0, 0, 0.04);\n  border: 1px solid var(--border);\n  border-radius: 20px;\n  padding: 2px 8px;\n}\n.sus-upload-notice[_ngcontent-%COMP%] {\n  font-size: 11.5px;\n  color: var(--amber);\n  background: var(--amber-l);\n  border: 1px solid rgba(184, 114, 8, 0.2);\n  border-radius: 6px;\n  padding: 6px 10px;\n  display: flex;\n  align-items: flex-start;\n  gap: 5px;\n  margin-bottom: 12px;\n  text-align: left;\n  line-height: 1.5;\n}\n.sus-card-actions[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0;\n}\n.btn-action-outline[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 6px;\n  height: 34px;\n  padding: 0 14px;\n  border: 1px solid var(--border-md);\n  border-radius: 7px;\n  background: transparent;\n  color: var(--ink);\n  font-size: 12.5px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition:\n    border-color 0.2s,\n    background 0.2s,\n    color 0.2s;\n}\n.btn-action-outline[_ngcontent-%COMP%]:hover {\n  border-color: rgba(28, 43, 74, 0.4);\n  background: var(--navy-l);\n  color: var(--navy);\n}\n.btn-action-danger[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 6px;\n  height: 34px;\n  padding: 0 14px;\n  border: 1px solid rgba(155, 32, 32, 0.25);\n  border-radius: 7px;\n  background: transparent;\n  color: var(--red);\n  font-size: 12.5px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition: border-color 0.2s, background 0.2s;\n}\n.btn-action-danger[_ngcontent-%COMP%]:hover {\n  border-color: rgba(155, 32, 32, 0.5);\n  background: rgba(155, 32, 32, 0.06);\n}\n.modal-backdrop[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 400;\n  background: rgba(26, 22, 16, 0.55);\n  backdrop-filter: blur(6px);\n  -webkit-backdrop-filter: blur(6px);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 24px;\n  animation: _ngcontent-%COMP%_fadeBackdrop 0.22s ease both;\n}\n@keyframes _ngcontent-%COMP%_fadeBackdrop {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.modal-panel[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border-radius: 16px;\n  width: 100%;\n  max-width: 560px;\n  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);\n  position: relative;\n  overflow: hidden;\n  animation: _ngcontent-%COMP%_slideUp 0.28s cubic-bezier(0.22, 0.8, 0.36, 1) both;\n}\n.modal-panel-wide[_ngcontent-%COMP%] {\n  max-width: 860px;\n}\n@keyframes _ngcontent-%COMP%_slideUp {\n  from {\n    opacity: 0;\n    transform: translateY(28px) scale(0.97);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0) scale(1);\n  }\n}\n.modal-top-bar[_ngcontent-%COMP%] {\n  height: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(28, 43, 74, 0.55),\n      transparent);\n}\n.modal-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  padding: 22px 26px 18px;\n}\n.modal-eyebrow[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9px;\n  letter-spacing: 2.5px;\n  text-transform: uppercase;\n  color: var(--amber);\n  font-weight: 600;\n  margin-bottom: 4px;\n}\n.modal-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 20px;\n  font-weight: 700;\n  color: var(--ink);\n}\n.modal-close[_ngcontent-%COMP%] {\n  width: 32px;\n  height: 32px;\n  border: 1px solid var(--border-md);\n  border-radius: 8px;\n  background: transparent;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--ink2);\n  transition: background 0.15s, border-color 0.15s;\n  flex-shrink: 0;\n}\n.modal-close[_ngcontent-%COMP%]:hover {\n  background: rgba(0, 0, 0, 0.05);\n  border-color: rgba(0, 0, 0, 0.2);\n}\n.modal-panel[_ngcontent-%COMP%]   form[_ngcontent-%COMP%], \n.modal-panel[_ngcontent-%COMP%]   .app-tabs[_ngcontent-%COMP%], \n.modal-panel[_ngcontent-%COMP%]   .modal-scrollable[_ngcontent-%COMP%] {\n  padding: 0 26px;\n}\n.modal-scrollable[_ngcontent-%COMP%] {\n  max-height: 60vh;\n  overflow-y: auto;\n  padding-right: 18px;\n  scrollbar-width: thin;\n  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;\n}\n.modal-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 10px;\n  justify-content: flex-end;\n  padding: 16px 26px 22px;\n  border-top: 1px solid var(--border);\n  margin-top: 4px;\n}\n.calls-info-box[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: 7px;\n  background: rgba(26, 26, 26, 0.06);\n  border: 1px solid rgba(28, 43, 74, 0.14);\n  border-radius: 8px;\n  padding: 10px 13px;\n  font-size: 12.5px;\n  color: var(--ink2);\n  line-height: 1.55;\n  margin-bottom: 16px;\n}\n.calls-info-box[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: var(--navy);\n}\n.call-item[_ngcontent-%COMP%] {\n  background: rgba(245, 242, 236, 0.5);\n  border: 1px solid var(--border);\n  border-radius: 10px;\n  padding: 14px;\n  margin-bottom: 12px;\n}\n.call-item-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 12px;\n}\n.call-item-num[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9.5px;\n  letter-spacing: 1px;\n  text-transform: uppercase;\n  color: var(--ink3);\n  font-weight: 600;\n}\n.call-audio-row[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border: 1px dashed var(--border-md);\n  border-radius: 8px;\n  padding: 10px 12px;\n  margin-bottom: 12px;\n}\n.call-audio-label[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9.5px;\n  letter-spacing: 0.8px;\n  text-transform: uppercase;\n  color: var(--amber);\n  font-weight: 600;\n  margin-bottom: 8px;\n}\n.call-audio-upload[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.call-audio-filename[_ngcontent-%COMP%] {\n  font-size: 12.5px;\n  color: var(--ink2);\n  flex: 1;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.call-audio-empty[_ngcontent-%COMP%] {\n  font-style: italic;\n  color: var(--ink3);\n}\n.btn-audio-pick[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 28px;\n  padding: 0 12px;\n  border: 1px solid rgba(184, 114, 8, 0.4);\n  border-radius: 6px;\n  background: var(--amber-l);\n  color: var(--amber);\n  font-size: 11.5px;\n  font-weight: 600;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition: background 0.15s;\n  flex-shrink: 0;\n}\n.btn-audio-pick[_ngcontent-%COMP%]:hover {\n  background: rgba(184, 114, 8, 0.15);\n}\n.call-audio-ready[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 12.5px;\n  color: var(--green);\n}\n.call-audio-remove[_ngcontent-%COMP%] {\n  width: 20px;\n  height: 20px;\n  border: none;\n  background: transparent;\n  cursor: pointer;\n  font-size: 14px;\n  color: var(--ink3);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-left: auto;\n}\n.btn-action-audio[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 6px;\n  height: 34px;\n  padding: 0 14px;\n  border: 1px solid rgba(74, 122, 86, 0.35);\n  border-radius: 7px;\n  background: transparent;\n  color: var(--green);\n  font-size: 12.5px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition: border-color 0.2s, background 0.2s;\n}\n.btn-action-audio[_ngcontent-%COMP%]:hover {\n  border-color: rgba(74, 122, 86, 0.6);\n  background: rgba(74, 122, 86, 0.07);\n}\n.btn-photo-upload-inline[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 34px;\n  padding: 0 12px;\n  border: 1px solid rgba(99, 102, 241, 0.4);\n  border-radius: 7px;\n  background: rgba(99, 102, 241, 0.07);\n  color: #4f46e5;\n  font-size: 12px;\n  font-weight: 600;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition: background 0.15s;\n  white-space: nowrap;\n}\n.btn-photo-upload-inline[_ngcontent-%COMP%]:hover {\n  background: rgba(99, 102, 241, 0.14);\n}\n.details-content[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 32px 24px 60px;\n  position: relative;\n  z-index: 1;\n}\n.tab-content[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeUp 0.35s ease both;\n}\n@keyframes _ngcontent-%COMP%_fadeUp {\n  from {\n    opacity: 0;\n    transform: translateY(10px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.eyebrow[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  letter-spacing: 3px;\n  text-transform: uppercase;\n  color: var(--amber);\n  margin-bottom: 4px;\n  font-weight: 600;\n}\n.ov-card[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border: 1px solid var(--border);\n  border-radius: 12px;\n  padding: 28px;\n  margin-bottom: 16px;\n  position: relative;\n  overflow: hidden;\n}\n.ov-card-top[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(184, 114, 8, 0.45),\n      transparent);\n}\n.ov-solution[_ngcontent-%COMP%]   .ov-card-top[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(155, 32, 32, 0.45),\n      transparent);\n}\n.ov-solution[_ngcontent-%COMP%] {\n  border-color: rgba(155, 32, 32, 0.15);\n}\n.solution-badge-sm[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 14px;\n  right: 16px;\n  font-family: "JetBrains Mono", monospace;\n  font-size: 8px;\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  font-weight: 600;\n  color: rgba(155, 32, 32, 0.65);\n  border: 1px solid rgba(155, 32, 32, 0.3);\n  padding: 2px 7px;\n  border-radius: 3px;\n}\n.ov-label[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9px;\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  color: var(--ink3);\n  margin-bottom: 6px;\n  font-weight: 600;\n}\n.ov-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 20px;\n  font-weight: 700;\n  color: var(--ink);\n  margin-bottom: 14px;\n}\n.ov-body[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: var(--ink2);\n  line-height: 1.75;\n  font-family: "Public Sans", sans-serif;\n  font-style: italic;\n  white-space: pre-wrap;\n}\n.sec-head[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-end;\n  justify-content: space-between;\n  margin-bottom: 22px;\n}\n.sec-title[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 24px;\n  font-weight: 700;\n  color: var(--ink);\n}\n.characters-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 14px;\n}\n.character-card[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border: 1px solid var(--border);\n  border-radius: 12px;\n  padding: 20px;\n  position: relative;\n  overflow: hidden;\n  transition: box-shadow 0.2s, border-color 0.2s;\n}\n.character-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);\n  border-color: rgba(184, 114, 8, 0.3);\n}\n.character-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(184, 114, 8, 0.4),\n      transparent);\n}\n.character-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 8px;\n}\n.character-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 16px;\n  font-weight: 700;\n  color: var(--ink);\n}\n.character-role[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9px;\n  letter-spacing: 1.5px;\n  text-transform: uppercase;\n  font-weight: 700;\n  background: rgba(184, 114, 8, 0.12);\n  color: var(--amber);\n  border: 1px solid rgba(184, 114, 8, 0.3);\n  padding: 2px 8px;\n  border-radius: 4px;\n}\n.character-description[_ngcontent-%COMP%] {\n  font-size: 13.5px;\n  color: var(--ink2);\n  line-height: 1.6;\n  margin-bottom: 12px;\n  font-style: italic;\n}\n.character-details[_ngcontent-%COMP%] {\n  margin-bottom: 12px;\n}\n.detail[_ngcontent-%COMP%] {\n  font-size: 13px;\n  color: var(--ink2);\n  margin-bottom: 5px;\n  line-height: 1.55;\n}\n.detail[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: var(--ink);\n  font-weight: 600;\n}\n.character-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 6px;\n  padding-top: 12px;\n  border-top: 1px solid var(--border);\n}\n.btn-character-photo[_ngcontent-%COMP%], \n.btn-character-pdf[_ngcontent-%COMP%] {\n  height: 28px;\n  font-size: 11.5px;\n  padding: 0 10px;\n}\n.character-photo-warning[_ngcontent-%COMP%] {\n  margin-top: 8px;\n  font-size: 11.5px;\n  color: var(--amber);\n}\n.character-photo-ready[_ngcontent-%COMP%] {\n  margin-top: 8px;\n  font-size: 11.5px;\n  color: var(--green);\n}\n.btn-icon[_ngcontent-%COMP%] {\n  width: 28px;\n  height: 28px;\n  border: 1px solid var(--border-md);\n  border-radius: 6px;\n  background: transparent;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 13px;\n  transition: background 0.15s, border-color 0.15s;\n}\n.btn-icon[_ngcontent-%COMP%]:hover {\n  background: rgba(0, 0, 0, 0.04);\n  border-color: rgba(0, 0, 0, 0.2);\n}\n.character-form[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border: 1px solid var(--border-md);\n  border-radius: 12px;\n  padding: 26px;\n  margin-bottom: 22px;\n  position: relative;\n  overflow: hidden;\n}\n.character-form[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(28, 43, 74, 0.45),\n      transparent);\n}\n.character-form[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 18px;\n  font-weight: 700;\n  color: var(--ink);\n  margin-bottom: 18px;\n}\n.form-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 12px;\n  margin-bottom: 14px;\n}\n.form-group[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 5px;\n  margin-bottom: 14px;\n}\n.form-group[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 9.5px;\n  letter-spacing: 1px;\n  text-transform: uppercase;\n  color: var(--amber);\n  font-weight: 600;\n}\n.form-group[_ngcontent-%COMP%]   input[_ngcontent-%COMP%], \n.form-group[_ngcontent-%COMP%]   select[_ngcontent-%COMP%], \n.form-group[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%] {\n  padding: 10px 12px;\n  border: 1px solid var(--border-md);\n  border-radius: 8px;\n  background: var(--bg);\n  color: var(--ink);\n  font-size: 13.5px;\n  font-family: "Public Sans", sans-serif;\n  outline: none;\n  transition: border-color 0.2s;\n  width: 100%;\n}\n.form-group[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]:focus, \n.form-group[_ngcontent-%COMP%]   select[_ngcontent-%COMP%]:focus, \n.form-group[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%]:focus {\n  border-color: rgba(184, 114, 8, 0.5);\n  box-shadow: 0 0 0 3px rgba(212, 63, 51, 0.07);\n}\n.form-group[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%] {\n  resize: vertical;\n  line-height: 1.6;\n}\n.form-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 10px;\n  justify-content: flex-end;\n  padding-top: 16px;\n  border-top: 1px solid var(--border);\n  margin-top: 4px;\n}\n.app-tabs[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 4px;\n  margin-bottom: 20px;\n  padding-bottom: 14px;\n  border-bottom: 1px solid var(--border);\n}\n.app-tab-btn[_ngcontent-%COMP%] {\n  height: 30px;\n  padding: 0 13px;\n  border: 1px solid transparent;\n  border-radius: 20px;\n  background: transparent;\n  font-size: 12px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  color: var(--ink2);\n  cursor: pointer;\n  transition: background 0.15s, border-color 0.15s;\n}\n.app-tab-btn[_ngcontent-%COMP%]:hover {\n  background: var(--amber-l);\n  color: var(--amber);\n}\n.app-tab-btn.active[_ngcontent-%COMP%] {\n  background: var(--surface);\n  border-color: var(--border-md);\n  color: var(--ink);\n  font-weight: 600;\n}\n.app-config-content[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 16px;\n  font-weight: 700;\n  color: var(--ink);\n  margin-bottom: 16px;\n}\n.conversation-item[_ngcontent-%COMP%], \n.email-item[_ngcontent-%COMP%], \n.note-item[_ngcontent-%COMP%], \n.photo-item[_ngcontent-%COMP%] {\n  background: rgba(245, 242, 236, 0.5);\n  border: 1px solid var(--border);\n  border-radius: 8px;\n  padding: 14px;\n  margin-bottom: 12px;\n}\n.conv-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 12px;\n}\n.conv-header[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  font-family: "JetBrains Mono", monospace;\n  font-size: 10px;\n  letter-spacing: 1px;\n  text-transform: uppercase;\n  color: var(--ink3);\n  font-weight: 600;\n}\n.messages-list[_ngcontent-%COMP%] {\n  margin-top: 10px;\n}\n.message-item[_ngcontent-%COMP%] {\n  margin-bottom: 8px;\n}\n.msg-row[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 8px;\n  align-items: center;\n  flex-wrap: wrap;\n}\n.msg-row[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n  flex: 1;\n  min-width: 80px;\n  padding: 7px 10px;\n  border: 1px solid var(--border-md);\n  border-radius: 6px;\n  background: var(--surface);\n  font-size: 12.5px;\n  font-family: "Public Sans", sans-serif;\n  color: var(--ink);\n  outline: none;\n}\n.msg-row[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]:focus {\n  border-color: rgba(184, 114, 8, 0.5);\n}\n.msg-row[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  font-size: 12px;\n  color: var(--ink2);\n  white-space: nowrap;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n}\n.btn-primary[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 32px;\n  padding: 0 15px;\n  border: none;\n  border-radius: 7px;\n  background: var(--navy);\n  color: #fff;\n  font-size: 12.5px;\n  font-family: "Public Sans", sans-serif;\n  font-weight: 600;\n  cursor: pointer;\n  transition: opacity 0.2s;\n}\n.btn-primary[_ngcontent-%COMP%]:hover:not(:disabled) {\n  opacity: 0.88;\n}\n.btn-primary[_ngcontent-%COMP%]:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.btn-secondary[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  height: 32px;\n  padding: 0 14px;\n  border: 1px solid var(--border-md);\n  border-radius: 7px;\n  background: transparent;\n  color: var(--ink);\n  font-size: 12.5px;\n  font-weight: 500;\n  font-family: "Public Sans", sans-serif;\n  cursor: pointer;\n  transition: border-color 0.2s;\n}\n.btn-secondary[_ngcontent-%COMP%]:hover {\n  border-color: rgba(0, 0, 0, 0.25);\n  color: var(--ink);\n}\n.btn-sm[_ngcontent-%COMP%] {\n  height: 26px;\n  padding: 0 11px;\n  font-size: 11.5px;\n}\n.info-box[_ngcontent-%COMP%] {\n  background: var(--amber-l);\n  border: 1px solid rgba(184, 114, 8, 0.25);\n  border-radius: 8px;\n  padding: 12px 14px;\n  font-size: 13px;\n  color: var(--ink2);\n  margin-bottom: 14px;\n  line-height: 1.5;\n}\n.info-box[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: var(--ink);\n  font-weight: 600;\n}\n.empty-state[_ngcontent-%COMP%] {\n  text-align: center;\n  padding: 60px 20px;\n}\n.empty-state[_ngcontent-%COMP%]   .empty-icon[_ngcontent-%COMP%] {\n  font-size: 40px;\n  margin-bottom: 12px;\n  opacity: 0.5;\n}\n.empty-state[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: "Crimson Pro", serif;\n  font-size: 22px;\n  font-weight: 700;\n  color: var(--ink);\n  margin-bottom: 8px;\n}\n.empty-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 13.5px;\n  color: var(--ink2);\n  font-style: italic;\n}\nhr[_ngcontent-%COMP%] {\n  border: none;\n  border-top: 1px solid var(--border);\n  margin: 14px 0;\n}\n@media (max-width: 900px) {\n  .characters-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .form-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=game-details.component.css.map */'] });
 };
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(GameDetailsComponent, { className: "GameDetailsComponent", filePath: "src\\app\\components\\game-details\\game-details.component.ts", lineNumber: 861 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(GameDetailsComponent, { className: "GameDetailsComponent", filePath: "src\\app\\components\\game-details\\game-details.component.ts", lineNumber: 877 });
 })();
 
 // src/app/components/profile/profile.component.ts
