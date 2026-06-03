@@ -182,9 +182,9 @@ public class DeviceAppsController : ControllerBase
     }
 
     /// <summary>
-    /// Removes duplicate app records for a device, keeping only the first (oldest) record per appType.
-    /// This fixes data created by the old bug where saveAppConfig() always called createDeviceApp()
-    /// instead of updateDeviceApp(), resulting in multiple records of the same type per device.
+    /// Removes duplicate app records for a device, keeping only the NEWEST (highest AppId) record per appType.
+    /// The newest record always has the most recently saved data.
+    /// 'Phone' and 'Calls' are treated as the same group (keeps newest, deletes older duplicates of either type).
     /// Returns the number of duplicate records deleted.
     /// </summary>
     [HttpPost("deduplicate")]
@@ -200,24 +200,30 @@ public class DeviceAppsController : ControllerBase
             if (device == null || device.GameId != gameId)
                 return NotFound();
 
+            // Order DESCENDING so we encounter the newest record first → keep it, delete the rest.
             var allApps = (await _appRepository.FindAsync(a => a.DeviceId == deviceId))
-                          .OrderBy(a => a.AppId) // keep the oldest (lowest AppId) per type
+                          .OrderByDescending(a => a.AppId)
                           .ToList();
+
+            // Normalise 'Phone' → 'Calls' so they are treated as the same group.
+            static string NormaliseType(string t) =>
+                string.Equals(t, "Phone", StringComparison.OrdinalIgnoreCase) ? "Calls" : t;
 
             var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             var toDelete = new List<DeviceApp>();
 
             foreach (var app in allApps)
             {
-                if (!seen.Add(app.AppType))
-                    toDelete.Add(app); // duplicate — remove it
+                var key = NormaliseType(app.AppType);
+                if (!seen.Add(key))
+                    toDelete.Add(app); // older duplicate — remove it
             }
 
             foreach (var dup in toDelete)
                 await _appRepository.DeleteAsync(dup);
 
             _logger.LogInformation(
-                "Deduplicated device {DeviceId}: removed {Count} duplicate app records.",
+                "Deduplicated device {DeviceId}: removed {Count} duplicate app records (kept newest per type).",
                 deviceId, toDelete.Count);
 
             return Ok(new { deleted = toDelete.Count, message = $"Removed {toDelete.Count} duplicate app record(s)." });

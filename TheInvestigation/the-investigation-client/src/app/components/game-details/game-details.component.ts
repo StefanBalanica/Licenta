@@ -1581,11 +1581,12 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.deviceService.getDeviceApps(this.gameId, deviceId).subscribe({
       next: (apps) => {
         apps.forEach((app: any) => {
-          // Track existing appId per appType so saveAppConfig can UPDATE instead of CREATE
-          // If there are duplicate apps of the same type, keep the first one (oldest) and
-          // the others will be naturally ignored (they won't have an appId entry).
-          if (!this.existingAppIds[app.appType]) {
-            this.existingAppIds[app.appType] = app.appId;
+          // Normalize 'Phone' to 'Calls' so saveAppConfig always uses a single key.
+          const typeKey = (app.appType === 'Phone') ? 'Calls' : app.appType;
+
+          // Track existing appId per normalised appType
+          if (!this.existingAppIds[typeKey]) {
+            this.existingAppIds[typeKey] = app.appId;
           }
 
           if (app.appType === 'Messages') {
@@ -1633,7 +1634,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
             });
           } else if (app.appType === 'Calls' || app.appType === 'Phone') {
             const list = app.appData?.calls ?? app.appData?.Calls ?? [];
-            this.callsData = list.map((c: any) => ({
+            this.callsData.push(...list.map((c: any) => ({
               type: c.type ?? c.Type ?? 'Primit',
               contact: c.contact ?? c.Contact ?? '',
               date: c.date ?? c.Date ?? '',
@@ -1641,7 +1642,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
               duration: c.duration ?? c.Duration ?? '',
               audioUrl: c.audioUrl ?? c.AudioUrl ?? '',
               audioFileName: c.audioFileName ?? c.AudioFileName ?? ''
-            }));
+            })));
           }
         });
       },
@@ -1821,6 +1822,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.notesData = [];
     this.filesData = [];
     this.callsData = [];
+    this.existingAppIds = {}; // reset so stale IDs don't leak into next session
   }
 
   saveAppConfig() {
@@ -1829,21 +1831,23 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     /**
      * Helper: UPDATE if the app already exists in DB, CREATE if it's new.
-     * This prevents duplicate app records from accumulating on every save,
-     * which was the root cause of data duplication in the simulator.
+     * Uses the normalised key ('Calls' covers both 'Calls' and 'Phone' app types)
+     * to prevent duplicate records from accumulating on every save.
      */
     const saveApp = (appType: string, appData: any) => {
-      const existingId = this.existingAppIds[appType];
+      // 'Calls' is used as the normalised key for both 'Calls' and 'Phone' app types.
+      const lookupKey = appType;
+      const existingId = this.existingAppIds[lookupKey];
       if (existingId) {
         this.deviceService.updateDeviceApp(this.gameId, deviceId, existingId, { appData })
-          .subscribe({ next: () => console.log(`${appType} updated`), error: (e) => console.error(e) });
+          .subscribe({ next: () => console.log(`${appType} updated (id=${existingId})`), error: (e) => console.error(e) });
       } else {
         this.deviceService.createDeviceApp(this.gameId, deviceId, { appType, appData })
           .subscribe({
             next: (created: any) => {
               // Store the new appId so subsequent saves in the same session also update
-              this.existingAppIds[appType] = created.appId;
-              console.log(`${appType} created`);
+              this.existingAppIds[lookupKey] = created.appId;
+              console.log(`${appType} created (id=${created.appId})`);
             },
             error: (e: any) => console.error(e)
           });
@@ -1864,6 +1868,8 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       saveApp('Photos', { photos: this.photosData });
     }
     if (this.emailsData.length > 0) {
+      // Save with structured inbox/sent/drafts so the simulator can read both flat and structured formats.
+      // For simplicity the whole list goes into 'emails' (the simulator falls back to data.emails).
       saveApp('Email', { emails: this.emailsData });
     }
     if (this.notesData.length > 0) {
@@ -1894,6 +1900,7 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       saveApp('Files', { items });
     }
     if (this.callsData.length > 0) {
+      // 'Calls' is the normalised key — covers both 'Calls' and 'Phone' stored app types.
       saveApp('Calls', { calls: this.callsData });
     }
 
