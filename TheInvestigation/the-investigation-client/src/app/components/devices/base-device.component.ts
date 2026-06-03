@@ -85,22 +85,26 @@ export abstract class BaseDeviceComponent implements OnInit, OnDestroy {
                         this.resetDeviceData();
                         this.gameId = newGameId;
                         this.loadDeviceBySlug(newDeviceSlug);
-                    } else {
-                        if (this.loading) {
-                            this.loadDeviceBySlug(newDeviceSlug);
-                        }
+                    } else if (this.loading) {
+                        // Same game, same device, but still loading — reset and retry
+                        this.resetDeviceData();
+                        this.gameId = newGameId;
+                        this.loadDeviceBySlug(newDeviceSlug);
                     }
+                    // If already loaded (!this.loading), do NOT reload to prevent duplication
                 } else {
                     // ── Player scanning QR (unauthenticated) ──
                     if (this.gameId !== newGameId || this.deviceId === 0) {
                         this.resetDeviceData();
                         this.gameId = newGameId;
                         this.loadPublicDeviceByGameAndSlug(newGameId, newDeviceSlug);
-                    } else {
-                        if (this.loading) {
-                            this.loadPublicDeviceByGameAndSlug(newGameId, newDeviceSlug);
-                        }
+                    } else if (this.loading) {
+                        // Same game, same device, but still loading — reset and retry
+                        this.resetDeviceData();
+                        this.gameId = newGameId;
+                        this.loadPublicDeviceByGameAndSlug(newGameId, newDeviceSlug);
                     }
+                    // If already loaded (!this.loading), do NOT reload to prevent duplication
                 }
             } else if (deviceSlugParam) {
                 // Route: /:deviceSlug (legacy public route)
@@ -325,6 +329,25 @@ export abstract class BaseDeviceComponent implements OnInit, OnDestroy {
     }
 
     loadDeviceData() {
+        // Guard: prevent concurrent calls from accumulating duplicate data.
+        // isLoadingDevice is set true by loadDeviceBySlug() before calling this method.
+        // If somehow called directly when already loading, bail out.
+        if (this.isLoadingDevice && this.deviceId !== 0 && this.conversations.length > 0) {
+            console.log('loadDeviceData called while already loaded, skipping duplicate.');
+            return;
+        }
+
+        // Reset arrays immediately (before the HTTP call) so that if a second
+        // concurrent call sneaks through, it starts from a clean slate too.
+        this.conversations = [];
+        this.photos = [];
+        this.emailsInbox = [];
+        this.emailsSent = [];
+        this.emailsDrafts = [];
+        this.notes = [];
+        this.files = [];
+        this.calls = [];
+
         this.deviceService.getDeviceWithApps(this.gameId, this.deviceId).subscribe({
             next: (device) => {
                 this.ownerName = device.ownerName;
@@ -335,52 +358,55 @@ export abstract class BaseDeviceComponent implements OnInit, OnDestroy {
                 this.isLocked = !!device.passcode;
                 this.pinEntry = '';
 
-                // Load app data (accept both camelCase from API and PascalCase from older DB)
-                this.conversations = [];
-                this.photos = [];
-                this.emailsInbox = [];
-                this.emailsSent = [];
-                this.emailsDrafts = [];
-                this.notes = [];
-                this.files = [];
-                this.calls = [];
+                // Reset again inside callback to guard against any race condition
+                // where a second response arrives after the first has already populated.
+                const convs: Conversation[] = [];
+                const photos: Photo[] = [];
+                const emailsInbox: Email[] = [];
+                const emailsSent: Email[] = [];
+                const emailsDrafts: Email[] = [];
+                const notes: Note[] = [];
+                const files: FileItem[] = [];
+                const calls: CallLog[] = [];
 
                 device.apps.forEach((app: any) => {
                     const data = app.appData || {};
                     if (app.appType === 'Messages') {
-                        const convs = data.conversations ?? data.Conversations ?? [];
-                        const incoming = this.normalizeConversations(convs);
-                        this.conversations = [...this.conversations, ...incoming];
+                        const incoming = this.normalizeConversations(data.conversations ?? data.Conversations ?? []);
+                        convs.push(...incoming);
                     } else if (app.appType === 'Photos') {
                         this.photosAppId = app.appId ?? this.photosAppId;
-                        const list = data.photos ?? data.Photos ?? [];
-                        const incoming = this.normalizePhotos(list);
-                        this.photos = [...this.photos, ...incoming];
+                        const incoming = this.normalizePhotos(data.photos ?? data.Photos ?? []);
+                        photos.push(...incoming);
                     } else if (app.appType === 'Email') {
                         const inbox = data.inbox ?? data.Inbox ?? data.emails ?? data.Emails ?? [];
                         const sent = data.sent ?? data.Sent ?? [];
                         const drafts = data.drafts ?? data.Drafts ?? [];
-                        const incomingInbox = this.normalizeEmails(Array.isArray(inbox) ? inbox : []);
-                        const incomingSent = this.normalizeEmails(Array.isArray(sent) ? sent : []);
-                        const incomingDrafts = this.normalizeEmails(Array.isArray(drafts) ? drafts : []);
-                        this.emailsInbox = [...this.emailsInbox, ...incomingInbox];
-                        this.emailsSent = [...this.emailsSent, ...incomingSent];
-                        this.emailsDrafts = [...this.emailsDrafts, ...incomingDrafts];
-                        this.emails = this.emailsInbox;
+                        emailsInbox.push(...this.normalizeEmails(Array.isArray(inbox) ? inbox : []));
+                        emailsSent.push(...this.normalizeEmails(Array.isArray(sent) ? sent : []));
+                        emailsDrafts.push(...this.normalizeEmails(Array.isArray(drafts) ? drafts : []));
                     } else if (app.appType === 'Notes') {
-                        const list = data.notes ?? data.Notes ?? [];
-                        const incoming = this.normalizeNotes(list);
-                        this.notes = [...this.notes, ...incoming];
+                        const incoming = this.normalizeNotes(data.notes ?? data.Notes ?? []);
+                        notes.push(...incoming);
                     } else if (app.appType === 'Files') {
-                        const list = data.items ?? data.Items ?? [];
-                        const incoming = this.normalizeFiles(list);
-                        this.files = [...this.files, ...incoming];
+                        const incoming = this.normalizeFiles(data.items ?? data.Items ?? []);
+                        files.push(...incoming);
                     } else if (app.appType === 'Phone' || app.appType === 'Calls') {
-                        const list = data.calls ?? data.Calls ?? [];
-                        const incoming = this.normalizeCalls(list);
-                        this.calls = [...this.calls, ...incoming];
+                        const incoming = this.normalizeCalls(data.calls ?? data.Calls ?? []);
+                        calls.push(...incoming);
                     }
                 });
+
+                // Assign all at once to avoid intermediate renders with partial data
+                this.conversations = convs;
+                this.photos = photos;
+                this.emailsInbox = emailsInbox;
+                this.emailsSent = emailsSent;
+                this.emailsDrafts = emailsDrafts;
+                this.emails = emailsInbox;
+                this.notes = notes;
+                this.files = files;
+                this.calls = calls;
 
                 this.loading = false;
                 this.isLoadingDevice = false;
