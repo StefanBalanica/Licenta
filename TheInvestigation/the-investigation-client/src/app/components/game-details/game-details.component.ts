@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { GameService } from '../../services/game.service';
@@ -237,7 +237,7 @@ interface UploadTarget {
                 <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M8 3v7M5 6l3-3 3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
                 {{ deviceUploadRequirements[device.deviceId].join(' | ') }}
               </div>
-              <!-- hidden file input -->
+              <!-- hidden file input for targeted uploads (upload-required:// placeholders) -->
               <input
                 *ngIf="deviceUploadTargets[device.deviceId]?.length"
                 [id]="'device-upload-' + device.deviceId"
@@ -245,6 +245,15 @@ interface UploadTarget {
                 style="display:none"
                 [accept]="getDeviceUploadAccept(device.deviceId)"
                 (change)="onDeviceUploadSelected(device.deviceId, $event)"
+              />
+              <!-- hidden file input for general photo/media upload (always available for phones) -->
+              <input
+                *ngIf="device.deviceType === 'iPhone' || device.deviceType === 'Android'"
+                [id]="'device-media-' + device.deviceId"
+                type="file"
+                style="display:none"
+                accept=".jpg,.jpeg,.png,.mp3,.mp4,.wav,.m4a,.ogg,.webm"
+                (change)="onDeviceMediaUpload(device.deviceId, $event)"
               />
               <div class="sus-card-actions">
                 <button class="btn-primary" style="width:100%" [routerLink]="['/games', gameId, 'devices', createDeviceSlug(device.deviceType, device.ownerName), 'simulator']">
@@ -267,13 +276,17 @@ interface UploadTarget {
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 5h10M6 5V3h4v2M6 8v5M10 8v5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
                   Sterge dispozitiv
                 </button>
-                <button class="btn-action-outline" style="margin-top:6px;width:100%" *ngIf="deviceUploadTargets[device.deviceId]?.length" (click)="triggerDeviceUpload(device.deviceId)">
+                <!-- Always-visible photo/media upload button for phones -->
+                <label *ngIf="device.deviceType === 'iPhone' || device.deviceType === 'Android'"
+                  class="btn-action-outline" style="margin-top:6px;width:100%;cursor:pointer;display:flex;align-items:center;gap:6px;justify-content:center;"
+                  title="Incarca orice fisier media (jpg, png, mp3, mp4 etc.) mentionat in brief"
+                  [for]="'device-media-' + device.deviceId">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 3v7M5 6l3-3 3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
                   Incarca fisier (foto/media)
-                </button>
+                </label>
                 <!-- Audio apeluri: direct button for phones -->
                 <div *ngIf="device.deviceType === 'iPhone' || device.deviceType === 'Android'" style="margin-top:6px;">
-                  <label class="btn-action-audio" style="width:100%;cursor:pointer;" title="Ncarca MP3 — se atribuie automat apelului corespunzator">
+                  <label class="btn-action-audio" style="width:100%;cursor:pointer;" title="Incarca MP3 — se atribuie automat apelului corespunzator">
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 2h4v9a2 2 0 1 1-4 0V2z" stroke="currentColor" stroke-width="1.2"/><path d="M3 7h2M11 7h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
                     Incarca audio apel (MP3)
                     <input type="file" accept=".mp3,.m4a,.ogg,.wav" style="display:none" (change)="onCardCallAudioUpload(device, $event)">
@@ -622,6 +635,15 @@ interface UploadTarget {
                 [accept]="getDeviceUploadAccept(device.deviceId)"
                 (change)="onDeviceUploadSelected(device.deviceId, $event)"
               />
+              <!-- hidden file input for general photo/media upload (always available for phones) -->
+              <input
+                *ngIf="device.deviceType === 'iPhone' || device.deviceType === 'Android'"
+                [id]="'device-media-' + device.deviceId"
+                type="file"
+                style="display:none"
+                accept=".jpg,.jpeg,.png,.mp3,.mp4,.wav,.m4a,.ogg,.webm"
+                (change)="onDeviceMediaUpload(device.deviceId, $event)"
+              />
               <div class="inv-device-actions">
                 <button class="btn-primary" style="width:100%" [routerLink]="['/games', gameId, 'devices', createDeviceSlug(device.deviceType, device.ownerName), 'simulator']">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 2l6 4v4l-6 4-6-4V6l6-4z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
@@ -635,10 +657,14 @@ interface UploadTarget {
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.54 11.54l1.41 1.41M3.05 12.95l1.42-1.42M11.54 4.46l1.41-1.41" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
                   Configurare aplicatii
                 </button>
-                <button class="btn-action-outline" style="margin-top:6px;width:100%" *ngIf="deviceUploadTargets[device.deviceId]?.length" (click)="triggerDeviceUpload(device.deviceId)">
+                <!-- Always-visible photo/media upload button for phones -->
+                <label *ngIf="device.deviceType === 'iPhone' || device.deviceType === 'Android'"
+                  class="btn-action-outline" style="margin-top:6px;width:100%;cursor:pointer;display:flex;align-items:center;gap:6px;justify-content:center;"
+                  title="Incarca orice fisier media (jpg, png, mp3, mp4 etc.) mentionat in brief"
+                  [for]="'device-media-' + device.deviceId">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 3v7M5 6l3-3 3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
                   Incarca fisier (foto/media)
-                </button>
+                </label>
                 <!-- Audio apeluri: direct button for investigator phones -->
                 <div *ngIf="device.deviceType === 'iPhone' || device.deviceType === 'Android'" style="margin-top:6px;">
                   <label class="btn-action-audio" style="width:100%;cursor:pointer;" title="Incarca MP3 — se atribuie automat apelului corespunzator">
@@ -1141,6 +1167,127 @@ export class GameDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase();
     return normalized;
+  }
+
+  /**
+   * General-purpose media upload for phones — triggered by the always-visible
+   * "Incarca fisier (foto/media)" button.
+   *
+   * Strategy:
+   *  1. If the file matches a known upload-required:// target → delegate to the
+   *     existing targeted handler (onDeviceUploadSelected).
+   *  2. For image files (jpg/jpeg/png):
+   *     a. Try to find a photo in the Photos app whose URL contains the filename
+   *        (either as upload-required:// placeholder or empty string).
+   *     b. If found → replace the URL with the data URL.
+   *     c. If not found → add a new photo entry with the data URL.
+   *  3. For audio files (mp3/wav/m4a/ogg) → delegate to the call audio upload
+   *     flow (onCardCallAudioUpload via a synthetic event is complex; instead we
+   *     directly try to match a call with upload-required:// audio).
+   */
+  onDeviceMediaUpload(deviceId: number, event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+
+    const ext = (file.name.split('.').pop() ?? '').toLowerCase();
+    const isImage = ['jpg', 'jpeg', 'png'].includes(ext);
+    const isAudio = ['mp3', 'wav', 'm4a', 'ogg'].includes(ext);
+
+    // 1. Try targeted upload first (upload-required:// placeholder match)
+    const targets = this.deviceUploadTargets[deviceId] ?? [];
+    const normalizedSelectedName = this.normalizeFileNameForCompare(file.name);
+    const matchedTarget = targets.find(t =>
+      this.normalizeFileNameForCompare(t.fileName) === normalizedSelectedName
+    );
+
+    if (matchedTarget) {
+      // Reuse existing targeted handler
+      this.onDeviceUploadSelected(deviceId, event);
+      return;
+    }
+
+    // 2. General fallback: read file as data URL then decide what to do
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = String(reader.result || '');
+      if (!dataUrl) return;
+
+      this.deviceService.getDeviceApps(this.gameId, deviceId).subscribe({
+        next: (apps: any[]) => {
+          if (isImage) {
+            // Find or create Photos app
+            const photosApp = apps.find((a: any) => a.appType === 'Photos');
+            if (!photosApp) {
+              alert('Aplicatia Photos nu exista pe acest dispozitiv. Adaug-o mai intai din "Configurare aplicatii".');
+              input.value = '';
+              return;
+            }
+            const photos: any[] = [...(photosApp.appData?.photos ?? photosApp.appData?.Photos ?? [])];
+            const normalizedUploadedName = this.normalizeFileNameForCompare(file.name);
+
+            // Try to find a placeholder with the same filename
+            const idx = photos.findIndex((p: any) => {
+              const url = String(p.url ?? p.Url ?? '');
+              return this.normalizeFileNameForCompare(url.replace('upload-required://', '').split('?')[0]) === normalizedUploadedName
+                || this.normalizeFileNameForCompare(p.caption ?? p.Caption ?? '') === normalizedUploadedName;
+            });
+
+            if (idx >= 0) {
+              photos[idx] = { ...photos[idx], url: dataUrl };
+            } else {
+              // Add a new photo entry
+              photos.push({ url: dataUrl, caption: file.name });
+            }
+
+            this.deviceService.updateDeviceApp(this.gameId, deviceId, photosApp.appId, { appData: { photos } }).subscribe({
+              next: () => {
+                alert(`Poza "${file.name}" a fost incarcata cu succes.`);
+                this.loadUploadRequirementsForDevices();
+                input.value = '';
+              },
+              error: () => alert('Nu am putut salva poza.')
+            });
+          } else if (isAudio) {
+            // Try to find a call whose audioUrl starts with upload-required://
+            const callsApp = apps.find((a: any) => a.appType === 'Calls' || a.appType === 'Phone');
+            if (!callsApp) {
+              alert('Aplicatia Apeluri nu exista pe acest dispozitiv.');
+              input.value = '';
+              return;
+            }
+            const calls: any[] = [...(callsApp.appData?.calls ?? callsApp.appData?.Calls ?? [])];
+            const normalizedAudioName = this.normalizeFileNameForCompare(file.name);
+
+            const audioIdx = calls.findIndex((c: any) => {
+              const au = String(c.audioUrl ?? c.AudioUrl ?? '');
+              return this.normalizeFileNameForCompare(au.replace('upload-required://', '').split('?')[0]) === normalizedAudioName
+                || this.normalizeFileNameForCompare(c.audioFileName ?? c.AudioFileName ?? '') === normalizedAudioName;
+            });
+
+            if (audioIdx >= 0) {
+              calls[audioIdx] = { ...calls[audioIdx], audioUrl: dataUrl, audioFileName: file.name };
+              this.deviceService.updateDeviceApp(this.gameId, deviceId, callsApp.appId, { appData: { calls } }).subscribe({
+                next: () => {
+                  alert(`Audio "${file.name}" a fost incarcat cu succes.`);
+                  this.loadUploadRequirementsForDevices();
+                  input.value = '';
+                },
+                error: () => alert('Nu am putut salva fisierul audio.')
+              });
+            } else {
+              alert(`Nu am gasit un apel cu fisierul "${file.name}" in lista de apeluri. Verifica numele fisierului sau adauga/editeaza apelul din "Gestioneaza apeluri".`);
+              input.value = '';
+            }
+          } else {
+            alert(`Format nesuportat: .${ext}. Suportat: jpg, jpeg, png, mp3, wav, m4a, ogg.`);
+            input.value = '';
+          }
+        },
+        error: () => alert('Nu am putut incarca datele aplicatiilor dispozitivului.')
+      });
+    };
+    reader.readAsDataURL(file);
   }
 
   loadInvestigatorDevices() {

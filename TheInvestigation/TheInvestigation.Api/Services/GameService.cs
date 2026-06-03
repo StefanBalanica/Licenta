@@ -1808,21 +1808,22 @@ public class GameService : IGameService
 
         foreach (var line in lines)
         {
+            // Detect section headers — but do NOT skip the line itself:
+            // filenames may appear on the same line as the section header,
+            // e.g. "POZE [proba_vizuala.jpg] — Data: 18.03.2026"
             if (line.Contains("POZE", StringComparison.OrdinalIgnoreCase) || line.Contains("FOTO", StringComparison.OrdinalIgnoreCase))
             {
                 inPhotosSection = true;
                 inFilesSection = false;
-                continue;
+                // fall through so filenames on this same line are processed below
             }
-
-            if (line.Contains("FIȘIERE", StringComparison.OrdinalIgnoreCase) || line.Contains("FISIERE", StringComparison.OrdinalIgnoreCase))
+            else if (line.Contains("FIȘIERE", StringComparison.OrdinalIgnoreCase) || line.Contains("FISIERE", StringComparison.OrdinalIgnoreCase))
             {
                 inFilesSection = true;
                 inPhotosSection = false;
-                continue;
+                // fall through so filenames on this same line are processed below
             }
-
-            if (line.Contains("EMAIL", StringComparison.OrdinalIgnoreCase) ||
+            else if (line.Contains("EMAIL", StringComparison.OrdinalIgnoreCase) ||
                 line.Contains("MESAJE", StringComparison.OrdinalIgnoreCase) ||
                 line.Contains("APELURI", StringComparison.OrdinalIgnoreCase) ||
                 line.Contains("NOTE", StringComparison.OrdinalIgnoreCase))
@@ -1843,11 +1844,12 @@ public class GameService : IGameService
                     AddRegularFile(match.Groups["name"].Value, line);
             }
 
-            if (line.Contains('|'))
+            // Detect audio file references in call log lines (e.g. "... | fisier : Apel_xyz.mp3")
+            if (line.Contains('|') || line.Contains("fisier", StringComparison.OrdinalIgnoreCase))
             {
                 var audioMatch = System.Text.RegularExpressions.Regex.Match(
                     line,
-                    @"(?:(?:fi[sș]ier\s*[:\-]?\s*)|(?<=\|))\s*(?<name>[^\\/:*?""<>|\s]+\.(?:mp3|wav|m4a|ogg))\s*$",
+                    @"(?:fi[sș]ier\s*[:\-]?\s*|(?<=\|)\s*)(?<name>[^\\/:*?""<>|\s]+\.(?:mp3|wav|m4a|ogg))\b",
                     System.Text.RegularExpressions.RegexOptions.IgnoreCase);
                 if (audioMatch.Success)
                     AddFilePlaceholder(audioMatch.Groups["name"].Value, $"Audio apel: {audioMatch.Groups["name"].Value}");
