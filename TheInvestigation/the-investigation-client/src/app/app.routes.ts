@@ -31,7 +31,14 @@ export const routes: Routes = [
         canActivate: [authGuard, deviceIsolationGuard]
     },
     // Public device page — accessed via QR code, no auth required.
-    // URL format: /:deviceSlug e.g. /iphone-elodia
+    // New format: /d/:uniqueUrl (GUID-based, unique per device) — used by new QR codes.
+    {
+        path: 'd/:uniqueUrl',
+        loadComponent: () => import('./components/devices/device-router.component')
+            .then(m => m.DeviceRouterComponent)
+    },
+    // Legacy public route: /:deviceSlug (name-based, kept for backward compatibility).
+    // URL format: /iphone-elodia
     {
         path: ':deviceSlug',
         loadComponent: () => import('./components/devices/device-router.component')

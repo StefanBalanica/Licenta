@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -125,6 +125,94 @@ public class PublicDevicesController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error retrieving public device by slug '{Slug}'", slug);
+            return StatusCode(500, new { message = "An error occurred" });
+        }
+    }
+
+    /// <summary>
+    /// Returns full device data by UniqueUrl (GUID) — guaranteed unique across all games.
+    /// Used by new QR code URLs: /d/{uniqueUrl}
+    /// </summary>
+    [HttpGet("by-unique/{uniqueUrl}")]
+    public async Task<ActionResult<DeviceWithAppsDto>> GetByUniqueUrl(string uniqueUrl)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(uniqueUrl))
+                return BadRequest(new { message = "UniqueUrl is required." });
+
+            var allDevices = await _deviceRepository.FindAsync(_ => true);
+            var matched = allDevices
+                .FirstOrDefault(d => string.Equals(d.UniqueUrl, uniqueUrl, StringComparison.OrdinalIgnoreCase));
+
+            if (matched == null)
+                return NotFound(new { message = $"Device with id '{uniqueUrl}' not found." });
+
+            var apps = await _appRepository.FindAsync(a => a.DeviceId == matched.DeviceId);
+            static JsonNode? CamelizeNode2(JsonNode? node)
+            {
+                if (node == null) return null;
+                if (node is JsonArray arr)
+                {
+                    var outArr = new JsonArray();
+                    foreach (var item in arr)
+                        outArr.Add(CamelizeNode2(item));
+                    return outArr;
+                }
+                if (node is JsonObject obj)
+                {
+                    var outObj = new JsonObject();
+                    foreach (var kv in obj)
+                    {
+                        var key = kv.Key ?? "";
+                        var camelKey = JsonNamingPolicy.CamelCase.ConvertName(key);
+                        outObj[camelKey] = CamelizeNode2(kv.Value);
+                    }
+                    return outObj;
+                }
+                return node;
+            }
+
+            var result = new DeviceWithAppsDto
+            {
+                DeviceId = matched.DeviceId,
+                GameId = matched.GameId,
+                DeviceType = matched.DeviceType,
+                OwnerName = matched.OwnerName,
+                UniqueUrl = matched.UniqueUrl,
+                QRCodeUrl = matched.QRCodeUrl,
+                Passcode = matched.Passcode,
+                CreatedAt = matched.CreatedAt,
+                Apps = apps.Select(a =>
+                {
+                    object appData = new { };
+                    var raw = a.AppData.RootElement.GetRawText();
+                    try
+                    {
+                        var node = JsonNode.Parse(raw);
+                        var camel = CamelizeNode2(node);
+                        appData = JsonSerializer.Deserialize<object>(camel?.ToJsonString() ?? raw) ?? appData;
+                    }
+                    catch
+                    {
+                        try { appData = JsonSerializer.Deserialize<object>(raw) ?? appData; } catch { /* keep empty */ }
+                    }
+                    return new DeviceAppDto
+                    {
+                        AppId = a.AppId,
+                        DeviceId = a.DeviceId,
+                        AppType = a.AppType,
+                        AppData = appData,
+                        CreatedAt = a.CreatedAt
+                    };
+                }).ToList()
+            };
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving public device by uniqueUrl '{UniqueUrl}'", uniqueUrl);
             return StatusCode(500, new { message = "An error occurred" });
         }
     }

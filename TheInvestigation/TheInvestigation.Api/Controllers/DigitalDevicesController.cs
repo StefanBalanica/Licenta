@@ -332,9 +332,9 @@ public class DigitalDevicesController : ControllerBase
             // Get frontend base URL from configuration
             var frontendBaseUrl = _configuration["AppSettings:FrontendUrl"] ?? "https://the-investigation.onrender.com";
 
-            // Build clean public URL: /{deviceSlug}  e.g. /iphone-elodia
-            var deviceSlug = CreateDeviceSlug(device.DeviceType, device.OwnerName);
-            var deviceUrl = $"{frontendBaseUrl}/{deviceSlug}";
+            // Build clean public URL using UniqueUrl (GUID) — unique across all games.
+            // Format: /d/{uniqueUrl}  e.g. /d/a3f2c8b1-7fa6-4125-bb88-9a1d5dd4d220
+            var deviceUrl = $"{frontendBaseUrl}/d/{device.UniqueUrl}";
 
             // Generate PDF with QR code
             var pdfBytes = _qrCodeService.GenerateQRCodePDF(deviceUrl, device.DeviceType, device.OwnerName, frontendBaseUrl);

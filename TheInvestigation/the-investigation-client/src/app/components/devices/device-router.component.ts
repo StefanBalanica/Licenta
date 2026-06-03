@@ -91,13 +91,20 @@ export class DeviceRouterComponent implements OnInit, OnDestroy {
     ngOnInit() {
         const gameIdParam = this.route.snapshot.paramMap.get('gameId');
         const deviceSlugParam = this.route.snapshot.paramMap.get('deviceSlug');
+        // New format: /d/:uniqueUrl  — GUID-based, guaranteed unique
+        const uniqueUrlParam = this.route.snapshot.paramMap.get('uniqueUrl');
 
         if (gameIdParam && deviceSlugParam) {
             // ── Internal route: games/:gameId/devices/:deviceSlug/simulator ──
             this.gameId = parseInt(gameIdParam);
             this.loadDeviceBySlug(deviceSlugParam);
+        } else if (uniqueUrlParam) {
+            // ── New public route: /d/:uniqueUrl (QR code access, GUID-based) ──
+            this.isPublicMode = true;
+            this.lockBackButton();
+            this.loadPublicDeviceByUniqueUrl(uniqueUrlParam);
         } else if (deviceSlugParam) {
-            // ── Public route: /:deviceSlug (QR code access) ──
+            // ── Legacy public route: /:deviceSlug (QR code access, name-based) ──
             this.isPublicMode = true;
             this.lockBackButton();
             this.loadPublicDevice(deviceSlugParam);
@@ -128,6 +135,24 @@ export class DeviceRouterComponent implements OnInit, OnDestroy {
             },
             error: (error) => {
                 console.error('Error loading public device:', error);
+                this.loading = false;
+            }
+        });
+    }
+
+    private loadPublicDeviceByUniqueUrl(uniqueUrl: string) {
+        // Mark this tab as a device-only session.
+        sessionStorage.setItem('device_only_slug', `d/${uniqueUrl}`);
+
+        this.deviceService.getDeviceByUniqueUrl(uniqueUrl).subscribe({
+            next: (device) => {
+                this.gameId = device.gameId;
+                this.deviceId = device.deviceId;
+                this.deviceType = device.deviceType as DeviceType || 'iPhone';
+                this.loading = false;
+            },
+            error: (error) => {
+                console.error('Error loading public device by uniqueUrl:', error);
                 this.loading = false;
             }
         });

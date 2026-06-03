@@ -72,6 +72,11 @@ export class DeviceService {
         return this.http.get<any>(`${environment.apiUrl}/api/devices/public/${slug}`);
     }
 
+    // Public endpoint by UniqueUrl (GUID) — no auth required, guaranteed unique
+    getDeviceByUniqueUrl(uniqueUrl: string): Observable<any> {
+        return this.http.get<any>(`${environment.apiUrl}/api/devices/public/by-unique/${uniqueUrl}`);
+    }
+
     // Download QR code PDF
     downloadQRCodePDF(gameId: number, deviceId: number): Observable<Blob> {
         return this.http.get(`${this.apiUrl}/${gameId}/devices/${deviceId}/qr-pdf`, {
