@@ -27,8 +27,10 @@ export const routes: Routes = [
     {
         path: 'games/:gameId/devices/:deviceSlug/simulator',
         loadComponent: () => import('./components/devices/device-router.component')
-            .then(m => m.DeviceRouterComponent),
-        canActivate: [authGuard, deviceIsolationGuard]
+            .then(m => m.DeviceRouterComponent)
+        // No authGuard here — players scan QR codes without being logged in.
+        // deviceIsolationGuard is not needed either (it blocks device sessions from
+        // navigating away, but the simulator IS the destination).
     },
     // Public device page — accessed via QR code, no auth required.
     // New format: /d/:uniqueUrl (GUID-based, unique per device) — used by new QR codes.

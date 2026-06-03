@@ -1,5 +1,6 @@
 import {
   ActivatedRoute,
+  AuthService,
   CommonModule,
   DefaultValueAccessor,
   DeviceService,
@@ -57,7 +58,7 @@ import {
   ɵɵtwoWayListener,
   ɵɵtwoWayProperty,
   ɵɵviewQuery
-} from "./chunk-MEGTMNVR.js";
+} from "./chunk-3WZX55C3.js";
 
 // src/app/components/devices/base-device.component.ts
 var BaseDeviceComponent = class _BaseDeviceComponent {
@@ -4359,6 +4360,7 @@ function DeviceRouterComponent_app_chatbot_5_Template(rf, ctx) {
 var DeviceRouterComponent = class _DeviceRouterComponent {
   route;
   deviceService;
+  authService;
   deviceType = null;
   loading = true;
   gameId = 0;
@@ -4366,9 +4368,10 @@ var DeviceRouterComponent = class _DeviceRouterComponent {
   /** True when accessed via public QR route (no gameId in URL) */
   isPublicMode = false;
   popstateListener;
-  constructor(route, deviceService) {
+  constructor(route, deviceService, authService) {
     this.route = route;
     this.deviceService = deviceService;
+    this.authService = authService;
   }
   ngOnInit() {
     const gameIdParam = this.route.snapshot.paramMap.get("gameId");
@@ -4376,7 +4379,13 @@ var DeviceRouterComponent = class _DeviceRouterComponent {
     const uniqueUrlParam = this.route.snapshot.paramMap.get("uniqueUrl");
     if (gameIdParam && deviceSlugParam) {
       this.gameId = parseInt(gameIdParam);
-      this.loadDeviceBySlug(deviceSlugParam);
+      if (this.authService.isAuthenticated()) {
+        this.loadDeviceBySlug(deviceSlugParam);
+      } else {
+        this.isPublicMode = true;
+        this.lockBackButton();
+        this.loadPublicDeviceByGameAndSlug(this.gameId, deviceSlugParam);
+      }
     } else if (uniqueUrlParam) {
       this.isPublicMode = true;
       this.lockBackButton();
@@ -4418,11 +4427,26 @@ var DeviceRouterComponent = class _DeviceRouterComponent {
         this.deviceId = device.deviceId;
         this.deviceType = device.deviceType || "iPhone";
         this.loading = false;
-        const prettySlug = createDeviceSlug(device.deviceType, device.ownerName);
-        history.replaceState(null, "", `/${prettySlug}`);
+        const slug = createDeviceSlug(device.deviceType, device.ownerName);
+        history.replaceState(null, "", `/games/${device.gameId}/devices/${slug}/simulator`);
       },
       error: (error) => {
         console.error("Error loading public device by uniqueUrl:", error);
+        this.loading = false;
+      }
+    });
+  }
+  loadPublicDeviceByGameAndSlug(gameId, slug) {
+    sessionStorage.setItem("device_only_slug", `games/${gameId}/devices/${slug}/simulator`);
+    this.deviceService.getDeviceByGameAndSlug(gameId, slug).subscribe({
+      next: (device) => {
+        this.gameId = device.gameId;
+        this.deviceId = device.deviceId;
+        this.deviceType = device.deviceType || "iPhone";
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error("Error loading public device by game+slug:", error);
         this.loading = false;
       }
     });
@@ -4480,7 +4504,7 @@ var DeviceRouterComponent = class _DeviceRouterComponent {
     window.addEventListener("popstate", this.popstateListener);
   }
   static \u0275fac = function DeviceRouterComponent_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _DeviceRouterComponent)(\u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(DeviceService));
+    return new (__ngFactoryType__ || _DeviceRouterComponent)(\u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(DeviceService), \u0275\u0275directiveInject(AuthService));
   };
   static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _DeviceRouterComponent, selectors: [["app-device-router"]], standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 6, vars: 6, consts: [["class", "loading", 4, "ngIf"], [4, "ngIf"], ["class", "error", 4, "ngIf"], [3, "gameId", 4, "ngIf"], [1, "loading"], [1, "loader"], [1, "error"], [3, "gameId"]], template: function DeviceRouterComponent_Template(rf, ctx) {
     if (rf & 1) {
@@ -4509,9 +4533,9 @@ var DeviceRouterComponent = class _DeviceRouterComponent {
   ], styles: ["\n\n.loading[_ngcontent-%COMP%], \n.error[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n}\n.loader[_ngcontent-%COMP%] {\n  border: 4px solid rgba(255, 255, 255, 0.3);\n  border-top: 4px solid white;\n  border-radius: 50%;\n  width: 40px;\n  height: 40px;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.error[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  margin: 0 0 8px 0;\n}\n.error[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0;\n  opacity: 0.8;\n}\n/*# sourceMappingURL=device-router.component.css.map */"] });
 };
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(DeviceRouterComponent, { className: "DeviceRouterComponent", filePath: "src\\app\\components\\devices\\device-router.component.ts", lineNumber: 75 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(DeviceRouterComponent, { className: "DeviceRouterComponent", filePath: "src\\app\\components\\devices\\device-router.component.ts", lineNumber: 76 });
 })();
 export {
   DeviceRouterComponent
 };
-//# sourceMappingURL=chunk-DW7GYDP7.js.map
+//# sourceMappingURL=chunk-NGRJRQKC.js.map

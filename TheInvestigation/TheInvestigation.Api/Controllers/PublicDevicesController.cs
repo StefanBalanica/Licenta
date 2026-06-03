@@ -256,4 +256,97 @@ public class PublicDevicesController : ControllerBase
                 sb.Append(c);
         return sb.ToString().Normalize(NormalizationForm.FormC).ToUpperInvariant();
     }
+
+    /// <summary>
+    /// Public endpoint used by QR codes that point to /games/{gameId}/devices/{slug}/simulator.
+    /// Finds device by gameId + slug (deviceType-ownerName) without authentication.
+    /// This is the canonical public access path — unique per game.
+    /// </summary>
+    [HttpGet("by-game/{gameId}/{slug}")]
+    public async Task<ActionResult<DeviceWithAppsDto>> GetByGameAndSlug(int gameId, string slug)
+    {
+        try
+        {
+            var parsed = ParseSlug(slug);
+            if (parsed == null)
+                return BadRequest(new { message = "Invalid device slug format." });
+
+            var (deviceType, ownerName) = parsed.Value;
+
+            var devices = await _deviceRepository.FindAsync(d => d.GameId == gameId);
+            var matched = devices
+                .FirstOrDefault(d =>
+                    NormalizeForComparison(d.DeviceType) == NormalizeForComparison(deviceType) &&
+                    NormalizeForComparison(d.OwnerName)  == NormalizeForComparison(ownerName));
+
+            if (matched == null)
+                return NotFound(new { message = $"Device '{slug}' not found in game {gameId}." });
+
+            var apps = await _appRepository.FindAsync(a => a.DeviceId == matched.DeviceId);
+
+            static JsonNode? Camelize(JsonNode? node)
+            {
+                if (node == null) return null;
+                if (node is JsonArray arr)
+                {
+                    var outArr = new JsonArray();
+                    foreach (var item in arr) outArr.Add(Camelize(item));
+                    return outArr;
+                }
+                if (node is JsonObject obj)
+                {
+                    var outObj = new JsonObject();
+                    foreach (var kv in obj)
+                    {
+                        var camelKey = JsonNamingPolicy.CamelCase.ConvertName(kv.Key ?? "");
+                        outObj[camelKey] = Camelize(kv.Value);
+                    }
+                    return outObj;
+                }
+                return node;
+            }
+
+            var result = new DeviceWithAppsDto
+            {
+                DeviceId  = matched.DeviceId,
+                GameId    = matched.GameId,
+                DeviceType = matched.DeviceType,
+                OwnerName  = matched.OwnerName,
+                UniqueUrl  = matched.UniqueUrl,
+                QRCodeUrl  = matched.QRCodeUrl,
+                Passcode   = matched.Passcode,
+                CreatedAt  = matched.CreatedAt,
+                Apps = apps.Select(a =>
+                {
+                    object appData = new { };
+                    var raw = a.AppData.RootElement.GetRawText();
+                    try
+                    {
+                        var node = JsonNode.Parse(raw);
+                        var camel = Camelize(node);
+                        appData = JsonSerializer.Deserialize<object>(camel?.ToJsonString() ?? raw) ?? appData;
+                    }
+                    catch
+                    {
+                        try { appData = JsonSerializer.Deserialize<object>(raw) ?? appData; } catch { /* keep empty */ }
+                    }
+                    return new DeviceAppDto
+                    {
+                        AppId     = a.AppId,
+                        DeviceId  = a.DeviceId,
+                        AppType   = a.AppType,
+                        AppData   = appData,
+                        CreatedAt = a.CreatedAt
+                    };
+                }).ToList()
+            };
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving public device for game {GameId} slug '{Slug}'", gameId, slug);
+            return StatusCode(500, new { message = "An error occurred" });
+        }
+    }
 }

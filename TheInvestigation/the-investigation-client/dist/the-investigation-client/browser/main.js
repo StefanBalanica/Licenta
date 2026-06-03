@@ -1,6 +1,6 @@
 import {
   ActivatedRoute,
-  BehaviorSubject,
+  AuthService,
   CheckboxControlValueAccessor,
   CommonModule,
   DefaultValueAccessor,
@@ -42,7 +42,6 @@ import {
   provideRouter,
   provideZoneChangeDetection,
   switchMap,
-  tap,
   timeout,
   timer,
   withInterceptors,
@@ -86,7 +85,7 @@ import {
   ɵɵtwoWayListener,
   ɵɵtwoWayProperty,
   ɵɵviewQuery
-} from "./chunk-MEGTMNVR.js";
+} from "./chunk-3WZX55C3.js";
 
 // node_modules/zxcvbn/lib/frequency_lists.js
 var require_frequency_lists = __commonJS({
@@ -2346,60 +2345,6 @@ var LandingComponent = class _LandingComponent {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(LandingComponent, { className: "LandingComponent", filePath: "src\\app\\components\\landing\\landing.component.ts", lineNumber: 13 });
 })();
-
-// src/app/services/auth.service.ts
-var AuthService = class _AuthService {
-  http;
-  apiUrl = `${environment.apiUrl}/api`;
-  currentUserSubject = new BehaviorSubject(null);
-  currentUser$ = this.currentUserSubject.asObservable();
-  constructor(http) {
-    this.http = http;
-    const token = this.getToken();
-    const userJson = localStorage.getItem("user");
-    if (token && userJson) {
-      this.currentUserSubject.next(JSON.parse(userJson));
-    }
-  }
-  register(request) {
-    return this.http.post(`${this.apiUrl}/auth/register`, request).pipe(tap((response) => this.handleAuth(response)));
-  }
-  login(email, password) {
-    return this.http.post(`${this.apiUrl}/auth/login`, { email, password }).pipe(tap((response) => this.handleAuth(response)));
-  }
-  logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    this.currentUserSubject.next(null);
-  }
-  getToken() {
-    return localStorage.getItem("token");
-  }
-  isAuthenticated() {
-    const token = this.getToken();
-    if (!token)
-      return false;
-    try {
-      const payloadBase64 = token.split(".")[1];
-      const payload = JSON.parse(atob(payloadBase64));
-      return payload.exp * 1e3 > Date.now();
-    } catch {
-      return false;
-    }
-  }
-  get currentUserValue() {
-    return this.currentUserSubject.value;
-  }
-  handleAuth(response) {
-    localStorage.setItem("token", response.token);
-    localStorage.setItem("user", JSON.stringify(response.user));
-    this.currentUserSubject.next(response.user);
-  }
-  static \u0275fac = function AuthService_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _AuthService)(\u0275\u0275inject(HttpClient));
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _AuthService, factory: _AuthService.\u0275fac, providedIn: "root" });
-};
 
 // src/app/components/auth/login.component.ts
 var _c0 = ["bgCvs"];
@@ -9027,9 +8972,9 @@ var deviceIsolationGuard = () => {
   if (authService.isAuthenticated()) {
     return true;
   }
-  const slug = sessionStorage.getItem("device_only_slug");
-  if (slug) {
-    router.navigate(["/" + slug]);
+  const storedPath = sessionStorage.getItem("device_only_slug");
+  if (storedPath) {
+    router.navigateByUrl("/" + storedPath);
     return false;
   }
   return true;
@@ -9052,20 +8997,22 @@ var routes = [
   { path: "games/:id", component: GameDetailsComponent, canActivate: [authGuard, deviceIsolationGuard] },
   {
     path: "games/:gameId/devices/:deviceSlug/simulator",
-    loadComponent: () => import("./chunk-DW7GYDP7.js").then((m) => m.DeviceRouterComponent),
-    canActivate: [authGuard, deviceIsolationGuard]
+    loadComponent: () => import("./chunk-NGRJRQKC.js").then((m) => m.DeviceRouterComponent)
+    // No authGuard here — players scan QR codes without being logged in.
+    // deviceIsolationGuard is not needed either (it blocks device sessions from
+    // navigating away, but the simulator IS the destination).
   },
   // Public device page — accessed via QR code, no auth required.
   // New format: /d/:uniqueUrl (GUID-based, unique per device) — used by new QR codes.
   {
     path: "d/:uniqueUrl",
-    loadComponent: () => import("./chunk-DW7GYDP7.js").then((m) => m.DeviceRouterComponent)
+    loadComponent: () => import("./chunk-NGRJRQKC.js").then((m) => m.DeviceRouterComponent)
   },
   // Legacy public route: /:deviceSlug (name-based, kept for backward compatibility).
   // URL format: /iphone-elodia
   {
     path: ":deviceSlug",
-    loadComponent: () => import("./chunk-DW7GYDP7.js").then((m) => m.DeviceRouterComponent)
+    loadComponent: () => import("./chunk-NGRJRQKC.js").then((m) => m.DeviceRouterComponent)
   },
   { path: "**", redirectTo: "/dashboard" }
 ];

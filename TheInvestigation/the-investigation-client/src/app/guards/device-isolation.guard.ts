@@ -5,12 +5,12 @@ import { AuthService } from '../services/auth.service';
 /**
  * Device Isolation Guard
  *
- * Prevents users who arrived via a public device link (/:deviceSlug)
+ * Prevents users who arrived via a public device link (QR scan)
  * from navigating to any other page in the application.
  *
  * Mechanism:
  *   - When the public device route loads, DeviceRouterComponent sets
- *     sessionStorage['device_only_slug'] = slug.
+ *     sessionStorage['device_only_slug'] = full path (e.g. 'games/18/devices/iphone-tudor-moga/simulator').
  *   - This guard checks that flag on every protected route.
  *   - Authenticated users (creators) are always allowed through.
  *   - Unauthenticated users with the flag are redirected back to the device.
@@ -25,9 +25,10 @@ export const deviceIsolationGuard = () => {
     }
 
     // Unauthenticated user: check if this is a device-only session.
-    const slug = sessionStorage.getItem('device_only_slug');
-    if (slug) {
-        router.navigate(['/' + slug]);
+    const storedPath = sessionStorage.getItem('device_only_slug');
+    if (storedPath) {
+        // Navigate back to the device — the stored path is already the full route.
+        router.navigateByUrl('/' + storedPath);
         return false;
     }
 

@@ -77,6 +77,12 @@ export class DeviceService {
         return this.http.get<any>(`${environment.apiUrl}/api/devices/public/by-unique/${uniqueUrl}`);
     }
 
+    // Public endpoint by gameId + slug — no auth required, unique per game.
+    // Used by QR codes that point to /games/{gameId}/devices/{slug}/simulator.
+    getDeviceByGameAndSlug(gameId: number, slug: string): Observable<any> {
+        return this.http.get<any>(`${environment.apiUrl}/api/devices/public/by-game/${gameId}/${slug}`);
+    }
+
     // Download QR code PDF
     downloadQRCodePDF(gameId: number, deviceId: number): Observable<Blob> {
         return this.http.get(`${this.apiUrl}/${gameId}/devices/${deviceId}/qr-pdf`, {

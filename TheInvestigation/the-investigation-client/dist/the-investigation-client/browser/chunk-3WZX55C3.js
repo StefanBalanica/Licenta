@@ -35969,6 +35969,66 @@ function provideRouterInitializer() {
 }
 var VERSION4 = new Version("18.2.14");
 
+// src/environments/environment.ts
+var environment = {
+  production: false,
+  apiUrl: "http://localhost:5230"
+};
+
+// src/app/services/auth.service.ts
+var AuthService = class _AuthService {
+  http;
+  apiUrl = `${environment.apiUrl}/api`;
+  currentUserSubject = new BehaviorSubject(null);
+  currentUser$ = this.currentUserSubject.asObservable();
+  constructor(http) {
+    this.http = http;
+    const token = this.getToken();
+    const userJson = localStorage.getItem("user");
+    if (token && userJson) {
+      this.currentUserSubject.next(JSON.parse(userJson));
+    }
+  }
+  register(request) {
+    return this.http.post(`${this.apiUrl}/auth/register`, request).pipe(tap((response) => this.handleAuth(response)));
+  }
+  login(email, password) {
+    return this.http.post(`${this.apiUrl}/auth/login`, { email, password }).pipe(tap((response) => this.handleAuth(response)));
+  }
+  logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    this.currentUserSubject.next(null);
+  }
+  getToken() {
+    return localStorage.getItem("token");
+  }
+  isAuthenticated() {
+    const token = this.getToken();
+    if (!token)
+      return false;
+    try {
+      const payloadBase64 = token.split(".")[1];
+      const payload = JSON.parse(atob(payloadBase64));
+      return payload.exp * 1e3 > Date.now();
+    } catch {
+      return false;
+    }
+  }
+  get currentUserValue() {
+    return this.currentUserSubject.value;
+  }
+  handleAuth(response) {
+    localStorage.setItem("token", response.token);
+    localStorage.setItem("user", JSON.stringify(response.user));
+    this.currentUserSubject.next(response.user);
+  }
+  static \u0275fac = function AuthService_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _AuthService)(\u0275\u0275inject(HttpClient));
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _AuthService, factory: _AuthService.\u0275fac, providedIn: "root" });
+};
+
 // src/app/utils/slug.util.ts
 function createDeviceSlug(deviceType, ownerName) {
   const typeSlug = deviceType.toLowerCase().replace(/\s+/g, "-");
@@ -35989,12 +36049,6 @@ function parseDeviceSlug(slug) {
   const ownerName = parts.slice(1).join(" ").split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
   return { deviceType, ownerName };
 }
-
-// src/environments/environment.ts
-var environment = {
-  production: false,
-  apiUrl: "http://localhost:5230"
-};
 
 // src/app/services/device.service.ts
 var DeviceService = class _DeviceService {
@@ -36053,6 +36107,11 @@ var DeviceService = class _DeviceService {
   // Public endpoint by UniqueUrl (GUID) — no auth required, guaranteed unique
   getDeviceByUniqueUrl(uniqueUrl) {
     return this.http.get(`${environment.apiUrl}/api/devices/public/by-unique/${uniqueUrl}`);
+  }
+  // Public endpoint by gameId + slug — no auth required, unique per game.
+  // Used by QR codes that point to /games/{gameId}/devices/{slug}/simulator.
+  getDeviceByGameAndSlug(gameId, slug) {
+    return this.http.get(`${environment.apiUrl}/api/devices/public/by-game/${gameId}/${slug}`);
   }
   // Download QR code PDF
   downloadQRCodePDF(gameId, deviceId) {
@@ -42446,7 +42505,6 @@ export {
   __commonJS,
   __toESM,
   __async,
-  BehaviorSubject,
   of,
   timeout,
   map,
@@ -42454,7 +42512,6 @@ export {
   catchError,
   first,
   switchMap,
-  tap,
   ɵɵdefineInjectable,
   ɵɵinject,
   inject,
@@ -42534,6 +42591,7 @@ export {
   FormBuilder,
   FormsModule,
   ReactiveFormsModule,
+  AuthService,
   createDeviceSlug,
   parseDeviceSlug,
   DeviceService
@@ -42634,4 +42692,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-MEGTMNVR.js.map
+//# sourceMappingURL=chunk-3WZX55C3.js.map

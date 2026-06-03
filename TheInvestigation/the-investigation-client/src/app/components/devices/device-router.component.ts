@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DeviceService } from '../../services/device.service';
+import { AuthService } from '../../services/auth.service';
 import { IPhoneDeviceComponent } from './iphone/iphone-device.component';
 import { AndroidDeviceComponent } from './android/android-device.component';
 import { LaptopDeviceComponent } from './laptop/laptop-device.component';
@@ -85,26 +86,34 @@ export class DeviceRouterComponent implements OnInit, OnDestroy {
 
     constructor(
         private route: ActivatedRoute,
-        private deviceService: DeviceService
+        private deviceService: DeviceService,
+        private authService: AuthService
     ) { }
 
     ngOnInit() {
-        const gameIdParam = this.route.snapshot.paramMap.get('gameId');
+        const gameIdParam    = this.route.snapshot.paramMap.get('gameId');
         const deviceSlugParam = this.route.snapshot.paramMap.get('deviceSlug');
-        // New format: /d/:uniqueUrl  — GUID-based, guaranteed unique
-        const uniqueUrlParam = this.route.snapshot.paramMap.get('uniqueUrl');
+        const uniqueUrlParam  = this.route.snapshot.paramMap.get('uniqueUrl');
 
         if (gameIdParam && deviceSlugParam) {
-            // ── Internal route: games/:gameId/devices/:deviceSlug/simulator ──
             this.gameId = parseInt(gameIdParam);
-            this.loadDeviceBySlug(deviceSlugParam);
+
+            if (this.authService.isAuthenticated()) {
+                // ── Creator (authenticated): use auth API ──
+                this.loadDeviceBySlug(deviceSlugParam);
+            } else {
+                // ── Player scanning QR (unauthenticated): use public API ──
+                this.isPublicMode = true;
+                this.lockBackButton();
+                this.loadPublicDeviceByGameAndSlug(this.gameId, deviceSlugParam);
+            }
         } else if (uniqueUrlParam) {
-            // ── New public route: /d/:uniqueUrl (QR code access, GUID-based) ──
+            // ── Legacy: /d/:uniqueUrl (GUID-based) ──
             this.isPublicMode = true;
             this.lockBackButton();
             this.loadPublicDeviceByUniqueUrl(uniqueUrlParam);
         } else if (deviceSlugParam) {
-            // ── Legacy public route: /:deviceSlug (QR code access, name-based) ──
+            // ── Legacy: /:deviceSlug (name-based) ──
             this.isPublicMode = true;
             this.lockBackButton();
             this.loadPublicDevice(deviceSlugParam);
@@ -141,7 +150,6 @@ export class DeviceRouterComponent implements OnInit, OnDestroy {
     }
 
     private loadPublicDeviceByUniqueUrl(uniqueUrl: string) {
-        // Mark this tab as a device-only session.
         sessionStorage.setItem('device_only_slug', `d/${uniqueUrl}`);
 
         this.deviceService.getDeviceByUniqueUrl(uniqueUrl).subscribe({
@@ -150,15 +158,30 @@ export class DeviceRouterComponent implements OnInit, OnDestroy {
                 this.deviceId = device.deviceId;
                 this.deviceType = device.deviceType as DeviceType || 'iPhone';
                 this.loading = false;
-
-                // Rewrite URL to the human-readable slug so the user sees
-                // /iphone-tudor-moga instead of /d/7c2daee8-...
-                // history.replaceState does NOT trigger a new navigation.
-                const prettySlug = createDeviceSlug(device.deviceType, device.ownerName);
-                history.replaceState(null, '', `/${prettySlug}`);
+                // Rewrite to pretty slug
+                const slug = createDeviceSlug(device.deviceType, device.ownerName);
+                history.replaceState(null, '', `/games/${device.gameId}/devices/${slug}/simulator`);
             },
             error: (error) => {
                 console.error('Error loading public device by uniqueUrl:', error);
+                this.loading = false;
+            }
+        });
+    }
+
+    private loadPublicDeviceByGameAndSlug(gameId: number, slug: string) {
+        // Store the full simulator path so deviceIsolationGuard can redirect back if needed
+        sessionStorage.setItem('device_only_slug', `games/${gameId}/devices/${slug}/simulator`);
+
+        this.deviceService.getDeviceByGameAndSlug(gameId, slug).subscribe({
+            next: (device) => {
+                this.gameId  = device.gameId;
+                this.deviceId = device.deviceId;
+                this.deviceType = device.deviceType as DeviceType || 'iPhone';
+                this.loading = false;
+            },
+            error: (error) => {
+                console.error('Error loading public device by game+slug:', error);
                 this.loading = false;
             }
         });
